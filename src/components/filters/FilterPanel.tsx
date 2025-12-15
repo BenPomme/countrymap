@@ -3,6 +3,8 @@
 import { useState } from 'react'
 import type { CountryFilters, ColorVariable } from '@/types/country'
 import { MAJOR_RELIGIONS, REGIONS, VARIABLES, VARIABLE_CATEGORIES } from '@/lib/constants/variables'
+import { AD_SLOTS } from '@/lib/constants/ads'
+import { AdSidebar } from '@/components/ads'
 import { ChevronDown, ChevronUp, Filter, X } from 'lucide-react'
 
 // Get all variables (both numeric and categorical)
@@ -342,6 +344,11 @@ export default function FilterPanel({
           ))}
         </div>
       </FilterSection>
+
+      {/* Sidebar Ad - Hidden on mobile */}
+      <div className="hidden md:block p-4 border-t border-gray-200">
+        <AdSidebar slotId={AD_SLOTS.sidebarSquare} size="square" />
+      </div>
     </div>
   )
 }

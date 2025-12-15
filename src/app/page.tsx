@@ -9,6 +9,8 @@ import FilterPanel from '@/components/filters/FilterPanel'
 import { DEFAULT_VARIABLE } from '@/lib/constants/variables'
 import { BarChart2, Globe, Info, X, Menu, SlidersHorizontal } from 'lucide-react'
 import countriesData from '../../data/countries.json'
+import { AdBanner } from '@/components/ads'
+import { AD_SLOTS } from '@/lib/constants/ads'
 
 // Dynamic import for map to avoid SSR issues
 const WorldMap = dynamic(() => import('@/components/maps/WorldMap'), {
@@ -101,6 +103,9 @@ export default function HomePage() {
           </nav>
         )}
       </header>
+
+      {/* Ad Banner - Desktop only */}
+      <AdBanner slotId={AD_SLOTS.headerBanner} hideOnMobile={true} className="bg-gray-50 border-b border-gray-200" />
 
       {/* Main Content */}
       <div className="flex-1 flex overflow-hidden relative">

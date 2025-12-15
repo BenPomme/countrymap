@@ -19,6 +19,8 @@ import type { Country, ColorVariable } from '@/types/country'
 import { Globe, ArrowLeft, Share2, Twitter, Facebook, Linkedin, Link2, Check, Menu } from 'lucide-react'
 import countriesData from '../../../data/countries.json'
 import { VARIABLES, VARIABLE_CATEGORIES } from '@/lib/constants/variables'
+import { AdBanner } from '@/components/ads'
+import { AD_SLOTS } from '@/lib/constants/ads'
 
 const religionColors: Record<string, string> = {
   'Christianity': '#3b82f6',
@@ -389,6 +391,9 @@ function ChartsContent() {
           </nav>
         )}
       </header>
+
+      {/* Ad Banner - Desktop only */}
+      <AdBanner slotId={AD_SLOTS.chartsBanner} hideOnMobile={true} className="bg-gray-100" />
 
       {/* Click outside to close share menu */}
       {showShareMenu && (
@@ -943,6 +948,9 @@ function ChartsContent() {
             </div>
           </div>
         )}
+
+        {/* Bottom Ad Banner */}
+        <AdBanner slotId={AD_SLOTS.chartsInFeed} className="mt-6" />
       </div>
     </div>
   )
