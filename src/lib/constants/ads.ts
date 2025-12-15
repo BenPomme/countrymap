@@ -31,7 +31,7 @@ export const AD_SLOTS = {
   sidebarSquare: '1374933403',
 
   // Ad below country detail panel (300x250)
-  countryDetail: '', // Add slot ID after creating in AdSense
+  countryDetail: '8870280048',
 
   // Banner on charts page (728x90 / responsive)
   chartsBanner: '6435688394',

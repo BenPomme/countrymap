@@ -9,7 +9,7 @@ import FilterPanel from '@/components/filters/FilterPanel'
 import { DEFAULT_VARIABLE } from '@/lib/constants/variables'
 import { BarChart2, Globe, Info, X, Menu, SlidersHorizontal } from 'lucide-react'
 import countriesData from '../../data/countries.json'
-import { AdBanner } from '@/components/ads'
+import { AdBanner, AdSidebar } from '@/components/ads'
 import { AD_SLOTS } from '@/lib/constants/ads'
 
 // Dynamic import for map to avoid SSR issues
@@ -413,6 +413,11 @@ function CountryDetailPanel({ country, onClose }: CountryDetailPanelProps) {
 
         <div className="border-t pt-4 text-xs text-gray-400">
           Sources: CIA Factbook, V-Dem, World Bank, UCDP
+        </div>
+
+        {/* Ad in country detail - hidden on mobile */}
+        <div className="hidden md:block border-t pt-4 mt-4">
+          <AdSidebar slotId={AD_SLOTS.countryDetail} size="square" />
         </div>
       </div>
     </div>
