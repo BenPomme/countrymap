@@ -1,6 +1,7 @@
 'use client'
 
-import { useState, useMemo } from 'react'
+import { useState, useMemo, useEffect, useCallback, Suspense } from 'react'
+import { useSearchParams, useRouter } from 'next/navigation'
 import Link from 'next/link'
 import {
   BarChart,
@@ -13,10 +14,9 @@ import {
   ScatterChart,
   Scatter,
   Cell,
-  Legend,
 } from 'recharts'
 import type { Country, ColorVariable } from '@/types/country'
-import { Globe, ArrowLeft } from 'lucide-react'
+import { Globe, ArrowLeft, Share2, Twitter, Facebook, Linkedin, Link2, Check, Menu } from 'lucide-react'
 import countriesData from '../../../data/countries.json'
 import { VARIABLES, VARIABLE_CATEGORIES } from '@/lib/constants/variables'
 
@@ -29,6 +29,14 @@ const religionColors: Record<string, string> = {
   'Folk/Traditional': '#ec4899',
   'None/Unaffiliated': '#6b7280',
   'Other': '#94a3b8',
+}
+
+const regionColors: Record<string, string> = {
+  'Africa': '#f97316',
+  'Americas': '#3b82f6',
+  'Asia': '#eab308',
+  'Europe': '#22c55e',
+  'Oceania': '#8b5cf6',
 }
 
 // Helper to get nested value from object path like 'health.penisSize'
@@ -56,66 +64,150 @@ const variablesByCategory = VARIABLE_CATEGORIES.map(cat => ({
   variables: numericVariables.filter(v => v.category === cat.id)
 })).filter(cat => cat.variables.length > 0)
 
-export default function ChartsPage() {
-  const countries = countriesData as Country[]
-  const [selectedChart, setSelectedChart] = useState<'ranking' | 'scatter' | 'correlation' | 'distribution'>('correlation')
-  const [rankingMetric, setRankingMetric] = useState<'democracy' | 'gdp' | 'gender' | 'homicide'>('democracy')
+// Loading fallback component
+function ChartsLoading() {
+  return (
+    <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+      <div className="text-gray-500">Loading charts...</div>
+    </div>
+  )
+}
 
-  // Custom correlation state
-  const [xVariable, setXVariable] = useState<ColorVariable>('health.penisSize')
-  const [yVariable, setYVariable] = useState<ColorVariable>('democracy.score')
-  const [colorBy, setColorBy] = useState<'religion' | 'region'>('religion')
+// Main charts component that uses useSearchParams
+function ChartsContent() {
+  const countries = countriesData as Country[]
+  const router = useRouter()
+  const searchParams = useSearchParams()
+
+  // Read initial state from URL params
+  const initialChart = (searchParams.get('chart') as 'ranking' | 'scatter' | 'correlation' | 'distribution') || 'correlation'
+  const initialX = (searchParams.get('x') as ColorVariable) || 'health.penisSize'
+  const initialY = (searchParams.get('y') as ColorVariable) || 'democracy.score'
+  const initialColor = (searchParams.get('color') as 'religion' | 'region') || 'religion'
+  const initialMetric = (searchParams.get('metric') as ColorVariable) || 'democracy.score'
+
+  const [selectedChart, setSelectedChart] = useState<'ranking' | 'scatter' | 'correlation' | 'distribution'>(initialChart)
+  const [rankingMetric, setRankingMetric] = useState<ColorVariable>(initialMetric)
+  const [xVariable, setXVariable] = useState<ColorVariable>(initialX)
+  const [yVariable, setYVariable] = useState<ColorVariable>(initialY)
+  const [colorBy, setColorBy] = useState<'religion' | 'region'>(initialColor)
+  const [showShareMenu, setShowShareMenu] = useState(false)
+  const [copied, setCopied] = useState(false)
+
+  // Update URL when state changes
+  const updateURL = useCallback(() => {
+    const params = new URLSearchParams()
+    params.set('chart', selectedChart)
+    if (selectedChart === 'correlation') {
+      params.set('x', xVariable)
+      params.set('y', yVariable)
+      params.set('color', colorBy)
+    } else if (selectedChart === 'ranking') {
+      params.set('metric', rankingMetric)
+    }
+    router.replace(`/charts?${params.toString()}`, { scroll: false })
+  }, [selectedChart, xVariable, yVariable, colorBy, rankingMetric, router])
+
+  useEffect(() => {
+    updateURL()
+  }, [updateURL])
+
+  // Generate share URL
+  const getShareURL = () => {
+    if (typeof window === 'undefined') return ''
+    return window.location.href
+  }
+
+  // Generate share text based on current chart
+  const getShareText = () => {
+    if (selectedChart === 'correlation') {
+      const xName = VARIABLES[xVariable]?.name || xVariable
+      const yName = VARIABLES[yVariable]?.name || yVariable
+      const r = correlation !== null ? ` (r=${correlation.toFixed(2)})` : ''
+      return `Check out the correlation between ${xName} and ${yName} across countries${r}!`
+    }
+    if (selectedChart === 'ranking') {
+      const metricName = VARIABLES[rankingMetric]?.name || rankingMetric
+      return `Check out the country rankings by ${metricName}!`
+    }
+    if (selectedChart === 'scatter') {
+      return 'Check out how Democracy and GDP correlate across countries!'
+    }
+    return 'Check out this interesting country comparison data!'
+  }
+
+  // Share functions
+  const shareOnTwitter = () => {
+    const url = encodeURIComponent(getShareURL())
+    const text = encodeURIComponent(getShareText())
+    window.open(`https://twitter.com/intent/tweet?url=${url}&text=${text}`, '_blank')
+    setShowShareMenu(false)
+  }
+
+  const shareOnFacebook = () => {
+    const url = encodeURIComponent(getShareURL())
+    window.open(`https://www.facebook.com/sharer/sharer.php?u=${url}`, '_blank')
+    setShowShareMenu(false)
+  }
+
+  const shareOnLinkedIn = () => {
+    const url = encodeURIComponent(getShareURL())
+    window.open(`https://www.linkedin.com/sharing/share-offsite/?url=${url}`, '_blank')
+    setShowShareMenu(false)
+  }
+
+  const copyLink = async () => {
+    try {
+      await navigator.clipboard.writeText(getShareURL())
+      setCopied(true)
+      setTimeout(() => setCopied(false), 2000)
+    } catch {
+      // Fallback for older browsers
+      const textarea = document.createElement('textarea')
+      textarea.value = getShareURL()
+      document.body.appendChild(textarea)
+      textarea.select()
+      document.execCommand('copy')
+      document.body.removeChild(textarea)
+      setCopied(true)
+      setTimeout(() => setCopied(false), 2000)
+    }
+    setShowShareMenu(false)
+  }
+
+  // Get variable config for ranking
+  const rankingConfig = VARIABLES[rankingMetric]
+  const isHigherBetter = rankingConfig?.higherIsBetter ?? true
 
   // Top/Bottom countries by selected metric
   const rankedCountries = useMemo(() => {
     const sorted = [...countries].filter((c) => {
-      if (rankingMetric === 'democracy') return c.democracy.score > 0
-      if (rankingMetric === 'gdp') return c.poverty.gdpPerCapita !== null
-      if (rankingMetric === 'gender') return c.gender.wblIndex !== null
-      if (rankingMetric === 'homicide') return c.crime.homicideRate !== null
-      return true
+      const val = getNestedValue(c as unknown as Record<string, unknown>, rankingMetric)
+      return val !== null && typeof val === 'number'
     }).sort((a, b) => {
-      if (rankingMetric === 'democracy') return b.democracy.score - a.democracy.score
-      if (rankingMetric === 'gdp') return (b.poverty.gdpPerCapita || 0) - (a.poverty.gdpPerCapita || 0)
-      if (rankingMetric === 'gender') return (b.gender.wblIndex || 0) - (a.gender.wblIndex || 0)
-      if (rankingMetric === 'homicide') return (a.crime.homicideRate || 0) - (b.crime.homicideRate || 0)
-      return 0
+      const aVal = getNestedValue(a as unknown as Record<string, unknown>, rankingMetric) as number
+      const bVal = getNestedValue(b as unknown as Record<string, unknown>, rankingMetric) as number
+      // Sort descending if higher is better, ascending if lower is better
+      return isHigherBetter ? bVal - aVal : aVal - bVal
     })
-
-    if (rankingMetric === 'homicide') {
-      return {
-        top: sorted.slice(0, 15),
-        bottom: sorted.slice(-15).reverse(),
-      }
-    }
 
     return {
       top: sorted.slice(0, 15),
       bottom: sorted.slice(-15).reverse(),
     }
-  }, [countries, rankingMetric])
+  }, [countries, rankingMetric, isHigherBetter])
 
   const getMetricValue = (country: Country) => {
-    if (rankingMetric === 'democracy') return country.democracy.score
-    if (rankingMetric === 'gdp') return country.poverty.gdpPerCapita
-    if (rankingMetric === 'gender') return country.gender.wblIndex
-    if (rankingMetric === 'homicide') return country.crime.homicideRate
-    return 0
+    return getNestedValue(country as unknown as Record<string, unknown>, rankingMetric) as number | null
   }
 
   const formatMetricValue = (value: number | null) => {
     if (value === null) return 'N/A'
-    if (rankingMetric === 'gdp') return `$${value.toLocaleString()}`
-    if (rankingMetric === 'homicide') return `${value.toFixed(1)} per 100k`
-    return value.toString()
+    return rankingConfig?.format(value) || value.toString()
   }
 
   const getMetricLabel = () => {
-    if (rankingMetric === 'democracy') return 'Democracy Score'
-    if (rankingMetric === 'gdp') return 'GDP per Capita'
-    if (rankingMetric === 'gender') return 'Gender Equality'
-    if (rankingMetric === 'homicide') return 'Homicide Rate'
-    return ''
+    return rankingConfig?.name || rankingMetric
   }
 
   // Custom correlation data
@@ -176,14 +268,6 @@ export default function ChartsPage() {
       .sort((a, b) => b.count - a.count)
   }, [countries])
 
-  const regionColors: Record<string, string> = {
-    'Africa': '#f97316',
-    'Americas': '#3b82f6',
-    'Asia': '#eab308',
-    'Europe': '#22c55e',
-    'Oceania': '#8b5cf6',
-  }
-
   const getColor = (entry: { religion: string; region: string }) => {
     if (colorBy === 'religion') {
       return religionColors[entry.religion] || '#94a3b8'
@@ -191,31 +275,188 @@ export default function ChartsPage() {
     return regionColors[entry.region] || '#94a3b8'
   }
 
+  const [showMobileMenu, setShowMobileMenu] = useState(false)
+
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Header */}
-      <header className="bg-white border-b border-gray-200 px-6 py-4">
+      <header className="bg-white border-b border-gray-200 px-4 md:px-6 py-3 md:py-4">
         <div className="flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <Globe className="w-8 h-8 text-blue-600" />
+          <div className="flex items-center gap-2 md:gap-3">
+            <Globe className="w-6 h-6 md:w-8 md:h-8 text-blue-600" />
             <div>
-              <h1 className="text-xl font-bold text-gray-900">The World Truth Map</h1>
-              <p className="text-sm text-gray-500">Country rankings & correlations</p>
+              <h1 className="text-base md:text-xl font-bold text-gray-900">The World Truth Map</h1>
+              <p className="text-xs md:text-sm text-gray-500 hidden sm:block">Country rankings & correlations</p>
             </div>
           </div>
-          <Link
-            href="/"
-            className="flex items-center gap-2 px-4 py-2 text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-md transition-colors"
+
+          {/* Desktop Navigation */}
+          <div className="hidden md:flex items-center gap-2">
+            {/* Share Button */}
+            <div className="relative">
+              <button
+                onClick={() => setShowShareMenu(!showShareMenu)}
+                className="flex items-center gap-2 px-4 py-2 text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-md transition-colors"
+              >
+                <Share2 className="w-4 h-4" />
+                Share
+              </button>
+
+              {/* Share Menu Dropdown */}
+              {showShareMenu && (
+                <div className="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg border border-gray-200 py-2 z-50">
+                  <button
+                    onClick={shareOnTwitter}
+                    className="w-full flex items-center gap-3 px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                  >
+                    <Twitter className="w-4 h-4 text-[#1DA1F2]" />
+                    Share on Twitter
+                  </button>
+                  <button
+                    onClick={shareOnFacebook}
+                    className="w-full flex items-center gap-3 px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                  >
+                    <Facebook className="w-4 h-4 text-[#4267B2]" />
+                    Share on Facebook
+                  </button>
+                  <button
+                    onClick={shareOnLinkedIn}
+                    className="w-full flex items-center gap-3 px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                  >
+                    <Linkedin className="w-4 h-4 text-[#0077B5]" />
+                    Share on LinkedIn
+                  </button>
+                  <hr className="my-2 border-gray-200" />
+                  <button
+                    onClick={copyLink}
+                    className="w-full flex items-center gap-3 px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                  >
+                    {copied ? (
+                      <>
+                        <Check className="w-4 h-4 text-green-600" />
+                        <span className="text-green-600">Copied!</span>
+                      </>
+                    ) : (
+                      <>
+                        <Link2 className="w-4 h-4" />
+                        Copy Link
+                      </>
+                    )}
+                  </button>
+                </div>
+              )}
+            </div>
+
+            <Link
+              href="/"
+              className="flex items-center gap-2 px-4 py-2 text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-md transition-colors"
+            >
+              <ArrowLeft className="w-4 h-4" />
+              Back to Map
+            </Link>
+          </div>
+
+          {/* Mobile Menu Button */}
+          <button
+            onClick={() => setShowMobileMenu(!showMobileMenu)}
+            className="md:hidden p-2 text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-md"
           >
-            <ArrowLeft className="w-4 h-4" />
-            Back to Map
-          </Link>
+            <Menu className="w-6 h-6" />
+          </button>
         </div>
+
+        {/* Mobile Navigation Dropdown */}
+        {showMobileMenu && (
+          <nav className="md:hidden mt-3 pt-3 border-t border-gray-200 flex flex-col gap-2">
+            <button
+              onClick={() => {
+                setShowShareMenu(!showShareMenu)
+                setShowMobileMenu(false)
+              }}
+              className="flex items-center gap-2 px-4 py-2 text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-md transition-colors text-left"
+            >
+              <Share2 className="w-4 h-4" />
+              Share
+            </button>
+            <Link
+              href="/"
+              className="flex items-center gap-2 px-4 py-2 text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-md transition-colors"
+              onClick={() => setShowMobileMenu(false)}
+            >
+              <ArrowLeft className="w-4 h-4" />
+              Back to Map
+            </Link>
+          </nav>
+        )}
       </header>
 
+      {/* Click outside to close share menu */}
+      {showShareMenu && (
+        <div
+          className="fixed inset-0 z-40"
+          onClick={() => setShowShareMenu(false)}
+        />
+      )}
+
+      {/* Mobile Share Modal */}
+      {showShareMenu && (
+        <div className="md:hidden fixed bottom-0 left-0 right-0 bg-white rounded-t-xl shadow-xl border-t border-gray-200 z-50 p-4">
+          <div className="flex items-center justify-between mb-4">
+            <h3 className="font-semibold text-gray-900">Share</h3>
+            <button
+              onClick={() => setShowShareMenu(false)}
+              className="text-gray-400 hover:text-gray-600"
+            >
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </button>
+          </div>
+          <div className="grid grid-cols-4 gap-4">
+            <button
+              onClick={shareOnTwitter}
+              className="flex flex-col items-center gap-2 p-3 rounded-lg hover:bg-gray-100"
+            >
+              <Twitter className="w-6 h-6 text-[#1DA1F2]" />
+              <span className="text-xs text-gray-600">Twitter</span>
+            </button>
+            <button
+              onClick={shareOnFacebook}
+              className="flex flex-col items-center gap-2 p-3 rounded-lg hover:bg-gray-100"
+            >
+              <Facebook className="w-6 h-6 text-[#4267B2]" />
+              <span className="text-xs text-gray-600">Facebook</span>
+            </button>
+            <button
+              onClick={shareOnLinkedIn}
+              className="flex flex-col items-center gap-2 p-3 rounded-lg hover:bg-gray-100"
+            >
+              <Linkedin className="w-6 h-6 text-[#0077B5]" />
+              <span className="text-xs text-gray-600">LinkedIn</span>
+            </button>
+            <button
+              onClick={copyLink}
+              className="flex flex-col items-center gap-2 p-3 rounded-lg hover:bg-gray-100"
+            >
+              {copied ? (
+                <>
+                  <Check className="w-6 h-6 text-green-600" />
+                  <span className="text-xs text-green-600">Copied!</span>
+                </>
+              ) : (
+                <>
+                  <Link2 className="w-6 h-6 text-gray-600" />
+                  <span className="text-xs text-gray-600">Copy Link</span>
+                </>
+              )}
+            </button>
+          </div>
+        </div>
+      )}
+
       {/* Chart Selection */}
-      <div className="p-6">
-        <div className="flex flex-wrap gap-2 mb-6">
+      <div className="p-4 md:p-6">
+        <div className="grid grid-cols-2 md:flex md:flex-wrap gap-2 mb-6">
           <button
             onClick={() => setSelectedChart('correlation')}
             className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${
@@ -260,10 +501,12 @@ export default function ChartsPage() {
 
         {/* Custom Correlation Chart */}
         {selectedChart === 'correlation' && (
-          <div className="bg-white rounded-lg shadow-sm p-6">
-            <h2 className="text-lg font-semibold mb-2">Custom Correlation Explorer</h2>
-            <p className="text-sm text-gray-500 mb-4">
-              Select any two variables to explore correlations between them
+          <div className="bg-white rounded-lg shadow-sm p-4 md:p-6">
+            <div className="flex items-center justify-between mb-2">
+              <h2 className="text-base md:text-lg font-semibold">Custom Correlation Explorer</h2>
+            </div>
+            <p className="text-xs md:text-sm text-gray-500 mb-4">
+              Select any two variables to explore correlations between them ({numericVariables.length} numeric variables available)
             </p>
 
             {/* Variable Selectors */}
@@ -338,7 +581,7 @@ export default function ChartsPage() {
             </div>
 
             {/* Scatter Plot */}
-            <div className="h-[500px]">
+            <div className="h-[350px] md:h-[500px]">
               <ResponsiveContainer width="100%" height="100%">
                 <ScatterChart margin={{ top: 20, right: 20, bottom: 60, left: 80 }}>
                   <CartesianGrid strokeDasharray="3 3" />
@@ -463,27 +706,30 @@ export default function ChartsPage() {
 
         {/* Rankings Chart */}
         {selectedChart === 'ranking' && (
-          <div className="bg-white rounded-lg shadow-sm p-6">
-            <div className="flex items-center justify-between mb-6">
-              <h2 className="text-lg font-semibold">Country Rankings</h2>
+          <div className="bg-white rounded-lg shadow-sm p-4 md:p-6">
+            <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
+              <h2 className="text-base md:text-lg font-semibold">Country Rankings</h2>
               <select
                 value={rankingMetric}
-                onChange={(e) => setRankingMetric(e.target.value as typeof rankingMetric)}
-                className="px-3 py-2 border border-gray-300 rounded-md text-sm"
+                onChange={(e) => setRankingMetric(e.target.value as ColorVariable)}
+                className="px-3 py-2 border border-gray-300 rounded-md text-sm w-full md:w-auto md:max-w-xs"
               >
-                <option value="democracy">Democracy Score</option>
-                <option value="gdp">GDP per Capita</option>
-                <option value="gender">Gender Equality</option>
-                <option value="homicide">Homicide Rate (per 100k)</option>
+                {variablesByCategory.map(cat => (
+                  <optgroup key={cat.id} label={`${cat.icon} ${cat.name}`}>
+                    {cat.variables.map(v => (
+                      <option key={v.id} value={v.id}>{v.name}</option>
+                    ))}
+                  </optgroup>
+                ))}
               </select>
             </div>
 
-            <div className="grid grid-cols-2 gap-8">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-8">
               <div>
-                <h3 className="text-sm font-medium text-green-600 mb-4">
-                  {rankingMetric === 'homicide' ? 'Safest 15 Countries (Lowest Homicide Rate)' : 'Top 15 Countries'}
+                <h3 className="text-xs md:text-sm font-medium text-green-600 mb-4">
+                  {isHigherBetter ? `Top 15 Countries (Highest ${getMetricLabel()})` : `Best 15 Countries (Lowest ${getMetricLabel()})`}
                 </h3>
-                <div className="h-[500px]">
+                <div className="h-[400px] md:h-[500px]">
                   <ResponsiveContainer width="100%" height="100%">
                     <BarChart
                       layout="vertical"
@@ -496,7 +742,7 @@ export default function ChartsPage() {
                       margin={{ top: 5, right: 30, left: 100, bottom: 5 }}
                     >
                       <CartesianGrid strokeDasharray="3 3" />
-                      <XAxis type="number" domain={[0, rankingMetric === 'gdp' ? 'auto' : rankingMetric === 'homicide' ? 'auto' : 100]} />
+                      <XAxis type="number" domain={[0, 'auto']} />
                       <YAxis
                         dataKey="displayName"
                         type="category"
@@ -538,10 +784,10 @@ export default function ChartsPage() {
               </div>
 
               <div>
-                <h3 className="text-sm font-medium text-red-600 mb-4">
-                  {rankingMetric === 'homicide' ? 'Most Dangerous 15 Countries (Highest Homicide Rate)' : 'Bottom 15 Countries'}
+                <h3 className="text-xs md:text-sm font-medium text-red-600 mb-4">
+                  {isHigherBetter ? `Bottom 15 Countries (Lowest ${getMetricLabel()})` : `Worst 15 Countries (Highest ${getMetricLabel()})`}
                 </h3>
-                <div className="h-[500px]">
+                <div className="h-[400px] md:h-[500px]">
                   <ResponsiveContainer width="100%" height="100%">
                     <BarChart
                       layout="vertical"
@@ -554,7 +800,7 @@ export default function ChartsPage() {
                       margin={{ top: 5, right: 30, left: 100, bottom: 5 }}
                     >
                       <CartesianGrid strokeDasharray="3 3" />
-                      <XAxis type="number" domain={[0, rankingMetric === 'gdp' ? 'auto' : rankingMetric === 'homicide' ? 'auto' : 100]} />
+                      <XAxis type="number" domain={[0, 'auto']} />
                       <YAxis
                         dataKey="displayName"
                         type="category"
@@ -613,12 +859,12 @@ export default function ChartsPage() {
 
         {/* Scatter Chart */}
         {selectedChart === 'scatter' && (
-          <div className="bg-white rounded-lg shadow-sm p-6">
-            <h2 className="text-lg font-semibold mb-2">Democracy Score vs GDP per Capita</h2>
-            <p className="text-sm text-gray-500 mb-6">
+          <div className="bg-white rounded-lg shadow-sm p-4 md:p-6">
+            <h2 className="text-base md:text-lg font-semibold mb-2">Democracy Score vs GDP per Capita</h2>
+            <p className="text-xs md:text-sm text-gray-500 mb-4 md:mb-6">
               Each dot represents a country, colored by major religion
             </p>
-            <div className="h-[600px]">
+            <div className="h-[350px] md:h-[600px]">
               <ResponsiveContainer width="100%" height="100%">
                 <ScatterChart margin={{ top: 20, right: 20, bottom: 60, left: 60 }}>
                   <CartesianGrid strokeDasharray="3 3" />
@@ -675,12 +921,12 @@ export default function ChartsPage() {
 
         {/* Distribution Chart */}
         {selectedChart === 'distribution' && (
-          <div className="bg-white rounded-lg shadow-sm p-6">
-            <h2 className="text-lg font-semibold mb-2">Countries by Major Religion</h2>
-            <p className="text-sm text-gray-500 mb-6">
+          <div className="bg-white rounded-lg shadow-sm p-4 md:p-6">
+            <h2 className="text-base md:text-lg font-semibold mb-2">Countries by Major Religion</h2>
+            <p className="text-xs md:text-sm text-gray-500 mb-4 md:mb-6">
               Number of countries where each religion is the majority
             </p>
-            <div className="h-[400px]">
+            <div className="h-[300px] md:h-[400px]">
               <ResponsiveContainer width="100%" height="100%">
                 <BarChart data={religionDistribution} margin={{ top: 20, right: 30, left: 20, bottom: 60 }}>
                   <CartesianGrid strokeDasharray="3 3" />
@@ -699,5 +945,14 @@ export default function ChartsPage() {
         )}
       </div>
     </div>
+  )
+}
+
+// Export default with Suspense boundary
+export default function ChartsPage() {
+  return (
+    <Suspense fallback={<ChartsLoading />}>
+      <ChartsContent />
+    </Suspense>
   )
 }

@@ -35,7 +35,7 @@ export interface ConflictData {
   conflictDeaths: number | null
 }
 
-// NEW: Health & Body
+// Health & Body
 export interface HealthData {
   lifeExpectancy: number | null // years
   maleHeight: number | null // cm
@@ -51,9 +51,16 @@ export interface HealthData {
   alcoholConsumption: number | null // liters per capita per year
   smokingRate: number | null // % of adults
   drugUseRate: number | null // % tried illicit drugs
+  // NEW unusual metrics
+  plasticSurgeryRate: number | null // procedures per 1,000 people
+  sleepDuration: number | null // average hours per night
+  mentalHealthRate: number | null // % with mental health conditions
+  antidepressantUse: number | null // daily doses per 1,000 people
+  diabetesRate: number | null // % of adults
+  airPollution: number | null // PM2.5 μg/m³
 }
 
-// NEW: Sex & Relationships
+// Sex & Relationships
 export interface SexData {
   sexualPartners: number | null // lifetime average
   ageFirstSex: number | null // average age
@@ -63,19 +70,35 @@ export interface SexData {
   contraceptionUse: number | null // % of women 15-49
   teenPregnancy: number | null // births per 1,000 women 15-19
   lgbtAcceptance: number | null // 0-100 index
+  // NEW unusual metrics
+  datingAppUsage: number | null // % of adults using dating apps
+  onlyfansCreators: number | null // creators per 100,000 people
+  pornConsumption: number | null // average minutes per week
+  prostitutionLegal: boolean | null // is prostitution legal
+  polyamoryRate: number | null // % in open relationships
+  topPornCategory: string | null // most popular porn category
+  consanguinityRate: number | null // % of marriages between relatives (cousin marriage)
 }
 
-// NEW: Demographics
+// Demographics
 export interface DemographicsData {
   ethnicDiversity: number | null // 0-1 fractionalization index
-  immigrationRate: number | null // % foreign born
+  immigrationRate: number | null // % foreign born (legal immigrants)
   emigrationRate: number | null // % emigrated
   medianAge: number | null // years
   urbanPopulation: number | null // % living in cities
   populationDensity: number | null // people per km²
+  // NEW unusual metrics
+  twinBirthRate: number | null // per 1,000 births
+  leftHandedRate: number | null // % of population
+  redHairRate: number | null // % of population
+  averageShoeSize: number | null // EU size
+  illegalImmigrationRate: number | null // estimated % of population
+  netMigrationRate: number | null // per 1,000 population per year
+  refugeesHosted: number | null // per 1,000 population
 }
 
-// NEW: Intelligence & Education
+// Intelligence & Education
 export interface EducationData {
   avgIQ: number | null // national average IQ
   literacyRate: number | null // % of adults
@@ -86,9 +109,14 @@ export interface EducationData {
   nobelPrizesPerCapita: number | null // per 10 million
   patentsPerCapita: number | null // per million
   rdSpending: number | null // % of GDP
+  // NEW unusual metrics
+  mathOlympiadMedals: number | null // total medals won
+  chessGrandmasters: number | null // per 10 million people
+  scientistsPerCapita: number | null // researchers per million
+  englishProficiency: number | null // EF EPI score 0-100
 }
 
-// NEW: Lifestyle & Happiness
+// Lifestyle & Happiness
 export interface LifestyleData {
   happinessIndex: number | null // 0-10 scale
   workHoursWeek: number | null // average hours
@@ -98,13 +126,67 @@ export interface LifestyleData {
   coffeeConsumption: number | null // kg per capita per year
   meatConsumption: number | null // kg per capita per year
   vegetarianRate: number | null // % of population
+  // NEW unusual metrics
+  screenTime: number | null // hours per day
+  videoGamePlayers: number | null // % of population
+  netflixSubscribers: number | null // per 1,000 people
+  spotifyUsers: number | null // per 1,000 people
+  fastFoodSpending: number | null // USD per capita per year
+  tattooRate: number | null // % with at least one tattoo
+  gymMembership: number | null // % of population
+  yogaPractitioners: number | null // % of population
+  pizzaConsumption: number | null // kg per capita per year
+  chocolateConsumption: number | null // kg per capita per year
+  teaConsumption: number | null // kg per capita per year
+  beerConsumption: number | null // liters per capita per year
+  wineConsumption: number | null // liters per capita per year
 }
 
-// NEW: Freedom & Governance
+// Freedom & Governance
 export interface FreedomData {
   corruptionIndex: number | null // 0-100 (100 = least corrupt)
   pressFreedom: number | null // 0-100 (100 = most free)
   drugPolicyScore: number | null // 0-100 (100 = most liberal)
+  // NEW unusual metrics
+  cannabisLegal: boolean | null // is cannabis legal recreationally
+  gamblingLegal: boolean | null // is gambling legal
+  cryptoAdoption: number | null // % using cryptocurrency
+}
+
+// Economy & Wealth
+export interface EconomyData {
+  billionairesPerCapita: number | null // per 10 million people
+  millionairesPerCapita: number | null // per 1,000 people
+  bitcoinATMs: number | null // per million people
+  startupUnicorns: number | null // total unicorn companies
+  luxuryGoodsSpending: number | null // USD per capita
+  gamblingSpending: number | null // USD per capita per year
+  lotterySpending: number | null // USD per capita per year
+  touristArrivals: number | null // per 1,000 residents
+  mcdonaldsPerCapita: number | null // restaurants per million
+  starbucksPerCapita: number | null // stores per million
+  evAdoption: number | null // % of new car sales
+  renewableEnergy: number | null // % of electricity from renewables
+}
+
+// Transport & Infrastructure
+export interface TransportData {
+  carOwnership: number | null // vehicles per 1,000 people
+  bicycleUsage: number | null // % commuting by bike
+  publicTransitUsage: number | null // % using public transit
+  averageCommute: number | null // minutes one-way
+  trafficIndex: number | null // congestion index 0-100
+  flightsPerCapita: number | null // domestic + international per year
+}
+
+// Environment
+export interface EnvironmentData {
+  co2PerCapita: number | null // tonnes per year
+  plasticWaste: number | null // kg per capita per year
+  recyclingRate: number | null // % of waste recycled
+  forestCoverage: number | null // % of land area
+  waterStress: number | null // 0-5 scale
+  ecoFootprint: number | null // global hectares per capita
 }
 
 export interface DataSource {
@@ -126,13 +208,15 @@ export interface Country {
   poverty: PovertyData
   gender: GenderData
   conflict: ConflictData
-  // NEW categories
   health: HealthData
   sex: SexData
   demographics: DemographicsData
   education: EducationData
   lifestyle: LifestyleData
   freedom: FreedomData
+  economy: EconomyData
+  transport: TransportData
+  environment: EnvironmentData
   sources: {
     religion?: DataSource
     democracy?: DataSource
@@ -146,6 +230,9 @@ export interface Country {
     education?: DataSource
     lifestyle?: DataSource
     freedom?: DataSource
+    economy?: DataSource
+    transport?: DataSource
+    environment?: DataSource
   }
 }
 
@@ -186,26 +273,70 @@ export type ColorVariable =
   | 'health.fertilityRate'
   | 'health.alcoholConsumption'
   | 'health.suicideRate'
+  | 'health.hivPrevalence'
+  | 'health.plasticSurgeryRate'
+  | 'health.sleepDuration'
+  | 'health.diabetesRate'
+  | 'health.airPollution'
   // Sex
   | 'sex.sexualPartners'
   | 'sex.divorceRate'
   | 'sex.lgbtAcceptance'
+  | 'sex.datingAppUsage'
+  | 'sex.onlyfansCreators'
+  | 'sex.pornConsumption'
+  | 'sex.consanguinityRate'
   // Demographics
   | 'demographics.ethnicDiversity'
   | 'demographics.medianAge'
   | 'demographics.urbanPopulation'
+  | 'demographics.twinBirthRate'
+  | 'demographics.immigrationRate'
+  | 'demographics.illegalImmigrationRate'
+  | 'demographics.netMigrationRate'
+  | 'demographics.refugeesHosted'
   // Education
   | 'education.avgIQ'
   | 'education.literacyRate'
   | 'education.pisaMath'
+  | 'education.nobelPrizesPerCapita'
+  | 'education.chessGrandmasters'
+  | 'education.englishProficiency'
   // Lifestyle
   | 'lifestyle.happinessIndex'
   | 'lifestyle.workHoursWeek'
   | 'lifestyle.internetPenetration'
   | 'lifestyle.coffeeConsumption'
+  | 'lifestyle.screenTime'
+  | 'lifestyle.videoGamePlayers'
+  | 'lifestyle.tattooRate'
+  | 'lifestyle.pizzaConsumption'
+  | 'lifestyle.chocolateConsumption'
+  | 'lifestyle.teaConsumption'
+  | 'lifestyle.beerConsumption'
+  | 'lifestyle.wineConsumption'
   // Freedom
   | 'freedom.corruptionIndex'
   | 'freedom.pressFreedom'
+  | 'freedom.cryptoAdoption'
+  // Economy
+  | 'economy.billionairesPerCapita'
+  | 'economy.millionairesPerCapita'
+  | 'economy.startupUnicorns'
+  | 'economy.touristArrivals'
+  | 'economy.mcdonaldsPerCapita'
+  | 'economy.starbucksPerCapita'
+  | 'economy.evAdoption'
+  | 'economy.renewableEnergy'
+  // Transport
+  | 'transport.carOwnership'
+  | 'transport.bicycleUsage'
+  | 'transport.averageCommute'
+  | 'transport.trafficIndex'
+  // Environment
+  | 'environment.co2PerCapita'
+  | 'environment.recyclingRate'
+  | 'environment.forestCoverage'
 
 export interface VariableConfig {
   id: ColorVariable

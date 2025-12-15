@@ -7,7 +7,7 @@ import type { Country, CountryFilters, ColorVariable } from '@/types/country'
 import { filterCountries } from '@/lib/data'
 import FilterPanel from '@/components/filters/FilterPanel'
 import { DEFAULT_VARIABLE } from '@/lib/constants/variables'
-import { BarChart2, Globe, Info, X } from 'lucide-react'
+import { BarChart2, Globe, Info, X, Menu, SlidersHorizontal } from 'lucide-react'
 import countriesData from '../../data/countries.json'
 
 // Dynamic import for map to avoid SSR issues
@@ -25,6 +25,8 @@ export default function HomePage() {
   const [colorVariable, setColorVariable] = useState<ColorVariable>(DEFAULT_VARIABLE)
   const [selectedCountry, setSelectedCountry] = useState<Country | null>(null)
   const [showDataSources, setShowDataSources] = useState(false)
+  const [showMobileMenu, setShowMobileMenu] = useState(false)
+  const [showMobileFilters, setShowMobileFilters] = useState(false)
 
   const countries = countriesData as Country[]
 
@@ -36,18 +38,20 @@ export default function HomePage() {
   return (
     <div className="h-screen flex flex-col">
       {/* Header */}
-      <header className="bg-white border-b border-gray-200 px-6 py-4">
+      <header className="bg-white border-b border-gray-200 px-4 md:px-6 py-3 md:py-4">
         <div className="flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <Globe className="w-8 h-8 text-blue-600" />
+          <div className="flex items-center gap-2 md:gap-3">
+            <Globe className="w-6 h-6 md:w-8 md:h-8 text-blue-600" />
             <div>
-              <h1 className="text-xl font-bold text-gray-900">The World Truth Map</h1>
-              <p className="text-sm text-gray-500">
+              <h1 className="text-base md:text-xl font-bold text-gray-900">The World Truth Map</h1>
+              <p className="text-xs md:text-sm text-gray-500 hidden sm:block">
                 Compare countries across interesting criteria
               </p>
             </div>
           </div>
-          <nav className="flex items-center gap-4">
+
+          {/* Desktop Navigation */}
+          <nav className="hidden md:flex items-center gap-4">
             <Link
               href="/charts"
               className="flex items-center gap-2 px-4 py-2 text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-md transition-colors"
@@ -63,20 +67,69 @@ export default function HomePage() {
               Data Sources
             </button>
           </nav>
+
+          {/* Mobile Menu Button */}
+          <button
+            onClick={() => setShowMobileMenu(!showMobileMenu)}
+            className="md:hidden p-2 text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-md"
+          >
+            <Menu className="w-6 h-6" />
+          </button>
         </div>
+
+        {/* Mobile Navigation Dropdown */}
+        {showMobileMenu && (
+          <nav className="md:hidden mt-3 pt-3 border-t border-gray-200 flex flex-col gap-2">
+            <Link
+              href="/charts"
+              className="flex items-center gap-2 px-4 py-2 text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-md transition-colors"
+              onClick={() => setShowMobileMenu(false)}
+            >
+              <BarChart2 className="w-4 h-4" />
+              Charts
+            </Link>
+            <button
+              onClick={() => {
+                setShowDataSources(true)
+                setShowMobileMenu(false)
+              }}
+              className="flex items-center gap-2 px-4 py-2 text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-md transition-colors text-left"
+            >
+              <Info className="w-4 h-4" />
+              Data Sources
+            </button>
+          </nav>
+        )}
       </header>
 
       {/* Main Content */}
-      <div className="flex-1 flex overflow-hidden">
-        {/* Filter Panel */}
-        <FilterPanel
-          filters={filters}
-          onFiltersChange={setFilters}
-          colorVariable={colorVariable}
-          onColorVariableChange={setColorVariable}
-          totalCountries={countries.length}
-          filteredCount={filteredCountries.length}
-        />
+      <div className="flex-1 flex overflow-hidden relative">
+        {/* Mobile Filter Overlay */}
+        {showMobileFilters && (
+          <div
+            className="md:hidden fixed inset-0 bg-black/50 z-40"
+            onClick={() => setShowMobileFilters(false)}
+          />
+        )}
+
+        {/* Filter Panel - Desktop sidebar, Mobile drawer */}
+        <div
+          className={`
+            fixed md:relative inset-y-0 left-0 z-50 md:z-auto
+            transform transition-transform duration-300 ease-in-out
+            ${showMobileFilters ? 'translate-x-0' : '-translate-x-full md:translate-x-0'}
+          `}
+        >
+          <FilterPanel
+            filters={filters}
+            onFiltersChange={setFilters}
+            colorVariable={colorVariable}
+            onColorVariableChange={setColorVariable}
+            totalCountries={countries.length}
+            filteredCount={filteredCountries.length}
+            onClose={() => setShowMobileFilters(false)}
+          />
+        </div>
 
         {/* Map Area */}
         <div className="flex-1 relative bg-gray-50">
@@ -86,6 +139,14 @@ export default function HomePage() {
             colorVariable={colorVariable}
             onCountryClick={setSelectedCountry}
           />
+
+          {/* Mobile Filter Toggle Button */}
+          <button
+            onClick={() => setShowMobileFilters(true)}
+            className="md:hidden fixed bottom-4 left-4 z-30 bg-blue-600 text-white p-3 rounded-full shadow-lg hover:bg-blue-700 transition-colors"
+          >
+            <SlidersHorizontal className="w-6 h-6" />
+          </button>
 
           {/* Selected Country Panel */}
           {selectedCountry && (
@@ -99,8 +160,8 @@ export default function HomePage() {
 
       {/* Data Sources Modal */}
       {showDataSources && (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
-          <div className="bg-white rounded-lg shadow-xl max-w-2xl w-full mx-4 max-h-[80vh] overflow-hidden">
+        <div className="fixed inset-0 bg-black/50 flex items-end md:items-center justify-center z-50">
+          <div className="bg-white rounded-t-xl md:rounded-lg shadow-xl max-w-2xl w-full md:mx-4 max-h-[90vh] md:max-h-[80vh] overflow-hidden">
             <div className="flex items-center justify-between px-6 py-4 border-b border-gray-200">
               <h2 className="text-xl font-semibold text-gray-900">Data Sources</h2>
               <button
@@ -248,7 +309,7 @@ interface CountryDetailPanelProps {
 
 function CountryDetailPanel({ country, onClose }: CountryDetailPanelProps) {
   return (
-    <div className="absolute top-4 right-4 w-80 bg-white rounded-lg shadow-xl border border-gray-200 overflow-hidden">
+    <div className="fixed md:absolute bottom-0 md:bottom-auto md:top-4 left-0 right-0 md:left-auto md:right-4 md:w-80 bg-white rounded-t-xl md:rounded-lg shadow-xl border border-gray-200 overflow-hidden z-20 max-h-[70vh] md:max-h-none">
       <div className="bg-blue-600 text-white px-4 py-3 flex items-center justify-between">
         <h3 className="font-semibold">{country.name}</h3>
         <button
@@ -261,7 +322,7 @@ function CountryDetailPanel({ country, onClose }: CountryDetailPanelProps) {
         </button>
       </div>
 
-      <div className="p-4 space-y-4">
+      <div className="p-4 space-y-4 overflow-y-auto max-h-[60vh] md:max-h-none">
         <div className="grid grid-cols-2 gap-4">
           <StatItem
             label="Region"

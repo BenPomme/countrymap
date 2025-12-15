@@ -2,8 +2,20 @@
 
 import { useState } from 'react'
 import type { CountryFilters, ColorVariable } from '@/types/country'
-import { MAJOR_RELIGIONS, REGIONS, VARIABLES } from '@/lib/constants/variables'
+import { MAJOR_RELIGIONS, REGIONS, VARIABLES, VARIABLE_CATEGORIES } from '@/lib/constants/variables'
 import { ChevronDown, ChevronUp, Filter, X } from 'lucide-react'
+
+// Get all variables (both numeric and categorical)
+const allVariables = Object.entries(VARIABLES).map(([varId, config]) => ({
+  ...config,
+  id: varId as ColorVariable
+}))
+
+// Group variables by category
+const variablesByCategory = VARIABLE_CATEGORIES.map(cat => ({
+  ...cat,
+  variables: allVariables.filter(v => v.category === cat.id)
+})).filter(cat => cat.variables.length > 0)
 
 interface FilterPanelProps {
   filters: CountryFilters
@@ -12,6 +24,7 @@ interface FilterPanelProps {
   onColorVariableChange: (variable: ColorVariable) => void
   totalCountries: number
   filteredCount: number
+  onClose?: () => void
 }
 
 export default function FilterPanel({
@@ -21,6 +34,7 @@ export default function FilterPanel({
   onColorVariableChange,
   totalCountries,
   filteredCount,
+  onClose,
 }: FilterPanelProps) {
   const [expandedSections, setExpandedSections] = useState<Set<string>>(
     new Set(['colorBy', 'religion', 'democracy'])
@@ -54,21 +68,32 @@ export default function FilterPanel({
   })
 
   return (
-    <div className="w-72 bg-white border-r border-gray-200 h-full overflow-y-auto">
+    <div className="w-72 md:w-72 bg-white border-r border-gray-200 h-full overflow-y-auto">
       <div className="p-4 border-b border-gray-200">
         <div className="flex items-center justify-between mb-2">
           <h2 className="font-semibold text-lg flex items-center gap-2">
             <Filter className="w-5 h-5" />
             Filters
           </h2>
-          {hasActiveFilters && (
-            <button
-              onClick={clearAllFilters}
-              className="text-sm text-blue-600 hover:text-blue-800"
-            >
-              Clear all
-            </button>
-          )}
+          <div className="flex items-center gap-2">
+            {hasActiveFilters && (
+              <button
+                onClick={clearAllFilters}
+                className="text-sm text-blue-600 hover:text-blue-800"
+              >
+                Clear all
+              </button>
+            )}
+            {/* Mobile Close Button */}
+            {onClose && (
+              <button
+                onClick={onClose}
+                className="md:hidden p-1 text-gray-400 hover:text-gray-600"
+              >
+                <X className="w-5 h-5" />
+              </button>
+            )}
+          </div>
         </div>
         <p className="text-sm text-gray-500">
           Showing {filteredCount} of {totalCountries} countries
@@ -87,12 +112,15 @@ export default function FilterPanel({
           onChange={(e) => onColorVariableChange(e.target.value as ColorVariable)}
           className="w-full px-3 py-2 border border-gray-300 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
         >
-          {Object.entries(VARIABLES).map(([key, config]) => (
-            <option key={key} value={key}>
-              {config.name}
-            </option>
+          {variablesByCategory.map(cat => (
+            <optgroup key={cat.id} label={`${cat.icon} ${cat.name}`}>
+              {cat.variables.map(v => (
+                <option key={v.id} value={v.id}>{v.name}</option>
+              ))}
+            </optgroup>
           ))}
         </select>
+        <p className="mt-2 text-xs text-gray-400">{allVariables.length} variables available</p>
       </FilterSection>
 
       {/* Religion Filter */}
