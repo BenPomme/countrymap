@@ -36,14 +36,14 @@ export const metadata: Metadata = {
   authors: [{ name: 'The World Truth' }],
   creator: 'The World Truth',
   publisher: 'The World Truth',
-  metadataBase: new URL('https://www.theworldtruth.com'),
+  metadataBase: new URL('https://theworldtruth.com'),
   alternates: {
     canonical: '/',
   },
   openGraph: {
     title: 'The World Truth Map | Compare Countries by Religion, Democracy, Crime & More',
     description: 'Interactive world map comparing countries by religion, democracy, crime rates, wealth, gender equality and conflict. Filter and explore global statistics.',
-    url: 'https://www.theworldtruth.com',
+    url: 'https://theworldtruth.com',
     siteName: 'The World Truth Map',
     locale: 'en_US',
     type: 'website',
@@ -85,7 +85,7 @@ export default function RootLayout({
     '@type': 'WebApplication',
     name: 'The World Truth Map',
     description: 'Interactive world map comparing countries by religion, democracy, crime rates, GDP, gender equality, and conflict status.',
-    url: 'https://www.theworldtruth.com',
+    url: 'https://theworldtruth.com',
     applicationCategory: 'Reference',
     operatingSystem: 'Any',
     offers: {

@@ -19,7 +19,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Country Rankings & Charts | The World Truth Map',
     description: 'Compare country rankings by democracy, GDP, gender equality, crime rates and more.',
-    url: 'https://www.theworldtruth.com/charts',
+    url: 'https://theworldtruth.com/charts',
   },
 }
 
