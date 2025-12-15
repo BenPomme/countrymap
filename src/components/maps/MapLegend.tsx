@@ -62,8 +62,8 @@ export default function MapLegend({
           className="w-32 h-3 rounded"
           style={{
             background: isHigherBetter
-              ? 'linear-gradient(to right, #fee2e2, #ef4444)'
-              : 'linear-gradient(to right, #22c55e, #fee2e2)',
+              ? 'linear-gradient(to right, #dc2626, #22c55e)'
+              : 'linear-gradient(to right, #22c55e, #dc2626)',
           }}
         />
         <span className="text-xs text-gray-500">

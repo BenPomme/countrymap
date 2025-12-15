@@ -7,7 +7,7 @@ import type { Country, CountryFilters, ColorVariable } from '@/types/country'
 import { filterCountries } from '@/lib/data'
 import FilterPanel from '@/components/filters/FilterPanel'
 import { DEFAULT_VARIABLE } from '@/lib/constants/variables'
-import { BarChart2, Globe, Info } from 'lucide-react'
+import { BarChart2, Globe, Info, X } from 'lucide-react'
 import countriesData from '../../data/countries.json'
 
 // Dynamic import for map to avoid SSR issues
@@ -24,6 +24,7 @@ export default function HomePage() {
   const [filters, setFilters] = useState<CountryFilters>({})
   const [colorVariable, setColorVariable] = useState<ColorVariable>(DEFAULT_VARIABLE)
   const [selectedCountry, setSelectedCountry] = useState<Country | null>(null)
+  const [showDataSources, setShowDataSources] = useState(false)
 
   const countries = countriesData as Country[]
 
@@ -54,9 +55,12 @@ export default function HomePage() {
               <BarChart2 className="w-4 h-4" />
               Charts
             </Link>
-            <button className="flex items-center gap-2 px-4 py-2 text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-md transition-colors">
+            <button
+              onClick={() => setShowDataSources(true)}
+              className="flex items-center gap-2 px-4 py-2 text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-md transition-colors"
+            >
               <Info className="w-4 h-4" />
-              About Data
+              Data Sources
             </button>
           </nav>
         </div>
@@ -92,6 +96,66 @@ export default function HomePage() {
           )}
         </div>
       </div>
+
+      {/* Data Sources Modal */}
+      {showDataSources && (
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+          <div className="bg-white rounded-lg shadow-xl max-w-2xl w-full mx-4 max-h-[80vh] overflow-hidden">
+            <div className="flex items-center justify-between px-6 py-4 border-b border-gray-200">
+              <h2 className="text-xl font-semibold text-gray-900">Data Sources</h2>
+              <button
+                onClick={() => setShowDataSources(false)}
+                className="text-gray-400 hover:text-gray-600 transition-colors"
+              >
+                <X className="w-6 h-6" />
+              </button>
+            </div>
+            <div className="p-6 overflow-y-auto max-h-[60vh]">
+              <div className="space-y-6">
+                <DataSourceItem
+                  title="Religion Data"
+                  source="CIA World Factbook"
+                  description="Religious affiliation percentages for each country, updated annually."
+                  url="https://www.cia.gov/the-world-factbook/"
+                />
+                <DataSourceItem
+                  title="Democracy Score"
+                  source="V-Dem Institute & Freedom House"
+                  description="Liberal democracy index combining electoral democracy with liberal principles (0-100 scale)."
+                  url="https://www.v-dem.net/"
+                />
+                <DataSourceItem
+                  title="GDP per Capita"
+                  source="World Bank"
+                  description="Gross domestic product divided by midyear population, in current US dollars."
+                  url="https://data.worldbank.org/"
+                />
+                <DataSourceItem
+                  title="Gender Equality (WBL Index)"
+                  source="World Bank - Women, Business and the Law"
+                  description="Measures legal gender equality across 8 indicators (0-100 scale)."
+                  url="https://wbl.worldbank.org/"
+                />
+                <DataSourceItem
+                  title="Homicide Rate"
+                  source="UN Office on Drugs and Crime"
+                  description="Intentional homicides per 100,000 population."
+                  url="https://dataunodc.un.org/"
+                />
+                <DataSourceItem
+                  title="Conflict Status"
+                  source="Uppsala Conflict Data Program (UCDP)"
+                  description="Active armed conflicts with at least 25 battle-related deaths per year."
+                  url="https://ucdp.uu.se/"
+                />
+              </div>
+              <p className="mt-6 text-sm text-gray-500">
+                Data is aggregated from multiple authoritative sources. Last updated: 2024.
+              </p>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   )
 }
@@ -212,6 +276,27 @@ function StatItem({ label, value, highlight }: StatItemProps) {
       <div className={`font-medium ${highlight ? 'text-red-600' : 'text-gray-900'}`}>
         {value}
       </div>
+    </div>
+  )
+}
+
+interface DataSourceItemProps {
+  title: string
+  source: string
+  description: string
+  url: string
+}
+
+function DataSourceItem({ title, source, description, url }: DataSourceItemProps) {
+  return (
+    <div className="border-b border-gray-100 pb-4 last:border-0 last:pb-0">
+      <h3 className="font-medium text-gray-900">{title}</h3>
+      <p className="text-sm text-blue-600 mt-1">
+        <a href={url} target="_blank" rel="noopener noreferrer" className="hover:underline">
+          {source}
+        </a>
+      </p>
+      <p className="text-sm text-gray-600 mt-1">{description}</p>
     </div>
   )
 }

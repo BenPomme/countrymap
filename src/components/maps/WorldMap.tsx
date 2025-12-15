@@ -105,8 +105,8 @@ export default function WorldMap({
 
     const domain = variableConfig.domain || [0, 100]
     const colors = variableConfig.higherIsBetter
-      ? ['#fee2e2', '#ef4444'] // Red gradient (low to high, higher is better)
-      : ['#22c55e', '#fee2e2'] // Green to red (low is better)
+      ? ['#dc2626', '#22c55e'] // Dark red to green (higher is better, greener = better)
+      : ['#22c55e', '#dc2626'] // Green to dark red (lower is better)
 
     return scaleLinear<string>()
       .domain(domain)
