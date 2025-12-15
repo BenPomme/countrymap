@@ -14,9 +14,7 @@ import { VARIABLES, MAJOR_RELIGIONS } from '@/lib/constants/variables'
 import MapTooltip from './MapTooltip'
 import MapLegend from './MapLegend'
 
-const geoUrl = process.env.NEXT_PUBLIC_BASE_PATH
-  ? `${process.env.NEXT_PUBLIC_BASE_PATH}/geo/world-110m.json`
-  : '/geo/world-110m.json'
+const geoUrl = '/geo/world-110m.json'
 
 // Map numeric ISO codes to ISO3 codes
 const numericToIso3: Record<string, string> = {
