@@ -13,10 +13,12 @@ import {
   ScatterChart,
   Scatter,
   Cell,
+  Legend,
 } from 'recharts'
-import type { Country } from '@/types/country'
+import type { Country, ColorVariable } from '@/types/country'
 import { Globe, ArrowLeft } from 'lucide-react'
 import countriesData from '../../../data/countries.json'
+import { VARIABLES, VARIABLE_CATEGORIES } from '@/lib/constants/variables'
 
 const religionColors: Record<string, string> = {
   'Christianity': '#3b82f6',
@@ -29,10 +31,40 @@ const religionColors: Record<string, string> = {
   'Other': '#94a3b8',
 }
 
+// Helper to get nested value from object path like 'health.penisSize'
+function getNestedValue(obj: Record<string, unknown>, path: string): number | string | null {
+  const keys = path.split('.')
+  let value: unknown = obj
+  for (const key of keys) {
+    if (value && typeof value === 'object' && key in value) {
+      value = (value as Record<string, unknown>)[key]
+    } else {
+      return null
+    }
+  }
+  return value as number | string | null
+}
+
+// Get numeric variables only (for correlation charts)
+const numericVariables = Object.entries(VARIABLES)
+  .filter(([, config]) => config.type === 'numeric')
+  .map(([varId, config]) => ({ ...config, id: varId as ColorVariable }))
+
+// Group variables by category
+const variablesByCategory = VARIABLE_CATEGORIES.map(cat => ({
+  ...cat,
+  variables: numericVariables.filter(v => v.category === cat.id)
+})).filter(cat => cat.variables.length > 0)
+
 export default function ChartsPage() {
   const countries = countriesData as Country[]
-  const [selectedChart, setSelectedChart] = useState<'ranking' | 'scatter' | 'distribution'>('ranking')
+  const [selectedChart, setSelectedChart] = useState<'ranking' | 'scatter' | 'correlation' | 'distribution'>('correlation')
   const [rankingMetric, setRankingMetric] = useState<'democracy' | 'gdp' | 'gender' | 'homicide'>('democracy')
+
+  // Custom correlation state
+  const [xVariable, setXVariable] = useState<ColorVariable>('health.penisSize')
+  const [yVariable, setYVariable] = useState<ColorVariable>('democracy.score')
+  const [colorBy, setColorBy] = useState<'religion' | 'region'>('religion')
 
   // Top/Bottom countries by selected metric
   const rankedCountries = useMemo(() => {
@@ -46,15 +78,14 @@ export default function ChartsPage() {
       if (rankingMetric === 'democracy') return b.democracy.score - a.democracy.score
       if (rankingMetric === 'gdp') return (b.poverty.gdpPerCapita || 0) - (a.poverty.gdpPerCapita || 0)
       if (rankingMetric === 'gender') return (b.gender.wblIndex || 0) - (a.gender.wblIndex || 0)
-      if (rankingMetric === 'homicide') return (a.crime.homicideRate || 0) - (b.crime.homicideRate || 0) // Lower is better
+      if (rankingMetric === 'homicide') return (a.crime.homicideRate || 0) - (b.crime.homicideRate || 0)
       return 0
     })
 
-    // For homicide, "top" means safest (lowest rate), "bottom" means most dangerous
     if (rankingMetric === 'homicide') {
       return {
-        top: sorted.slice(0, 15), // Safest
-        bottom: sorted.slice(-15).reverse(), // Most dangerous
+        top: sorted.slice(0, 15),
+        bottom: sorted.slice(-15).reverse(),
       }
     }
 
@@ -87,6 +118,40 @@ export default function ChartsPage() {
     return ''
   }
 
+  // Custom correlation data
+  const correlationData = useMemo(() => {
+    return countries
+      .filter((c) => {
+        const xVal = getNestedValue(c as unknown as Record<string, unknown>, xVariable)
+        const yVal = getNestedValue(c as unknown as Record<string, unknown>, yVariable)
+        return xVal !== null && yVal !== null && typeof xVal === 'number' && typeof yVal === 'number'
+      })
+      .map((c) => ({
+        name: c.name,
+        x: getNestedValue(c as unknown as Record<string, unknown>, xVariable) as number,
+        y: getNestedValue(c as unknown as Record<string, unknown>, yVariable) as number,
+        religion: c.religion.major,
+        region: c.region,
+      }))
+  }, [countries, xVariable, yVariable])
+
+  // Calculate correlation coefficient
+  const correlation = useMemo(() => {
+    if (correlationData.length < 3) return null
+    const n = correlationData.length
+    const sumX = correlationData.reduce((sum, d) => sum + d.x, 0)
+    const sumY = correlationData.reduce((sum, d) => sum + d.y, 0)
+    const sumXY = correlationData.reduce((sum, d) => sum + d.x * d.y, 0)
+    const sumX2 = correlationData.reduce((sum, d) => sum + d.x * d.x, 0)
+    const sumY2 = correlationData.reduce((sum, d) => sum + d.y * d.y, 0)
+
+    const numerator = n * sumXY - sumX * sumY
+    const denominator = Math.sqrt((n * sumX2 - sumX * sumX) * (n * sumY2 - sumY * sumY))
+
+    if (denominator === 0) return null
+    return numerator / denominator
+  }, [correlationData])
+
   // Scatter data: Democracy vs GDP
   const scatterData = useMemo(() => {
     return countries
@@ -111,6 +176,21 @@ export default function ChartsPage() {
       .sort((a, b) => b.count - a.count)
   }, [countries])
 
+  const regionColors: Record<string, string> = {
+    'Africa': '#f97316',
+    'Americas': '#3b82f6',
+    'Asia': '#eab308',
+    'Europe': '#22c55e',
+    'Oceania': '#8b5cf6',
+  }
+
+  const getColor = (entry: { religion: string; region: string }) => {
+    if (colorBy === 'religion') {
+      return religionColors[entry.religion] || '#94a3b8'
+    }
+    return regionColors[entry.region] || '#94a3b8'
+  }
+
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Header */}
@@ -120,7 +200,7 @@ export default function ChartsPage() {
             <Globe className="w-8 h-8 text-blue-600" />
             <div>
               <h1 className="text-xl font-bold text-gray-900">The World Truth Map</h1>
-              <p className="text-sm text-gray-500">Country rankings & statistics</p>
+              <p className="text-sm text-gray-500">Country rankings & correlations</p>
             </div>
           </div>
           <Link
@@ -135,7 +215,17 @@ export default function ChartsPage() {
 
       {/* Chart Selection */}
       <div className="p-6">
-        <div className="flex gap-2 mb-6">
+        <div className="flex flex-wrap gap-2 mb-6">
+          <button
+            onClick={() => setSelectedChart('correlation')}
+            className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${
+              selectedChart === 'correlation'
+                ? 'bg-purple-600 text-white'
+                : 'bg-white text-gray-700 hover:bg-gray-100'
+            }`}
+          >
+            Custom Correlations
+          </button>
           <button
             onClick={() => setSelectedChart('ranking')}
             className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${
@@ -167,6 +257,209 @@ export default function ChartsPage() {
             Religion Distribution
           </button>
         </div>
+
+        {/* Custom Correlation Chart */}
+        {selectedChart === 'correlation' && (
+          <div className="bg-white rounded-lg shadow-sm p-6">
+            <h2 className="text-lg font-semibold mb-2">Custom Correlation Explorer</h2>
+            <p className="text-sm text-gray-500 mb-4">
+              Select any two variables to explore correlations between them
+            </p>
+
+            {/* Variable Selectors */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">X-Axis Variable</label>
+                <select
+                  value={xVariable}
+                  onChange={(e) => setXVariable(e.target.value as ColorVariable)}
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md text-sm"
+                >
+                  {variablesByCategory.map(cat => (
+                    <optgroup key={cat.id} label={`${cat.icon} ${cat.name}`}>
+                      {cat.variables.map(v => (
+                        <option key={v.id} value={v.id}>{v.name}</option>
+                      ))}
+                    </optgroup>
+                  ))}
+                </select>
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Y-Axis Variable</label>
+                <select
+                  value={yVariable}
+                  onChange={(e) => setYVariable(e.target.value as ColorVariable)}
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md text-sm"
+                >
+                  {variablesByCategory.map(cat => (
+                    <optgroup key={cat.id} label={`${cat.icon} ${cat.name}`}>
+                      {cat.variables.map(v => (
+                        <option key={v.id} value={v.id}>{v.name}</option>
+                      ))}
+                    </optgroup>
+                  ))}
+                </select>
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Color By</label>
+                <select
+                  value={colorBy}
+                  onChange={(e) => setColorBy(e.target.value as 'religion' | 'region')}
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md text-sm"
+                >
+                  <option value="religion">Religion</option>
+                  <option value="region">Region</option>
+                </select>
+              </div>
+            </div>
+
+            {/* Correlation Stats */}
+            <div className="flex flex-wrap gap-4 mb-4">
+              <div className="bg-gray-50 rounded-lg px-4 py-2">
+                <span className="text-sm text-gray-500">Countries with data:</span>
+                <span className="ml-2 font-semibold">{correlationData.length}</span>
+              </div>
+              {correlation !== null && (
+                <div className={`rounded-lg px-4 py-2 ${
+                  Math.abs(correlation) > 0.7 ? 'bg-green-50' :
+                  Math.abs(correlation) > 0.4 ? 'bg-yellow-50' : 'bg-gray-50'
+                }`}>
+                  <span className="text-sm text-gray-500">Correlation (r):</span>
+                  <span className={`ml-2 font-semibold ${
+                    Math.abs(correlation) > 0.7 ? 'text-green-700' :
+                    Math.abs(correlation) > 0.4 ? 'text-yellow-700' : 'text-gray-700'
+                  }`}>
+                    {correlation.toFixed(3)}
+                    {Math.abs(correlation) > 0.7 ? ' (Strong)' :
+                     Math.abs(correlation) > 0.4 ? ' (Moderate)' : ' (Weak)'}
+                  </span>
+                </div>
+              )}
+            </div>
+
+            {/* Scatter Plot */}
+            <div className="h-[500px]">
+              <ResponsiveContainer width="100%" height="100%">
+                <ScatterChart margin={{ top: 20, right: 20, bottom: 60, left: 80 }}>
+                  <CartesianGrid strokeDasharray="3 3" />
+                  <XAxis
+                    type="number"
+                    dataKey="x"
+                    name={VARIABLES[xVariable]?.name || xVariable}
+                    domain={['auto', 'auto']}
+                    label={{
+                      value: VARIABLES[xVariable]?.name || xVariable,
+                      position: 'bottom',
+                      offset: 40
+                    }}
+                    tickFormatter={(v) => {
+                      const config = VARIABLES[xVariable]
+                      if (config?.format) {
+                        const formatted = config.format(v)
+                        return formatted.replace(/[^\d.,]/g, '').slice(0, 6)
+                      }
+                      return v
+                    }}
+                  />
+                  <YAxis
+                    type="number"
+                    dataKey="y"
+                    name={VARIABLES[yVariable]?.name || yVariable}
+                    domain={['auto', 'auto']}
+                    label={{
+                      value: VARIABLES[yVariable]?.name || yVariable,
+                      angle: -90,
+                      position: 'left',
+                      offset: 60
+                    }}
+                    tickFormatter={(v) => {
+                      const config = VARIABLES[yVariable]
+                      if (config?.format) {
+                        const formatted = config.format(v)
+                        return formatted.replace(/[^\d.,]/g, '').slice(0, 6)
+                      }
+                      return v
+                    }}
+                  />
+                  <Tooltip
+                    content={({ payload }) => {
+                      if (!payload || payload.length === 0) return null
+                      const data = payload[0]?.payload
+                      if (!data) return null
+                      const xConfig = VARIABLES[xVariable]
+                      const yConfig = VARIABLES[yVariable]
+                      return (
+                        <div className="bg-white border border-gray-200 rounded p-3 shadow-lg">
+                          <p className="font-semibold text-gray-900">{data.name}</p>
+                          <p className="text-sm text-gray-600">
+                            {xConfig?.name}: {xConfig?.format(data.x) || data.x}
+                          </p>
+                          <p className="text-sm text-gray-600">
+                            {yConfig?.name}: {yConfig?.format(data.y) || data.y}
+                          </p>
+                          <p className="text-xs text-gray-400 mt-1">
+                            {colorBy === 'religion' ? data.religion : data.region}
+                          </p>
+                        </div>
+                      )
+                    }}
+                  />
+                  <Scatter name="Countries" data={correlationData}>
+                    {correlationData.map((entry, index) => (
+                      <Cell
+                        key={`cell-${index}`}
+                        fill={getColor(entry)}
+                      />
+                    ))}
+                  </Scatter>
+                </ScatterChart>
+              </ResponsiveContainer>
+            </div>
+
+            {/* Legend */}
+            <div className="mt-4 pt-4 border-t border-gray-200">
+              <p className="text-xs text-gray-500 mb-2">
+                Points colored by {colorBy === 'religion' ? 'major religion' : 'region'}:
+              </p>
+              <div className="flex flex-wrap gap-3">
+                {Object.entries(colorBy === 'religion' ? religionColors : regionColors).map(([label, color]) => (
+                  <div key={label} className="flex items-center gap-1.5">
+                    <div className="w-3 h-3 rounded-full" style={{ backgroundColor: color }} />
+                    <span className="text-xs text-gray-600">{label}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Quick Presets */}
+            <div className="mt-4 pt-4 border-t border-gray-200">
+              <p className="text-xs text-gray-500 mb-2">Interesting correlations to explore:</p>
+              <div className="flex flex-wrap gap-2">
+                {[
+                  { x: 'health.penisSize', y: 'education.avgIQ', label: 'Penis Size vs IQ' },
+                  { x: 'lifestyle.happinessIndex', y: 'poverty.gdpPerCapita', label: 'Happiness vs Wealth' },
+                  { x: 'sex.lgbtAcceptance', y: 'democracy.score', label: 'LGBT Acceptance vs Democracy' },
+                  { x: 'health.alcoholConsumption', y: 'lifestyle.happinessIndex', label: 'Alcohol vs Happiness' },
+                  { x: 'education.avgIQ', y: 'freedom.corruptionIndex', label: 'IQ vs Corruption' },
+                  { x: 'health.obesityRate', y: 'poverty.gdpPerCapita', label: 'Obesity vs Wealth' },
+                  { x: 'lifestyle.coffeeConsumption', y: 'education.avgIQ', label: 'Coffee vs IQ' },
+                  { x: 'sex.sexualPartners', y: 'sex.lgbtAcceptance', label: 'Partners vs LGBT Acceptance' },
+                ].map((preset) => (
+                  <button
+                    key={preset.label}
+                    onClick={() => {
+                      setXVariable(preset.x as ColorVariable)
+                      setYVariable(preset.y as ColorVariable)
+                    }}
+                    className="px-3 py-1 text-xs bg-gray-100 hover:bg-gray-200 rounded-full text-gray-700 transition-colors"
+                  >
+                    {preset.label}
+                  </button>
+                ))}
+              </div>
+            </div>
+          </div>
+        )}
 
         {/* Rankings Chart */}
         {selectedChart === 'ranking' && (
