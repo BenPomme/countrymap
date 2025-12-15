@@ -2,6 +2,7 @@
 
 import { useState, useMemo } from 'react'
 import dynamic from 'next/dynamic'
+import Link from 'next/link'
 import type { Country, CountryFilters, ColorVariable } from '@/types/country'
 import { filterCountries } from '@/lib/data'
 import FilterPanel from '@/components/filters/FilterPanel'
@@ -46,13 +47,13 @@ export default function HomePage() {
             </div>
           </div>
           <nav className="flex items-center gap-4">
-            <a
+            <Link
               href="/charts"
               className="flex items-center gap-2 px-4 py-2 text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-md transition-colors"
             >
               <BarChart2 className="w-4 h-4" />
               Charts
-            </a>
+            </Link>
             <button className="flex items-center gap-2 px-4 py-2 text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-md transition-colors">
               <Info className="w-4 h-4" />
               About Data
