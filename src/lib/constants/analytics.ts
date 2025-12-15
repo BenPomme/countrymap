@@ -11,7 +11,7 @@ export const ANALYTICS_CONFIG = {
    * Go to: Admin > Data Streams > Web > Measurement ID (starts with G-)
    */
   googleAnalytics: {
-    measurementId: '', // e.g., 'G-XXXXXXXXXX'
+    measurementId: 'G-4JYNSX3JXM',
   },
 
   /**
