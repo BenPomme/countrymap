@@ -87,6 +87,33 @@ export default function PrivacyPolicyPage() {
             </section>
 
             <section className="mb-8">
+              <h2 className="text-xl font-semibold text-gray-900 mb-4">Analytics and Tracking</h2>
+              <p className="text-gray-700 mb-4">
+                We use the following analytics and tracking services to understand how visitors use our website:
+              </p>
+              <ul className="list-disc pl-6 text-gray-700 space-y-2 mb-4">
+                <li>
+                  <strong>Google Analytics 4:</strong> Tracks page views, user behavior, and traffic sources.{' '}
+                  <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-800 underline">
+                    Google Privacy Policy
+                  </a>
+                </li>
+                <li>
+                  <strong>Meta (Facebook) Pixel:</strong> Tracks conversions and enables advertising on Meta platforms.{' '}
+                  <a href="https://www.facebook.com/privacy/policy/" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-800 underline">
+                    Meta Privacy Policy
+                  </a>
+                </li>
+                <li>
+                  <strong>TikTok Pixel:</strong> Tracks conversions and enables advertising on TikTok.{' '}
+                  <a href="https://www.tiktok.com/legal/privacy-policy" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-800 underline">
+                    TikTok Privacy Policy
+                  </a>
+                </li>
+              </ul>
+            </section>
+
+            <section className="mb-8">
               <h2 className="text-xl font-semibold text-gray-900 mb-4">Third-Party Advertising</h2>
               <p className="text-gray-700 mb-4">
                 We use Google AdSense to display advertisements on our website. Google AdSense uses cookies
