@@ -15,8 +15,9 @@ export interface QuizQuestion {
   categoryIcon: string
 }
 
-// Variables that make for interesting questions (excluding some that might be too sensitive or boring)
+// Variables that make for interesting questions - includes all available data
 const QUIZ_VARIABLES = [
+  // Lifestyle
   'lifestyle.happinessIndex',
   'lifestyle.coffeeConsumption',
   'lifestyle.beerConsumption',
@@ -28,41 +29,73 @@ const QUIZ_VARIABLES = [
   'lifestyle.internetPenetration',
   'lifestyle.videoGamePlayers',
   'lifestyle.tattooRate',
+  'lifestyle.screenTime',
+  // Health & Body
   'health.lifeExpectancy',
   'health.maleHeight',
   'health.obesityRate',
   'health.alcoholConsumption',
   'health.sleepDuration',
   'health.plasticSurgeryRate',
+  'health.fertilityRate',
+  'health.penisSize',
+  'health.breastSize',
+  'health.suicideRate',
+  'health.diabetesRate',
+  'health.airPollution',
+  // Sex & Relationships
+  'sex.sexualPartners',
+  'sex.ageFirstSex',
+  'sex.divorceRate',
+  'sex.lgbtAcceptance',
+  'sex.datingAppUsage',
+  'sex.onlyfansCreators',
+  'sex.pornConsumption',
+  'sex.consanguinityRate',
+  // Education
   'education.avgIQ',
   'education.pisaMath',
+  'education.literacyRate',
   'education.nobelPrizesPerCapita',
   'education.chessGrandmasters',
   'education.englishProficiency',
+  // Economy
   'economy.touristArrivals',
   'economy.mcdonaldsPerCapita',
   'economy.starbucksPerCapita',
   'economy.billionairesPerCapita',
+  'economy.millionairesPerCapita',
   'economy.startupUnicorns',
   'economy.evAdoption',
+  'economy.renewableEnergy',
   'poverty.gdpPerCapita',
+  'poverty.hdi',
+  // Governance
   'democracy.score',
   'freedom.corruptionIndex',
   'freedom.pressFreedom',
   'freedom.cryptoAdoption',
+  'gender.wblIndex',
+  // Safety
   'crime.safetyIndex',
+  'crime.homicideRate',
   'crime.gunOwnership',
+  'conflict.peaceIndex',
+  // Transport
   'transport.carOwnership',
   'transport.bicycleUsage',
+  'transport.averageCommute',
+  'transport.trafficIndex',
+  // Demographics
   'demographics.medianAge',
   'demographics.urbanPopulation',
   'demographics.ethnicDiversity',
+  'demographics.immigrationRate',
+  'demographics.twinBirthRate',
+  // Environment
   'environment.co2PerCapita',
   'environment.recyclingRate',
   'environment.forestCoverage',
-  'sex.lgbtAcceptance',
-  'sex.datingAppUsage',
-  'health.fertilityRate',
 ] as const
 
 // Fun facts templates for different variables
@@ -111,6 +144,36 @@ const FUN_FACTS: Record<string, string[]> = {
     'The Netherlands has more bikes than people.',
     'Copenhagen has more bikes than cars in the city center.',
     'Amsterdam has over 800,000 bicycles.',
+  ],
+  'health.penisSize': [
+    'Studies show significant variation exists across different regions.',
+    'Self-reported data tends to be larger than clinically measured data.',
+    'Average erect length globally is approximately 13-14 cm.',
+  ],
+  'health.breastSize': [
+    'Breast size varies significantly with body weight and genetics.',
+    'The US and UK have some of the largest average cup sizes.',
+    'Cup sizes have been increasing over the past few decades globally.',
+  ],
+  'sex.ageFirstSex': [
+    'Northern European countries often have lower ages of first sex.',
+    'Asian countries tend to have higher ages of first sexual activity.',
+    'The global average age is around 17-18 years old.',
+  ],
+  'sex.sexualPartners': [
+    'Cultural and religious factors heavily influence these statistics.',
+    'Urban populations typically report more partners than rural.',
+    'Numbers vary significantly by gender in surveys.',
+  ],
+  'health.fertilityRate': [
+    'Replacement level fertility is about 2.1 children per woman.',
+    'Niger has the highest fertility rate at over 7 children per woman.',
+    'South Korea has one of the lowest fertility rates in the world.',
+  ],
+  'sex.divorceRate': [
+    'The Maldives has historically had the highest divorce rate.',
+    'Divorce rates have been declining in many Western countries.',
+    'Religious and cultural factors significantly affect divorce rates.',
   ],
 }
 

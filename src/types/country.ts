@@ -42,7 +42,7 @@ export interface HealthData {
   femaleHeight: number | null // cm
   obesityRate: number | null // % of adults
   penisSize: number | null // cm (erect average)
-  breastSize: string | null // cup size letter
+  breastSize: number | null // cup size numeric (1=AA, 2=A, 3=B, 4=C, 5=D)
   fertilityRate: number | null // children per woman
   infantMortality: number | null // per 1,000 live births
   cancerRate: number | null // per 100,000
@@ -270,6 +270,7 @@ export type ColorVariable =
   | 'health.maleHeight'
   | 'health.obesityRate'
   | 'health.penisSize'
+  | 'health.breastSize'
   | 'health.fertilityRate'
   | 'health.alcoholConsumption'
   | 'health.suicideRate'
@@ -280,6 +281,7 @@ export type ColorVariable =
   | 'health.airPollution'
   // Sex
   | 'sex.sexualPartners'
+  | 'sex.ageFirstSex'
   | 'sex.divorceRate'
   | 'sex.lgbtAcceptance'
   | 'sex.datingAppUsage'

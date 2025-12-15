@@ -248,6 +248,21 @@ export const VARIABLES: Record<ColorVariable, VariableConfig> = {
     format: (v) => v !== null ? `${(v as number).toFixed(1)} cm` : 'N/A',
     higherIsBetter: true,
   },
+  'health.breastSize': {
+    id: 'health.breastSize',
+    name: 'Average Breast Size',
+    description: 'Average breast cup size (1=AA, 2=A, 3=B, 4=C, 5=D)',
+    category: 'health',
+    type: 'numeric',
+    domain: [1, 5],
+    colorScheme: 'interpolatePuRd',
+    format: (v) => {
+      if (v === null) return 'N/A'
+      const cups = ['', 'AA', 'A', 'B', 'C', 'D', 'DD']
+      return cups[Math.round(v as number)] || `${(v as number).toFixed(1)}`
+    },
+    higherIsBetter: true,
+  },
   'health.fertilityRate': {
     id: 'health.fertilityRate',
     name: 'Fertility Rate',
@@ -347,6 +362,17 @@ export const VARIABLES: Record<ColorVariable, VariableConfig> = {
     domain: [0, 15],
     colorScheme: 'interpolatePuRd',
     format: (v) => v !== null ? `${(v as number).toFixed(1)} partners` : 'N/A',
+    higherIsBetter: true,
+  },
+  'sex.ageFirstSex': {
+    id: 'sex.ageFirstSex',
+    name: 'Age of First Sex',
+    description: 'Average age of first sexual intercourse',
+    category: 'sex',
+    type: 'numeric',
+    domain: [15, 24],
+    colorScheme: 'interpolateBlues',
+    format: (v) => v !== null ? `${(v as number).toFixed(1)} years` : 'N/A',
     higherIsBetter: true,
   },
   'sex.divorceRate': {
