@@ -1,16 +1,17 @@
 'use client'
 
-import { useState, useMemo } from 'react'
+import { useState, useMemo, useRef } from 'react'
 import dynamic from 'next/dynamic'
 import Link from 'next/link'
 import type { Country, CountryFilters, ColorVariable } from '@/types/country'
 import { filterCountries } from '@/lib/data'
 import FilterPanel from '@/components/filters/FilterPanel'
-import { DEFAULT_VARIABLE } from '@/lib/constants/variables'
-import { BarChart2, Globe, Info, X, Menu, SlidersHorizontal, HelpCircle } from 'lucide-react'
+import { DEFAULT_VARIABLE, VARIABLES } from '@/lib/constants/variables'
+import { BarChart2, Globe, Info, X, Menu, SlidersHorizontal, HelpCircle, Share2 } from 'lucide-react'
 import countriesData from '../../data/countries.json'
 import { AdBanner, AdSidebar } from '@/components/ads'
 import { AD_SLOTS } from '@/lib/constants/ads'
+import { VisualShare } from '@/components/share'
 
 // Dynamic import for map to avoid SSR issues
 const WorldMap = dynamic(() => import('@/components/maps/WorldMap'), {
@@ -29,8 +30,10 @@ export default function HomePage() {
   const [showDataSources, setShowDataSources] = useState(false)
   const [showMobileMenu, setShowMobileMenu] = useState(false)
   const [showMobileFilters, setShowMobileFilters] = useState(false)
+  const mapContainerRef = useRef<HTMLDivElement>(null)
 
   const countries = countriesData as Country[]
+  const currentVariable = VARIABLES[colorVariable]
 
   const filteredCountries = useMemo(
     () => filterCountries(countries, filters),
@@ -75,6 +78,11 @@ export default function HomePage() {
               <Info className="w-4 h-4" />
               Data Sources
             </button>
+            <VisualShare
+              targetRef={mapContainerRef}
+              title={`World Map - ${currentVariable?.name || 'Data'}`}
+              description={`Check out this world map showing ${currentVariable?.name || 'country data'} on The World Truth Map!`}
+            />
           </nav>
 
           {/* Mobile Menu Button */}
@@ -115,6 +123,12 @@ export default function HomePage() {
               <Info className="w-4 h-4" />
               Data Sources
             </button>
+            <VisualShare
+              targetRef={mapContainerRef}
+              title={`World Map - ${currentVariable?.name || 'Data'}`}
+              description={`Check out this world map showing ${currentVariable?.name || 'country data'} on The World Truth Map!`}
+              className="w-full justify-center"
+            />
           </nav>
         )}
       </header>
@@ -153,12 +167,14 @@ export default function HomePage() {
 
         {/* Map Area */}
         <div className="flex-1 relative bg-gray-50">
-          <WorldMap
-            countries={countries}
-            filteredCountries={filteredCountries}
-            colorVariable={colorVariable}
-            onCountryClick={setSelectedCountry}
-          />
+          <div ref={mapContainerRef} className="w-full h-full">
+            <WorldMap
+              countries={countries}
+              filteredCountries={filteredCountries}
+              colorVariable={colorVariable}
+              onCountryClick={setSelectedCountry}
+            />
+          </div>
 
           {/* Mobile Filter Toggle Button */}
           <button

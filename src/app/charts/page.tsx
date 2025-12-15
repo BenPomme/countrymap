@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useMemo, useEffect, useCallback, Suspense } from 'react'
+import { useState, useMemo, useEffect, useCallback, Suspense, useRef } from 'react'
 import { useSearchParams, useRouter } from 'next/navigation'
 import Link from 'next/link'
 import {
@@ -21,6 +21,7 @@ import countriesData from '../../../data/countries.json'
 import { VARIABLES, VARIABLE_CATEGORIES } from '@/lib/constants/variables'
 import { AdBanner } from '@/components/ads'
 import { AD_SLOTS } from '@/lib/constants/ads'
+import { VisualShare } from '@/components/share'
 
 const religionColors: Record<string, string> = {
   'Christianity': '#3b82f6',
@@ -95,6 +96,7 @@ function ChartsContent() {
   const [colorBy, setColorBy] = useState<'religion' | 'region'>(initialColor)
   const [showShareMenu, setShowShareMenu] = useState(false)
   const [copied, setCopied] = useState(false)
+  const chartContainerRef = useRef<HTMLDivElement>(null)
 
   // Update URL when state changes
   const updateURL = useCallback(() => {
@@ -349,6 +351,12 @@ function ChartsContent() {
               )}
             </div>
 
+            <VisualShare
+              targetRef={chartContainerRef}
+              title={`Chart - ${getShareText().slice(0, 50)}`}
+              description={getShareText()}
+            />
+
             <Link
               href="/quiz"
               className="flex items-center gap-2 px-4 py-2 text-sm text-white bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 rounded-md transition-colors font-medium"
@@ -377,16 +385,12 @@ function ChartsContent() {
         {/* Mobile Navigation Dropdown */}
         {showMobileMenu && (
           <nav className="md:hidden mt-3 pt-3 border-t border-gray-200 flex flex-col gap-2">
-            <button
-              onClick={() => {
-                setShowShareMenu(!showShareMenu)
-                setShowMobileMenu(false)
-              }}
-              className="flex items-center gap-2 px-4 py-2 text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-md transition-colors text-left"
-            >
-              <Share2 className="w-4 h-4" />
-              Share
-            </button>
+            <VisualShare
+              targetRef={chartContainerRef}
+              title={`Chart - ${getShareText().slice(0, 50)}`}
+              description={getShareText()}
+              className="w-full justify-center"
+            />
             <Link
               href="/quiz"
               className="flex items-center gap-2 px-4 py-2 text-sm text-white bg-gradient-to-r from-purple-600 to-pink-600 rounded-md transition-colors font-medium"
@@ -519,6 +523,8 @@ function ChartsContent() {
           </button>
         </div>
 
+        {/* Chart Container for Screenshot */}
+        <div ref={chartContainerRef}>
         {/* Custom Correlation Chart */}
         {selectedChart === 'correlation' && (
           <div className="bg-white rounded-lg shadow-sm p-4 md:p-6">
@@ -963,6 +969,7 @@ function ChartsContent() {
             </div>
           </div>
         )}
+        </div>
 
         {/* Bottom Ad Banner */}
         <AdBanner slotId={AD_SLOTS.chartsInFeed} className="mt-6" />

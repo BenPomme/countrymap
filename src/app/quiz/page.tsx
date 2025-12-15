@@ -1,11 +1,12 @@
 'use client'
 
-import { useState, useEffect, useCallback } from 'react'
+import { useState, useEffect, useCallback, useRef } from 'react'
 import Link from 'next/link'
 import { Globe, Trophy, Share2, RotateCcw, ArrowRight, Check, X, Zap, Clock, Home, BarChart2 } from 'lucide-react'
 import type { Country } from '@/types/country'
 import { generateQuizQuestions, calculateScore, type QuizQuestion } from '@/lib/quiz/questionGenerator'
 import countriesData from '../../../data/countries.json'
+import { VisualShare } from '@/components/share'
 
 type GameState = 'start' | 'playing' | 'answered' | 'finished'
 
@@ -21,6 +22,7 @@ export default function QuizPage() {
   const [timeLeft, setTimeLeft] = useState(15)
   const [showTimer, setShowTimer] = useState(true)
   const [answers, setAnswers] = useState<boolean[]>([])
+  const resultsRef = useRef<HTMLDivElement>(null)
 
   const countries = countriesData as Country[]
 
@@ -228,7 +230,7 @@ export default function QuizPage() {
 
         {/* Results Content */}
         <div className="flex-1 flex items-center justify-center p-4">
-          <div className="bg-white rounded-2xl shadow-2xl p-8 max-w-md w-full text-center">
+          <div ref={resultsRef} className="bg-white rounded-2xl shadow-2xl p-8 max-w-md w-full text-center">
             <div className="text-5xl mb-4">
               {grade === 'S' || grade === 'A' ? '🏆' : grade === 'B' || grade === 'C' ? '🎉' : '📚'}
             </div>
@@ -278,13 +280,12 @@ export default function QuizPage() {
 
             {/* Action Buttons */}
             <div className="space-y-3">
-              <button
-                onClick={shareResults}
-                className="w-full px-6 py-3 bg-gradient-to-r from-blue-500 to-purple-600 text-white font-semibold rounded-lg hover:opacity-90 transition-all flex items-center justify-center gap-2"
-              >
-                <Share2 className="w-5 h-5" />
-                Share Results
-              </button>
+              <VisualShare
+                targetRef={resultsRef}
+                title={`Quiz Results - Grade ${grade}`}
+                description={`I scored ${score}% (Grade: ${grade}) on The Truth Quiz! ${correctAnswers}/${questions.length} correct answers, max streak: ${maxStreak}. Can you beat my score?`}
+                className="w-full px-6 py-3 bg-gradient-to-r from-blue-500 to-purple-600 text-white font-semibold rounded-lg hover:opacity-90 transition-all justify-center"
+              />
               <button
                 onClick={startGame}
                 className="w-full px-6 py-3 bg-gray-100 text-gray-700 font-semibold rounded-lg hover:bg-gray-200 transition-all flex items-center justify-center gap-2"
