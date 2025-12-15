@@ -110,6 +110,12 @@ export default function PrivacyPolicyPage() {
                     TikTok Privacy Policy
                   </a>
                 </li>
+                <li>
+                  <strong>X (Twitter) Pixel:</strong> Tracks conversions and enables advertising on X (formerly Twitter).{' '}
+                  <a href="https://twitter.com/en/privacy" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-800 underline">
+                    X Privacy Policy
+                  </a>
+                </li>
               </ul>
             </section>
 

@@ -20,7 +20,7 @@ export const ANALYTICS_CONFIG = {
    * Go to: Tools > Conversions > New Conversion Action
    */
   googleAds: {
-    conversionId: '', // e.g., 'AW-XXXXXXXXXX'
+    conversionId: 'AW-17807031736',
   },
 
   /**
@@ -39,6 +39,15 @@ export const ANALYTICS_CONFIG = {
    */
   tiktokPixel: {
     pixelId: '', // e.g., 'XXXXXXXXXXXXXXXXXX'
+  },
+
+  /**
+   * X (Twitter) Pixel
+   * Get your Pixel ID from: https://ads.twitter.com/
+   * Go to: Tools > Events Manager > Add Event Source > Install Pixel
+   */
+  xPixel: {
+    pixelId: '', // e.g., 'XXXXX'
   },
 }
 
