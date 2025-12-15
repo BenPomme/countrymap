@@ -16,7 +16,7 @@ import {
   Cell,
 } from 'recharts'
 import type { Country, ColorVariable } from '@/types/country'
-import { Globe, ArrowLeft, Share2, Twitter, Facebook, Linkedin, Link2, Check, Menu } from 'lucide-react'
+import { Globe, ArrowLeft, Share2, Twitter, Facebook, Linkedin, Link2, Check, Menu, HelpCircle } from 'lucide-react'
 import countriesData from '../../../data/countries.json'
 import { VARIABLES, VARIABLE_CATEGORIES } from '@/lib/constants/variables'
 import { AdBanner } from '@/components/ads'
@@ -350,6 +350,13 @@ function ChartsContent() {
             </div>
 
             <Link
+              href="/quiz"
+              className="flex items-center gap-2 px-4 py-2 text-sm text-white bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 rounded-md transition-colors font-medium"
+            >
+              <HelpCircle className="w-4 h-4" />
+              Quiz
+            </Link>
+            <Link
               href="/"
               className="flex items-center gap-2 px-4 py-2 text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-md transition-colors"
             >
@@ -380,6 +387,14 @@ function ChartsContent() {
               <Share2 className="w-4 h-4" />
               Share
             </button>
+            <Link
+              href="/quiz"
+              className="flex items-center gap-2 px-4 py-2 text-sm text-white bg-gradient-to-r from-purple-600 to-pink-600 rounded-md transition-colors font-medium"
+              onClick={() => setShowMobileMenu(false)}
+            >
+              <HelpCircle className="w-4 h-4" />
+              Quiz
+            </Link>
             <Link
               href="/"
               className="flex items-center gap-2 px-4 py-2 text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-md transition-colors"

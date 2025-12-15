@@ -7,7 +7,7 @@ import type { Country, CountryFilters, ColorVariable } from '@/types/country'
 import { filterCountries } from '@/lib/data'
 import FilterPanel from '@/components/filters/FilterPanel'
 import { DEFAULT_VARIABLE } from '@/lib/constants/variables'
-import { BarChart2, Globe, Info, X, Menu, SlidersHorizontal } from 'lucide-react'
+import { BarChart2, Globe, Info, X, Menu, SlidersHorizontal, HelpCircle } from 'lucide-react'
 import countriesData from '../../data/countries.json'
 import { AdBanner, AdSidebar } from '@/components/ads'
 import { AD_SLOTS } from '@/lib/constants/ads'
@@ -61,6 +61,13 @@ export default function HomePage() {
               <BarChart2 className="w-4 h-4" />
               Charts
             </Link>
+            <Link
+              href="/quiz"
+              className="flex items-center gap-2 px-4 py-2 text-sm text-white bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 rounded-md transition-colors font-medium"
+            >
+              <HelpCircle className="w-4 h-4" />
+              Quiz
+            </Link>
             <button
               onClick={() => setShowDataSources(true)}
               className="flex items-center gap-2 px-4 py-2 text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-md transition-colors"
@@ -89,6 +96,14 @@ export default function HomePage() {
             >
               <BarChart2 className="w-4 h-4" />
               Charts
+            </Link>
+            <Link
+              href="/quiz"
+              className="flex items-center gap-2 px-4 py-2 text-sm text-white bg-gradient-to-r from-purple-600 to-pink-600 rounded-md transition-colors font-medium"
+              onClick={() => setShowMobileMenu(false)}
+            >
+              <HelpCircle className="w-4 h-4" />
+              Quiz
             </Link>
             <button
               onClick={() => {
