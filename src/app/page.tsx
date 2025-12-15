@@ -299,6 +299,15 @@ export default function HomePage() {
               <p className="mt-6 text-sm text-gray-500">
                 Data is aggregated from multiple authoritative sources. Coverage varies by country. Last updated: 2024.
               </p>
+              <div className="mt-4 pt-4 border-t border-gray-200">
+                <Link
+                  href="/privacy"
+                  className="text-sm text-blue-600 hover:text-blue-800"
+                  onClick={() => setShowDataSources(false)}
+                >
+                  Privacy Policy
+                </Link>
+              </div>
             </div>
           </div>
         </div>
