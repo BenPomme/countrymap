@@ -294,9 +294,9 @@
     "crime": {
       "homicideRate": null,
       "safetyIndex": null,
-      "incarcerationRate": null,
+      "incarcerationRate": 150,
       "policePerCapita": null,
-      "gunOwnership": null,
+      "gunOwnership": 7.6,
       "roadDeaths": null
     },
     "poverty": {
@@ -337,45 +337,69 @@
       "conflict": {
         "source": "UCDP / Global Peace Index",
         "year": 2024
+      },
+      "health": {
+        "source": "WHO / NCD-RisC",
+        "year": 2023
+      },
+      "demographics": {
+        "source": "UN / World Bank",
+        "year": 2023
+      },
+      "education": {
+        "source": "Various Studies / UNESCO",
+        "year": 2023
+      },
+      "lifestyle": {
+        "source": "World Happiness Report / ITU",
+        "year": 2024
+      },
+      "freedom": {
+        "source": "Transparency Int. / RSF",
+        "year": 2024
+      },
+      "sex": {
+        "source": "Various Studies / ILGA",
+        "year": 2023
       }
     },
     "health": {
-      "lifeExpectancy": null,
-      "maleHeight": null,
-      "femaleHeight": null,
-      "obesityRate": null,
+      "lifeExpectancy": 77.1,
+      "maleHeight": 172,
+      "femaleHeight": 161,
+      "obesityRate": 27.4,
       "penisSize": null,
       "breastSize": null,
-      "fertilityRate": null,
+      "fertilityRate": 2.94,
       "infantMortality": null,
       "cancerRate": null,
       "hivPrevalence": null,
-      "suicideRate": null,
-      "alcoholConsumption": null,
+      "suicideRate": 3.3,
+      "alcoholConsumption": 0.9,
       "smokingRate": null,
       "drugUseRate": null
     },
     "sex": {
-      "sexualPartners": null,
+      "sexualPartners": 2.5,
       "ageFirstSex": null,
-      "divorceRate": null,
+      "divorceRate": 1.8,
       "marriageAge": null,
       "singleParentRate": null,
       "contraceptionUse": null,
       "teenPregnancy": null,
-      "lgbtAcceptance": null
+      "lgbtAcceptance": 4
     },
     "demographics": {
-      "ethnicDiversity": null,
+      "ethnicDiversity": 0.34,
       "immigrationRate": null,
       "emigrationRate": null,
-      "medianAge": null,
-      "urbanPopulation": null,
+      "medianAge": 28.9,
+      "urbanPopulation": 73.7,
       "populationDensity": null
     },
     "education": {
-      "avgIQ": null,
-      "literacyRate": null,
+      "avgIQ": 83,
+      "literacyRate": 81.4,
       "universityEnrollment": null,
       "pisaMath": null,
       "pisaReading": null,
@@ -385,18 +409,18 @@
       "rdSpending": null
     },
     "lifestyle": {
-      "happinessIndex": null,
-      "workHoursWeek": null,
+      "happinessIndex": 5.39,
+      "workHoursWeek": 40,
       "vacationDays": null,
-      "internetPenetration": null,
+      "internetPenetration": 71,
       "socialMediaUse": null,
-      "coffeeConsumption": null,
+      "coffeeConsumption": 3.2,
       "meatConsumption": null,
       "vegetarianRate": null
     },
     "freedom": {
-      "corruptionIndex": null,
-      "pressFreedom": null,
+      "corruptionIndex": 33,
+      "pressFreedom": 27,
       "drugPolicyScore": null
     }
   },
@@ -544,9 +568,9 @@
     "crime": {
       "homicideRate": null,
       "safetyIndex": null,
-      "incarcerationRate": null,
+      "incarcerationRate": 44,
       "policePerCapita": null,
-      "gunOwnership": null,
+      "gunOwnership": 8,
       "roadDeaths": null
     },
     "poverty": {
@@ -587,21 +611,41 @@
       "conflict": {
         "source": "UCDP / Global Peace Index",
         "year": 2024
+      },
+      "health": {
+        "source": "WHO / NCD-RisC",
+        "year": 2023
+      },
+      "demographics": {
+        "source": "UN / World Bank",
+        "year": 2023
+      },
+      "education": {
+        "source": "Various Studies / UNESCO",
+        "year": 2023
+      },
+      "lifestyle": {
+        "source": "World Happiness Report / ITU",
+        "year": 2024
+      },
+      "freedom": {
+        "source": "Transparency Int. / RSF",
+        "year": 2024
       }
     },
     "health": {
-      "lifeExpectancy": null,
-      "maleHeight": null,
-      "femaleHeight": null,
-      "obesityRate": null,
+      "lifeExpectancy": 62.2,
+      "maleHeight": 166,
+      "femaleHeight": 157,
+      "obesityRate": 8.2,
       "penisSize": null,
       "breastSize": null,
-      "fertilityRate": null,
+      "fertilityRate": 5.37,
       "infantMortality": null,
       "cancerRate": null,
       "hivPrevalence": null,
-      "suicideRate": null,
-      "alcoholConsumption": null,
+      "suicideRate": 8,
+      "alcoholConsumption": 5.5,
       "smokingRate": null,
       "drugUseRate": null
     },
@@ -616,16 +660,16 @@
       "lgbtAcceptance": null
     },
     "demographics": {
-      "ethnicDiversity": null,
+      "ethnicDiversity": 0.79,
       "immigrationRate": null,
       "emigrationRate": null,
-      "medianAge": null,
-      "urbanPopulation": null,
+      "medianAge": 16.7,
+      "urbanPopulation": 67.5,
       "populationDensity": null
     },
     "education": {
-      "avgIQ": null,
-      "literacyRate": null,
+      "avgIQ": 68,
+      "literacyRate": 71.1,
       "universityEnrollment": null,
       "pisaMath": null,
       "pisaReading": null,
@@ -635,18 +679,18 @@
       "rdSpending": null
     },
     "lifestyle": {
-      "happinessIndex": null,
-      "workHoursWeek": null,
+      "happinessIndex": 4.47,
+      "workHoursWeek": 44,
       "vacationDays": null,
-      "internetPenetration": null,
+      "internetPenetration": 36,
       "socialMediaUse": null,
-      "coffeeConsumption": null,
+      "coffeeConsumption": 0.2,
       "meatConsumption": null,
       "vegetarianRate": null
     },
     "freedom": {
-      "corruptionIndex": null,
-      "pressFreedom": null,
+      "corruptionIndex": 33,
+      "pressFreedom": 44,
       "drugPolicyScore": null
     }
   },
@@ -1958,21 +2002,41 @@
       "conflict": {
         "source": "UCDP / Global Peace Index",
         "year": 2024
+      },
+      "health": {
+        "source": "WHO / NCD-RisC",
+        "year": 2023
+      },
+      "demographics": {
+        "source": "UN / World Bank",
+        "year": 2023
+      },
+      "education": {
+        "source": "Various Studies / UNESCO",
+        "year": 2023
+      },
+      "lifestyle": {
+        "source": "World Happiness Report / ITU",
+        "year": 2024
+      },
+      "freedom": {
+        "source": "Transparency Int. / RSF",
+        "year": 2024
       }
     },
     "health": {
-      "lifeExpectancy": null,
-      "maleHeight": null,
-      "femaleHeight": null,
-      "obesityRate": null,
+      "lifeExpectancy": 60,
+      "maleHeight": 168,
+      "femaleHeight": 159,
+      "obesityRate": 9.6,
       "penisSize": null,
       "breastSize": null,
-      "fertilityRate": null,
+      "fertilityRate": 4.95,
       "infantMortality": null,
       "cancerRate": null,
       "hivPrevalence": null,
-      "suicideRate": null,
-      "alcoholConsumption": null,
+      "suicideRate": 9.9,
+      "alcoholConsumption": 2.1,
       "smokingRate": null,
       "drugUseRate": null
     },
@@ -1987,16 +2051,16 @@
       "lgbtAcceptance": null
     },
     "demographics": {
-      "ethnicDiversity": null,
+      "ethnicDiversity": 0.79,
       "immigrationRate": null,
       "emigrationRate": null,
-      "medianAge": null,
-      "urbanPopulation": null,
+      "medianAge": 18.8,
+      "urbanPopulation": 49,
       "populationDensity": null
     },
     "education": {
-      "avgIQ": null,
-      "literacyRate": null,
+      "avgIQ": 70,
+      "literacyRate": 42.4,
       "universityEnrollment": null,
       "pisaMath": null,
       "pisaReading": null,
@@ -2006,18 +2070,18 @@
       "rdSpending": null
     },
     "lifestyle": {
-      "happinessIndex": null,
-      "workHoursWeek": null,
+      "happinessIndex": 4.88,
+      "workHoursWeek": 45,
       "vacationDays": null,
-      "internetPenetration": null,
+      "internetPenetration": 28,
       "socialMediaUse": null,
-      "coffeeConsumption": null,
+      "coffeeConsumption": 0.1,
       "meatConsumption": null,
       "vegetarianRate": null
     },
     "freedom": {
-      "corruptionIndex": null,
-      "pressFreedom": null,
+      "corruptionIndex": 42,
+      "pressFreedom": 54,
       "drugPolicyScore": null
     }
   },
@@ -2431,9 +2495,9 @@
     "crime": {
       "homicideRate": null,
       "safetyIndex": null,
-      "incarcerationRate": null,
+      "incarcerationRate": 218,
       "policePerCapita": null,
-      "gunOwnership": null,
+      "gunOwnership": 5.5,
       "roadDeaths": null
     },
     "poverty": {
@@ -2474,45 +2538,69 @@
       "conflict": {
         "source": "UCDP / Global Peace Index",
         "year": 2024
+      },
+      "health": {
+        "source": "WHO / NCD-RisC",
+        "year": 2023
+      },
+      "demographics": {
+        "source": "UN / World Bank",
+        "year": 2023
+      },
+      "education": {
+        "source": "Various Studies / UNESCO",
+        "year": 2023
+      },
+      "lifestyle": {
+        "source": "World Happiness Report / ITU",
+        "year": 2024
+      },
+      "freedom": {
+        "source": "Transparency Int. / RSF",
+        "year": 2024
+      },
+      "sex": {
+        "source": "Various Studies / ILGA",
+        "year": 2023
       }
     },
     "health": {
-      "lifeExpectancy": null,
-      "maleHeight": null,
-      "femaleHeight": null,
-      "obesityRate": null,
+      "lifeExpectancy": 61.1,
+      "maleHeight": 171,
+      "femaleHeight": 161,
+      "obesityRate": 18.9,
       "penisSize": null,
       "breastSize": null,
-      "fertilityRate": null,
+      "fertilityRate": 2.82,
       "infantMortality": null,
       "cancerRate": null,
       "hivPrevalence": null,
-      "suicideRate": null,
-      "alcoholConsumption": null,
+      "suicideRate": 9.6,
+      "alcoholConsumption": 8.4,
       "smokingRate": null,
       "drugUseRate": null
     },
     "sex": {
-      "sexualPartners": null,
+      "sexualPartners": 6.5,
       "ageFirstSex": null,
-      "divorceRate": null,
+      "divorceRate": 0.5,
       "marriageAge": null,
       "singleParentRate": null,
       "contraceptionUse": null,
       "teenPregnancy": null,
-      "lgbtAcceptance": null
+      "lgbtAcceptance": 21
     },
     "demographics": {
-      "ethnicDiversity": null,
+      "ethnicDiversity": 0.41,
       "immigrationRate": null,
       "emigrationRate": null,
-      "medianAge": null,
-      "urbanPopulation": null,
+      "medianAge": 24.5,
+      "urbanPopulation": 71.6,
       "populationDensity": null
     },
     "education": {
-      "avgIQ": null,
-      "literacyRate": null,
+      "avgIQ": 70,
+      "literacyRate": 88.5,
       "universityEnrollment": null,
       "pisaMath": null,
       "pisaReading": null,
@@ -2522,18 +2610,18 @@
       "rdSpending": null
     },
     "lifestyle": {
-      "happinessIndex": null,
-      "workHoursWeek": null,
+      "happinessIndex": 3.43,
+      "workHoursWeek": 45,
       "vacationDays": null,
-      "internetPenetration": null,
+      "internetPenetration": 72,
       "socialMediaUse": null,
-      "coffeeConsumption": null,
+      "coffeeConsumption": 0.3,
       "meatConsumption": null,
       "vegetarianRate": null
     },
     "freedom": {
-      "corruptionIndex": null,
-      "pressFreedom": null,
+      "corruptionIndex": 55,
+      "pressFreedom": 64,
       "drugPolicyScore": null
     }
   },
@@ -3017,21 +3105,41 @@
       "conflict": {
         "source": "UCDP / Global Peace Index",
         "year": 2024
+      },
+      "health": {
+        "source": "WHO / NCD-RisC",
+        "year": 2023
+      },
+      "demographics": {
+        "source": "UN / World Bank",
+        "year": 2023
+      },
+      "education": {
+        "source": "Various Studies / UNESCO",
+        "year": 2023
+      },
+      "lifestyle": {
+        "source": "World Happiness Report / ITU",
+        "year": 2024
+      },
+      "freedom": {
+        "source": "Transparency Int. / RSF",
+        "year": 2024
       }
     },
     "health": {
-      "lifeExpectancy": null,
-      "maleHeight": null,
-      "femaleHeight": null,
-      "obesityRate": null,
+      "lifeExpectancy": 59.3,
+      "maleHeight": 169,
+      "femaleHeight": 161,
+      "obesityRate": 5.6,
       "penisSize": null,
       "breastSize": null,
-      "fertilityRate": null,
+      "fertilityRate": 4.89,
       "infantMortality": null,
       "cancerRate": null,
       "hivPrevalence": null,
-      "suicideRate": null,
-      "alcoholConsumption": null,
+      "suicideRate": 12,
+      "alcoholConsumption": 4.5,
       "smokingRate": null,
       "drugUseRate": null
     },
@@ -3046,16 +3154,16 @@
       "lgbtAcceptance": null
     },
     "demographics": {
-      "ethnicDiversity": null,
+      "ethnicDiversity": 0.74,
       "immigrationRate": null,
       "emigrationRate": null,
-      "medianAge": null,
-      "urbanPopulation": null,
+      "medianAge": 17.6,
+      "urbanPopulation": 31.5,
       "populationDensity": null
     },
     "education": {
-      "avgIQ": null,
-      "literacyRate": null,
+      "avgIQ": 68,
+      "literacyRate": 41.2,
       "universityEnrollment": null,
       "pisaMath": null,
       "pisaReading": null,
@@ -3065,18 +3173,18 @@
       "rdSpending": null
     },
     "lifestyle": {
-      "happinessIndex": null,
-      "workHoursWeek": null,
+      "happinessIndex": 4.83,
+      "workHoursWeek": 46,
       "vacationDays": null,
-      "internetPenetration": null,
+      "internetPenetration": 21,
       "socialMediaUse": null,
-      "coffeeConsumption": null,
+      "coffeeConsumption": 0.1,
       "meatConsumption": null,
       "vegetarianRate": null
     },
     "freedom": {
-      "corruptionIndex": null,
-      "pressFreedom": null,
+      "corruptionIndex": 41,
+      "pressFreedom": 52,
       "drugPolicyScore": null
     }
   },
@@ -3146,21 +3254,41 @@
       "conflict": {
         "source": "UCDP / Global Peace Index",
         "year": 2024
+      },
+      "health": {
+        "source": "WHO / NCD-RisC",
+        "year": 2023
+      },
+      "demographics": {
+        "source": "UN / World Bank",
+        "year": 2023
+      },
+      "education": {
+        "source": "Various Studies / UNESCO",
+        "year": 2023
+      },
+      "lifestyle": {
+        "source": "World Happiness Report / ITU",
+        "year": 2024
+      },
+      "freedom": {
+        "source": "Transparency Int. / RSF",
+        "year": 2024
       }
     },
     "health": {
-      "lifeExpectancy": null,
-      "maleHeight": null,
-      "femaleHeight": null,
-      "obesityRate": null,
+      "lifeExpectancy": 61.7,
+      "maleHeight": 165,
+      "femaleHeight": 155,
+      "obesityRate": 5.4,
       "penisSize": null,
       "breastSize": null,
-      "fertilityRate": null,
+      "fertilityRate": 5.2,
       "infantMortality": null,
       "cancerRate": null,
       "hivPrevalence": null,
-      "suicideRate": null,
-      "alcoholConsumption": null,
+      "suicideRate": 7.5,
+      "alcoholConsumption": 7,
       "smokingRate": null,
       "drugUseRate": null
     },
@@ -3175,16 +3303,16 @@
       "lgbtAcceptance": null
     },
     "demographics": {
-      "ethnicDiversity": null,
+      "ethnicDiversity": 0.3,
       "immigrationRate": null,
       "emigrationRate": null,
-      "medianAge": null,
-      "urbanPopulation": null,
+      "medianAge": 17.3,
+      "urbanPopulation": 14,
       "populationDensity": null
     },
     "education": {
-      "avgIQ": null,
-      "literacyRate": null,
+      "avgIQ": 69,
+      "literacyRate": 68.4,
       "universityEnrollment": null,
       "pisaMath": null,
       "pisaReading": null,
@@ -3194,18 +3322,18 @@
       "rdSpending": null
     },
     "lifestyle": {
-      "happinessIndex": null,
-      "workHoursWeek": null,
+      "happinessIndex": 3.78,
+      "workHoursWeek": 44,
       "vacationDays": null,
-      "internetPenetration": null,
+      "internetPenetration": 5.8,
       "socialMediaUse": null,
-      "coffeeConsumption": null,
+      "coffeeConsumption": 0.1,
       "meatConsumption": null,
       "vegetarianRate": null
     },
     "freedom": {
-      "corruptionIndex": null,
-      "pressFreedom": null,
+      "corruptionIndex": 17,
+      "pressFreedom": 26,
       "drugPolicyScore": null
     }
   },
@@ -3362,9 +3490,9 @@
     "crime": {
       "homicideRate": null,
       "safetyIndex": null,
-      "incarcerationRate": null,
+      "incarcerationRate": 78,
       "policePerCapita": null,
-      "gunOwnership": null,
+      "gunOwnership": 5.1,
       "roadDeaths": null
     },
     "poverty": {
@@ -3405,21 +3533,41 @@
       "conflict": {
         "source": "UCDP / Global Peace Index",
         "year": 2024
+      },
+      "health": {
+        "source": "WHO / NCD-RisC",
+        "year": 2023
+      },
+      "demographics": {
+        "source": "UN / World Bank",
+        "year": 2023
+      },
+      "education": {
+        "source": "Various Studies / UNESCO",
+        "year": 2023
+      },
+      "lifestyle": {
+        "source": "World Happiness Report / ITU",
+        "year": 2024
+      },
+      "freedom": {
+        "source": "Transparency Int. / RSF",
+        "year": 2024
       }
     },
     "health": {
-      "lifeExpectancy": null,
-      "maleHeight": null,
-      "femaleHeight": null,
-      "obesityRate": null,
+      "lifeExpectancy": 60.3,
+      "maleHeight": 170,
+      "femaleHeight": 160,
+      "obesityRate": 11.4,
       "penisSize": null,
       "breastSize": null,
-      "fertilityRate": null,
+      "fertilityRate": 4.5,
       "infantMortality": null,
       "cancerRate": null,
       "hivPrevalence": null,
-      "suicideRate": null,
-      "alcoholConsumption": null,
+      "suicideRate": 12.2,
+      "alcoholConsumption": 6.3,
       "smokingRate": null,
       "drugUseRate": null
     },
@@ -3434,16 +3582,16 @@
       "lgbtAcceptance": null
     },
     "demographics": {
-      "ethnicDiversity": null,
+      "ethnicDiversity": 0.86,
       "immigrationRate": null,
       "emigrationRate": null,
-      "medianAge": null,
-      "urbanPopulation": null,
+      "medianAge": 18.7,
+      "urbanPopulation": 58.1,
       "populationDensity": null
     },
     "education": {
-      "avgIQ": null,
-      "literacyRate": null,
+      "avgIQ": 64,
+      "literacyRate": 77.1,
       "universityEnrollment": null,
       "pisaMath": null,
       "pisaReading": null,
@@ -3453,18 +3601,18 @@
       "rdSpending": null
     },
     "lifestyle": {
-      "happinessIndex": null,
-      "workHoursWeek": null,
+      "happinessIndex": 5.27,
+      "workHoursWeek": 45,
       "vacationDays": null,
-      "internetPenetration": null,
+      "internetPenetration": 45,
       "socialMediaUse": null,
-      "coffeeConsumption": null,
+      "coffeeConsumption": 0.3,
       "meatConsumption": null,
       "vegetarianRate": null
     },
     "freedom": {
-      "corruptionIndex": null,
-      "pressFreedom": null,
+      "corruptionIndex": 26,
+      "pressFreedom": 27,
       "drugPolicyScore": null
     }
   },
@@ -3688,21 +3836,41 @@
       "conflict": {
         "source": "UCDP / Global Peace Index",
         "year": 2024
+      },
+      "health": {
+        "source": "WHO / NCD-RisC",
+        "year": 2023
+      },
+      "demographics": {
+        "source": "UN / World Bank",
+        "year": 2023
+      },
+      "education": {
+        "source": "Various Studies / UNESCO",
+        "year": 2023
+      },
+      "lifestyle": {
+        "source": "World Happiness Report / ITU",
+        "year": 2024
+      },
+      "freedom": {
+        "source": "Transparency Int. / RSF",
+        "year": 2024
       }
     },
     "health": {
-      "lifeExpectancy": null,
-      "maleHeight": null,
-      "femaleHeight": null,
-      "obesityRate": null,
+      "lifeExpectancy": 54,
+      "maleHeight": 167,
+      "femaleHeight": 158,
+      "obesityRate": 7.5,
       "penisSize": null,
       "breastSize": null,
-      "fertilityRate": null,
+      "fertilityRate": 6.08,
       "infantMortality": null,
       "cancerRate": null,
       "hivPrevalence": null,
-      "suicideRate": null,
-      "alcoholConsumption": null,
+      "suicideRate": 11.8,
+      "alcoholConsumption": 3.8,
       "smokingRate": null,
       "drugUseRate": null
     },
@@ -3717,16 +3885,16 @@
       "lgbtAcceptance": null
     },
     "demographics": {
-      "ethnicDiversity": null,
+      "ethnicDiversity": 0.83,
       "immigrationRate": null,
       "emigrationRate": null,
-      "medianAge": null,
-      "urbanPopulation": null,
+      "medianAge": 17.6,
+      "urbanPopulation": 42.2,
       "populationDensity": null
     },
     "education": {
-      "avgIQ": null,
-      "literacyRate": null,
+      "avgIQ": 71,
+      "literacyRate": 37.4,
       "universityEnrollment": null,
       "pisaMath": null,
       "pisaReading": null,
@@ -3736,18 +3904,18 @@
       "rdSpending": null
     },
     "lifestyle": {
-      "happinessIndex": null,
-      "workHoursWeek": null,
+      "happinessIndex": 3.62,
+      "workHoursWeek": 46,
       "vacationDays": null,
-      "internetPenetration": null,
+      "internetPenetration": 11,
       "socialMediaUse": null,
-      "coffeeConsumption": null,
+      "coffeeConsumption": 0.1,
       "meatConsumption": null,
       "vegetarianRate": null
     },
     "freedom": {
-      "corruptionIndex": null,
-      "pressFreedom": null,
+      "corruptionIndex": 24,
+      "pressFreedom": 42,
       "drugPolicyScore": null
     }
   },
@@ -3818,21 +3986,41 @@
       "conflict": {
         "source": "UCDP / Global Peace Index",
         "year": 2024
+      },
+      "health": {
+        "source": "WHO / NCD-RisC",
+        "year": 2023
+      },
+      "demographics": {
+        "source": "UN / World Bank",
+        "year": 2023
+      },
+      "education": {
+        "source": "Various Studies / UNESCO",
+        "year": 2023
+      },
+      "lifestyle": {
+        "source": "World Happiness Report / ITU",
+        "year": 2024
+      },
+      "freedom": {
+        "source": "Transparency Int. / RSF",
+        "year": 2024
       }
     },
     "health": {
-      "lifeExpectancy": null,
-      "maleHeight": null,
-      "femaleHeight": null,
-      "obesityRate": null,
+      "lifeExpectancy": 52.5,
+      "maleHeight": 171,
+      "femaleHeight": 162,
+      "obesityRate": 6.1,
       "penisSize": null,
       "breastSize": null,
-      "fertilityRate": null,
+      "fertilityRate": 6.35,
       "infantMortality": null,
       "cancerRate": null,
       "hivPrevalence": null,
-      "suicideRate": null,
-      "alcoholConsumption": null,
+      "suicideRate": 9.5,
+      "alcoholConsumption": 4.4,
       "smokingRate": null,
       "drugUseRate": null
     },
@@ -3847,16 +4035,16 @@
       "lgbtAcceptance": null
     },
     "demographics": {
-      "ethnicDiversity": null,
+      "ethnicDiversity": 0.86,
       "immigrationRate": null,
       "emigrationRate": null,
-      "medianAge": null,
-      "urbanPopulation": null,
+      "medianAge": 16.1,
+      "urbanPopulation": 23.5,
       "populationDensity": null
     },
     "education": {
-      "avgIQ": null,
-      "literacyRate": null,
+      "avgIQ": 68,
+      "literacyRate": 22.3,
       "universityEnrollment": null,
       "pisaMath": null,
       "pisaReading": null,
@@ -3866,18 +4054,18 @@
       "rdSpending": null
     },
     "lifestyle": {
-      "happinessIndex": null,
-      "workHoursWeek": null,
+      "happinessIndex": 4.25,
+      "workHoursWeek": 46,
       "vacationDays": null,
-      "internetPenetration": null,
+      "internetPenetration": 13,
       "socialMediaUse": null,
-      "coffeeConsumption": null,
+      "coffeeConsumption": 0.1,
       "meatConsumption": null,
       "vegetarianRate": null
     },
     "freedom": {
-      "corruptionIndex": null,
-      "pressFreedom": null,
+      "corruptionIndex": 20,
+      "pressFreedom": 29,
       "drugPolicyScore": null
     }
   },
@@ -4376,21 +4564,41 @@
       "conflict": {
         "source": "UCDP / Global Peace Index",
         "year": 2024
+      },
+      "health": {
+        "source": "WHO / NCD-RisC",
+        "year": 2023
+      },
+      "demographics": {
+        "source": "UN / World Bank",
+        "year": 2023
+      },
+      "education": {
+        "source": "Various Studies / UNESCO",
+        "year": 2023
+      },
+      "lifestyle": {
+        "source": "World Happiness Report / ITU",
+        "year": 2024
+      },
+      "freedom": {
+        "source": "Transparency Int. / RSF",
+        "year": 2024
       }
     },
     "health": {
-      "lifeExpectancy": null,
-      "maleHeight": null,
-      "femaleHeight": null,
-      "obesityRate": null,
+      "lifeExpectancy": 60.7,
+      "maleHeight": 168,
+      "femaleHeight": 158,
+      "obesityRate": 6.7,
       "penisSize": null,
       "breastSize": null,
-      "fertilityRate": null,
+      "fertilityRate": 6.21,
       "infantMortality": null,
       "cancerRate": null,
       "hivPrevalence": null,
-      "suicideRate": null,
-      "alcoholConsumption": null,
+      "suicideRate": 6.5,
+      "alcoholConsumption": 3.6,
       "smokingRate": null,
       "drugUseRate": null
     },
@@ -4405,16 +4613,16 @@
       "lgbtAcceptance": null
     },
     "demographics": {
-      "ethnicDiversity": null,
+      "ethnicDiversity": 0.93,
       "immigrationRate": null,
       "emigrationRate": null,
-      "medianAge": null,
-      "urbanPopulation": null,
+      "medianAge": 17,
+      "urbanPopulation": 46.8,
       "populationDensity": null
     },
     "education": {
-      "avgIQ": null,
-      "literacyRate": null,
+      "avgIQ": 65,
+      "literacyRate": 77,
       "universityEnrollment": null,
       "pisaMath": null,
       "pisaReading": null,
@@ -4424,18 +4632,18 @@
       "rdSpending": null
     },
     "lifestyle": {
-      "happinessIndex": null,
-      "workHoursWeek": null,
+      "happinessIndex": 4.42,
+      "workHoursWeek": 45,
       "vacationDays": null,
-      "internetPenetration": null,
+      "internetPenetration": 23,
       "socialMediaUse": null,
-      "coffeeConsumption": null,
+      "coffeeConsumption": 0.2,
       "meatConsumption": null,
       "vegetarianRate": null
     },
     "freedom": {
-      "corruptionIndex": null,
-      "pressFreedom": null,
+      "corruptionIndex": 20,
+      "pressFreedom": 36,
       "drugPolicyScore": null
     }
   },
@@ -4506,21 +4714,41 @@
       "conflict": {
         "source": "UCDP / Global Peace Index",
         "year": 2024
+      },
+      "health": {
+        "source": "WHO / NCD-RisC",
+        "year": 2023
+      },
+      "demographics": {
+        "source": "UN / World Bank",
+        "year": 2023
+      },
+      "education": {
+        "source": "Various Studies / UNESCO",
+        "year": 2023
+      },
+      "lifestyle": {
+        "source": "World Happiness Report / ITU",
+        "year": 2024
+      },
+      "freedom": {
+        "source": "Transparency Int. / RSF",
+        "year": 2024
       }
     },
     "health": {
-      "lifeExpectancy": null,
-      "maleHeight": null,
-      "femaleHeight": null,
-      "obesityRate": null,
+      "lifeExpectancy": 63.5,
+      "maleHeight": 167,
+      "femaleHeight": 158,
+      "obesityRate": 9.6,
       "penisSize": null,
       "breastSize": null,
-      "fertilityRate": null,
+      "fertilityRate": 4.45,
       "infantMortality": null,
       "cancerRate": null,
       "hivPrevalence": null,
-      "suicideRate": null,
-      "alcoholConsumption": null,
+      "suicideRate": 8.3,
+      "alcoholConsumption": 4.2,
       "smokingRate": null,
       "drugUseRate": null
     },
@@ -4535,16 +4763,16 @@
       "lgbtAcceptance": null
     },
     "demographics": {
-      "ethnicDiversity": null,
+      "ethnicDiversity": 0.87,
       "immigrationRate": null,
       "emigrationRate": null,
-      "medianAge": null,
-      "urbanPopulation": null,
+      "medianAge": 19,
+      "urbanPopulation": 68.1,
       "populationDensity": null
     },
     "education": {
-      "avgIQ": null,
-      "literacyRate": null,
+      "avgIQ": 73,
+      "literacyRate": 80.3,
       "universityEnrollment": null,
       "pisaMath": null,
       "pisaReading": null,
@@ -4554,18 +4782,18 @@
       "rdSpending": null
     },
     "lifestyle": {
-      "happinessIndex": null,
-      "workHoursWeek": null,
+      "happinessIndex": 5.34,
+      "workHoursWeek": 44,
       "vacationDays": null,
-      "internetPenetration": null,
+      "internetPenetration": 21,
       "socialMediaUse": null,
-      "coffeeConsumption": null,
+      "coffeeConsumption": 0.2,
       "meatConsumption": null,
       "vegetarianRate": null
     },
     "freedom": {
-      "corruptionIndex": null,
-      "pressFreedom": null,
+      "corruptionIndex": 21,
+      "pressFreedom": 33,
       "drugPolicyScore": null
     }
   },
@@ -4765,21 +4993,41 @@
       "conflict": {
         "source": "UCDP / Global Peace Index",
         "year": 2024
+      },
+      "health": {
+        "source": "WHO / NCD-RisC",
+        "year": 2023
+      },
+      "demographics": {
+        "source": "UN / World Bank",
+        "year": 2023
+      },
+      "education": {
+        "source": "Various Studies / UNESCO",
+        "year": 2023
+      },
+      "lifestyle": {
+        "source": "World Happiness Report / ITU",
+        "year": 2024
+      },
+      "freedom": {
+        "source": "Transparency Int. / RSF",
+        "year": 2024
       }
     },
     "health": {
-      "lifeExpectancy": null,
-      "maleHeight": null,
-      "femaleHeight": null,
-      "obesityRate": null,
+      "lifeExpectancy": 58.6,
+      "maleHeight": 169,
+      "femaleHeight": 160,
+      "obesityRate": 10.3,
       "penisSize": null,
       "breastSize": null,
-      "fertilityRate": null,
+      "fertilityRate": 4.44,
       "infantMortality": null,
       "cancerRate": null,
       "hivPrevalence": null,
-      "suicideRate": null,
-      "alcoholConsumption": null,
+      "suicideRate": 11.7,
+      "alcoholConsumption": 5.9,
       "smokingRate": null,
       "drugUseRate": null
     },
@@ -4794,16 +5042,16 @@
       "lgbtAcceptance": null
     },
     "demographics": {
-      "ethnicDiversity": null,
+      "ethnicDiversity": 0.82,
       "immigrationRate": null,
       "emigrationRate": null,
-      "medianAge": null,
-      "urbanPopulation": null,
+      "medianAge": 19,
+      "urbanPopulation": 52.2,
       "populationDensity": null
     },
     "education": {
-      "avgIQ": null,
-      "literacyRate": null,
+      "avgIQ": 69,
+      "literacyRate": 47.2,
       "universityEnrollment": null,
       "pisaMath": null,
       "pisaReading": null,
@@ -4813,18 +5061,18 @@
       "rdSpending": null
     },
     "lifestyle": {
-      "happinessIndex": null,
-      "workHoursWeek": null,
+      "happinessIndex": 5.27,
+      "workHoursWeek": 45,
       "vacationDays": null,
-      "internetPenetration": null,
+      "internetPenetration": 45,
       "socialMediaUse": null,
-      "coffeeConsumption": null,
+      "coffeeConsumption": 0.5,
       "meatConsumption": null,
       "vegetarianRate": null
     },
     "freedom": {
-      "corruptionIndex": null,
-      "pressFreedom": null,
+      "corruptionIndex": 40,
+      "pressFreedom": 50,
       "drugPolicyScore": null
     }
   },
@@ -5565,21 +5813,41 @@
       "conflict": {
         "source": "UCDP / Global Peace Index",
         "year": 2024
+      },
+      "health": {
+        "source": "WHO / NCD-RisC",
+        "year": 2023
+      },
+      "demographics": {
+        "source": "UN / World Bank",
+        "year": 2023
+      },
+      "education": {
+        "source": "Various Studies / UNESCO",
+        "year": 2023
+      },
+      "lifestyle": {
+        "source": "World Happiness Report / ITU",
+        "year": 2024
+      },
+      "freedom": {
+        "source": "Transparency Int. / RSF",
+        "year": 2024
       }
     },
     "health": {
-      "lifeExpectancy": null,
-      "maleHeight": null,
-      "femaleHeight": null,
-      "obesityRate": null,
+      "lifeExpectancy": 62.3,
+      "maleHeight": 166,
+      "femaleHeight": 157,
+      "obesityRate": 13.5,
       "penisSize": null,
       "breastSize": null,
-      "fertilityRate": null,
+      "fertilityRate": 2.8,
       "infantMortality": null,
       "cancerRate": null,
       "hivPrevalence": null,
-      "suicideRate": null,
-      "alcoholConsumption": null,
+      "suicideRate": 8.1,
+      "alcoholConsumption": 1.3,
       "smokingRate": null,
       "drugUseRate": null
     },
@@ -5594,16 +5862,16 @@
       "lgbtAcceptance": null
     },
     "demographics": {
-      "ethnicDiversity": null,
+      "ethnicDiversity": 0.8,
       "immigrationRate": null,
       "emigrationRate": null,
-      "medianAge": null,
-      "urbanPopulation": null,
+      "medianAge": 24,
+      "urbanPopulation": 78.1,
       "populationDensity": null
     },
     "education": {
-      "avgIQ": null,
-      "literacyRate": null,
+      "avgIQ": 68,
+      "literacyRate": 70,
       "universityEnrollment": null,
       "pisaMath": null,
       "pisaReading": null,
@@ -5613,18 +5881,18 @@
       "rdSpending": null
     },
     "lifestyle": {
-      "happinessIndex": null,
-      "workHoursWeek": null,
+      "happinessIndex": 4.61,
+      "workHoursWeek": 45,
       "vacationDays": null,
-      "internetPenetration": null,
+      "internetPenetration": 69,
       "socialMediaUse": null,
-      "coffeeConsumption": null,
+      "coffeeConsumption": 0.1,
       "meatConsumption": null,
       "vegetarianRate": null
     },
     "freedom": {
-      "corruptionIndex": null,
-      "pressFreedom": null,
+      "corruptionIndex": 30,
+      "pressFreedom": 24,
       "drugPolicyScore": null
     }
   },
@@ -6354,21 +6622,41 @@
       "conflict": {
         "source": "UCDP / Global Peace Index",
         "year": 2024
+      },
+      "health": {
+        "source": "WHO / NCD-RisC",
+        "year": 2023
+      },
+      "demographics": {
+        "source": "UN / World Bank",
+        "year": 2023
+      },
+      "education": {
+        "source": "Various Studies / UNESCO",
+        "year": 2023
+      },
+      "lifestyle": {
+        "source": "World Happiness Report / ITU",
+        "year": 2024
+      },
+      "freedom": {
+        "source": "Transparency Int. / RSF",
+        "year": 2024
       }
     },
     "health": {
-      "lifeExpectancy": null,
-      "maleHeight": null,
-      "femaleHeight": null,
-      "obesityRate": null,
+      "lifeExpectancy": 66.5,
+      "maleHeight": 168,
+      "femaleHeight": 158,
+      "obesityRate": 5,
       "penisSize": null,
       "breastSize": null,
-      "fertilityRate": null,
+      "fertilityRate": 3.98,
       "infantMortality": null,
       "cancerRate": null,
       "hivPrevalence": null,
-      "suicideRate": null,
-      "alcoholConsumption": null,
+      "suicideRate": 8.4,
+      "alcoholConsumption": 1.2,
       "smokingRate": null,
       "drugUseRate": null
     },
@@ -6383,16 +6671,16 @@
       "lgbtAcceptance": null
     },
     "demographics": {
-      "ethnicDiversity": null,
+      "ethnicDiversity": 0.65,
       "immigrationRate": null,
       "emigrationRate": null,
-      "medianAge": null,
-      "urbanPopulation": null,
+      "medianAge": 19.7,
+      "urbanPopulation": 42,
       "populationDensity": null
     },
     "education": {
-      "avgIQ": null,
-      "literacyRate": null,
+      "avgIQ": 68,
+      "literacyRate": 76.6,
       "universityEnrollment": null,
       "pisaMath": null,
       "pisaReading": null,
@@ -6402,18 +6690,18 @@
       "rdSpending": null
     },
     "lifestyle": {
-      "happinessIndex": null,
-      "workHoursWeek": null,
+      "happinessIndex": 4.94,
+      "workHoursWeek": 46,
       "vacationDays": null,
-      "internetPenetration": null,
+      "internetPenetration": 7,
       "socialMediaUse": null,
-      "coffeeConsumption": null,
+      "coffeeConsumption": 0.2,
       "meatConsumption": null,
       "vegetarianRate": null
     },
     "freedom": {
-      "corruptionIndex": null,
-      "pressFreedom": null,
+      "corruptionIndex": 22,
+      "pressFreedom": 5,
       "drugPolicyScore": null
     }
   },
@@ -6616,21 +6904,41 @@
       "conflict": {
         "source": "UCDP / Global Peace Index",
         "year": 2024
+      },
+      "health": {
+        "source": "WHO / NCD-RisC",
+        "year": 2023
+      },
+      "demographics": {
+        "source": "UN / World Bank",
+        "year": 2023
+      },
+      "education": {
+        "source": "Various Studies / UNESCO",
+        "year": 2023
+      },
+      "lifestyle": {
+        "source": "World Happiness Report / ITU",
+        "year": 2024
+      },
+      "freedom": {
+        "source": "Transparency Int. / RSF",
+        "year": 2024
       }
     },
     "health": {
-      "lifeExpectancy": null,
-      "maleHeight": null,
-      "femaleHeight": null,
-      "obesityRate": null,
+      "lifeExpectancy": 57.7,
+      "maleHeight": 168,
+      "femaleHeight": 158,
+      "obesityRate": 16.5,
       "penisSize": null,
       "breastSize": null,
-      "fertilityRate": null,
+      "fertilityRate": 2.93,
       "infantMortality": null,
       "cancerRate": null,
       "hivPrevalence": null,
-      "suicideRate": null,
-      "alcoholConsumption": null,
+      "suicideRate": 13.3,
+      "alcoholConsumption": 6.5,
       "smokingRate": null,
       "drugUseRate": null
     },
@@ -6645,16 +6953,16 @@
       "lgbtAcceptance": null
     },
     "demographics": {
-      "ethnicDiversity": null,
+      "ethnicDiversity": 0.06,
       "immigrationRate": null,
       "emigrationRate": null,
-      "medianAge": null,
-      "urbanPopulation": null,
+      "medianAge": 21.7,
+      "urbanPopulation": 24.2,
       "populationDensity": null
     },
     "education": {
-      "avgIQ": null,
-      "literacyRate": null,
+      "avgIQ": 68,
+      "literacyRate": 88.4,
       "universityEnrollment": null,
       "pisaMath": null,
       "pisaReading": null,
@@ -6664,18 +6972,18 @@
       "rdSpending": null
     },
     "lifestyle": {
-      "happinessIndex": null,
-      "workHoursWeek": null,
+      "happinessIndex": 4.2,
+      "workHoursWeek": 45,
       "vacationDays": null,
-      "internetPenetration": null,
+      "internetPenetration": 59,
       "socialMediaUse": null,
-      "coffeeConsumption": null,
+      "coffeeConsumption": 0.1,
       "meatConsumption": null,
       "vegetarianRate": null
     },
     "freedom": {
-      "corruptionIndex": null,
-      "pressFreedom": null,
+      "corruptionIndex": 31,
+      "pressFreedom": 28,
       "drugPolicyScore": null
     }
   },
@@ -6703,9 +7011,9 @@
     "crime": {
       "homicideRate": null,
       "safetyIndex": null,
-      "incarcerationRate": null,
+      "incarcerationRate": 127,
       "policePerCapita": null,
-      "gunOwnership": null,
+      "gunOwnership": 0.4,
       "roadDeaths": null
     },
     "poverty": {
@@ -6748,39 +7056,55 @@
         "year": 2024
       },
       "demographics": {
-        "source": "World Bank / UN",
+        "source": "UN / World Bank",
         "year": 2023
       },
       "education": {
-        "source": "OECD PISA / World Population Review",
+        "source": "Various Studies / UNESCO",
+        "year": 2023
+      },
+      "health": {
+        "source": "WHO / NCD-RisC",
+        "year": 2023
+      },
+      "lifestyle": {
+        "source": "World Happiness Report / ITU",
+        "year": 2024
+      },
+      "freedom": {
+        "source": "Transparency Int. / RSF",
+        "year": 2024
+      },
+      "sex": {
+        "source": "Various Studies / ILGA",
         "year": 2023
       }
     },
     "health": {
-      "lifeExpectancy": null,
-      "maleHeight": null,
-      "femaleHeight": null,
-      "obesityRate": null,
+      "lifeExpectancy": 65,
+      "maleHeight": 167,
+      "femaleHeight": 158,
+      "obesityRate": 4.5,
       "penisSize": null,
       "breastSize": null,
-      "fertilityRate": null,
+      "fertilityRate": 4.15,
       "infantMortality": null,
       "cancerRate": null,
       "hivPrevalence": null,
-      "suicideRate": null,
-      "alcoholConsumption": null,
+      "suicideRate": 7.2,
+      "alcoholConsumption": 3,
       "smokingRate": null,
       "drugUseRate": null
     },
     "sex": {
-      "sexualPartners": null,
+      "sexualPartners": 4.2,
       "ageFirstSex": null,
-      "divorceRate": null,
+      "divorceRate": 0.4,
       "marriageAge": null,
       "singleParentRate": null,
       "contraceptionUse": null,
       "teenPregnancy": null,
-      "lgbtAcceptance": null
+      "lgbtAcceptance": 5
     },
     "demographics": {
       "ethnicDiversity": 0.72,
@@ -6802,18 +7126,18 @@
       "rdSpending": null
     },
     "lifestyle": {
-      "happinessIndex": null,
-      "workHoursWeek": null,
+      "happinessIndex": 4.09,
+      "workHoursWeek": 46,
       "vacationDays": null,
-      "internetPenetration": null,
+      "internetPenetration": 25,
       "socialMediaUse": null,
-      "coffeeConsumption": null,
+      "coffeeConsumption": 2.4,
       "meatConsumption": null,
       "vegetarianRate": null
     },
     "freedom": {
-      "corruptionIndex": null,
-      "pressFreedom": null,
+      "corruptionIndex": 37,
+      "pressFreedom": 31,
       "drugPolicyScore": null
     }
   },
@@ -7191,21 +7515,41 @@
       "conflict": {
         "source": "UCDP / Global Peace Index",
         "year": 2024
+      },
+      "health": {
+        "source": "WHO / NCD-RisC",
+        "year": 2023
+      },
+      "demographics": {
+        "source": "UN / World Bank",
+        "year": 2023
+      },
+      "education": {
+        "source": "Various Studies / UNESCO",
+        "year": 2023
+      },
+      "lifestyle": {
+        "source": "World Happiness Report / ITU",
+        "year": 2024
+      },
+      "freedom": {
+        "source": "Transparency Int. / RSF",
+        "year": 2024
       }
     },
     "health": {
-      "lifeExpectancy": null,
-      "maleHeight": null,
-      "femaleHeight": null,
-      "obesityRate": null,
+      "lifeExpectancy": 66.5,
+      "maleHeight": 170,
+      "femaleHeight": 160,
+      "obesityRate": 15,
       "penisSize": null,
       "breastSize": null,
-      "fertilityRate": null,
+      "fertilityRate": 3.86,
       "infantMortality": null,
       "cancerRate": null,
       "hivPrevalence": null,
-      "suicideRate": null,
-      "alcoholConsumption": null,
+      "suicideRate": 10.6,
+      "alcoholConsumption": 9.5,
       "smokingRate": null,
       "drugUseRate": null
     },
@@ -7220,16 +7564,16 @@
       "lgbtAcceptance": null
     },
     "demographics": {
-      "ethnicDiversity": null,
+      "ethnicDiversity": 0.77,
       "immigrationRate": null,
       "emigrationRate": null,
-      "medianAge": null,
-      "urbanPopulation": null,
+      "medianAge": 22.2,
+      "urbanPopulation": 90.1,
       "populationDensity": null
     },
     "education": {
-      "avgIQ": null,
-      "literacyRate": null,
+      "avgIQ": 64,
+      "literacyRate": 84.7,
       "universityEnrollment": null,
       "pisaMath": null,
       "pisaReading": null,
@@ -7239,18 +7583,18 @@
       "rdSpending": null
     },
     "lifestyle": {
-      "happinessIndex": null,
-      "workHoursWeek": null,
+      "happinessIndex": 4.85,
+      "workHoursWeek": 43,
       "vacationDays": null,
-      "internetPenetration": null,
+      "internetPenetration": 72,
       "socialMediaUse": null,
-      "coffeeConsumption": null,
+      "coffeeConsumption": 0.4,
       "meatConsumption": null,
       "vegetarianRate": null
     },
     "freedom": {
-      "corruptionIndex": null,
-      "pressFreedom": null,
+      "corruptionIndex": 29,
+      "pressFreedom": 40,
       "drugPolicyScore": null
     }
   },
@@ -7320,21 +7664,41 @@
       "conflict": {
         "source": "UCDP / Global Peace Index",
         "year": 2024
+      },
+      "health": {
+        "source": "WHO / NCD-RisC",
+        "year": 2023
+      },
+      "demographics": {
+        "source": "UN / World Bank",
+        "year": 2023
+      },
+      "education": {
+        "source": "Various Studies / UNESCO",
+        "year": 2023
+      },
+      "lifestyle": {
+        "source": "World Happiness Report / ITU",
+        "year": 2024
+      },
+      "freedom": {
+        "source": "Transparency Int. / RSF",
+        "year": 2024
       }
     },
     "health": {
-      "lifeExpectancy": null,
-      "maleHeight": null,
-      "femaleHeight": null,
-      "obesityRate": null,
+      "lifeExpectancy": 62.6,
+      "maleHeight": 168,
+      "femaleHeight": 159,
+      "obesityRate": 10.3,
       "penisSize": null,
       "breastSize": null,
-      "fertilityRate": null,
+      "fertilityRate": 4.77,
       "infantMortality": null,
       "cancerRate": null,
       "hivPrevalence": null,
-      "suicideRate": null,
-      "alcoholConsumption": null,
+      "suicideRate": 6.4,
+      "alcoholConsumption": 2.8,
       "smokingRate": null,
       "drugUseRate": null
     },
@@ -7349,16 +7713,16 @@
       "lgbtAcceptance": null
     },
     "demographics": {
-      "ethnicDiversity": null,
+      "ethnicDiversity": 0.79,
       "immigrationRate": null,
       "emigrationRate": null,
-      "medianAge": null,
-      "urbanPopulation": null,
+      "medianAge": 17.8,
+      "urbanPopulation": 63.9,
       "populationDensity": null
     },
     "education": {
-      "avgIQ": null,
-      "literacyRate": null,
+      "avgIQ": 66,
+      "literacyRate": 50.8,
       "universityEnrollment": null,
       "pisaMath": null,
       "pisaReading": null,
@@ -7368,18 +7732,18 @@
       "rdSpending": null
     },
     "lifestyle": {
-      "happinessIndex": null,
-      "workHoursWeek": null,
+      "happinessIndex": 4.65,
+      "workHoursWeek": 45,
       "vacationDays": null,
-      "internetPenetration": null,
+      "internetPenetration": 37,
       "socialMediaUse": null,
-      "coffeeConsumption": null,
+      "coffeeConsumption": 0.1,
       "meatConsumption": null,
       "vegetarianRate": null
     },
     "freedom": {
-      "corruptionIndex": null,
-      "pressFreedom": null,
+      "corruptionIndex": 34,
+      "pressFreedom": 52,
       "drugPolicyScore": null
     }
   },
@@ -7690,9 +8054,9 @@
     "crime": {
       "homicideRate": null,
       "safetyIndex": null,
-      "incarcerationRate": null,
+      "incarcerationRate": 52,
       "policePerCapita": null,
-      "gunOwnership": null,
+      "gunOwnership": 1.7,
       "roadDeaths": null
     },
     "poverty": {
@@ -7733,45 +8097,69 @@
       "conflict": {
         "source": "UCDP / Global Peace Index",
         "year": 2024
+      },
+      "health": {
+        "source": "WHO / NCD-RisC",
+        "year": 2023
+      },
+      "demographics": {
+        "source": "UN / World Bank",
+        "year": 2023
+      },
+      "education": {
+        "source": "Various Studies / UNESCO",
+        "year": 2023
+      },
+      "lifestyle": {
+        "source": "World Happiness Report / ITU",
+        "year": 2024
+      },
+      "freedom": {
+        "source": "Transparency Int. / RSF",
+        "year": 2024
+      },
+      "sex": {
+        "source": "Various Studies / ILGA",
+        "year": 2023
       }
     },
     "health": {
-      "lifeExpectancy": null,
-      "maleHeight": null,
-      "femaleHeight": null,
-      "obesityRate": null,
+      "lifeExpectancy": 64.1,
+      "maleHeight": 169,
+      "femaleHeight": 159,
+      "obesityRate": 10.9,
       "penisSize": null,
       "breastSize": null,
-      "fertilityRate": null,
+      "fertilityRate": 3.61,
       "infantMortality": null,
       "cancerRate": null,
       "hivPrevalence": null,
-      "suicideRate": null,
-      "alcoholConsumption": null,
+      "suicideRate": 5.4,
+      "alcoholConsumption": 3.8,
       "smokingRate": null,
       "drugUseRate": null
     },
     "sex": {
-      "sexualPartners": null,
+      "sexualPartners": 5.2,
       "ageFirstSex": null,
-      "divorceRate": null,
+      "divorceRate": 0.8,
       "marriageAge": null,
       "singleParentRate": null,
       "contraceptionUse": null,
       "teenPregnancy": null,
-      "lgbtAcceptance": null
+      "lgbtAcceptance": 4
     },
     "demographics": {
-      "ethnicDiversity": null,
+      "ethnicDiversity": 0.67,
       "immigrationRate": null,
       "emigrationRate": null,
-      "medianAge": null,
-      "urbanPopulation": null,
+      "medianAge": 21.5,
+      "urbanPopulation": 57.3,
       "populationDensity": null
     },
     "education": {
-      "avgIQ": null,
-      "literacyRate": null,
+      "avgIQ": 71,
+      "literacyRate": 79,
       "universityEnrollment": null,
       "pisaMath": null,
       "pisaReading": null,
@@ -7781,18 +8169,18 @@
       "rdSpending": null
     },
     "lifestyle": {
-      "happinessIndex": null,
-      "workHoursWeek": null,
+      "happinessIndex": 4.96,
+      "workHoursWeek": 46,
       "vacationDays": null,
-      "internetPenetration": null,
+      "internetPenetration": 68,
       "socialMediaUse": null,
-      "coffeeConsumption": null,
+      "coffeeConsumption": 0.2,
       "meatConsumption": null,
       "vegetarianRate": null
     },
     "freedom": {
-      "corruptionIndex": null,
-      "pressFreedom": null,
+      "corruptionIndex": 43,
+      "pressFreedom": 62,
       "drugPolicyScore": null
     }
   },
@@ -8122,21 +8510,41 @@
       "conflict": {
         "source": "UCDP / Global Peace Index",
         "year": 2024
+      },
+      "health": {
+        "source": "WHO / NCD-RisC",
+        "year": 2023
+      },
+      "demographics": {
+        "source": "UN / World Bank",
+        "year": 2023
+      },
+      "education": {
+        "source": "Various Studies / UNESCO",
+        "year": 2023
+      },
+      "lifestyle": {
+        "source": "World Happiness Report / ITU",
+        "year": 2024
+      },
+      "freedom": {
+        "source": "Transparency Int. / RSF",
+        "year": 2024
       }
     },
     "health": {
-      "lifeExpectancy": null,
-      "maleHeight": null,
-      "femaleHeight": null,
-      "obesityRate": null,
+      "lifeExpectancy": 58.9,
+      "maleHeight": 168,
+      "femaleHeight": 158,
+      "obesityRate": 7.7,
       "penisSize": null,
       "breastSize": null,
-      "fertilityRate": null,
+      "fertilityRate": 4.63,
       "infantMortality": null,
       "cancerRate": null,
       "hivPrevalence": null,
-      "suicideRate": null,
-      "alcoholConsumption": null,
+      "suicideRate": 6.4,
+      "alcoholConsumption": 1.2,
       "smokingRate": null,
       "drugUseRate": null
     },
@@ -8151,16 +8559,16 @@
       "lgbtAcceptance": null
     },
     "demographics": {
-      "ethnicDiversity": null,
+      "ethnicDiversity": 0.74,
       "immigrationRate": null,
       "emigrationRate": null,
-      "medianAge": null,
-      "urbanPopulation": null,
+      "medianAge": 18.9,
+      "urbanPopulation": 37.1,
       "populationDensity": null
     },
     "education": {
-      "avgIQ": null,
-      "literacyRate": null,
+      "avgIQ": 67,
+      "literacyRate": 32,
       "universityEnrollment": null,
       "pisaMath": null,
       "pisaReading": null,
@@ -8170,18 +8578,18 @@
       "rdSpending": null
     },
     "lifestyle": {
-      "happinessIndex": null,
-      "workHoursWeek": null,
+      "happinessIndex": 4.26,
+      "workHoursWeek": 46,
       "vacationDays": null,
-      "internetPenetration": null,
+      "internetPenetration": 35,
       "socialMediaUse": null,
-      "coffeeConsumption": null,
+      "coffeeConsumption": 0.1,
       "meatConsumption": null,
       "vegetarianRate": null
     },
     "freedom": {
-      "corruptionIndex": null,
-      "pressFreedom": null,
+      "corruptionIndex": 25,
+      "pressFreedom": 47,
       "drugPolicyScore": null
     }
   },
@@ -8252,21 +8660,41 @@
       "conflict": {
         "source": "UCDP / Global Peace Index",
         "year": 2024
+      },
+      "health": {
+        "source": "WHO / NCD-RisC",
+        "year": 2023
+      },
+      "demographics": {
+        "source": "UN / World Bank",
+        "year": 2023
+      },
+      "education": {
+        "source": "Various Studies / UNESCO",
+        "year": 2023
+      },
+      "lifestyle": {
+        "source": "World Happiness Report / ITU",
+        "year": 2024
+      },
+      "freedom": {
+        "source": "Transparency Int. / RSF",
+        "year": 2024
       }
     },
     "health": {
-      "lifeExpectancy": null,
-      "maleHeight": null,
-      "femaleHeight": null,
-      "obesityRate": null,
+      "lifeExpectancy": 59.4,
+      "maleHeight": 168,
+      "femaleHeight": 158,
+      "obesityRate": 9.5,
       "penisSize": null,
       "breastSize": null,
-      "fertilityRate": null,
+      "fertilityRate": 4.42,
       "infantMortality": null,
       "cancerRate": null,
       "hivPrevalence": null,
-      "suicideRate": null,
-      "alcoholConsumption": null,
+      "suicideRate": 6.3,
+      "alcoholConsumption": 2.8,
       "smokingRate": null,
       "drugUseRate": null
     },
@@ -8281,16 +8709,16 @@
       "lgbtAcceptance": null
     },
     "demographics": {
-      "ethnicDiversity": null,
+      "ethnicDiversity": 0.81,
       "immigrationRate": null,
       "emigrationRate": null,
-      "medianAge": null,
-      "urbanPopulation": null,
+      "medianAge": 19.4,
+      "urbanPopulation": 44.2,
       "populationDensity": null
     },
     "education": {
-      "avgIQ": null,
-      "literacyRate": null,
+      "avgIQ": 67,
+      "literacyRate": 45.6,
       "universityEnrollment": null,
       "pisaMath": null,
       "pisaReading": null,
@@ -8300,18 +8728,18 @@
       "rdSpending": null
     },
     "lifestyle": {
-      "happinessIndex": null,
-      "workHoursWeek": null,
+      "happinessIndex": 4.38,
+      "workHoursWeek": 45,
       "vacationDays": null,
-      "internetPenetration": null,
+      "internetPenetration": 30,
       "socialMediaUse": null,
-      "coffeeConsumption": null,
+      "coffeeConsumption": 0.1,
       "meatConsumption": null,
       "vegetarianRate": null
     },
     "freedom": {
-      "corruptionIndex": null,
-      "pressFreedom": null,
+      "corruptionIndex": 21,
+      "pressFreedom": 42,
       "drugPolicyScore": null
     }
   },
@@ -10579,9 +11007,9 @@
     "crime": {
       "homicideRate": null,
       "safetyIndex": null,
-      "incarcerationRate": null,
+      "incarcerationRate": 117,
       "policePerCapita": null,
-      "gunOwnership": null,
+      "gunOwnership": 0.5,
       "roadDeaths": null
     },
     "poverty": {
@@ -10624,35 +11052,55 @@
         "year": 2024
       },
       "demographics": {
-        "source": "World Bank / UN",
+        "source": "UN / World Bank",
+        "year": 2023
+      },
+      "health": {
+        "source": "WHO / NCD-RisC",
+        "year": 2023
+      },
+      "education": {
+        "source": "Various Studies / UNESCO",
+        "year": 2023
+      },
+      "lifestyle": {
+        "source": "World Happiness Report / ITU",
+        "year": 2024
+      },
+      "freedom": {
+        "source": "Transparency Int. / RSF",
+        "year": 2024
+      },
+      "sex": {
+        "source": "Various Studies / ILGA",
         "year": 2023
       }
     },
     "health": {
-      "lifeExpectancy": null,
-      "maleHeight": null,
-      "femaleHeight": null,
-      "obesityRate": null,
+      "lifeExpectancy": 61.4,
+      "maleHeight": 169,
+      "femaleHeight": 158,
+      "obesityRate": 7.1,
       "penisSize": null,
       "breastSize": null,
-      "fertilityRate": null,
+      "fertilityRate": 3.34,
       "infantMortality": null,
       "cancerRate": null,
       "hivPrevalence": null,
-      "suicideRate": null,
-      "alcoholConsumption": null,
+      "suicideRate": 6.1,
+      "alcoholConsumption": 3.4,
       "smokingRate": null,
       "drugUseRate": null
     },
     "sex": {
-      "sexualPartners": null,
+      "sexualPartners": 5.8,
       "ageFirstSex": null,
-      "divorceRate": null,
+      "divorceRate": 0.5,
       "marriageAge": null,
       "singleParentRate": null,
       "contraceptionUse": null,
       "teenPregnancy": null,
-      "lgbtAcceptance": null
+      "lgbtAcceptance": 14
     },
     "demographics": {
       "ethnicDiversity": 0.86,
@@ -10663,8 +11111,8 @@
       "populationDensity": null
     },
     "education": {
-      "avgIQ": null,
-      "literacyRate": null,
+      "avgIQ": 80,
+      "literacyRate": 81.5,
       "universityEnrollment": null,
       "pisaMath": null,
       "pisaReading": null,
@@ -10674,18 +11122,18 @@
       "rdSpending": null
     },
     "lifestyle": {
-      "happinessIndex": null,
-      "workHoursWeek": null,
+      "happinessIndex": 4.58,
+      "workHoursWeek": 46,
       "vacationDays": null,
-      "internetPenetration": null,
+      "internetPenetration": 40,
       "socialMediaUse": null,
-      "coffeeConsumption": null,
+      "coffeeConsumption": 0.3,
       "meatConsumption": null,
       "vegetarianRate": null
     },
     "freedom": {
-      "corruptionIndex": null,
-      "pressFreedom": null,
+      "corruptionIndex": 31,
+      "pressFreedom": 50,
       "drugPolicyScore": null
     }
   },
@@ -11687,21 +12135,41 @@
       "conflict": {
         "source": "UCDP / Global Peace Index",
         "year": 2024
+      },
+      "health": {
+        "source": "WHO / NCD-RisC",
+        "year": 2023
+      },
+      "demographics": {
+        "source": "UN / World Bank",
+        "year": 2023
+      },
+      "education": {
+        "source": "Various Studies / UNESCO",
+        "year": 2023
+      },
+      "lifestyle": {
+        "source": "World Happiness Report / ITU",
+        "year": 2024
+      },
+      "freedom": {
+        "source": "Transparency Int. / RSF",
+        "year": 2024
       }
     },
     "health": {
-      "lifeExpectancy": null,
-      "maleHeight": null,
-      "femaleHeight": null,
-      "obesityRate": null,
+      "lifeExpectancy": 50.7,
+      "maleHeight": 166,
+      "femaleHeight": 156,
+      "obesityRate": 16.6,
       "penisSize": null,
       "breastSize": null,
-      "fertilityRate": null,
+      "fertilityRate": 3.05,
       "infantMortality": null,
       "cancerRate": null,
       "hivPrevalence": null,
-      "suicideRate": null,
-      "alcoholConsumption": null,
+      "suicideRate": 17,
+      "alcoholConsumption": 5,
       "smokingRate": null,
       "drugUseRate": null
     },
@@ -11716,16 +12184,16 @@
       "lgbtAcceptance": null
     },
     "demographics": {
-      "ethnicDiversity": null,
+      "ethnicDiversity": 0.26,
       "immigrationRate": null,
       "emigrationRate": null,
-      "medianAge": null,
-      "urbanPopulation": null,
+      "medianAge": 22.5,
+      "urbanPopulation": 29.5,
       "populationDensity": null
     },
     "education": {
-      "avgIQ": null,
-      "literacyRate": null,
+      "avgIQ": 67,
+      "literacyRate": 79.4,
       "universityEnrollment": null,
       "pisaMath": null,
       "pisaReading": null,
@@ -11735,18 +12203,18 @@
       "rdSpending": null
     },
     "lifestyle": {
-      "happinessIndex": null,
-      "workHoursWeek": null,
+      "happinessIndex": 3.51,
+      "workHoursWeek": 45,
       "vacationDays": null,
-      "internetPenetration": null,
+      "internetPenetration": 48,
       "socialMediaUse": null,
-      "coffeeConsumption": null,
+      "coffeeConsumption": 0.1,
       "meatConsumption": null,
       "vegetarianRate": null
     },
     "freedom": {
-      "corruptionIndex": null,
-      "pressFreedom": null,
+      "corruptionIndex": 41,
+      "pressFreedom": 55,
       "drugPolicyScore": null
     }
   },
@@ -11817,21 +12285,41 @@
       "conflict": {
         "source": "UCDP / Global Peace Index",
         "year": 2024
+      },
+      "health": {
+        "source": "WHO / NCD-RisC",
+        "year": 2023
+      },
+      "demographics": {
+        "source": "UN / World Bank",
+        "year": 2023
+      },
+      "education": {
+        "source": "Various Studies / UNESCO",
+        "year": 2023
+      },
+      "lifestyle": {
+        "source": "World Happiness Report / ITU",
+        "year": 2024
+      },
+      "freedom": {
+        "source": "Transparency Int. / RSF",
+        "year": 2024
       }
     },
     "health": {
-      "lifeExpectancy": null,
-      "maleHeight": null,
-      "femaleHeight": null,
-      "obesityRate": null,
+      "lifeExpectancy": 60.7,
+      "maleHeight": 163,
+      "femaleHeight": 156,
+      "obesityRate": 9.9,
       "penisSize": null,
       "breastSize": null,
-      "fertilityRate": null,
+      "fertilityRate": 4.18,
       "infantMortality": null,
       "cancerRate": null,
       "hivPrevalence": null,
-      "suicideRate": null,
-      "alcoholConsumption": null,
+      "suicideRate": 9.6,
+      "alcoholConsumption": 5.1,
       "smokingRate": null,
       "drugUseRate": null
     },
@@ -11846,16 +12334,16 @@
       "lgbtAcceptance": null
     },
     "demographics": {
-      "ethnicDiversity": null,
+      "ethnicDiversity": 0.91,
       "immigrationRate": null,
       "emigrationRate": null,
-      "medianAge": null,
-      "urbanPopulation": null,
+      "medianAge": 18.3,
+      "urbanPopulation": 52.6,
       "populationDensity": null
     },
     "education": {
-      "avgIQ": null,
-      "literacyRate": null,
+      "avgIQ": 67,
+      "literacyRate": 48.3,
       "universityEnrollment": null,
       "pisaMath": null,
       "pisaReading": null,
@@ -11865,18 +12353,18 @@
       "rdSpending": null
     },
     "lifestyle": {
-      "happinessIndex": null,
-      "workHoursWeek": null,
+      "happinessIndex": 4.16,
+      "workHoursWeek": 46,
       "vacationDays": null,
-      "internetPenetration": null,
+      "internetPenetration": 30,
       "socialMediaUse": null,
-      "coffeeConsumption": null,
+      "coffeeConsumption": 0.2,
       "meatConsumption": null,
       "vegetarianRate": null
     },
     "freedom": {
-      "corruptionIndex": null,
-      "pressFreedom": null,
+      "corruptionIndex": 25,
+      "pressFreedom": 54,
       "drugPolicyScore": null
     }
   },
@@ -11903,9 +12391,9 @@
     "crime": {
       "homicideRate": null,
       "safetyIndex": null,
-      "incarcerationRate": null,
+      "incarcerationRate": 89,
       "policePerCapita": null,
-      "gunOwnership": null,
+      "gunOwnership": 15.5,
       "roadDeaths": null
     },
     "poverty": {
@@ -11946,21 +12434,41 @@
       "conflict": {
         "source": "UCDP / Global Peace Index",
         "year": 2024
+      },
+      "health": {
+        "source": "WHO / NCD-RisC",
+        "year": 2023
+      },
+      "demographics": {
+        "source": "UN / World Bank",
+        "year": 2023
+      },
+      "education": {
+        "source": "Various Studies / UNESCO",
+        "year": 2023
+      },
+      "lifestyle": {
+        "source": "World Happiness Report / ITU",
+        "year": 2024
+      },
+      "freedom": {
+        "source": "Transparency Int. / RSF",
+        "year": 2024
       }
     },
     "health": {
-      "lifeExpectancy": null,
-      "maleHeight": null,
-      "femaleHeight": null,
-      "obesityRate": null,
+      "lifeExpectancy": 73.4,
+      "maleHeight": 173,
+      "femaleHeight": 161,
+      "obesityRate": 32.5,
       "penisSize": null,
       "breastSize": null,
-      "fertilityRate": null,
+      "fertilityRate": 2.17,
       "infantMortality": null,
       "cancerRate": null,
       "hivPrevalence": null,
-      "suicideRate": null,
-      "alcoholConsumption": null,
+      "suicideRate": 5.4,
+      "alcoholConsumption": 0.1,
       "smokingRate": null,
       "drugUseRate": null
     },
@@ -11975,16 +12483,16 @@
       "lgbtAcceptance": null
     },
     "demographics": {
-      "ethnicDiversity": null,
+      "ethnicDiversity": 0.79,
       "immigrationRate": null,
       "emigrationRate": null,
-      "medianAge": null,
-      "urbanPopulation": null,
+      "medianAge": 29,
+      "urbanPopulation": 80.7,
       "populationDensity": null
     },
     "education": {
-      "avgIQ": null,
-      "literacyRate": null,
+      "avgIQ": 83,
+      "literacyRate": 91,
       "universityEnrollment": null,
       "pisaMath": null,
       "pisaReading": null,
@@ -11994,18 +12502,18 @@
       "rdSpending": null
     },
     "lifestyle": {
-      "happinessIndex": null,
-      "workHoursWeek": null,
+      "happinessIndex": 5.52,
+      "workHoursWeek": 42,
       "vacationDays": null,
-      "internetPenetration": null,
+      "internetPenetration": 84,
       "socialMediaUse": null,
-      "coffeeConsumption": null,
+      "coffeeConsumption": 0.3,
       "meatConsumption": null,
       "vegetarianRate": null
     },
     "freedom": {
-      "corruptionIndex": null,
-      "pressFreedom": null,
+      "corruptionIndex": 17,
+      "pressFreedom": 13,
       "drugPolicyScore": null
     }
   },
@@ -12336,21 +12844,41 @@
       "conflict": {
         "source": "UCDP / Global Peace Index",
         "year": 2024
+      },
+      "health": {
+        "source": "WHO / NCD-RisC",
+        "year": 2023
+      },
+      "demographics": {
+        "source": "UN / World Bank",
+        "year": 2023
+      },
+      "education": {
+        "source": "Various Studies / UNESCO",
+        "year": 2023
+      },
+      "lifestyle": {
+        "source": "World Happiness Report / ITU",
+        "year": 2024
+      },
+      "freedom": {
+        "source": "Transparency Int. / RSF",
+        "year": 2024
       }
     },
     "health": {
-      "lifeExpectancy": null,
-      "maleHeight": null,
-      "femaleHeight": null,
-      "obesityRate": null,
+      "lifeExpectancy": 64.5,
+      "maleHeight": 165,
+      "femaleHeight": 154,
+      "obesityRate": 5.3,
       "penisSize": null,
       "breastSize": null,
-      "fertilityRate": null,
+      "fertilityRate": 3.93,
       "infantMortality": null,
       "cancerRate": null,
       "hivPrevalence": null,
-      "suicideRate": null,
-      "alcoholConsumption": null,
+      "suicideRate": 6.9,
+      "alcoholConsumption": 1.8,
       "smokingRate": null,
       "drugUseRate": null
     },
@@ -12365,16 +12893,16 @@
       "lgbtAcceptance": null
     },
     "demographics": {
-      "ethnicDiversity": null,
+      "ethnicDiversity": 0.88,
       "immigrationRate": null,
       "emigrationRate": null,
-      "medianAge": null,
-      "urbanPopulation": null,
+      "medianAge": 19.6,
+      "urbanPopulation": 39.2,
       "populationDensity": null
     },
     "education": {
-      "avgIQ": null,
-      "literacyRate": null,
+      "avgIQ": 82,
+      "literacyRate": 76.7,
       "universityEnrollment": null,
       "pisaMath": null,
       "pisaReading": null,
@@ -12384,18 +12912,18 @@
       "rdSpending": null
     },
     "lifestyle": {
-      "happinessIndex": null,
-      "workHoursWeek": null,
+      "happinessIndex": 4.33,
+      "workHoursWeek": 44,
       "vacationDays": null,
-      "internetPenetration": null,
+      "internetPenetration": 22,
       "socialMediaUse": null,
-      "coffeeConsumption": null,
+      "coffeeConsumption": 0.4,
       "meatConsumption": null,
       "vegetarianRate": null
     },
     "freedom": {
-      "corruptionIndex": null,
-      "pressFreedom": null,
+      "corruptionIndex": 26,
+      "pressFreedom": 52,
       "drugPolicyScore": null
     }
   },
@@ -12466,21 +12994,41 @@
       "conflict": {
         "source": "UCDP / Global Peace Index",
         "year": 2024
+      },
+      "health": {
+        "source": "WHO / NCD-RisC",
+        "year": 2023
+      },
+      "demographics": {
+        "source": "UN / World Bank",
+        "year": 2023
+      },
+      "education": {
+        "source": "Various Studies / UNESCO",
+        "year": 2023
+      },
+      "lifestyle": {
+        "source": "World Happiness Report / ITU",
+        "year": 2024
+      },
+      "freedom": {
+        "source": "Transparency Int. / RSF",
+        "year": 2024
       }
     },
     "health": {
-      "lifeExpectancy": null,
-      "maleHeight": null,
-      "femaleHeight": null,
-      "obesityRate": null,
+      "lifeExpectancy": 62.9,
+      "maleHeight": 166,
+      "femaleHeight": 156,
+      "obesityRate": 5.8,
       "penisSize": null,
       "breastSize": null,
-      "fertilityRate": null,
+      "fertilityRate": 3.99,
       "infantMortality": null,
       "cancerRate": null,
       "hivPrevalence": null,
-      "suicideRate": null,
-      "alcoholConsumption": null,
+      "suicideRate": 7.5,
+      "alcoholConsumption": 2.5,
       "smokingRate": null,
       "drugUseRate": null
     },
@@ -12495,16 +13043,16 @@
       "lgbtAcceptance": null
     },
     "demographics": {
-      "ethnicDiversity": null,
+      "ethnicDiversity": 0.67,
       "immigrationRate": null,
       "emigrationRate": null,
-      "medianAge": null,
-      "urbanPopulation": null,
+      "medianAge": 17.2,
+      "urbanPopulation": 17.4,
       "populationDensity": null
     },
     "education": {
-      "avgIQ": null,
-      "literacyRate": null,
+      "avgIQ": 60,
+      "literacyRate": 62.1,
       "universityEnrollment": null,
       "pisaMath": null,
       "pisaReading": null,
@@ -12514,18 +13062,18 @@
       "rdSpending": null
     },
     "lifestyle": {
-      "happinessIndex": null,
-      "workHoursWeek": null,
+      "happinessIndex": 3.7,
+      "workHoursWeek": 46,
       "vacationDays": null,
-      "internetPenetration": null,
+      "internetPenetration": 18,
       "socialMediaUse": null,
-      "coffeeConsumption": null,
+      "coffeeConsumption": 0.1,
       "meatConsumption": null,
       "vegetarianRate": null
     },
     "freedom": {
-      "corruptionIndex": null,
-      "pressFreedom": null,
+      "corruptionIndex": 34,
+      "pressFreedom": 58,
       "drugPolicyScore": null
     }
   },
@@ -12727,21 +13275,41 @@
       "conflict": {
         "source": "UCDP / Global Peace Index",
         "year": 2024
+      },
+      "health": {
+        "source": "WHO / NCD-RisC",
+        "year": 2023
+      },
+      "demographics": {
+        "source": "UN / World Bank",
+        "year": 2023
+      },
+      "education": {
+        "source": "Various Studies / UNESCO",
+        "year": 2023
+      },
+      "lifestyle": {
+        "source": "World Happiness Report / ITU",
+        "year": 2024
+      },
+      "freedom": {
+        "source": "Transparency Int. / RSF",
+        "year": 2024
       }
     },
     "health": {
-      "lifeExpectancy": null,
-      "maleHeight": null,
-      "femaleHeight": null,
-      "obesityRate": null,
+      "lifeExpectancy": 58.9,
+      "maleHeight": 171,
+      "femaleHeight": 161,
+      "obesityRate": 8.6,
       "penisSize": null,
       "breastSize": null,
-      "fertilityRate": null,
+      "fertilityRate": 5.92,
       "infantMortality": null,
       "cancerRate": null,
       "hivPrevalence": null,
-      "suicideRate": null,
-      "alcoholConsumption": null,
+      "suicideRate": 7.5,
+      "alcoholConsumption": 2.3,
       "smokingRate": null,
       "drugUseRate": null
     },
@@ -12756,16 +13324,16 @@
       "lgbtAcceptance": null
     },
     "demographics": {
-      "ethnicDiversity": null,
+      "ethnicDiversity": 0.69,
       "immigrationRate": null,
       "emigrationRate": null,
-      "medianAge": null,
-      "urbanPopulation": null,
+      "medianAge": 16.3,
+      "urbanPopulation": 44,
       "populationDensity": null
     },
     "education": {
-      "avgIQ": null,
-      "literacyRate": null,
+      "avgIQ": 68,
+      "literacyRate": 35.5,
       "universityEnrollment": null,
       "pisaMath": null,
       "pisaReading": null,
@@ -12775,18 +13343,18 @@
       "rdSpending": null
     },
     "lifestyle": {
-      "happinessIndex": null,
-      "workHoursWeek": null,
+      "happinessIndex": 4.2,
+      "workHoursWeek": 46,
       "vacationDays": null,
-      "internetPenetration": null,
+      "internetPenetration": 34,
       "socialMediaUse": null,
-      "coffeeConsumption": null,
+      "coffeeConsumption": 0.1,
       "meatConsumption": null,
       "vegetarianRate": null
     },
     "freedom": {
-      "corruptionIndex": null,
-      "pressFreedom": null,
+      "corruptionIndex": 28,
+      "pressFreedom": 48,
       "drugPolicyScore": null
     }
   },
@@ -12855,21 +13423,41 @@
       "conflict": {
         "source": "UCDP / Global Peace Index",
         "year": 2024
+      },
+      "health": {
+        "source": "WHO / NCD-RisC",
+        "year": 2023
+      },
+      "demographics": {
+        "source": "UN / World Bank",
+        "year": 2023
+      },
+      "education": {
+        "source": "Various Studies / UNESCO",
+        "year": 2023
+      },
+      "lifestyle": {
+        "source": "World Happiness Report / ITU",
+        "year": 2024
+      },
+      "freedom": {
+        "source": "Transparency Int. / RSF",
+        "year": 2024
       }
     },
     "health": {
-      "lifeExpectancy": null,
-      "maleHeight": null,
-      "femaleHeight": null,
-      "obesityRate": null,
+      "lifeExpectancy": 64.7,
+      "maleHeight": 170,
+      "femaleHeight": 160,
+      "obesityRate": 12.7,
       "penisSize": null,
       "breastSize": null,
-      "fertilityRate": null,
+      "fertilityRate": 4.45,
       "infantMortality": null,
       "cancerRate": null,
       "hivPrevalence": null,
-      "suicideRate": null,
-      "alcoholConsumption": null,
+      "suicideRate": 5.4,
+      "alcoholConsumption": 0.1,
       "smokingRate": null,
       "drugUseRate": null
     },
@@ -12884,16 +13472,16 @@
       "lgbtAcceptance": null
     },
     "demographics": {
-      "ethnicDiversity": null,
+      "ethnicDiversity": 0.62,
       "immigrationRate": null,
       "emigrationRate": null,
-      "medianAge": null,
-      "urbanPopulation": null,
+      "medianAge": 20.7,
+      "urbanPopulation": 55.3,
       "populationDensity": null
     },
     "education": {
-      "avgIQ": null,
-      "literacyRate": null,
+      "avgIQ": 76,
+      "literacyRate": 53.5,
       "universityEnrollment": null,
       "pisaMath": null,
       "pisaReading": null,
@@ -12903,18 +13491,18 @@
       "rdSpending": null
     },
     "lifestyle": {
-      "happinessIndex": null,
-      "workHoursWeek": null,
+      "happinessIndex": 4.72,
+      "workHoursWeek": 45,
       "vacationDays": null,
-      "internetPenetration": null,
+      "internetPenetration": 59,
       "socialMediaUse": null,
-      "coffeeConsumption": null,
+      "coffeeConsumption": 0.1,
       "meatConsumption": null,
       "vegetarianRate": null
     },
     "freedom": {
-      "corruptionIndex": null,
-      "pressFreedom": null,
+      "corruptionIndex": 30,
+      "pressFreedom": 35,
       "drugPolicyScore": null
     }
   },
@@ -12985,45 +13573,69 @@
       "conflict": {
         "source": "UCDP / Global Peace Index",
         "year": 2024
+      },
+      "health": {
+        "source": "WHO / NCD-RisC",
+        "year": 2023
+      },
+      "demographics": {
+        "source": "UN / World Bank",
+        "year": 2023
+      },
+      "education": {
+        "source": "Various Studies / UNESCO",
+        "year": 2023
+      },
+      "lifestyle": {
+        "source": "World Happiness Report / ITU",
+        "year": 2024
+      },
+      "freedom": {
+        "source": "Transparency Int. / RSF",
+        "year": 2024
+      },
+      "sex": {
+        "source": "Various Studies / ILGA",
+        "year": 2023
       }
     },
     "health": {
-      "lifeExpectancy": null,
-      "maleHeight": null,
-      "femaleHeight": null,
-      "obesityRate": null,
+      "lifeExpectancy": 74.4,
+      "maleHeight": 172,
+      "femaleHeight": 158,
+      "obesityRate": 10.8,
       "penisSize": null,
       "breastSize": null,
-      "fertilityRate": null,
+      "fertilityRate": 1.36,
       "infantMortality": null,
       "cancerRate": null,
       "hivPrevalence": null,
-      "suicideRate": null,
-      "alcoholConsumption": null,
+      "suicideRate": 8,
+      "alcoholConsumption": 4.3,
       "smokingRate": null,
       "drugUseRate": null
     },
     "sex": {
-      "sexualPartners": null,
+      "sexualPartners": 4.5,
       "ageFirstSex": null,
-      "divorceRate": null,
+      "divorceRate": 1.5,
       "marriageAge": null,
       "singleParentRate": null,
       "contraceptionUse": null,
       "teenPregnancy": null,
-      "lgbtAcceptance": null
+      "lgbtAcceptance": 25
     },
     "demographics": {
-      "ethnicDiversity": null,
+      "ethnicDiversity": 0.46,
       "immigrationRate": null,
       "emigrationRate": null,
-      "medianAge": null,
-      "urbanPopulation": null,
+      "medianAge": 37.4,
+      "urbanPopulation": 40.8,
       "populationDensity": null
     },
     "education": {
-      "avgIQ": null,
-      "literacyRate": null,
+      "avgIQ": 89,
+      "literacyRate": 91.3,
       "universityEnrollment": null,
       "pisaMath": null,
       "pisaReading": null,
@@ -13033,18 +13645,18 @@
       "rdSpending": null
     },
     "lifestyle": {
-      "happinessIndex": null,
-      "workHoursWeek": null,
+      "happinessIndex": 6.05,
+      "workHoursWeek": 40,
       "vacationDays": null,
-      "internetPenetration": null,
+      "internetPenetration": 79,
       "socialMediaUse": null,
-      "coffeeConsumption": null,
+      "coffeeConsumption": 1.1,
       "meatConsumption": null,
       "vegetarianRate": null
     },
     "freedom": {
-      "corruptionIndex": null,
-      "pressFreedom": null,
+      "corruptionIndex": 50,
+      "pressFreedom": 62,
       "drugPolicyScore": null
     }
   },
@@ -13613,9 +14225,9 @@
     "crime": {
       "homicideRate": null,
       "safetyIndex": null,
-      "incarcerationRate": null,
+      "incarcerationRate": 232,
       "policePerCapita": null,
-      "gunOwnership": null,
+      "gunOwnership": 5,
       "roadDeaths": null
     },
     "poverty": {
@@ -13656,47 +14268,71 @@
       "conflict": {
         "source": "UCDP / Global Peace Index",
         "year": 2024
+      },
+      "health": {
+        "source": "WHO / NCD-RisC",
+        "year": 2023
+      },
+      "demographics": {
+        "source": "UN / World Bank",
+        "year": 2023
+      },
+      "education": {
+        "source": "Various Studies / UNESCO",
+        "year": 2023
+      },
+      "lifestyle": {
+        "source": "World Happiness Report / ITU",
+        "year": 2024
+      },
+      "freedom": {
+        "source": "Transparency Int. / RSF",
+        "year": 2024
+      },
+      "sex": {
+        "source": "Various Studies / ILGA",
+        "year": 2023
       }
     },
     "health": {
-      "lifeExpectancy": null,
-      "maleHeight": null,
-      "femaleHeight": null,
-      "obesityRate": null,
+      "lifeExpectancy": 74,
+      "maleHeight": 172,
+      "femaleHeight": 159,
+      "obesityRate": 26.1,
       "penisSize": null,
       "breastSize": null,
-      "fertilityRate": null,
+      "fertilityRate": 2.33,
       "infantMortality": null,
       "cancerRate": null,
       "hivPrevalence": null,
-      "suicideRate": null,
-      "alcoholConsumption": null,
+      "suicideRate": 4.8,
+      "alcoholConsumption": 0.7,
       "smokingRate": null,
       "drugUseRate": null
     },
     "sex": {
-      "sexualPartners": null,
+      "sexualPartners": 3.5,
       "ageFirstSex": null,
-      "divorceRate": null,
+      "divorceRate": 1.4,
       "marriageAge": null,
       "singleParentRate": null,
       "contraceptionUse": null,
       "teenPregnancy": null,
-      "lgbtAcceptance": null
+      "lgbtAcceptance": 8
     },
     "demographics": {
-      "ethnicDiversity": null,
+      "ethnicDiversity": 0.48,
       "immigrationRate": null,
       "emigrationRate": null,
-      "medianAge": null,
-      "urbanPopulation": null,
+      "medianAge": 29.5,
+      "urbanPopulation": 64.1,
       "populationDensity": null
     },
     "education": {
-      "avgIQ": null,
-      "literacyRate": null,
+      "avgIQ": 84,
+      "literacyRate": 73.8,
       "universityEnrollment": null,
-      "pisaMath": null,
+      "pisaMath": 368,
       "pisaReading": null,
       "pisaScience": null,
       "nobelPrizesPerCapita": null,
@@ -13704,18 +14340,18 @@
       "rdSpending": null
     },
     "lifestyle": {
-      "happinessIndex": null,
-      "workHoursWeek": null,
+      "happinessIndex": 4.97,
+      "workHoursWeek": 44,
       "vacationDays": null,
-      "internetPenetration": null,
+      "internetPenetration": 88,
       "socialMediaUse": null,
-      "coffeeConsumption": null,
+      "coffeeConsumption": 1.2,
       "meatConsumption": null,
       "vegetarianRate": null
     },
     "freedom": {
-      "corruptionIndex": null,
-      "pressFreedom": null,
+      "corruptionIndex": 38,
+      "pressFreedom": 42,
       "drugPolicyScore": null
     }
   },
@@ -13744,9 +14380,9 @@
     "crime": {
       "homicideRate": null,
       "safetyIndex": null,
-      "incarcerationRate": null,
+      "incarcerationRate": 63,
       "policePerCapita": null,
-      "gunOwnership": null,
+      "gunOwnership": 1.6,
       "roadDeaths": null
     },
     "poverty": {
@@ -13787,21 +14423,41 @@
       "conflict": {
         "source": "UCDP / Global Peace Index",
         "year": 2024
+      },
+      "health": {
+        "source": "WHO / NCD-RisC",
+        "year": 2023
+      },
+      "demographics": {
+        "source": "UN / World Bank",
+        "year": 2023
+      },
+      "education": {
+        "source": "Various Studies / UNESCO",
+        "year": 2023
+      },
+      "lifestyle": {
+        "source": "World Happiness Report / ITU",
+        "year": 2024
+      },
+      "freedom": {
+        "source": "Transparency Int. / RSF",
+        "year": 2024
       }
     },
     "health": {
-      "lifeExpectancy": null,
-      "maleHeight": null,
-      "femaleHeight": null,
-      "obesityRate": null,
+      "lifeExpectancy": 59.3,
+      "maleHeight": 164,
+      "femaleHeight": 155,
+      "obesityRate": 7.2,
       "penisSize": null,
       "breastSize": null,
-      "fertilityRate": null,
+      "fertilityRate": 4.63,
       "infantMortality": null,
       "cancerRate": null,
       "hivPrevalence": null,
-      "suicideRate": null,
-      "alcoholConsumption": null,
+      "suicideRate": 5.7,
+      "alcoholConsumption": 1.6,
       "smokingRate": null,
       "drugUseRate": null
     },
@@ -13816,16 +14472,16 @@
       "lgbtAcceptance": null
     },
     "demographics": {
-      "ethnicDiversity": null,
+      "ethnicDiversity": 0.69,
       "immigrationRate": null,
       "emigrationRate": null,
-      "medianAge": null,
-      "urbanPopulation": null,
+      "medianAge": 17.6,
+      "urbanPopulation": 37.1,
       "populationDensity": null
     },
     "education": {
-      "avgIQ": null,
-      "literacyRate": null,
+      "avgIQ": 64,
+      "literacyRate": 60.7,
       "universityEnrollment": null,
       "pisaMath": null,
       "pisaReading": null,
@@ -13835,18 +14491,18 @@
       "rdSpending": null
     },
     "lifestyle": {
-      "happinessIndex": null,
-      "workHoursWeek": null,
+      "happinessIndex": 4.46,
+      "workHoursWeek": 46,
       "vacationDays": null,
-      "internetPenetration": null,
+      "internetPenetration": 21,
       "socialMediaUse": null,
-      "coffeeConsumption": null,
+      "coffeeConsumption": 0.1,
       "meatConsumption": null,
       "vegetarianRate": null
     },
     "freedom": {
-      "corruptionIndex": null,
-      "pressFreedom": null,
+      "corruptionIndex": 26,
+      "pressFreedom": 50,
       "drugPolicyScore": null
     }
   },
@@ -14003,9 +14659,9 @@
     "crime": {
       "homicideRate": null,
       "safetyIndex": null,
-      "incarcerationRate": null,
+      "incarcerationRate": 267,
       "policePerCapita": null,
-      "gunOwnership": null,
+      "gunOwnership": 7,
       "roadDeaths": null
     },
     "poverty": {
@@ -14046,45 +14702,69 @@
       "conflict": {
         "source": "UCDP / Global Peace Index",
         "year": 2024
+      },
+      "health": {
+        "source": "WHO / NCD-RisC",
+        "year": 2023
+      },
+      "demographics": {
+        "source": "UN / World Bank",
+        "year": 2023
+      },
+      "education": {
+        "source": "Various Studies / UNESCO",
+        "year": 2023
+      },
+      "lifestyle": {
+        "source": "World Happiness Report / ITU",
+        "year": 2024
+      },
+      "freedom": {
+        "source": "Transparency Int. / RSF",
+        "year": 2024
+      },
+      "sex": {
+        "source": "Various Studies / ILGA",
+        "year": 2023
       }
     },
     "health": {
-      "lifeExpectancy": null,
-      "maleHeight": null,
-      "femaleHeight": null,
-      "obesityRate": null,
+      "lifeExpectancy": 59.3,
+      "maleHeight": 171,
+      "femaleHeight": 161,
+      "obesityRate": 17.2,
       "penisSize": null,
       "breastSize": null,
-      "fertilityRate": null,
+      "fertilityRate": 3.29,
       "infantMortality": null,
       "cancerRate": null,
       "hivPrevalence": null,
-      "suicideRate": null,
-      "alcoholConsumption": null,
+      "suicideRate": 9.8,
+      "alcoholConsumption": 10.8,
       "smokingRate": null,
       "drugUseRate": null
     },
     "sex": {
-      "sexualPartners": null,
+      "sexualPartners": 6.2,
       "ageFirstSex": null,
-      "divorceRate": null,
+      "divorceRate": 0.7,
       "marriageAge": null,
       "singleParentRate": null,
       "contraceptionUse": null,
       "teenPregnancy": null,
-      "lgbtAcceptance": null
+      "lgbtAcceptance": 22
     },
     "demographics": {
-      "ethnicDiversity": null,
+      "ethnicDiversity": 0.63,
       "immigrationRate": null,
       "emigrationRate": null,
-      "medianAge": null,
-      "urbanPopulation": null,
+      "medianAge": 22,
+      "urbanPopulation": 53,
       "populationDensity": null
     },
     "education": {
-      "avgIQ": null,
-      "literacyRate": null,
+      "avgIQ": 72,
+      "literacyRate": 91.5,
       "universityEnrollment": null,
       "pisaMath": null,
       "pisaReading": null,
@@ -14094,18 +14774,18 @@
       "rdSpending": null
     },
     "lifestyle": {
-      "happinessIndex": null,
-      "workHoursWeek": null,
+      "happinessIndex": 4.57,
+      "workHoursWeek": 45,
       "vacationDays": null,
-      "internetPenetration": null,
+      "internetPenetration": 53,
       "socialMediaUse": null,
-      "coffeeConsumption": null,
+      "coffeeConsumption": 0.2,
       "meatConsumption": null,
       "vegetarianRate": null
     },
     "freedom": {
-      "corruptionIndex": null,
-      "pressFreedom": null,
+      "corruptionIndex": 49,
+      "pressFreedom": 67,
       "drugPolicyScore": null
     }
   },
@@ -14720,21 +15400,41 @@
       "conflict": {
         "source": "UCDP / Global Peace Index",
         "year": 2024
+      },
+      "health": {
+        "source": "WHO / NCD-RisC",
+        "year": 2023
+      },
+      "demographics": {
+        "source": "UN / World Bank",
+        "year": 2023
+      },
+      "education": {
+        "source": "Various Studies / UNESCO",
+        "year": 2023
+      },
+      "lifestyle": {
+        "source": "World Happiness Report / ITU",
+        "year": 2024
+      },
+      "freedom": {
+        "source": "Transparency Int. / RSF",
+        "year": 2024
       }
     },
     "health": {
-      "lifeExpectancy": null,
-      "maleHeight": null,
-      "femaleHeight": null,
-      "obesityRate": null,
+      "lifeExpectancy": 61.6,
+      "maleHeight": 171,
+      "femaleHeight": 160,
+      "obesityRate": 5.5,
       "penisSize": null,
       "breastSize": null,
-      "fertilityRate": null,
+      "fertilityRate": 6.82,
       "infantMortality": null,
       "cancerRate": null,
       "hivPrevalence": null,
-      "suicideRate": null,
-      "alcoholConsumption": null,
+      "suicideRate": 4.3,
+      "alcoholConsumption": 0.4,
       "smokingRate": null,
       "drugUseRate": null
     },
@@ -14749,16 +15449,16 @@
       "lgbtAcceptance": null
     },
     "demographics": {
-      "ethnicDiversity": null,
+      "ethnicDiversity": 0.65,
       "immigrationRate": null,
       "emigrationRate": null,
-      "medianAge": null,
-      "urbanPopulation": null,
+      "medianAge": 15,
+      "urbanPopulation": 16.6,
       "populationDensity": null
     },
     "education": {
-      "avgIQ": null,
-      "literacyRate": null,
+      "avgIQ": 69,
+      "literacyRate": 19.1,
       "universityEnrollment": null,
       "pisaMath": null,
       "pisaReading": null,
@@ -14768,18 +15468,18 @@
       "rdSpending": null
     },
     "lifestyle": {
-      "happinessIndex": null,
-      "workHoursWeek": null,
+      "happinessIndex": 4.21,
+      "workHoursWeek": 46,
       "vacationDays": null,
-      "internetPenetration": null,
+      "internetPenetration": 14,
       "socialMediaUse": null,
-      "coffeeConsumption": null,
+      "coffeeConsumption": 0.1,
       "meatConsumption": null,
       "vegetarianRate": null
     },
     "freedom": {
-      "corruptionIndex": null,
-      "pressFreedom": null,
+      "corruptionIndex": 32,
+      "pressFreedom": 52,
       "drugPolicyScore": null
     }
   },
@@ -16747,9 +17447,9 @@
     "crime": {
       "homicideRate": null,
       "safetyIndex": null,
-      "incarcerationRate": null,
+      "incarcerationRate": 492,
       "policePerCapita": null,
-      "gunOwnership": null,
+      "gunOwnership": 0.6,
       "roadDeaths": null
     },
     "poverty": {
@@ -16790,45 +17490,69 @@
       "conflict": {
         "source": "UCDP / Global Peace Index",
         "year": 2024
+      },
+      "health": {
+        "source": "WHO / NCD-RisC",
+        "year": 2023
+      },
+      "demographics": {
+        "source": "UN / World Bank",
+        "year": 2023
+      },
+      "education": {
+        "source": "Various Studies / UNESCO",
+        "year": 2023
+      },
+      "lifestyle": {
+        "source": "World Happiness Report / ITU",
+        "year": 2024
+      },
+      "freedom": {
+        "source": "Transparency Int. / RSF",
+        "year": 2024
+      },
+      "sex": {
+        "source": "Various Studies / ILGA",
+        "year": 2023
       }
     },
     "health": {
-      "lifeExpectancy": null,
-      "maleHeight": null,
-      "femaleHeight": null,
-      "obesityRate": null,
+      "lifeExpectancy": 66.1,
+      "maleHeight": 165,
+      "femaleHeight": 157,
+      "obesityRate": 5.8,
       "penisSize": null,
       "breastSize": null,
-      "fertilityRate": null,
+      "fertilityRate": 3.87,
       "infantMortality": null,
       "cancerRate": null,
       "hivPrevalence": null,
-      "suicideRate": null,
-      "alcoholConsumption": null,
+      "suicideRate": 9.5,
+      "alcoholConsumption": 6.8,
       "smokingRate": null,
       "drugUseRate": null
     },
     "sex": {
-      "sexualPartners": null,
+      "sexualPartners": 4,
       "ageFirstSex": null,
-      "divorceRate": null,
+      "divorceRate": 0.3,
       "marriageAge": null,
       "singleParentRate": null,
       "contraceptionUse": null,
       "teenPregnancy": null,
-      "lgbtAcceptance": null
+      "lgbtAcceptance": 6
     },
     "demographics": {
-      "ethnicDiversity": null,
+      "ethnicDiversity": 0.32,
       "immigrationRate": null,
       "emigrationRate": null,
-      "medianAge": null,
-      "urbanPopulation": null,
+      "medianAge": 19.7,
+      "urbanPopulation": 17.6,
       "populationDensity": null
     },
     "education": {
-      "avgIQ": null,
-      "literacyRate": null,
+      "avgIQ": 76,
+      "literacyRate": 73.2,
       "universityEnrollment": null,
       "pisaMath": null,
       "pisaReading": null,
@@ -16838,18 +17562,18 @@
       "rdSpending": null
     },
     "lifestyle": {
-      "happinessIndex": null,
-      "workHoursWeek": null,
+      "happinessIndex": 3.8,
+      "workHoursWeek": 46,
       "vacationDays": null,
-      "internetPenetration": null,
+      "internetPenetration": 32,
       "socialMediaUse": null,
-      "coffeeConsumption": null,
+      "coffeeConsumption": 0.1,
       "meatConsumption": null,
       "vegetarianRate": null
     },
     "freedom": {
-      "corruptionIndex": null,
-      "pressFreedom": null,
+      "corruptionIndex": 53,
+      "pressFreedom": 32,
       "drugPolicyScore": null
     }
   },
@@ -17029,9 +17753,9 @@
     "crime": {
       "homicideRate": null,
       "safetyIndex": null,
-      "incarcerationRate": null,
+      "incarcerationRate": 64,
       "policePerCapita": null,
-      "gunOwnership": null,
+      "gunOwnership": 2,
       "roadDeaths": null
     },
     "poverty": {
@@ -17072,45 +17796,69 @@
       "conflict": {
         "source": "UCDP / Global Peace Index",
         "year": 2024
+      },
+      "health": {
+        "source": "WHO / NCD-RisC",
+        "year": 2023
+      },
+      "demographics": {
+        "source": "UN / World Bank",
+        "year": 2023
+      },
+      "education": {
+        "source": "Various Studies / UNESCO",
+        "year": 2023
+      },
+      "lifestyle": {
+        "source": "World Happiness Report / ITU",
+        "year": 2024
+      },
+      "freedom": {
+        "source": "Transparency Int. / RSF",
+        "year": 2024
+      },
+      "sex": {
+        "source": "Various Studies / ILGA",
+        "year": 2023
       }
     },
     "health": {
-      "lifeExpectancy": null,
-      "maleHeight": null,
-      "femaleHeight": null,
-      "obesityRate": null,
+      "lifeExpectancy": 68,
+      "maleHeight": 175,
+      "femaleHeight": 163,
+      "obesityRate": 8.8,
       "penisSize": null,
       "breastSize": null,
-      "fertilityRate": null,
+      "fertilityRate": 4.45,
       "infantMortality": null,
       "cancerRate": null,
       "hivPrevalence": null,
-      "suicideRate": null,
-      "alcoholConsumption": null,
+      "suicideRate": 8.3,
+      "alcoholConsumption": 0.6,
       "smokingRate": null,
       "drugUseRate": null
     },
     "sex": {
-      "sexualPartners": null,
+      "sexualPartners": 3.8,
       "ageFirstSex": null,
-      "divorceRate": null,
+      "divorceRate": 0.5,
       "marriageAge": null,
       "singleParentRate": null,
       "contraceptionUse": null,
       "teenPregnancy": null,
-      "lgbtAcceptance": null
+      "lgbtAcceptance": 3
     },
     "demographics": {
-      "ethnicDiversity": null,
+      "ethnicDiversity": 0.69,
       "immigrationRate": null,
       "emigrationRate": null,
-      "medianAge": null,
-      "urbanPopulation": null,
+      "medianAge": 18.8,
+      "urbanPopulation": 48.1,
       "populationDensity": null
     },
     "education": {
-      "avgIQ": null,
-      "literacyRate": null,
+      "avgIQ": 76,
+      "literacyRate": 51.9,
       "universityEnrollment": null,
       "pisaMath": null,
       "pisaReading": null,
@@ -17120,18 +17868,18 @@
       "rdSpending": null
     },
     "lifestyle": {
-      "happinessIndex": null,
-      "workHoursWeek": null,
+      "happinessIndex": 5,
+      "workHoursWeek": 45,
       "vacationDays": null,
-      "internetPenetration": null,
+      "internetPenetration": 58,
       "socialMediaUse": null,
-      "coffeeConsumption": null,
+      "coffeeConsumption": 2.8,
       "meatConsumption": null,
       "vegetarianRate": null
     },
     "freedom": {
-      "corruptionIndex": null,
-      "pressFreedom": null,
+      "corruptionIndex": 43,
+      "pressFreedom": 53,
       "drugPolicyScore": null
     }
   },
@@ -17331,21 +18079,41 @@
       "conflict": {
         "source": "UCDP / Global Peace Index",
         "year": 2024
+      },
+      "health": {
+        "source": "WHO / NCD-RisC",
+        "year": 2023
+      },
+      "demographics": {
+        "source": "UN / World Bank",
+        "year": 2023
+      },
+      "education": {
+        "source": "Various Studies / UNESCO",
+        "year": 2023
+      },
+      "lifestyle": {
+        "source": "World Happiness Report / ITU",
+        "year": 2024
+      },
+      "freedom": {
+        "source": "Transparency Int. / RSF",
+        "year": 2024
       }
     },
     "health": {
-      "lifeExpectancy": null,
-      "maleHeight": null,
-      "femaleHeight": null,
-      "obesityRate": null,
+      "lifeExpectancy": 54.7,
+      "maleHeight": 166,
+      "femaleHeight": 157,
+      "obesityRate": 8.7,
       "penisSize": null,
       "breastSize": null,
-      "fertilityRate": null,
+      "fertilityRate": 4.08,
       "infantMortality": null,
       "cancerRate": null,
       "hivPrevalence": null,
-      "suicideRate": null,
-      "alcoholConsumption": null,
+      "suicideRate": 7,
+      "alcoholConsumption": 5.7,
       "smokingRate": null,
       "drugUseRate": null
     },
@@ -17360,16 +18128,16 @@
       "lgbtAcceptance": null
     },
     "demographics": {
-      "ethnicDiversity": null,
+      "ethnicDiversity": 0.82,
       "immigrationRate": null,
       "emigrationRate": null,
-      "medianAge": null,
-      "urbanPopulation": null,
+      "medianAge": 19.4,
+      "urbanPopulation": 43,
       "populationDensity": null
     },
     "education": {
-      "avgIQ": null,
-      "literacyRate": null,
+      "avgIQ": 64,
+      "literacyRate": 43.2,
       "universityEnrollment": null,
       "pisaMath": null,
       "pisaReading": null,
@@ -17379,18 +18147,18 @@
       "rdSpending": null
     },
     "lifestyle": {
-      "happinessIndex": null,
-      "workHoursWeek": null,
+      "happinessIndex": 3.24,
+      "workHoursWeek": 46,
       "vacationDays": null,
-      "internetPenetration": null,
+      "internetPenetration": 17,
       "socialMediaUse": null,
-      "coffeeConsumption": null,
+      "coffeeConsumption": 0.1,
       "meatConsumption": null,
       "vegetarianRate": null
     },
     "freedom": {
-      "corruptionIndex": null,
-      "pressFreedom": null,
+      "corruptionIndex": 34,
+      "pressFreedom": 51,
       "drugPolicyScore": null
     }
   },
@@ -17866,21 +18634,41 @@
       "conflict": {
         "source": "UCDP / Global Peace Index",
         "year": 2024
+      },
+      "health": {
+        "source": "WHO / NCD-RisC",
+        "year": 2023
+      },
+      "demographics": {
+        "source": "UN / World Bank",
+        "year": 2023
+      },
+      "education": {
+        "source": "Various Studies / UNESCO",
+        "year": 2023
+      },
+      "lifestyle": {
+        "source": "World Happiness Report / ITU",
+        "year": 2024
+      },
+      "freedom": {
+        "source": "Transparency Int. / RSF",
+        "year": 2024
       }
     },
     "health": {
-      "lifeExpectancy": null,
-      "maleHeight": null,
-      "femaleHeight": null,
-      "obesityRate": null,
+      "lifeExpectancy": 55.4,
+      "maleHeight": 175,
+      "femaleHeight": 163,
+      "obesityRate": 8.3,
       "penisSize": null,
       "breastSize": null,
-      "fertilityRate": null,
+      "fertilityRate": 6.31,
       "infantMortality": null,
       "cancerRate": null,
       "hivPrevalence": null,
-      "suicideRate": null,
-      "alcoholConsumption": null,
+      "suicideRate": 6.3,
+      "alcoholConsumption": 0.1,
       "smokingRate": null,
       "drugUseRate": null
     },
@@ -17895,16 +18683,16 @@
       "lgbtAcceptance": null
     },
     "demographics": {
-      "ethnicDiversity": null,
+      "ethnicDiversity": 0.81,
       "immigrationRate": null,
       "emigrationRate": null,
-      "medianAge": null,
-      "urbanPopulation": null,
+      "medianAge": 16.7,
+      "urbanPopulation": 46.1,
       "populationDensity": null
     },
     "education": {
-      "avgIQ": null,
-      "literacyRate": null,
+      "avgIQ": 68,
+      "literacyRate": 37.8,
       "universityEnrollment": null,
       "pisaMath": null,
       "pisaReading": null,
@@ -17914,18 +18702,18 @@
       "rdSpending": null
     },
     "lifestyle": {
-      "happinessIndex": null,
-      "workHoursWeek": null,
+      "happinessIndex": 4.86,
+      "workHoursWeek": 46,
       "vacationDays": null,
-      "internetPenetration": null,
+      "internetPenetration": 15,
       "socialMediaUse": null,
-      "coffeeConsumption": null,
+      "coffeeConsumption": 0.1,
       "meatConsumption": null,
       "vegetarianRate": null
     },
     "freedom": {
-      "corruptionIndex": null,
-      "pressFreedom": null,
+      "corruptionIndex": 11,
+      "pressFreedom": 18,
       "drugPolicyScore": null
     }
   },
@@ -18151,21 +18939,41 @@
       "conflict": {
         "source": "UCDP / Global Peace Index",
         "year": 2024
+      },
+      "health": {
+        "source": "WHO / NCD-RisC",
+        "year": 2023
+      },
+      "demographics": {
+        "source": "UN / World Bank",
+        "year": 2023
+      },
+      "education": {
+        "source": "Various Studies / UNESCO",
+        "year": 2023
+      },
+      "lifestyle": {
+        "source": "World Happiness Report / ITU",
+        "year": 2024
+      },
+      "freedom": {
+        "source": "Transparency Int. / RSF",
+        "year": 2024
       }
     },
     "health": {
-      "lifeExpectancy": null,
-      "maleHeight": null,
-      "femaleHeight": null,
-      "obesityRate": null,
+      "lifeExpectancy": 55,
+      "maleHeight": 176,
+      "femaleHeight": 164,
+      "obesityRate": 6.6,
       "penisSize": null,
       "breastSize": null,
-      "fertilityRate": null,
+      "fertilityRate": 4.54,
       "infantMortality": null,
       "cancerRate": null,
       "hivPrevalence": null,
-      "suicideRate": null,
-      "alcoholConsumption": null,
+      "suicideRate": 6.8,
+      "alcoholConsumption": 1.5,
       "smokingRate": null,
       "drugUseRate": null
     },
@@ -18180,16 +18988,16 @@
       "lgbtAcceptance": null
     },
     "demographics": {
-      "ethnicDiversity": null,
+      "ethnicDiversity": 0.88,
       "immigrationRate": null,
       "emigrationRate": null,
-      "medianAge": null,
-      "urbanPopulation": null,
+      "medianAge": 19,
+      "urbanPopulation": 20.2,
       "populationDensity": null
     },
     "education": {
-      "avgIQ": null,
-      "literacyRate": null,
+      "avgIQ": 68,
+      "literacyRate": 34.5,
       "universityEnrollment": null,
       "pisaMath": null,
       "pisaReading": null,
@@ -18199,18 +19007,18 @@
       "rdSpending": null
     },
     "lifestyle": {
-      "happinessIndex": null,
-      "workHoursWeek": null,
+      "happinessIndex": 2.82,
+      "workHoursWeek": 46,
       "vacationDays": null,
-      "internetPenetration": null,
+      "internetPenetration": 8,
       "socialMediaUse": null,
-      "coffeeConsumption": null,
+      "coffeeConsumption": 0.1,
       "meatConsumption": null,
       "vegetarianRate": null
     },
     "freedom": {
-      "corruptionIndex": null,
-      "pressFreedom": null,
+      "corruptionIndex": 13,
+      "pressFreedom": 17,
       "drugPolicyScore": null
     }
   },
@@ -18566,21 +19374,41 @@
       "conflict": {
         "source": "UCDP / Global Peace Index",
         "year": 2024
+      },
+      "health": {
+        "source": "WHO / NCD-RisC",
+        "year": 2023
+      },
+      "demographics": {
+        "source": "UN / World Bank",
+        "year": 2023
+      },
+      "education": {
+        "source": "Various Studies / UNESCO",
+        "year": 2023
+      },
+      "lifestyle": {
+        "source": "World Happiness Report / ITU",
+        "year": 2024
+      },
+      "freedom": {
+        "source": "Transparency Int. / RSF",
+        "year": 2024
       }
     },
     "health": {
-      "lifeExpectancy": null,
-      "maleHeight": null,
-      "femaleHeight": null,
-      "obesityRate": null,
+      "lifeExpectancy": 65.3,
+      "maleHeight": 171,
+      "femaleHeight": 160,
+      "obesityRate": 8.6,
       "penisSize": null,
       "breastSize": null,
-      "fertilityRate": null,
+      "fertilityRate": 4.35,
       "infantMortality": null,
       "cancerRate": null,
       "hivPrevalence": null,
-      "suicideRate": null,
-      "alcoholConsumption": null,
+      "suicideRate": 5,
+      "alcoholConsumption": 1.7,
       "smokingRate": null,
       "drugUseRate": null
     },
@@ -18595,16 +19423,16 @@
       "lgbtAcceptance": null
     },
     "demographics": {
-      "ethnicDiversity": null,
+      "ethnicDiversity": 0.71,
       "immigrationRate": null,
       "emigrationRate": null,
-      "medianAge": null,
-      "urbanPopulation": null,
+      "medianAge": 19.9,
+      "urbanPopulation": 35.3,
       "populationDensity": null
     },
     "education": {
-      "avgIQ": null,
-      "literacyRate": null,
+      "avgIQ": 71,
+      "literacyRate": 60.7,
       "universityEnrollment": null,
       "pisaMath": null,
       "pisaReading": null,
@@ -18614,18 +19442,18 @@
       "rdSpending": null
     },
     "lifestyle": {
-      "happinessIndex": null,
-      "workHoursWeek": null,
+      "happinessIndex": 4.52,
+      "workHoursWeek": 45,
       "vacationDays": null,
-      "internetPenetration": null,
+      "internetPenetration": 31,
       "socialMediaUse": null,
-      "coffeeConsumption": null,
+      "coffeeConsumption": 0.3,
       "meatConsumption": null,
       "vegetarianRate": null
     },
     "freedom": {
-      "corruptionIndex": null,
-      "pressFreedom": null,
+      "corruptionIndex": 22,
+      "pressFreedom": 21,
       "drugPolicyScore": null
     }
   },
@@ -19481,9 +20309,9 @@
     "crime": {
       "homicideRate": null,
       "safetyIndex": null,
-      "incarcerationRate": null,
+      "incarcerationRate": 67,
       "policePerCapita": null,
-      "gunOwnership": null,
+      "gunOwnership": 0.7,
       "roadDeaths": null
     },
     "poverty": {
@@ -19524,45 +20352,69 @@
       "conflict": {
         "source": "UCDP / Global Peace Index",
         "year": 2024
+      },
+      "health": {
+        "source": "WHO / NCD-RisC",
+        "year": 2023
+      },
+      "demographics": {
+        "source": "UN / World Bank",
+        "year": 2023
+      },
+      "education": {
+        "source": "Various Studies / UNESCO",
+        "year": 2023
+      },
+      "lifestyle": {
+        "source": "World Happiness Report / ITU",
+        "year": 2024
+      },
+      "freedom": {
+        "source": "Transparency Int. / RSF",
+        "year": 2024
+      },
+      "sex": {
+        "source": "Various Studies / ILGA",
+        "year": 2023
       }
     },
     "health": {
-      "lifeExpectancy": null,
-      "maleHeight": null,
-      "femaleHeight": null,
-      "obesityRate": null,
+      "lifeExpectancy": 66.2,
+      "maleHeight": 164,
+      "femaleHeight": 156,
+      "obesityRate": 8.4,
       "penisSize": null,
       "breastSize": null,
-      "fertilityRate": null,
+      "fertilityRate": 4.77,
       "infantMortality": null,
       "cancerRate": null,
       "hivPrevalence": null,
-      "suicideRate": null,
-      "alcoholConsumption": null,
+      "suicideRate": 9.6,
+      "alcoholConsumption": 7.7,
       "smokingRate": null,
       "drugUseRate": null
     },
     "sex": {
-      "sexualPartners": null,
+      "sexualPartners": 5.5,
       "ageFirstSex": null,
-      "divorceRate": null,
+      "divorceRate": 0.4,
       "marriageAge": null,
       "singleParentRate": null,
       "contraceptionUse": null,
       "teenPregnancy": null,
-      "lgbtAcceptance": null
+      "lgbtAcceptance": 4
     },
     "demographics": {
-      "ethnicDiversity": null,
+      "ethnicDiversity": 0.95,
       "immigrationRate": null,
       "emigrationRate": null,
-      "medianAge": null,
-      "urbanPopulation": null,
+      "medianAge": 18,
+      "urbanPopulation": 35.2,
       "populationDensity": null
     },
     "education": {
-      "avgIQ": null,
-      "literacyRate": null,
+      "avgIQ": 72,
+      "literacyRate": 77.9,
       "universityEnrollment": null,
       "pisaMath": null,
       "pisaReading": null,
@@ -19572,18 +20424,18 @@
       "rdSpending": null
     },
     "lifestyle": {
-      "happinessIndex": null,
-      "workHoursWeek": null,
+      "happinessIndex": 3.7,
+      "workHoursWeek": 46,
       "vacationDays": null,
-      "internetPenetration": null,
+      "internetPenetration": 32,
       "socialMediaUse": null,
-      "coffeeConsumption": null,
+      "coffeeConsumption": 0.2,
       "meatConsumption": null,
       "vegetarianRate": null
     },
     "freedom": {
-      "corruptionIndex": null,
-      "pressFreedom": null,
+      "corruptionIndex": 38,
+      "pressFreedom": 50,
       "drugPolicyScore": null
     }
   },
@@ -19918,21 +20770,41 @@
       "conflict": {
         "source": "UCDP / Global Peace Index",
         "year": 2024
+      },
+      "health": {
+        "source": "WHO / NCD-RisC",
+        "year": 2023
+      },
+      "demographics": {
+        "source": "UN / World Bank",
+        "year": 2023
+      },
+      "education": {
+        "source": "Various Studies / UNESCO",
+        "year": 2023
+      },
+      "lifestyle": {
+        "source": "World Happiness Report / ITU",
+        "year": 2024
+      },
+      "freedom": {
+        "source": "Transparency Int. / RSF",
+        "year": 2024
       }
     },
     "health": {
-      "lifeExpectancy": null,
-      "maleHeight": null,
-      "femaleHeight": null,
-      "obesityRate": null,
+      "lifeExpectancy": 61.6,
+      "maleHeight": 169,
+      "femaleHeight": 159,
+      "obesityRate": 8.4,
       "penisSize": null,
       "breastSize": null,
-      "fertilityRate": null,
+      "fertilityRate": 4.22,
       "infantMortality": null,
       "cancerRate": null,
       "hivPrevalence": null,
-      "suicideRate": null,
-      "alcoholConsumption": null,
+      "suicideRate": 8.6,
+      "alcoholConsumption": 1.6,
       "smokingRate": null,
       "drugUseRate": null
     },
@@ -19947,16 +20819,16 @@
       "lgbtAcceptance": null
     },
     "demographics": {
-      "ethnicDiversity": null,
+      "ethnicDiversity": 0.71,
       "immigrationRate": null,
       "emigrationRate": null,
-      "medianAge": null,
-      "urbanPopulation": null,
+      "medianAge": 19.4,
+      "urbanPopulation": 43.4,
       "populationDensity": null
     },
     "education": {
-      "avgIQ": null,
-      "literacyRate": null,
+      "avgIQ": 70,
+      "literacyRate": 66.5,
       "universityEnrollment": null,
       "pisaMath": null,
       "pisaReading": null,
@@ -19966,18 +20838,18 @@
       "rdSpending": null
     },
     "lifestyle": {
-      "happinessIndex": null,
-      "workHoursWeek": null,
+      "happinessIndex": 4.11,
+      "workHoursWeek": 45,
       "vacationDays": null,
-      "internetPenetration": null,
+      "internetPenetration": 35,
       "socialMediaUse": null,
-      "coffeeConsumption": null,
+      "coffeeConsumption": 0.1,
       "meatConsumption": null,
       "vegetarianRate": null
     },
     "freedom": {
-      "corruptionIndex": null,
-      "pressFreedom": null,
+      "corruptionIndex": 29,
+      "pressFreedom": 44,
       "drugPolicyScore": null
     }
   },
@@ -20135,9 +21007,9 @@
     "crime": {
       "homicideRate": null,
       "safetyIndex": null,
-      "incarcerationRate": null,
+      "incarcerationRate": 217,
       "policePerCapita": null,
-      "gunOwnership": null,
+      "gunOwnership": 1.4,
       "roadDeaths": null
     },
     "poverty": {
@@ -20178,47 +21050,71 @@
       "conflict": {
         "source": "UCDP / Global Peace Index",
         "year": 2024
+      },
+      "health": {
+        "source": "WHO / NCD-RisC",
+        "year": 2023
+      },
+      "demographics": {
+        "source": "UN / World Bank",
+        "year": 2023
+      },
+      "education": {
+        "source": "Various Studies / UNESCO",
+        "year": 2023
+      },
+      "lifestyle": {
+        "source": "World Happiness Report / ITU",
+        "year": 2024
+      },
+      "freedom": {
+        "source": "Transparency Int. / RSF",
+        "year": 2024
+      },
+      "sex": {
+        "source": "Various Studies / ILGA",
+        "year": 2023
       }
     },
     "health": {
-      "lifeExpectancy": null,
-      "maleHeight": null,
-      "femaleHeight": null,
-      "obesityRate": null,
+      "lifeExpectancy": 76.7,
+      "maleHeight": 174,
+      "femaleHeight": 161,
+      "obesityRate": 26.9,
       "penisSize": null,
       "breastSize": null,
-      "fertilityRate": null,
+      "fertilityRate": 2.08,
       "infantMortality": null,
       "cancerRate": null,
       "hivPrevalence": null,
-      "suicideRate": null,
-      "alcoholConsumption": null,
+      "suicideRate": 3,
+      "alcoholConsumption": 1.5,
       "smokingRate": null,
       "drugUseRate": null
     },
     "sex": {
-      "sexualPartners": null,
+      "sexualPartners": 4,
       "ageFirstSex": null,
-      "divorceRate": null,
+      "divorceRate": 1.6,
       "marriageAge": null,
       "singleParentRate": null,
       "contraceptionUse": null,
       "teenPregnancy": null,
-      "lgbtAcceptance": null
+      "lgbtAcceptance": 9
     },
     "demographics": {
-      "ethnicDiversity": null,
+      "ethnicDiversity": 0.04,
       "immigrationRate": null,
       "emigrationRate": null,
-      "medianAge": null,
-      "urbanPopulation": null,
+      "medianAge": 32.7,
+      "urbanPopulation": 69.6,
       "populationDensity": null
     },
     "education": {
-      "avgIQ": null,
-      "literacyRate": null,
+      "avgIQ": 83,
+      "literacyRate": 79,
       "universityEnrollment": null,
-      "pisaMath": null,
+      "pisaMath": 367,
       "pisaReading": null,
       "pisaScience": null,
       "nobelPrizesPerCapita": null,
@@ -20226,18 +21122,18 @@
       "rdSpending": null
     },
     "lifestyle": {
-      "happinessIndex": null,
-      "workHoursWeek": null,
+      "happinessIndex": 4.59,
+      "workHoursWeek": 42,
       "vacationDays": null,
-      "internetPenetration": null,
+      "internetPenetration": 78,
       "socialMediaUse": null,
-      "coffeeConsumption": null,
+      "coffeeConsumption": 1.5,
       "meatConsumption": null,
       "vegetarianRate": null
     },
     "freedom": {
-      "corruptionIndex": null,
-      "pressFreedom": null,
+      "corruptionIndex": 40,
+      "pressFreedom": 45,
       "drugPolicyScore": null
     }
   },
@@ -20547,9 +21443,9 @@
     "crime": {
       "homicideRate": null,
       "safetyIndex": null,
-      "incarcerationRate": null,
+      "incarcerationRate": 111,
       "policePerCapita": null,
-      "gunOwnership": null,
+      "gunOwnership": 1.3,
       "roadDeaths": null
     },
     "poverty": {
@@ -20590,45 +21486,69 @@
       "conflict": {
         "source": "UCDP / Global Peace Index",
         "year": 2024
+      },
+      "health": {
+        "source": "WHO / NCD-RisC",
+        "year": 2023
+      },
+      "demographics": {
+        "source": "UN / World Bank",
+        "year": 2023
+      },
+      "education": {
+        "source": "Various Studies / UNESCO",
+        "year": 2023
+      },
+      "lifestyle": {
+        "source": "World Happiness Report / ITU",
+        "year": 2024
+      },
+      "freedom": {
+        "source": "Transparency Int. / RSF",
+        "year": 2024
+      },
+      "sex": {
+        "source": "Various Studies / ILGA",
+        "year": 2023
       }
     },
     "health": {
-      "lifeExpectancy": null,
-      "maleHeight": null,
-      "femaleHeight": null,
-      "obesityRate": null,
+      "lifeExpectancy": 63.4,
+      "maleHeight": 166,
+      "femaleHeight": 157,
+      "obesityRate": 5.3,
       "penisSize": null,
       "breastSize": null,
-      "fertilityRate": null,
+      "fertilityRate": 4.69,
       "infantMortality": null,
       "cancerRate": null,
       "hivPrevalence": null,
-      "suicideRate": null,
-      "alcoholConsumption": null,
+      "suicideRate": 8,
+      "alcoholConsumption": 9.5,
       "smokingRate": null,
       "drugUseRate": null
     },
     "sex": {
-      "sexualPartners": null,
+      "sexualPartners": 5,
       "ageFirstSex": null,
-      "divorceRate": null,
+      "divorceRate": 0.6,
       "marriageAge": null,
       "singleParentRate": null,
       "contraceptionUse": null,
       "teenPregnancy": null,
-      "lgbtAcceptance": null
+      "lgbtAcceptance": 3
     },
     "demographics": {
-      "ethnicDiversity": null,
+      "ethnicDiversity": 0.93,
       "immigrationRate": null,
       "emigrationRate": null,
-      "medianAge": null,
-      "urbanPopulation": null,
+      "medianAge": 16.7,
+      "urbanPopulation": 25,
       "populationDensity": null
     },
     "education": {
-      "avgIQ": null,
-      "literacyRate": null,
+      "avgIQ": 73,
+      "literacyRate": 76.5,
       "universityEnrollment": null,
       "pisaMath": null,
       "pisaReading": null,
@@ -20638,18 +21558,18 @@
       "rdSpending": null
     },
     "lifestyle": {
-      "happinessIndex": null,
-      "workHoursWeek": null,
+      "happinessIndex": 4.43,
+      "workHoursWeek": 46,
       "vacationDays": null,
-      "internetPenetration": null,
+      "internetPenetration": 26,
       "socialMediaUse": null,
-      "coffeeConsumption": null,
+      "coffeeConsumption": 0.8,
       "meatConsumption": null,
       "vegetarianRate": null
     },
     "freedom": {
-      "corruptionIndex": null,
-      "pressFreedom": null,
+      "corruptionIndex": 26,
+      "pressFreedom": 42,
       "drugPolicyScore": null
     }
   },
@@ -21907,9 +22827,9 @@
     "crime": {
       "homicideRate": null,
       "safetyIndex": null,
-      "incarcerationRate": null,
+      "incarcerationRate": 138,
       "policePerCapita": null,
-      "gunOwnership": null,
+      "gunOwnership": 0.5,
       "roadDeaths": null
     },
     "poverty": {
@@ -21950,45 +22870,69 @@
       "conflict": {
         "source": "UCDP / Global Peace Index",
         "year": 2024
+      },
+      "health": {
+        "source": "WHO / NCD-RisC",
+        "year": 2023
+      },
+      "demographics": {
+        "source": "UN / World Bank",
+        "year": 2023
+      },
+      "education": {
+        "source": "Various Studies / UNESCO",
+        "year": 2023
+      },
+      "lifestyle": {
+        "source": "World Happiness Report / ITU",
+        "year": 2024
+      },
+      "freedom": {
+        "source": "Transparency Int. / RSF",
+        "year": 2024
+      },
+      "sex": {
+        "source": "Various Studies / ILGA",
+        "year": 2023
       }
     },
     "health": {
-      "lifeExpectancy": null,
-      "maleHeight": null,
-      "femaleHeight": null,
-      "obesityRate": null,
+      "lifeExpectancy": 61.2,
+      "maleHeight": 166,
+      "femaleHeight": 156,
+      "obesityRate": 8.1,
       "penisSize": null,
       "breastSize": null,
-      "fertilityRate": null,
+      "fertilityRate": 4.33,
       "infantMortality": null,
       "cancerRate": null,
       "hivPrevalence": null,
-      "suicideRate": null,
-      "alcoholConsumption": null,
+      "suicideRate": 11.3,
+      "alcoholConsumption": 4.8,
       "smokingRate": null,
       "drugUseRate": null
     },
     "sex": {
-      "sexualPartners": null,
+      "sexualPartners": 5.8,
       "ageFirstSex": null,
-      "divorceRate": null,
+      "divorceRate": 0.4,
       "marriageAge": null,
       "singleParentRate": null,
       "contraceptionUse": null,
       "teenPregnancy": null,
-      "lgbtAcceptance": null
+      "lgbtAcceptance": 5
     },
     "demographics": {
-      "ethnicDiversity": null,
+      "ethnicDiversity": 0.78,
       "immigrationRate": null,
       "emigrationRate": null,
-      "medianAge": null,
-      "urbanPopulation": null,
+      "medianAge": 17.6,
+      "urbanPopulation": 44.6,
       "populationDensity": null
     },
     "education": {
-      "avgIQ": null,
-      "literacyRate": null,
+      "avgIQ": 71,
+      "literacyRate": 86.7,
       "universityEnrollment": null,
       "pisaMath": null,
       "pisaReading": null,
@@ -21998,18 +22942,18 @@
       "rdSpending": null
     },
     "lifestyle": {
-      "happinessIndex": null,
-      "workHoursWeek": null,
+      "happinessIndex": 3.76,
+      "workHoursWeek": 45,
       "vacationDays": null,
-      "internetPenetration": null,
+      "internetPenetration": 27,
       "socialMediaUse": null,
-      "coffeeConsumption": null,
+      "coffeeConsumption": 0.1,
       "meatConsumption": null,
       "vegetarianRate": null
     },
     "freedom": {
-      "corruptionIndex": null,
-      "pressFreedom": null,
+      "corruptionIndex": 33,
+      "pressFreedom": 55,
       "drugPolicyScore": null
     }
   },
@@ -22037,9 +22981,9 @@
     "crime": {
       "homicideRate": null,
       "safetyIndex": null,
-      "incarcerationRate": null,
+      "incarcerationRate": 89,
       "policePerCapita": null,
-      "gunOwnership": null,
+      "gunOwnership": 4,
       "roadDeaths": null
     },
     "poverty": {
@@ -22080,45 +23024,69 @@
       "conflict": {
         "source": "UCDP / Global Peace Index",
         "year": 2024
+      },
+      "health": {
+        "source": "WHO / NCD-RisC",
+        "year": 2023
+      },
+      "demographics": {
+        "source": "UN / World Bank",
+        "year": 2023
+      },
+      "education": {
+        "source": "Various Studies / UNESCO",
+        "year": 2023
+      },
+      "lifestyle": {
+        "source": "World Happiness Report / ITU",
+        "year": 2024
+      },
+      "freedom": {
+        "source": "Transparency Int. / RSF",
+        "year": 2024
+      },
+      "sex": {
+        "source": "Various Studies / ILGA",
+        "year": 2023
       }
     },
     "health": {
-      "lifeExpectancy": null,
-      "maleHeight": null,
-      "femaleHeight": null,
-      "obesityRate": null,
+      "lifeExpectancy": 59.3,
+      "maleHeight": 168,
+      "femaleHeight": 159,
+      "obesityRate": 15.5,
       "penisSize": null,
       "breastSize": null,
-      "fertilityRate": null,
+      "fertilityRate": 3.49,
       "infantMortality": null,
       "cancerRate": null,
       "hivPrevalence": null,
-      "suicideRate": null,
-      "alcoholConsumption": null,
+      "suicideRate": 10.4,
+      "alcoholConsumption": 4.8,
       "smokingRate": null,
       "drugUseRate": null
     },
     "sex": {
-      "sexualPartners": null,
+      "sexualPartners": 5.5,
       "ageFirstSex": null,
-      "divorceRate": null,
+      "divorceRate": 0.5,
       "marriageAge": null,
       "singleParentRate": null,
       "contraceptionUse": null,
       "teenPregnancy": null,
-      "lgbtAcceptance": null
+      "lgbtAcceptance": 7
     },
     "demographics": {
-      "ethnicDiversity": null,
+      "ethnicDiversity": 0.39,
       "immigrationRate": null,
       "emigrationRate": null,
-      "medianAge": null,
-      "urbanPopulation": null,
+      "medianAge": 19,
+      "urbanPopulation": 32.2,
       "populationDensity": null
     },
     "education": {
-      "avgIQ": null,
-      "literacyRate": null,
+      "avgIQ": 72,
+      "literacyRate": 88.7,
       "universityEnrollment": null,
       "pisaMath": null,
       "pisaReading": null,
@@ -22128,18 +23096,18 @@
       "rdSpending": null
     },
     "lifestyle": {
-      "happinessIndex": null,
-      "workHoursWeek": null,
+      "happinessIndex": 3.09,
+      "workHoursWeek": 45,
       "vacationDays": null,
-      "internetPenetration": null,
+      "internetPenetration": 35,
       "socialMediaUse": null,
-      "coffeeConsumption": null,
+      "coffeeConsumption": 0.1,
       "meatConsumption": null,
       "vegetarianRate": null
     },
     "freedom": {
-      "corruptionIndex": null,
-      "pressFreedom": null,
+      "corruptionIndex": 23,
+      "pressFreedom": 39,
       "drugPolicyScore": null
     }
   }

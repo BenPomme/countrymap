@@ -111,31 +111,100 @@ export default function HomePage() {
               </button>
             </div>
             <div className="p-6 overflow-y-auto max-h-[60vh]">
-              <div className="space-y-6">
+              <div className="space-y-4">
+                <h3 className="text-sm font-semibold text-gray-500 uppercase tracking-wide">Governance & Economy</h3>
                 <DataSourceItem
                   title="Religion Data"
                   source="CIA World Factbook"
-                  description="Religious affiliation percentages for each country, updated annually."
+                  description="Religious affiliation percentages for each country."
                   url="https://www.cia.gov/the-world-factbook/"
                 />
                 <DataSourceItem
                   title="Democracy Score"
                   source="V-Dem Institute & Freedom House"
-                  description="Liberal democracy index combining electoral democracy with liberal principles (0-100 scale)."
+                  description="Liberal democracy index (0-100 scale)."
                   url="https://www.v-dem.net/"
                 />
                 <DataSourceItem
-                  title="GDP per Capita"
+                  title="GDP & Poverty"
                   source="World Bank"
-                  description="Gross domestic product divided by midyear population, in current US dollars."
+                  description="GDP per capita, poverty rates, and Human Development Index."
                   url="https://data.worldbank.org/"
                 />
                 <DataSourceItem
-                  title="Gender Equality (WBL Index)"
-                  source="World Bank - Women, Business and the Law"
-                  description="Measures legal gender equality across 8 indicators (0-100 scale)."
-                  url="https://wbl.worldbank.org/"
+                  title="Corruption Index"
+                  source="Transparency International"
+                  description="Corruption Perceptions Index (0-100, higher = less corrupt)."
+                  url="https://www.transparency.org/"
                 />
+                <DataSourceItem
+                  title="Press Freedom"
+                  source="Reporters Without Borders"
+                  description="Press freedom index measuring journalist safety and media independence."
+                  url="https://rsf.org/"
+                />
+
+                <h3 className="text-sm font-semibold text-gray-500 uppercase tracking-wide pt-4">Health & Body</h3>
+                <DataSourceItem
+                  title="Life Expectancy & Health"
+                  source="World Health Organization"
+                  description="Life expectancy, obesity rates, alcohol consumption, suicide rates."
+                  url="https://www.who.int/data"
+                />
+                <DataSourceItem
+                  title="Height Data"
+                  source="NCD Risk Factor Collaboration"
+                  description="Average adult height by country from standardized measurements."
+                  url="https://ncdrisc.org/"
+                />
+                <DataSourceItem
+                  title="Fertility Rate"
+                  source="UN Population Division"
+                  description="Average children per woman (total fertility rate)."
+                  url="https://population.un.org/"
+                />
+
+                <h3 className="text-sm font-semibold text-gray-500 uppercase tracking-wide pt-4">Demographics & Education</h3>
+                <DataSourceItem
+                  title="IQ & Education"
+                  source="OECD PISA & Various Studies"
+                  description="National IQ estimates, PISA scores, literacy rates."
+                  url="https://www.oecd.org/pisa/"
+                />
+                <DataSourceItem
+                  title="Ethnic Diversity"
+                  source="Alesina et al. (2003)"
+                  description="Ethnic fractionalization index from academic research."
+                  url="https://scholar.harvard.edu/"
+                />
+                <DataSourceItem
+                  title="Demographics"
+                  source="UN Population Division"
+                  description="Median age, urban population percentage, population density."
+                  url="https://population.un.org/"
+                />
+
+                <h3 className="text-sm font-semibold text-gray-500 uppercase tracking-wide pt-4">Lifestyle & Society</h3>
+                <DataSourceItem
+                  title="Happiness Index"
+                  source="World Happiness Report"
+                  description="Life satisfaction score based on Gallup World Poll surveys."
+                  url="https://worldhappiness.report/"
+                />
+                <DataSourceItem
+                  title="LGBT Acceptance"
+                  source="ILGA World & Gallup"
+                  description="Social acceptance of LGBT+ people based on surveys."
+                  url="https://ilga.org/"
+                />
+                <DataSourceItem
+                  title="Work & Internet"
+                  source="OECD & ITU"
+                  description="Average work hours, internet penetration rates."
+                  url="https://data.oecd.org/"
+                />
+
+                <h3 className="text-sm font-semibold text-gray-500 uppercase tracking-wide pt-4">Safety & Crime</h3>
                 <DataSourceItem
                   title="Homicide Rate"
                   source="UN Office on Drugs and Crime"
@@ -143,14 +212,26 @@ export default function HomePage() {
                   url="https://dataunodc.un.org/"
                 />
                 <DataSourceItem
+                  title="Gun Ownership"
+                  source="Small Arms Survey"
+                  description="Civilian firearms per 100 people."
+                  url="https://www.smallarmssurvey.org/"
+                />
+                <DataSourceItem
                   title="Conflict Status"
-                  source="Uppsala Conflict Data Program (UCDP)"
-                  description="Active armed conflicts with at least 25 battle-related deaths per year."
+                  source="Uppsala Conflict Data Program"
+                  description="Active armed conflicts and battle-related deaths."
                   url="https://ucdp.uu.se/"
+                />
+                <DataSourceItem
+                  title="Peace Index"
+                  source="Institute for Economics & Peace"
+                  description="Global Peace Index measuring national peacefulness."
+                  url="https://www.visionofhumanity.org/"
                 />
               </div>
               <p className="mt-6 text-sm text-gray-500">
-                Data is aggregated from multiple authoritative sources. Last updated: 2024.
+                Data is aggregated from multiple authoritative sources. Coverage varies by country. Last updated: 2024.
               </p>
             </div>
           </div>
