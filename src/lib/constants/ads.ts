@@ -25,19 +25,19 @@ export const ADSENSE_CONFIG = {
  */
 export const AD_SLOTS = {
   // Horizontal banner below header (728x90 / responsive)
-  headerBanner: '', // Add slot ID after creating in AdSense
+  headerBanner: '3829065727',
 
   // Square ad in sidebar (300x250)
-  sidebarSquare: '', // Add slot ID after creating in AdSense
+  sidebarSquare: '1374933403',
 
   // Ad below country detail panel (300x250)
   countryDetail: '', // Add slot ID after creating in AdSense
 
   // Banner on charts page (728x90 / responsive)
-  chartsBanner: '', // Add slot ID after creating in AdSense
+  chartsBanner: '6435688394',
 
   // In-feed ad between chart sections
-  chartsInFeed: '', // Add slot ID after creating in AdSense
+  chartsInFeed: '3581653716',
 }
 
 /**
