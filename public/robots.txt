@@ -1,0 +1,9 @@
+# robots.txt for The World Truth Map
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://www.theworldtruth.com/sitemap.xml
+
+# Crawl-delay for polite crawling
+Crawl-delay: 1

@@ -5,8 +5,77 @@ import './globals.css'
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-  title: 'Country Comparison Map',
-  description: 'Visual country comparisons based on religion, democracy, crime, poverty, gender equality, and conflict data',
+  title: 'The World Truth Map | Compare Countries by Religion, Democracy, Crime & More',
+  description: 'Interactive world map comparing countries by religion demographics, democracy scores, crime rates, GDP, gender equality, and conflict status. Explore global statistics and filter countries by multiple criteria.',
+  keywords: [
+    'world map by religion',
+    'countries by religion',
+    'muslim countries map',
+    'christian countries',
+    'democracy index by country',
+    'country comparison',
+    'crime rate by country',
+    'safest countries',
+    'most dangerous countries',
+    'homicide rate map',
+    'GDP per capita map',
+    'richest countries',
+    'poorest countries',
+    'gender equality index',
+    'women rights by country',
+    'war zones map',
+    'countries at war',
+    'world statistics',
+    'global data visualization',
+    'country rankings',
+    'religion statistics',
+    'democracy rankings',
+    'poverty map',
+    'world data',
+  ],
+  authors: [{ name: 'The World Truth' }],
+  creator: 'The World Truth',
+  publisher: 'The World Truth',
+  metadataBase: new URL('https://www.theworldtruth.com'),
+  alternates: {
+    canonical: '/',
+  },
+  openGraph: {
+    title: 'The World Truth Map | Compare Countries by Religion, Democracy, Crime & More',
+    description: 'Interactive world map comparing countries by religion, democracy, crime rates, wealth, gender equality and conflict. Filter and explore global statistics.',
+    url: 'https://www.theworldtruth.com',
+    siteName: 'The World Truth Map',
+    locale: 'en_US',
+    type: 'website',
+    images: [
+      {
+        url: '/og-image.png',
+        width: 1200,
+        height: 630,
+        alt: 'The World Truth Map - Compare Countries Globally',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'The World Truth Map | Compare Countries by Religion, Democracy, Crime & More',
+    description: 'Interactive world map comparing countries by religion, democracy, crime rates, wealth, gender equality and conflict.',
+    images: ['/og-image.png'],
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
+  },
+  verification: {
+    google: 'your-google-verification-code',
+  },
 }
 
 export default function RootLayout({
@@ -14,8 +83,36 @@ export default function RootLayout({
 }: {
   children: React.ReactNode
 }) {
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'WebApplication',
+    name: 'The World Truth Map',
+    description: 'Interactive world map comparing countries by religion, democracy, crime rates, GDP, gender equality, and conflict status.',
+    url: 'https://www.theworldtruth.com',
+    applicationCategory: 'Reference',
+    operatingSystem: 'Any',
+    offers: {
+      '@type': 'Offer',
+      price: '0',
+      priceCurrency: 'USD',
+    },
+    author: {
+      '@type': 'Organization',
+      name: 'The World Truth',
+    },
+  }
+
   return (
     <html lang="en">
+      <head>
+        <link rel="icon" href="/favicon.ico" sizes="any" />
+        <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+        <meta name="theme-color" content="#2563eb" />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
+      </head>
       <body className={inter.className}>{children}</body>
     </html>
   )

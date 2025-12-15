@@ -119,8 +119,8 @@ export default function ChartsPage() {
           <div className="flex items-center gap-3">
             <Globe className="w-8 h-8 text-blue-600" />
             <div>
-              <h1 className="text-xl font-bold text-gray-900">Charts & Analytics</h1>
-              <p className="text-sm text-gray-500">Explore country data through visualizations</p>
+              <h1 className="text-xl font-bold text-gray-900">The World Truth Map</h1>
+              <p className="text-sm text-gray-500">Country rankings & statistics</p>
             </div>
           </div>
           <Link

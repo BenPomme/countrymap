@@ -41,9 +41,9 @@ export default function HomePage() {
           <div className="flex items-center gap-3">
             <Globe className="w-8 h-8 text-blue-600" />
             <div>
-              <h1 className="text-xl font-bold text-gray-900">Country Comparison Map</h1>
+              <h1 className="text-xl font-bold text-gray-900">The World Truth Map</h1>
               <p className="text-sm text-gray-500">
-                Compare countries by religion, democracy, wealth, and more
+                Compare countries across interesting criteria
               </p>
             </div>
           </div>
