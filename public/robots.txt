@@ -1,9 +1,25 @@
 # robots.txt for The World Truth Map
+# https://theworldtruth.com
+
 User-agent: *
 Allow: /
+Allow: /charts/
+Allow: /discoveries/
+Allow: /quiz/
 
-# Sitemap
+# Block internal/build files
+Disallow: /_next/
+Disallow: /api/
+
+# Sitemap location
 Sitemap: https://theworldtruth.com/sitemap.xml
 
-# Crawl-delay for polite crawling
+# Googlebot specific
+User-agent: Googlebot
+Allow: /
+Crawl-delay: 0
+
+# Bingbot specific
+User-agent: Bingbot
+Allow: /
 Crawl-delay: 1

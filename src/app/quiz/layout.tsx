@@ -1,8 +1,8 @@
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: 'The Truth Quiz | Test Your World Knowledge',
-  description: 'Challenge yourself with 20 questions about countries around the world. Test your knowledge on happiness, coffee consumption, life expectancy, and more!',
+  title: 'The Truth Quiz | Test Your World Knowledge - 89 Statistics',
+  description: 'Can you guess which country has the highest IQ? Most billionaires? Best happiness? Challenge yourself with 20 questions from 89 country statistics.',
   keywords: [
     'world quiz',
     'country quiz',
@@ -11,11 +11,14 @@ export const metadata: Metadata = {
     'world knowledge test',
     'country statistics quiz',
     'fun facts quiz',
+    'IQ quiz',
+    'GDP quiz',
+    'country facts',
   ],
   openGraph: {
-    title: 'The Truth Quiz | Test Your World Knowledge',
-    description: 'Challenge yourself with 20 questions about countries. Can you beat the quiz?',
-    url: 'https://theworldtruth.com/quiz',
+    title: 'The Truth Quiz - Can You Beat 20 World Statistics Questions?',
+    description: 'Which country has the highest IQ? Most crime? Best happiness? Test your knowledge across 89 statistics!',
+    url: 'https://theworldtruth.com/quiz/',
     images: [
       {
         url: '/og-image.png',
@@ -27,9 +30,12 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'The Truth Quiz | Test Your World Knowledge',
-    description: 'Challenge yourself with 20 questions about countries. Can you beat the quiz?',
+    title: 'The Truth Quiz 🧠 Can You Beat 20/20?',
+    description: 'Which country has the highest IQ? Most billionaires? Test your knowledge!',
     images: ['/og-image.png'],
+  },
+  alternates: {
+    canonical: '/quiz/',
   },
 }
 
