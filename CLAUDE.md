@@ -4,9 +4,10 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-The World Truth Map is a Next.js 14 interactive world map visualization that displays country-level statistics across 70+ variables (health, demographics, economy, governance, sex/relationships, lifestyle, etc.). It includes:
+The World Truth Map is a Next.js 14 interactive world map visualization that displays country-level statistics across 89 variables (health, demographics, economy, governance, sex/relationships, lifestyle, transport, environment, etc.) with 76% data coverage across 164 countries. It includes:
 - Interactive choropleth map with filtering and variable selection
 - Charts page with correlation explorer and country rankings
+- Discoveries page showing 1,300+ correlations between variables
 - Quiz feature ("The Truth Quiz") with 20 random questions
 
 ## Build & Development Commands
@@ -18,14 +19,44 @@ npm run lint     # Run ESLint
 npm run fetch-data  # Fetch fresh country data (npx tsx scripts/fetch-all-data.ts)
 ```
 
-Deployment is automatic via GitHub Actions on push to main - builds and deploys to GitHub Pages.
+## Deployment
+
+**Live Site:** https://benpomme.github.io/countrymap/
+
+**Deployment Method:** GitHub Actions → GitHub Pages
+- Workflow file: `.github/workflows/deploy.yml`
+- Triggers on push to `main` branch
+- Builds static export to `./out` directory
+- Deploys to GitHub Pages automatically
+
+To deploy changes:
+```bash
+git add -A && git commit -m "Your message" && git push origin main
+```
+The GitHub Action will automatically build and deploy (takes ~2-3 minutes).
+
+## Correlation System
+
+The site computes Pearson correlations between all 89 numeric variables at build time.
+
+**Script:** `scripts/compute-correlations.ts`
+- Runs automatically during `npm run build`
+- Outputs to `data/correlations.json`
+- Filters to correlations with |r| >= 0.4
+- Currently finds ~1,300 correlations (81 very strong, 441 strong)
+
+**Discoveries Page:** `/discoveries`
+- Displays all correlations sorted by strength
+- Filterable by category, strength, search
+- Links to scatter plot on charts page
 
 ## Architecture
 
 ### Data Flow
 - Country data lives in `data/countries.json` (~870KB, 170+ countries)
 - Type definitions in `src/types/country.ts` define the Country interface with nested data categories (health, sex, demographics, etc.)
-- Variable configurations in `src/lib/constants/variables.ts` define how each of the 70+ ColorVariables is displayed (name, color scheme, format function, domain)
+- Variable configurations in `src/lib/constants/variables.ts` define how each of the 89 ColorVariables is displayed (name, color scheme, format function, domain)
+- Correlation data in `data/correlations.json` (~1,300 correlations computed at build time)
 - Data utilities in `src/lib/data/index.ts` handle filtering and statistics
 
 ### Key Patterns
