@@ -80,6 +80,11 @@ export const metadata: Metadata = {
     'CO2 emissions per capita',
     'recycling rate by country',
     'forest coverage map',
+    // Truthle - Daily Quiz
+    'truthle',
+    'daily world quiz',
+    'geography trivia game',
+    'world facts quiz',
   ],
   authors: [{ name: 'The World Truth' }],
   creator: 'The World Truth',

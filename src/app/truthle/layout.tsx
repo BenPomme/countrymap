@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
   title: 'Truthle - Daily World Facts Quiz | Test Your Global Knowledge',
-  description: 'Play Truthle, the daily world facts quiz! 10 questions about countries, statistics, and global data. Same questions for everyone, one chance per day. Can you beat your friends?',
+  description: 'Play Truthle, the daily world facts quiz! 10 questions about countries, statistics, and global data. Same questions for everyone, one chance per day. Earn coins, unlock badges, and compete with friends!',
   keywords: [
     'truthle',
     'daily quiz',
@@ -14,14 +14,17 @@ export const metadata: Metadata = {
     'daily challenge',
     'geography game',
     'country trivia',
+    'quiz rewards',
+    'streak bonus',
   ],
   openGraph: {
     title: 'Truthle - Daily World Facts Quiz',
     description: 'Can you ace today\'s 10 world facts questions? Play Truthle - same questions for everyone, one attempt per day!',
     url: 'https://theworldtruth.com/truthle/',
+    siteName: 'The World Truth',
     images: [
       {
-        url: '/truthle.png',
+        url: 'https://theworldtruth.com/truthle.png',
         width: 512,
         height: 512,
         alt: 'Truthle - Daily World Facts Quiz',
@@ -30,12 +33,12 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary',
-    title: 'Truthle 🌍 Daily World Facts Quiz',
+    title: 'Truthle - Daily World Facts Quiz',
     description: 'Can you beat today\'s 10 questions? Same quiz for everyone, one chance per day!',
-    images: ['/truthle.png'],
+    images: ['https://theworldtruth.com/truthle.png'],
   },
   alternates: {
-    canonical: '/truthle/',
+    canonical: 'https://theworldtruth.com/truthle/',
   },
 }
 

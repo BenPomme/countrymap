@@ -4,10 +4,12 @@ import { useState, useEffect, useCallback } from 'react'
 import type { Country } from '@/types/country'
 import { generateDailyQuestions, getTodayDateString, getTruthleDay, TruthleQuestion } from '@/lib/truthle/generator'
 import { calculateScore, estimatePercentile, getGrade, generateShareText, TruthleScore } from '@/lib/truthle/scoring'
-import { hasPlayedToday, saveAttempt, getLocalState, getStats } from '@/lib/truthle/storage'
+import { hasPlayedToday, saveAttempt, getLocalState, getStats, addCoins, getCoins, updateAchievementStats } from '@/lib/truthle/storage'
+import { calculateCoinsEarned, isStreakMilestone, getNextStreakMilestone, CoinBreakdown } from '@/lib/truthle/coins'
 import { AdSidebar } from '@/components/ads'
 import { AD_SLOTS } from '@/lib/constants/ads'
 import Image from 'next/image'
+import Link from 'next/link'
 
 type GameState = 'loading' | 'ready' | 'playing' | 'answered' | 'finished' | 'already_played'
 
@@ -27,12 +29,17 @@ export default function TruthleGame({ countries }: TruthleGameProps) {
   const [previousAttempt, setPreviousAttempt] = useState<{ score: number; results: boolean[]; streak: number } | null>(null)
   const [streak, setStreak] = useState(0)
   const [copied, setCopied] = useState(false)
+  const [coinsEarned, setCoinsEarned] = useState<{ total: number; breakdown: CoinBreakdown } | null>(null)
+  const [coinBalance, setCoinBalance] = useState(0)
 
   const truthleDay = getTruthleDay()
 
   // Initialize game
   useEffect(() => {
     async function init() {
+      // Get coin balance
+      setCoinBalance(getCoins())
+
       // Check if already played
       const { played, attempt } = await hasPlayedToday()
 
@@ -100,12 +107,6 @@ export default function TruthleGame({ countries }: TruthleGameProps) {
           : 1
         : 1
 
-      const finalScore = calculateScore(
-        [...results, results[results.length - 1] !== undefined ? results[results.length - 1] : false],
-        [...times, times[times.length - 1] || 0],
-        newStreak
-      )
-
       // Use actual results
       const finalResults = [...results]
       const finalTimes = [...times]
@@ -113,6 +114,29 @@ export default function TruthleGame({ countries }: TruthleGameProps) {
 
       setScore(calculatedScore)
       setStreak(newStreak)
+
+      // Calculate coins earned
+      const fastAnswers = finalTimes.filter(t => t < 3).length
+      const isPerfect = finalResults.every(r => r)
+      const isFirstPlay = localState.gamesPlayed === 0
+
+      const earnedCoins = calculateCoinsEarned(
+        calculatedScore.correctCount,
+        fastAnswers,
+        newStreak,
+        isPerfect,
+        isFirstPlay,
+        false // didShare - will be tracked separately
+      )
+
+      setCoinsEarned(earnedCoins)
+
+      // Add coins to balance
+      const newBalance = addCoins(earnedCoins.total)
+      setCoinBalance(newBalance)
+
+      // Update achievement stats
+      updateAchievementStats(isPerfect, fastAnswers)
 
       // Save attempt
       await saveAttempt(calculatedScore.totalScore, finalResults, finalTimes)
@@ -191,9 +215,21 @@ export default function TruthleGame({ countries }: TruthleGameProps) {
   // Ready state - show start screen
   if (gameState === 'ready') {
     const stats = getStats()
+    const nextMilestone = getNextStreakMilestone(stats.currentStreak)
 
     return (
       <div className="flex flex-col items-center justify-center min-h-[500px] text-center px-4">
+        {/* Coin balance header */}
+        <div className="absolute top-4 right-4 flex items-center gap-2 bg-amber-100 px-3 py-1.5 rounded-full">
+          <span className="text-lg">🪙</span>
+          <span className="font-bold text-amber-700">{coinBalance.toLocaleString()}</span>
+          <Link href="/truthle/shop" className="text-amber-600 hover:text-amber-800 ml-1">
+            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+            </svg>
+          </Link>
+        </div>
+
         <Image
           src="/truthle.png"
           alt="Truthle"
@@ -222,6 +258,16 @@ export default function TruthleGame({ countries }: TruthleGameProps) {
           </div>
         )}
 
+        {/* Next milestone preview */}
+        {nextMilestone && stats.gamesPlayed > 0 && (
+          <div className="bg-gradient-to-r from-amber-50 to-orange-50 border border-amber-200 rounded-lg px-4 py-2 mb-4">
+            <p className="text-sm text-amber-700">
+              🎯 {nextMilestone.days - stats.currentStreak} days to {nextMilestone.days}-day streak
+              <span className="font-bold ml-1">+{nextMilestone.reward} 🪙</span>
+            </p>
+          </div>
+        )}
+
         <button
           onClick={startGame}
           className="bg-emerald-500 hover:bg-emerald-600 text-white font-semibold py-3 px-8 rounded-lg text-lg transition-colors shadow-lg hover:shadow-xl"
@@ -243,7 +289,18 @@ export default function TruthleGame({ countries }: TruthleGameProps) {
     const grade = getGrade(correctCount, 10)
 
     return (
-      <div className="flex flex-col items-center justify-center min-h-[500px] text-center px-4">
+      <div className="flex flex-col items-center justify-center min-h-[500px] text-center px-4 relative">
+        {/* Coin balance header */}
+        <div className="absolute top-4 right-4 flex items-center gap-2 bg-amber-100 px-3 py-1.5 rounded-full">
+          <span className="text-lg">🪙</span>
+          <span className="font-bold text-amber-700">{coinBalance.toLocaleString()}</span>
+          <Link href="/truthle/shop" className="text-amber-600 hover:text-amber-800 ml-1">
+            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+            </svg>
+          </Link>
+        </div>
+
         <Image
           src="/truthle.png"
           alt="Truthle"
@@ -274,12 +331,20 @@ export default function TruthleGame({ countries }: TruthleGameProps) {
           <p className="text-orange-500 font-medium mb-4">🔥 {previousAttempt.streak} day streak</p>
         )}
 
-        <button
-          onClick={shareResults}
-          className="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-6 rounded-lg transition-colors mb-4"
-        >
-          {copied ? '✓ Copied!' : 'Share Results'}
-        </button>
+        <div className="flex gap-3 mb-4">
+          <button
+            onClick={shareResults}
+            className="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-6 rounded-lg transition-colors"
+          >
+            {copied ? '✓ Copied!' : 'Share Results'}
+          </button>
+          <Link
+            href="/truthle/shop"
+            className="bg-amber-500 hover:bg-amber-600 text-white font-semibold py-2 px-6 rounded-lg transition-colors"
+          >
+            Shop
+          </Link>
+        </div>
 
         <div className="text-gray-500 text-sm">
           <p>Next Truthle in</p>
@@ -387,6 +452,7 @@ export default function TruthleGame({ countries }: TruthleGameProps) {
   if (gameState === 'finished' && score) {
     const percentile = estimatePercentile(score.totalScore)
     const grade = getGrade(score.correctCount, score.totalQuestions)
+    const isMilestone = isStreakMilestone(streak)
 
     return (
       <div className="flex flex-col items-center justify-center min-h-[500px] text-center px-4">
@@ -434,6 +500,65 @@ export default function TruthleGame({ countries }: TruthleGameProps) {
             </div>
           )}
         </div>
+
+        {/* Coins earned */}
+        {coinsEarned && (
+          <div className="bg-gradient-to-r from-amber-50 to-yellow-50 border border-amber-200 rounded-lg p-4 mb-6 w-full max-w-xs">
+            <div className="flex items-center justify-center gap-2 mb-3">
+              <span className="text-2xl">🪙</span>
+              <span className="text-2xl font-bold text-amber-600">+{coinsEarned.total}</span>
+              <span className="text-amber-600 font-medium">coins earned!</span>
+            </div>
+            <div className="text-xs text-amber-700 space-y-1">
+              {coinsEarned.breakdown.dailyPlay > 0 && (
+                <div className="flex justify-between">
+                  <span>Daily play</span>
+                  <span>+{coinsEarned.breakdown.dailyPlay}</span>
+                </div>
+              )}
+              {coinsEarned.breakdown.correctAnswers > 0 && (
+                <div className="flex justify-between">
+                  <span>Correct answers</span>
+                  <span>+{coinsEarned.breakdown.correctAnswers}</span>
+                </div>
+              )}
+              {coinsEarned.breakdown.speedBonus > 0 && (
+                <div className="flex justify-between">
+                  <span>Speed bonus</span>
+                  <span>+{coinsEarned.breakdown.speedBonus}</span>
+                </div>
+              )}
+              {coinsEarned.breakdown.perfectBonus > 0 && (
+                <div className="flex justify-between font-medium">
+                  <span>Perfect score!</span>
+                  <span>+{coinsEarned.breakdown.perfectBonus}</span>
+                </div>
+              )}
+              {coinsEarned.breakdown.streakBonus > 0 && (
+                <div className="flex justify-between font-medium">
+                  <span>{isMilestone ? `🎉 ${streak}-day milestone!` : 'Streak bonus'}</span>
+                  <span>+{coinsEarned.breakdown.streakBonus}</span>
+                </div>
+              )}
+              {coinsEarned.breakdown.firstPlayBonus > 0 && (
+                <div className="flex justify-between font-medium">
+                  <span>🎁 Welcome bonus!</span>
+                  <span>+{coinsEarned.breakdown.firstPlayBonus}</span>
+                </div>
+              )}
+            </div>
+            <div className="mt-3 pt-3 border-t border-amber-200 flex items-center justify-between">
+              <span className="text-sm text-amber-700">Total balance:</span>
+              <span className="font-bold text-amber-600">{coinBalance.toLocaleString()} 🪙</span>
+            </div>
+            <Link
+              href="/truthle/shop"
+              className="mt-3 block w-full bg-amber-500 hover:bg-amber-600 text-white font-medium py-2 rounded-lg transition-colors text-center"
+            >
+              Visit Shop
+            </Link>
+          </div>
+        )}
 
         {/* Score breakdown */}
         <div className="bg-gray-50 rounded-lg p-4 mb-6 text-sm text-left w-full max-w-xs">

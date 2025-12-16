@@ -23,5 +23,29 @@ service cloud.firestore {
       // Only cloud functions can write stats
       allow write: if false;
     }
+
+    // User wallets (coin balances from offer completions)
+    match /users/{userId}/wallet/{document=**} {
+      // Users can read their own wallet
+      allow read: if request.auth != null && request.auth.uid == userId;
+
+      // Only cloud functions can write (via Admin SDK)
+      allow write: if false;
+    }
+
+    // Offertoro postbacks (for duplicate detection)
+    // Only cloud functions can read/write (via Admin SDK)
+    match /offertoro_postbacks/{document=**} {
+      allow read, write: if false;
+    }
+
+    // Redemptions (reward claims)
+    match /redemptions/{document=**} {
+      // Users can read their own redemptions
+      allow read: if request.auth != null && resource.data.userId == request.auth.uid;
+
+      // Only cloud functions can write
+      allow write: if false;
+    }
   }
 }
