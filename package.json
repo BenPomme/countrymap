@@ -4,10 +4,11 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "npx tsx scripts/compute-correlations.ts && next build",
     "start": "next start",
     "lint": "next lint",
-    "fetch-data": "npx tsx scripts/fetch-all-data.ts"
+    "fetch-data": "npx tsx scripts/fetch-all-data.ts",
+    "compute-correlations": "npx tsx scripts/compute-correlations.ts"
   },
   "dependencies": {
     "class-variance-authority": "^0.7.0",

@@ -7,7 +7,7 @@ import type { Country, CountryFilters, ColorVariable } from '@/types/country'
 import { filterCountries } from '@/lib/data'
 import FilterPanel from '@/components/filters/FilterPanel'
 import { DEFAULT_VARIABLE, VARIABLES } from '@/lib/constants/variables'
-import { BarChart2, Globe, Info, X, Menu, SlidersHorizontal, HelpCircle, Share2 } from 'lucide-react'
+import { BarChart2, Globe, Info, X, Menu, SlidersHorizontal, HelpCircle, Share2, Sparkles } from 'lucide-react'
 import countriesData from '../../data/countries.json'
 import { AdBanner, AdSidebar } from '@/components/ads'
 import { AD_SLOTS } from '@/lib/constants/ads'
@@ -65,6 +65,13 @@ export default function HomePage() {
               Charts
             </Link>
             <Link
+              href="/discoveries"
+              className="flex items-center gap-2 px-4 py-2 text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-md transition-colors"
+            >
+              <Sparkles className="w-4 h-4" />
+              Discoveries
+            </Link>
+            <Link
               href="/quiz"
               className="flex items-center gap-2 px-4 py-2 text-sm text-white bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 rounded-md transition-colors font-medium"
             >
@@ -104,6 +111,14 @@ export default function HomePage() {
             >
               <BarChart2 className="w-4 h-4" />
               Charts
+            </Link>
+            <Link
+              href="/discoveries"
+              className="flex items-center gap-2 px-4 py-2 text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-md transition-colors"
+              onClick={() => setShowMobileMenu(false)}
+            >
+              <Sparkles className="w-4 h-4" />
+              Discoveries
             </Link>
             <Link
               href="/quiz"

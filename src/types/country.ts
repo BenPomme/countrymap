@@ -167,6 +167,31 @@ export interface EconomyData {
   starbucksPerCapita: number | null // stores per million
   evAdoption: number | null // % of new car sales
   renewableEnergy: number | null // % of electricity from renewables
+  // Government & Fiscal
+  debtToGdp: number | null // government debt as % of GDP
+  gdpGrowth: number | null // annual GDP growth rate %
+  inflation: number | null // annual inflation rate %
+  corporateTax: number | null // top corporate tax rate %
+  incomeTax: number | null // top personal income tax rate %
+  vatRate: number | null // VAT/sales tax rate %
+  unemploymentRate: number | null // % of labor force
+  youthUnemployment: number | null // % of youth labor force (15-24)
+  // Trade & Investment
+  fdiInflows: number | null // FDI as % of GDP
+  tradeBalance: number | null // trade balance as % of GDP
+  exportsGdp: number | null // exports as % of GDP
+  importsGdp: number | null // imports as % of GDP
+  currentAccount: number | null // current account balance as % of GDP
+  // Monetary & Financial
+  interestRate: number | null // central bank policy rate %
+  forexReserves: number | null // foreign exchange reserves in billions USD
+  stockMarketCap: number | null // stock market cap as % of GDP
+  // Inequality & Welfare
+  giniIndex: number | null // Gini coefficient 0-100
+  povertyHeadcount: number | null // % below $2.15/day
+  // Other
+  economicFreedom: number | null // Heritage Foundation index 0-100
+  bigMacIndex: number | null // Big Mac price in USD (for PPP comparison)
 }
 
 // Transport & Infrastructure
@@ -330,6 +355,22 @@ export type ColorVariable =
   | 'economy.starbucksPerCapita'
   | 'economy.evAdoption'
   | 'economy.renewableEnergy'
+  | 'economy.debtToGdp'
+  | 'economy.gdpGrowth'
+  | 'economy.inflation'
+  | 'economy.corporateTax'
+  | 'economy.incomeTax'
+  | 'economy.vatRate'
+  | 'economy.unemploymentRate'
+  | 'economy.youthUnemployment'
+  | 'economy.fdiInflows'
+  | 'economy.tradeBalance'
+  | 'economy.exportsGdp'
+  | 'economy.currentAccount'
+  | 'economy.interestRate'
+  | 'economy.giniIndex'
+  | 'economy.economicFreedom'
+  | 'economy.bigMacIndex'
   // Transport
   | 'transport.carOwnership'
   | 'transport.bicycleUsage'
