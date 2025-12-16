@@ -38,6 +38,10 @@ export const AD_SLOTS = {
 
   // In-feed ad between chart sections
   chartsInFeed: '3581653716',
+
+  // Truthle page ads
+  truthleBanner: '3829065727',      // Reuse header banner slot
+  truthleResults: '1374933403',     // Square ad on results screen
 }
 
 /**

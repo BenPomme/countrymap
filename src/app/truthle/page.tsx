@@ -3,6 +3,8 @@
 import Link from 'next/link'
 import type { Country } from '@/types/country'
 import TruthleGame from '@/components/truthle/TruthleGame'
+import { AdBanner } from '@/components/ads'
+import { AD_SLOTS } from '@/lib/constants/ads'
 import countriesData from '../../../data/countries.json'
 
 // Import countries at build time (same as main page)
@@ -27,6 +29,9 @@ export default function TruthlePage() {
           </nav>
         </div>
       </header>
+
+      {/* Ad Banner */}
+      <AdBanner slotId={AD_SLOTS.truthleBanner} hideOnMobile={true} className="bg-gray-50 border-b border-gray-100" />
 
       {/* Main content */}
       <main className="max-w-4xl mx-auto py-8">

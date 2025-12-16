@@ -5,6 +5,8 @@ import type { Country } from '@/types/country'
 import { generateDailyQuestions, getTodayDateString, getTruthleDay, TruthleQuestion } from '@/lib/truthle/generator'
 import { calculateScore, estimatePercentile, getGrade, generateShareText, TruthleScore } from '@/lib/truthle/scoring'
 import { hasPlayedToday, saveAttempt, getLocalState, getStats } from '@/lib/truthle/storage'
+import { AdSidebar } from '@/components/ads'
+import { AD_SLOTS } from '@/lib/constants/ads'
 import Image from 'next/image'
 
 type GameState = 'loading' | 'ready' | 'playing' | 'answered' | 'finished' | 'already_played'
@@ -283,6 +285,11 @@ export default function TruthleGame({ countries }: TruthleGameProps) {
           <p>Next Truthle in</p>
           <p className="text-2xl font-mono font-bold text-gray-700">{countdown}</p>
         </div>
+
+        {/* Ad placement */}
+        <div className="mt-6">
+          <AdSidebar slotId={AD_SLOTS.truthleResults} size="square" />
+        </div>
       </div>
     )
   }
@@ -456,6 +463,11 @@ export default function TruthleGame({ countries }: TruthleGameProps) {
         <div className="text-gray-500 text-sm">
           <p>Next Truthle in</p>
           <p className="text-2xl font-mono font-bold text-gray-700">{countdown}</p>
+        </div>
+
+        {/* Ad placement */}
+        <div className="mt-6">
+          <AdSidebar slotId={AD_SLOTS.truthleResults} size="square" />
         </div>
       </div>
     )
