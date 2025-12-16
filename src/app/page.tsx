@@ -7,7 +7,7 @@ import type { Country, CountryFilters, ColorVariable } from '@/types/country'
 import { filterCountries } from '@/lib/data'
 import FilterPanel from '@/components/filters/FilterPanel'
 import { DEFAULT_VARIABLE, VARIABLES } from '@/lib/constants/variables'
-import { BarChart2, Globe, Info, X, Menu, SlidersHorizontal, HelpCircle, Share2, Sparkles } from 'lucide-react'
+import { BarChart2, Globe, Info, X, Menu, SlidersHorizontal, HelpCircle, Share2, Sparkles, Calendar } from 'lucide-react'
 import countriesData from '../../data/countries.json'
 import { AdBanner, AdSidebar } from '@/components/ads'
 import { AD_SLOTS } from '@/lib/constants/ads'
@@ -72,8 +72,16 @@ export default function HomePage() {
               Discoveries
             </Link>
             <Link
+              href="/truthle"
+              className="flex items-center gap-2 px-4 py-2 text-sm text-white bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-600 hover:to-teal-600 rounded-md transition-colors font-medium shadow-sm"
+            >
+              <Calendar className="w-4 h-4" />
+              Truthle
+              <span className="text-[10px] bg-white/20 px-1.5 py-0.5 rounded font-bold">DAILY</span>
+            </Link>
+            <Link
               href="/quiz"
-              className="flex items-center gap-2 px-4 py-2 text-sm text-white bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 rounded-md transition-colors font-medium"
+              className="flex items-center gap-2 px-4 py-2 text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-md transition-colors"
             >
               <HelpCircle className="w-4 h-4" />
               Quiz
@@ -121,8 +129,17 @@ export default function HomePage() {
               Discoveries
             </Link>
             <Link
+              href="/truthle"
+              className="flex items-center gap-2 px-4 py-2 text-sm text-white bg-gradient-to-r from-emerald-500 to-teal-500 rounded-md transition-colors font-medium shadow-sm"
+              onClick={() => setShowMobileMenu(false)}
+            >
+              <Calendar className="w-4 h-4" />
+              Truthle
+              <span className="text-[10px] bg-white/20 px-1.5 py-0.5 rounded font-bold">DAILY</span>
+            </Link>
+            <Link
               href="/quiz"
-              className="flex items-center gap-2 px-4 py-2 text-sm text-white bg-gradient-to-r from-purple-600 to-pink-600 rounded-md transition-colors font-medium"
+              className="flex items-center gap-2 px-4 py-2 text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-md transition-colors"
               onClick={() => setShowMobileMenu(false)}
             >
               <HelpCircle className="w-4 h-4" />

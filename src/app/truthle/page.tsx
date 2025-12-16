@@ -1,30 +1,14 @@
 'use client'
 
-import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import type { Country } from '@/types/country'
 import TruthleGame from '@/components/truthle/TruthleGame'
+import countriesData from '../../../data/countries.json'
+
+// Import countries at build time (same as main page)
+const countries = countriesData as Country[]
 
 export default function TruthlePage() {
-  const [countries, setCountries] = useState<Country[]>([])
-  const [loading, setLoading] = useState(true)
-
-  useEffect(() => {
-    async function loadCountries() {
-      try {
-        const response = await fetch('/data/countries.json')
-        const data = await response.json()
-        setCountries(data)
-      } catch (error) {
-        console.error('Failed to load countries:', error)
-      } finally {
-        setLoading(false)
-      }
-    }
-
-    loadCountries()
-  }, [])
-
   return (
     <div className="min-h-screen bg-gradient-to-b from-emerald-50 to-white">
       {/* Header */}
@@ -46,14 +30,7 @@ export default function TruthlePage() {
 
       {/* Main content */}
       <main className="max-w-4xl mx-auto py-8">
-        {loading ? (
-          <div className="flex flex-col items-center justify-center min-h-[400px]">
-            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-emerald-500"></div>
-            <p className="mt-4 text-gray-600">Loading...</p>
-          </div>
-        ) : (
-          <TruthleGame countries={countries} />
-        )}
+        <TruthleGame countries={countries} />
       </main>
 
       {/* Footer */}
