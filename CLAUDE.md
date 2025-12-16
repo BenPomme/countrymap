@@ -88,6 +88,24 @@ The site computes Pearson correlations between all 89 numeric variables at build
 4. Update `data/countries.json` with actual data values
 5. Optionally add to `QUIZ_VARIABLES` in `src/lib/quiz/questionGenerator.ts`
 
+## SEO Optimization
+
+**IMPORTANT**: Whenever making significant changes (new features, new data, new pages), ensure SEO is updated:
+
+### Checklist for SEO Updates
+1. **Update meta tags** in layout.tsx files if adding new features/pages
+2. **Update sitemap.xml** (`public/sitemap.xml`) when adding new pages
+3. **Update keywords** in `src/app/layout.tsx` if adding new data categories
+4. **Update descriptions** to reflect current statistics count (currently 89)
+5. **Check JSON-LD structured data** in root layout if features change
+
+### Current SEO Setup
+- **Meta tags**: Each page has dedicated `layout.tsx` with Metadata export
+- **Structured data**: JSON-LD in root layout (WebApplication, Dataset, Organization, WebSite schemas)
+- **Sitemap**: `public/sitemap.xml` lists all main pages
+- **Robots.txt**: `public/robots.txt` with crawler directives
+- **Open Graph/Twitter**: Social sharing meta tags with og-image.png
+
 ## Data Update Scripts
 
 Scripts in `scripts/` folder update `data/countries.json`:
