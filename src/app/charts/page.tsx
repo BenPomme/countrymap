@@ -17,6 +17,7 @@ import {
 } from 'recharts'
 import type { Country, ColorVariable } from '@/types/country'
 import { Globe, ArrowLeft, Share2, Twitter, Facebook, Linkedin, Link2, Check, Menu, HelpCircle, Sparkles } from 'lucide-react'
+import CoinBalance from '@/components/truthle/CoinBalance'
 import countriesData from '../../../data/countries.json'
 import { VARIABLES, VARIABLE_CATEGORIES } from '@/lib/constants/variables'
 import { AdBanner } from '@/components/ads'
@@ -378,6 +379,7 @@ function ChartsContent() {
               <ArrowLeft className="w-4 h-4" />
               Back to Map
             </Link>
+            <CoinBalance size="sm" />
           </div>
 
           {/* Mobile Menu Button */}
@@ -422,6 +424,9 @@ function ChartsContent() {
               <ArrowLeft className="w-4 h-4" />
               Back to Map
             </Link>
+            <div className="flex justify-center">
+              <CoinBalance size="sm" />
+            </div>
           </nav>
         )}
       </header>

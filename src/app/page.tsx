@@ -8,6 +8,7 @@ import { filterCountries } from '@/lib/data'
 import FilterPanel from '@/components/filters/FilterPanel'
 import { DEFAULT_VARIABLE, VARIABLES } from '@/lib/constants/variables'
 import { BarChart2, Globe, Info, X, Menu, SlidersHorizontal, HelpCircle, Share2, Sparkles, Calendar } from 'lucide-react'
+import CoinBalance from '@/components/truthle/CoinBalance'
 import countriesData from '../../data/countries.json'
 import { AdBanner, AdSidebar } from '@/components/ads'
 import { AD_SLOTS } from '@/lib/constants/ads'
@@ -98,6 +99,7 @@ export default function HomePage() {
               title={`World Map - ${currentVariable?.name || 'Data'}`}
               description={`Check out this world map showing ${currentVariable?.name || 'country data'} on The World Truth Map!`}
             />
+            <CoinBalance size="sm" />
           </nav>
 
           {/* Mobile Menu Button */}
@@ -161,6 +163,9 @@ export default function HomePage() {
               description={`Check out this world map showing ${currentVariable?.name || 'country data'} on The World Truth Map!`}
               className="w-full justify-center"
             />
+            <div className="flex justify-center">
+              <CoinBalance size="sm" />
+            </div>
           </nav>
         )}
       </header>

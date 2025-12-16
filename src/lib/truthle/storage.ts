@@ -36,6 +36,7 @@ export interface TruthleLocalState {
   // Achievement tracking
   perfectGames: number
   fastAnswersTotal: number
+  unlockedAchievements: string[]
 }
 
 const LOCAL_STORAGE_KEY = 'truthle_state'
@@ -68,6 +69,7 @@ function getDefaultState(): TruthleLocalState {
     // Achievement tracking
     perfectGames: 0,
     fastAnswersTotal: 0,
+    unlockedAchievements: [],
   }
 }
 

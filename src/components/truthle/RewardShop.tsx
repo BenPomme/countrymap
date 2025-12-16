@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useMemo } from 'react'
 import Link from 'next/link'
 import {
   ALL_REWARDS,
@@ -14,6 +14,13 @@ import {
   VirtualReward,
   RewardCategory
 } from '@/lib/truthle/rewards'
+import {
+  ALL_ACHIEVEMENTS,
+  ACHIEVEMENT_CATEGORIES,
+  RARITY_CONFIG,
+  AchievementRarity,
+  Achievement
+} from '@/lib/truthle/achievements'
 import {
   getCoins,
   getLocalState,
@@ -29,12 +36,17 @@ import OfferWall from './OfferWall'
 // Check if Offertoro is configured
 const OFFERTORO_ENABLED = !!process.env.NEXT_PUBLIC_OFFERTORO_PUBID
 
-type TabType = 'earn' | 'all' | 'badges' | 'themes' | 'powerups' | 'profile'
+type TabType = 'earn' | 'all' | 'badges' | 'themes' | 'powerups' | 'profile' | 'achievements'
 
 export default function RewardShop() {
   const [activeTab, setActiveTab] = useState<TabType>('all')
   const [coins, setCoins] = useState(0)
   const [ownedItems, setOwnedItems] = useState<string[]>([])
+  const [unlockedAchievements, setUnlockedAchievements] = useState<string[]>([])
+  const [achievementCategory, setAchievementCategory] = useState<string | 'all'>('all')
+  const [achievementRarity, setAchievementRarity] = useState<AchievementRarity | 'all'>('all')
+  const [achievementSearch, setAchievementSearch] = useState('')
+  const [showUnlockedOnly, setShowUnlockedOnly] = useState(false)
   const [equippedItems, setEquippedItems] = useState<ReturnType<typeof getEquippedItems>>({
     theme: null,
     badge: null,
@@ -49,6 +61,7 @@ export default function RewardShop() {
       const state = getLocalState()
       setCoins(state.coins)
       setOwnedItems(state.ownedItems)
+      setUnlockedAchievements(state.unlockedAchievements || [])
       setEquippedItems(getEquippedItems())
 
       // Sync coins from cloud (offer wall earnings)
@@ -63,6 +76,60 @@ export default function RewardShop() {
     }
     loadState()
   }, [])
+
+  // Filter achievements based on search/filters
+  const filteredAchievements = useMemo(() => {
+    let filtered = ALL_ACHIEVEMENTS
+
+    // Category filter
+    if (achievementCategory !== 'all') {
+      filtered = filtered.filter(a => a.category === achievementCategory)
+    }
+
+    // Rarity filter
+    if (achievementRarity !== 'all') {
+      filtered = filtered.filter(a => a.rarity === achievementRarity)
+    }
+
+    // Search filter
+    if (achievementSearch) {
+      const search = achievementSearch.toLowerCase()
+      filtered = filtered.filter(a =>
+        a.name.toLowerCase().includes(search) ||
+        a.description.toLowerCase().includes(search)
+      )
+    }
+
+    // Unlocked only filter
+    if (showUnlockedOnly) {
+      filtered = filtered.filter(a => unlockedAchievements.includes(a.id))
+    }
+
+    return filtered
+  }, [achievementCategory, achievementRarity, achievementSearch, showUnlockedOnly, unlockedAchievements])
+
+  // Achievement stats
+  const achievementStats = useMemo(() => {
+    const total = ALL_ACHIEVEMENTS.length
+    const unlocked = unlockedAchievements.length
+    const byRarity = {
+      common: ALL_ACHIEVEMENTS.filter(a => a.rarity === 'common').length,
+      uncommon: ALL_ACHIEVEMENTS.filter(a => a.rarity === 'uncommon').length,
+      rare: ALL_ACHIEVEMENTS.filter(a => a.rarity === 'rare').length,
+      epic: ALL_ACHIEVEMENTS.filter(a => a.rarity === 'epic').length,
+      legendary: ALL_ACHIEVEMENTS.filter(a => a.rarity === 'legendary').length,
+      mythic: ALL_ACHIEVEMENTS.filter(a => a.rarity === 'mythic').length,
+    }
+    const unlockedByRarity = {
+      common: unlockedAchievements.filter(id => ALL_ACHIEVEMENTS.find(a => a.id === id)?.rarity === 'common').length,
+      uncommon: unlockedAchievements.filter(id => ALL_ACHIEVEMENTS.find(a => a.id === id)?.rarity === 'uncommon').length,
+      rare: unlockedAchievements.filter(id => ALL_ACHIEVEMENTS.find(a => a.id === id)?.rarity === 'rare').length,
+      epic: unlockedAchievements.filter(id => ALL_ACHIEVEMENTS.find(a => a.id === id)?.rarity === 'epic').length,
+      legendary: unlockedAchievements.filter(id => ALL_ACHIEVEMENTS.find(a => a.id === id)?.rarity === 'legendary').length,
+      mythic: unlockedAchievements.filter(id => ALL_ACHIEVEMENTS.find(a => a.id === id)?.rarity === 'mythic').length,
+    }
+    return { total, unlocked, byRarity, unlockedByRarity }
+  }, [unlockedAchievements])
 
   // Clear message after 3 seconds
   useEffect(() => {
@@ -146,10 +213,11 @@ export default function RewardShop() {
     return false
   }
 
-  const tabs: { id: TabType; label: string; icon: string }[] = [
+  const tabs: { id: TabType; label: string; icon: string; badge?: string }[] = [
     // Only show Earn tab when Offertoro is configured
     ...(OFFERTORO_ENABLED ? [{ id: 'earn' as TabType, label: 'Earn Coins', icon: '🎁' }] : []),
-    { id: 'all', label: 'All', icon: '🛒' },
+    { id: 'all', label: 'Shop', icon: '🛒' },
+    { id: 'achievements', label: 'Achievements', icon: '🏆', badge: `${achievementStats.unlocked}/${achievementStats.total}` },
     { id: 'badges', label: 'Badges', icon: '🏅' },
     { id: 'themes', label: 'Themes', icon: '🎨' },
     { id: 'powerups', label: 'Powerups', icon: '⚡' },
@@ -208,6 +276,13 @@ export default function RewardShop() {
           >
             <span>{tab.icon}</span>
             <span>{tab.label}</span>
+            {tab.badge && (
+              <span className={`text-xs px-2 py-0.5 rounded-full ${
+                activeTab === tab.id ? 'bg-emerald-600 text-white' : 'bg-gray-200 text-gray-600'
+              }`}>
+                {tab.badge}
+              </span>
+            )}
           </button>
         ))}
       </div>
@@ -219,8 +294,169 @@ export default function RewardShop() {
         </div>
       )}
 
+      {/* Achievements Tab */}
+      {activeTab === 'achievements' && (
+        <div className="space-y-6">
+          {/* Achievement Stats Overview */}
+          <div className="bg-gradient-to-r from-purple-600 to-indigo-600 rounded-xl p-6 text-white">
+            <div className="flex items-center justify-between mb-4">
+              <div>
+                <h2 className="text-2xl font-bold">Achievement Progress</h2>
+                <p className="text-purple-200">Unlock achievements by playing Truthle</p>
+              </div>
+              <div className="text-right">
+                <div className="text-4xl font-bold">{achievementStats.unlocked}</div>
+                <div className="text-purple-200">of {achievementStats.total}</div>
+              </div>
+            </div>
+            <div className="w-full bg-purple-800 rounded-full h-3">
+              <div
+                className="bg-gradient-to-r from-yellow-400 to-amber-500 h-3 rounded-full transition-all"
+                style={{ width: `${(achievementStats.unlocked / achievementStats.total) * 100}%` }}
+              />
+            </div>
+
+            {/* Rarity breakdown */}
+            <div className="grid grid-cols-3 md:grid-cols-6 gap-2 mt-4">
+              {Object.entries(RARITY_CONFIG).map(([rarity, config]) => (
+                <div key={rarity} className="text-center p-2 bg-white/10 rounded-lg">
+                  <div className="text-lg font-bold">
+                    {achievementStats.unlockedByRarity[rarity as AchievementRarity]}/{achievementStats.byRarity[rarity as AchievementRarity]}
+                  </div>
+                  <div className={`text-xs ${config.color}`}>{config.label}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Filters */}
+          <div className="bg-white rounded-xl p-4 border border-gray-200 space-y-4">
+            <div className="flex flex-col md:flex-row gap-3">
+              {/* Search */}
+              <div className="flex-1">
+                <input
+                  type="text"
+                  placeholder="Search achievements..."
+                  value={achievementSearch}
+                  onChange={(e) => setAchievementSearch(e.target.value)}
+                  className="w-full px-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
+                />
+              </div>
+
+              {/* Category filter */}
+              <select
+                value={achievementCategory}
+                onChange={(e) => setAchievementCategory(e.target.value)}
+                className="px-3 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
+              >
+                <option value="all">All Categories</option>
+                {ACHIEVEMENT_CATEGORIES.map(cat => (
+                  <option key={cat.id} value={cat.id}>
+                    {cat.icon} {cat.name}
+                  </option>
+                ))}
+              </select>
+
+              {/* Rarity filter */}
+              <select
+                value={achievementRarity}
+                onChange={(e) => setAchievementRarity(e.target.value as AchievementRarity | 'all')}
+                className="px-3 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
+              >
+                <option value="all">All Rarities</option>
+                {Object.entries(RARITY_CONFIG).map(([rarity, config]) => (
+                  <option key={rarity} value={rarity}>{config.label}</option>
+                ))}
+              </select>
+            </div>
+
+            <div className="flex items-center justify-between">
+              <label className="flex items-center gap-2 cursor-pointer">
+                <input
+                  type="checkbox"
+                  checked={showUnlockedOnly}
+                  onChange={(e) => setShowUnlockedOnly(e.target.checked)}
+                  className="w-4 h-4 text-purple-600 rounded"
+                />
+                <span className="text-sm text-gray-600">Show unlocked only</span>
+              </label>
+              <span className="text-sm text-gray-500">
+                Showing {filteredAchievements.length} achievements
+              </span>
+            </div>
+          </div>
+
+          {/* Achievements Grid */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            {filteredAchievements.slice(0, 50).map(achievement => {
+              const isUnlocked = unlockedAchievements.includes(achievement.id)
+              const rarityConfig = RARITY_CONFIG[achievement.rarity]
+              const category = ACHIEVEMENT_CATEGORIES.find(c => c.id === achievement.category)
+
+              return (
+                <div
+                  key={achievement.id}
+                  className={`rounded-xl border-2 p-4 transition-all ${
+                    isUnlocked
+                      ? `${rarityConfig.bgColor} border-current`
+                      : 'bg-gray-50 border-gray-200 opacity-60'
+                  }`}
+                >
+                  <div className="flex items-start justify-between mb-2">
+                    <span className={`text-3xl ${isUnlocked ? '' : 'grayscale opacity-50'}`}>
+                      {achievement.icon}
+                    </span>
+                    <div className="flex flex-col items-end gap-1">
+                      <span className={`text-xs px-2 py-0.5 rounded-full ${rarityConfig.bgColor} ${rarityConfig.color}`}>
+                        {rarityConfig.label}
+                      </span>
+                      <span className="text-xs text-gray-500">{category?.icon}</span>
+                    </div>
+                  </div>
+                  <h3 className={`font-semibold mb-1 ${isUnlocked ? 'text-gray-900' : 'text-gray-500'}`}>
+                    {achievement.name}
+                  </h3>
+                  <p className={`text-sm mb-3 ${isUnlocked ? 'text-gray-600' : 'text-gray-400'}`}>
+                    {achievement.description}
+                  </p>
+                  <div className="flex items-center justify-between">
+                    {isUnlocked ? (
+                      <span className="text-emerald-600 font-medium flex items-center gap-1">
+                        <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                          <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                        </svg>
+                        Unlocked
+                      </span>
+                    ) : (
+                      <span className="text-gray-400 text-sm">🔒 Locked</span>
+                    )}
+                    <span className="text-sm font-medium text-amber-600">
+                      +{achievement.coinReward} 🪙
+                    </span>
+                  </div>
+                </div>
+              )
+            })}
+          </div>
+
+          {filteredAchievements.length > 50 && (
+            <div className="text-center text-gray-500 py-4">
+              Showing 50 of {filteredAchievements.length} achievements. Use filters to narrow down.
+            </div>
+          )}
+
+          {filteredAchievements.length === 0 && (
+            <div className="text-center py-12">
+              <div className="text-6xl mb-4">🔍</div>
+              <h3 className="text-xl font-semibold text-gray-700 mb-2">No achievements found</h3>
+              <p className="text-gray-500">Try adjusting your filters or search query</p>
+            </div>
+          )}
+        </div>
+      )}
+
       {/* Rewards grid */}
-      {activeTab !== 'earn' && (
+      {activeTab !== 'earn' && activeTab !== 'achievements' && (
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
         {rewards.map(reward => {
           const owned = ownedItems.includes(reward.id)
@@ -296,7 +532,7 @@ export default function RewardShop() {
       </div>
       )}
 
-      {activeTab !== 'earn' && rewards.length === 0 && (
+      {activeTab !== 'earn' && activeTab !== 'achievements' && rewards.length === 0 && (
         <div className="text-center py-12 text-gray-500">
           No rewards available in this category
         </div>

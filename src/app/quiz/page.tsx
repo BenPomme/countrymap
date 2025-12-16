@@ -3,6 +3,7 @@
 import { useState, useEffect, useCallback, useRef } from 'react'
 import Link from 'next/link'
 import { Globe, Trophy, Share2, RotateCcw, ArrowRight, Check, X, Zap, Clock, Home, BarChart2 } from 'lucide-react'
+import CoinBalance from '@/components/truthle/CoinBalance'
 import type { Country } from '@/types/country'
 import { generateQuizQuestions, calculateScore, type QuizQuestion } from '@/lib/quiz/questionGenerator'
 import countriesData from '../../../data/countries.json'
@@ -146,6 +147,7 @@ export default function QuizPage() {
                 <BarChart2 className="w-4 h-4" />
                 <span className="hidden sm:inline">Charts</span>
               </Link>
+              <CoinBalance size="sm" />
             </nav>
           </div>
         </header>

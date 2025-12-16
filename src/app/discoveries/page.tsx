@@ -17,6 +17,7 @@ import {
   Shuffle,
   X,
 } from 'lucide-react'
+import CoinBalance from '@/components/truthle/CoinBalance'
 import correlationsData from '../../../data/correlations.json'
 import { VisualShare } from '@/components/share'
 
@@ -205,6 +206,7 @@ export default function DiscoveriesPage() {
               <Lightbulb className="w-4 h-4" />
               <span className="hidden sm:inline">Quiz</span>
             </Link>
+            <CoinBalance size="sm" />
           </nav>
         </div>
       </header>
