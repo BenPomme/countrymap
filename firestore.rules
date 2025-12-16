@@ -1,0 +1,27 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Truthle daily attempts
+    match /truthle/daily/{date}/{odp} {
+      // Users can only create their own attempt (once per day)
+      allow create: if request.auth != null
+                    && request.auth.uid == odp
+                    && !exists(/databases/$(database)/documents/truthle/daily/$(date)/$(odp));
+
+      // Users can read their own attempt
+      allow read: if request.auth != null && request.auth.uid == odp;
+
+      // No updates or deletes allowed
+      allow update, delete: if false;
+    }
+
+    // Daily stats (for future leaderboard)
+    match /truthle/stats/{date} {
+      // Anyone authenticated can read stats
+      allow read: if request.auth != null;
+
+      // Only cloud functions can write stats
+      allow write: if false;
+    }
+  }
+}
