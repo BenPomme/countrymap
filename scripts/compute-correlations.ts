@@ -111,6 +111,9 @@ const NUMERIC_VARIABLES: { id: string; name: string; category: string; higherIsB
   { id: 'lifestyle.teaConsumption', name: 'Tea Consumption', category: 'lifestyle', higherIsBetter: true },
   { id: 'lifestyle.beerConsumption', name: 'Beer Consumption', category: 'lifestyle', higherIsBetter: true },
   { id: 'lifestyle.wineConsumption', name: 'Wine Consumption', category: 'lifestyle', higherIsBetter: true },
+  { id: 'lifestyle.metalBandsPerCapita', name: 'Metal Bands per Capita', category: 'lifestyle', higherIsBetter: true },
+  { id: 'lifestyle.vegetarianRate', name: 'Vegetarian Rate', category: 'lifestyle', higherIsBetter: true },
+  { id: 'lifestyle.leftHandedRate', name: 'Left-Handed Rate', category: 'lifestyle', higherIsBetter: true },
 
   // Safety & Crime
   { id: 'crime.homicideRate', name: 'Homicide Rate', category: 'safety', higherIsBetter: false },

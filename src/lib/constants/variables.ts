@@ -920,6 +920,28 @@ export const VARIABLES: Record<ColorVariable, VariableConfig> = {
     format: (v) => v !== null ? `${(v as number).toFixed(1)} per 100k` : 'N/A',
     higherIsBetter: true,
   },
+  'lifestyle.vegetarianRate': {
+    id: 'lifestyle.vegetarianRate',
+    name: 'Vegetarian Rate',
+    description: 'Percentage of population that is vegetarian',
+    category: 'lifestyle',
+    type: 'numeric',
+    domain: [0, 40],
+    colorScheme: 'interpolateGreens',
+    format: (v) => v !== null ? `${(v as number).toFixed(1)}%` : 'N/A',
+    higherIsBetter: true,
+  },
+  'lifestyle.leftHandedRate': {
+    id: 'lifestyle.leftHandedRate',
+    name: 'Left-Handed Rate',
+    description: 'Percentage of population that is left-handed',
+    category: 'lifestyle',
+    type: 'numeric',
+    domain: [0, 15],
+    colorScheme: 'interpolatePurples',
+    format: (v) => v !== null ? `${(v as number).toFixed(1)}%` : 'N/A',
+    higherIsBetter: true,
+  },
 
   // === SAFETY & CRIME ===
   'crime.homicideRate': {

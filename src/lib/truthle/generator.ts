@@ -66,6 +66,8 @@ const TRUTHLE_VARIABLES = [
   'lifestyle.wineConsumption',
   'lifestyle.chocolateConsumption',
   'lifestyle.metalBandsPerCapita',
+  'lifestyle.vegetarianRate',
+  'lifestyle.teaConsumption',
   'lifestyle.workHoursWeek',
   'lifestyle.internetPenetration',
   'health.lifeExpectancy',

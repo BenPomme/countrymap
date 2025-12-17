@@ -344,6 +344,8 @@ export type ColorVariable =
   | 'lifestyle.beerConsumption'
   | 'lifestyle.wineConsumption'
   | 'lifestyle.metalBandsPerCapita'
+  | 'lifestyle.vegetarianRate'
+  | 'lifestyle.leftHandedRate'
   // Freedom
   | 'freedom.corruptionIndex'
   | 'freedom.pressFreedom'

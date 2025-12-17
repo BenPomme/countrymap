@@ -1,19 +1,19 @@
 {
   "metadata": {
-    "generatedAt": "2025-12-17T13:05:51.477Z",
-    "totalVariables": 89,
-    "totalPairsTested": 3916,
+    "generatedAt": "2025-12-17T13:50:19.611Z",
+    "totalVariables": 92,
+    "totalPairsTested": 4186,
     "minCorrelation": 0.4,
     "minSampleSize": 10
   },
   "stats": {
-    "total": 1281,
-    "veryStrong": 73,
-    "strong": 443,
-    "moderate": 765,
-    "crossCategory": 1096,
-    "positive": 939,
-    "negative": 342
+    "total": 1321,
+    "veryStrong": 74,
+    "strong": 451,
+    "moderate": 796,
+    "crossCategory": 1129,
+    "positive": 972,
+    "negative": 349
   },
   "correlations": [
     {
@@ -4317,6 +4317,26 @@
       "direction": "positive"
     },
     {
+      "var1": "economy.touristArrivals",
+      "var2": "lifestyle.metalBandsPerCapita",
+      "var1Name": "Tourist Arrivals",
+      "var2Name": "Metal Bands per Capita",
+      "coefficient": 0.69,
+      "strength": "strong",
+      "sampleSize": 46,
+      "categories": [
+        "economy",
+        "lifestyle"
+      ],
+      "categoryNames": [
+        "Economy",
+        "Lifestyle"
+      ],
+      "crossCategory": true,
+      "interestingScore": 1.234,
+      "direction": "positive"
+    },
+    {
       "var1": "health.airPollution",
       "var2": "education.literacyRate",
       "var1Name": "Air Pollution",
@@ -6557,6 +6577,26 @@
       "direction": "positive"
     },
     {
+      "var1": "economy.evAdoption",
+      "var2": "lifestyle.metalBandsPerCapita",
+      "var1Name": "EV Adoption",
+      "var2Name": "Metal Bands per Capita",
+      "coefficient": 0.641,
+      "strength": "strong",
+      "sampleSize": 49,
+      "categories": [
+        "economy",
+        "lifestyle"
+      ],
+      "categoryNames": [
+        "Economy",
+        "Lifestyle"
+      ],
+      "crossCategory": true,
+      "interestingScore": 1.162,
+      "direction": "positive"
+    },
+    {
       "var1": "freedom.pressFreedom",
       "var2": "lifestyle.pizzaConsumption",
       "var1Name": "Press Freedom",
@@ -6830,6 +6870,26 @@
       ],
       "categoryNames": [
         "Economy",
+        "Lifestyle"
+      ],
+      "crossCategory": true,
+      "interestingScore": 1.154,
+      "direction": "positive"
+    },
+    {
+      "var1": "sex.lgbtAcceptance",
+      "var2": "lifestyle.metalBandsPerCapita",
+      "var1Name": "LGBT+ Acceptance",
+      "var2Name": "Metal Bands per Capita",
+      "coefficient": 0.636,
+      "strength": "strong",
+      "sampleSize": 103,
+      "categories": [
+        "sex",
+        "lifestyle"
+      ],
+      "categoryNames": [
+        "Sex & Relationships",
         "Lifestyle"
       ],
       "crossCategory": true,
@@ -7217,6 +7277,26 @@
       "direction": "positive"
     },
     {
+      "var1": "freedom.corruptionIndex",
+      "var2": "lifestyle.metalBandsPerCapita",
+      "var1Name": "Corruption Index",
+      "var2Name": "Metal Bands per Capita",
+      "coefficient": 0.627,
+      "strength": "strong",
+      "sampleSize": 108,
+      "categories": [
+        "governance",
+        "lifestyle"
+      ],
+      "categoryNames": [
+        "Governance",
+        "Lifestyle"
+      ],
+      "crossCategory": true,
+      "interestingScore": 1.14,
+      "direction": "positive"
+    },
+    {
       "var1": "health.obesityRate",
       "var2": "transport.carOwnership",
       "var1Name": "Obesity Rate",
@@ -7335,6 +7415,26 @@
       "crossCategory": true,
       "interestingScore": 1.138,
       "direction": "positive"
+    },
+    {
+      "var1": "lifestyle.metalBandsPerCapita",
+      "var2": "transport.trafficIndex",
+      "var1Name": "Metal Bands per Capita",
+      "var2Name": "Traffic Index",
+      "coefficient": -0.624,
+      "strength": "strong",
+      "sampleSize": 108,
+      "categories": [
+        "lifestyle",
+        "transport"
+      ],
+      "categoryNames": [
+        "Lifestyle",
+        "Transport"
+      ],
+      "crossCategory": true,
+      "interestingScore": 1.137,
+      "direction": "negative"
     },
     {
       "var1": "poverty.hdi",
@@ -8877,6 +8977,26 @@
       "direction": "positive"
     },
     {
+      "var1": "health.maleHeight",
+      "var2": "lifestyle.metalBandsPerCapita",
+      "var1Name": "Average Male Height",
+      "var2Name": "Metal Bands per Capita",
+      "coefficient": 0.593,
+      "strength": "moderate",
+      "sampleSize": 49,
+      "categories": [
+        "health",
+        "lifestyle"
+      ],
+      "categoryNames": [
+        "Health",
+        "Lifestyle"
+      ],
+      "crossCategory": true,
+      "interestingScore": 1.09,
+      "direction": "positive"
+    },
+    {
       "var1": "health.alcoholConsumption",
       "var2": "environment.recyclingRate",
       "var1Name": "Alcohol Consumption",
@@ -8971,6 +9091,26 @@
       "categoryNames": [
         "Sex & Relationships",
         "Education"
+      ],
+      "crossCategory": true,
+      "interestingScore": 1.088,
+      "direction": "positive"
+    },
+    {
+      "var1": "lifestyle.metalBandsPerCapita",
+      "var2": "transport.carOwnership",
+      "var1Name": "Metal Bands per Capita",
+      "var2Name": "Car Ownership",
+      "coefficient": 0.592,
+      "strength": "moderate",
+      "sampleSize": 108,
+      "categories": [
+        "lifestyle",
+        "transport"
+      ],
+      "categoryNames": [
+        "Lifestyle",
+        "Transport"
       ],
       "crossCategory": true,
       "interestingScore": 1.088,
@@ -9417,6 +9557,26 @@
       "direction": "positive"
     },
     {
+      "var1": "freedom.pressFreedom",
+      "var2": "lifestyle.metalBandsPerCapita",
+      "var1Name": "Press Freedom",
+      "var2Name": "Metal Bands per Capita",
+      "coefficient": 0.585,
+      "strength": "moderate",
+      "sampleSize": 108,
+      "categories": [
+        "governance",
+        "lifestyle"
+      ],
+      "categoryNames": [
+        "Governance",
+        "Lifestyle"
+      ],
+      "crossCategory": true,
+      "interestingScore": 1.077,
+      "direction": "positive"
+    },
+    {
       "var1": "lifestyle.pizzaConsumption",
       "var2": "environment.recyclingRate",
       "var1Name": "Pizza Consumption",
@@ -9691,6 +9851,26 @@
       "categoryNames": [
         "Health",
         "Education"
+      ],
+      "crossCategory": true,
+      "interestingScore": 1.07,
+      "direction": "positive"
+    },
+    {
+      "var1": "sex.sexualPartners",
+      "var2": "lifestyle.metalBandsPerCapita",
+      "var1Name": "Avg Sexual Partners",
+      "var2Name": "Metal Bands per Capita",
+      "coefficient": 0.6,
+      "strength": "strong",
+      "sampleSize": 34,
+      "categories": [
+        "sex",
+        "lifestyle"
+      ],
+      "categoryNames": [
+        "Sex & Relationships",
+        "Lifestyle"
       ],
       "crossCategory": true,
       "interestingScore": 1.07,
@@ -10274,6 +10454,26 @@
       ],
       "crossCategory": true,
       "interestingScore": 1.058,
+      "direction": "positive"
+    },
+    {
+      "var1": "democracy.score",
+      "var2": "lifestyle.metalBandsPerCapita",
+      "var1Name": "Democracy Score",
+      "var2Name": "Metal Bands per Capita",
+      "coefficient": 0.57,
+      "strength": "moderate",
+      "sampleSize": 108,
+      "categories": [
+        "governance",
+        "lifestyle"
+      ],
+      "categoryNames": [
+        "Governance",
+        "Lifestyle"
+      ],
+      "crossCategory": true,
+      "interestingScore": 1.056,
       "direction": "positive"
     },
     {
@@ -10971,6 +11171,26 @@
       "categoryNames": [
         "Governance",
         "Demographics"
+      ],
+      "crossCategory": true,
+      "interestingScore": 1.041,
+      "direction": "positive"
+    },
+    {
+      "var1": "health.breastSize",
+      "var2": "lifestyle.metalBandsPerCapita",
+      "var1Name": "Average Breast Size",
+      "var2Name": "Metal Bands per Capita",
+      "coefficient": 0.561,
+      "strength": "moderate",
+      "sampleSize": 62,
+      "categories": [
+        "health",
+        "lifestyle"
+      ],
+      "categoryNames": [
+        "Health",
+        "Lifestyle"
       ],
       "crossCategory": true,
       "interestingScore": 1.041,
@@ -12377,6 +12597,26 @@
       "direction": "positive"
     },
     {
+      "var1": "lifestyle.coffeeConsumption",
+      "var2": "lifestyle.metalBandsPerCapita",
+      "var1Name": "Coffee Consumption",
+      "var2Name": "Metal Bands per Capita",
+      "coefficient": 0.811,
+      "strength": "very_strong",
+      "sampleSize": 43,
+      "categories": [
+        "lifestyle",
+        "lifestyle"
+      ],
+      "categoryNames": [
+        "Lifestyle",
+        "Lifestyle"
+      ],
+      "crossCategory": false,
+      "interestingScore": 1.011,
+      "direction": "positive"
+    },
+    {
       "var1": "economy.giniIndex",
       "var2": "health.hivPrevalence",
       "var1Name": "Gini Index (Inequality)",
@@ -12411,6 +12651,26 @@
       "categoryNames": [
         "Governance",
         "Health"
+      ],
+      "crossCategory": true,
+      "interestingScore": 1.009,
+      "direction": "positive"
+    },
+    {
+      "var1": "economy.bigMacIndex",
+      "var2": "lifestyle.metalBandsPerCapita",
+      "var1Name": "Big Mac Price (USD)",
+      "var2Name": "Metal Bands per Capita",
+      "coefficient": 0.539,
+      "strength": "moderate",
+      "sampleSize": 105,
+      "categories": [
+        "economy",
+        "lifestyle"
+      ],
+      "categoryNames": [
+        "Economy",
+        "Lifestyle"
       ],
       "crossCategory": true,
       "interestingScore": 1.009,
@@ -12514,6 +12774,26 @@
       ],
       "crossCategory": true,
       "interestingScore": 1.007,
+      "direction": "positive"
+    },
+    {
+      "var1": "poverty.hdi",
+      "var2": "lifestyle.metalBandsPerCapita",
+      "var1Name": "Human Development Index",
+      "var2Name": "Metal Bands per Capita",
+      "coefficient": 0.537,
+      "strength": "moderate",
+      "sampleSize": 98,
+      "categories": [
+        "economy",
+        "lifestyle"
+      ],
+      "categoryNames": [
+        "Economy",
+        "Lifestyle"
+      ],
+      "crossCategory": true,
+      "interestingScore": 1.006,
       "direction": "positive"
     },
     {
@@ -12697,6 +12977,26 @@
       "direction": "positive"
     },
     {
+      "var1": "education.englishProficiency",
+      "var2": "lifestyle.metalBandsPerCapita",
+      "var1Name": "English Proficiency",
+      "var2Name": "Metal Bands per Capita",
+      "coefficient": 0.536,
+      "strength": "moderate",
+      "sampleSize": 52,
+      "categories": [
+        "education",
+        "lifestyle"
+      ],
+      "categoryNames": [
+        "Education",
+        "Lifestyle"
+      ],
+      "crossCategory": true,
+      "interestingScore": 1.003,
+      "direction": "positive"
+    },
+    {
       "var1": "economy.currentAccount",
       "var2": "lifestyle.internetPenetration",
       "var1Name": "Current Account Balance",
@@ -12751,6 +13051,26 @@
       "categoryNames": [
         "Governance",
         "Economy"
+      ],
+      "crossCategory": true,
+      "interestingScore": 1.001,
+      "direction": "positive"
+    },
+    {
+      "var1": "education.nobelPrizesPerCapita",
+      "var2": "lifestyle.metalBandsPerCapita",
+      "var1Name": "Nobel Prizes per Capita",
+      "var2Name": "Metal Bands per Capita",
+      "coefficient": 0.534,
+      "strength": "moderate",
+      "sampleSize": 65,
+      "categories": [
+        "education",
+        "lifestyle"
+      ],
+      "categoryNames": [
+        "Education",
+        "Lifestyle"
       ],
       "crossCategory": true,
       "interestingScore": 1.001,
@@ -13337,6 +13657,26 @@
       "direction": "positive"
     },
     {
+      "var1": "lifestyle.metalBandsPerCapita",
+      "var2": "environment.recyclingRate",
+      "var1Name": "Metal Bands per Capita",
+      "var2Name": "Recycling Rate",
+      "coefficient": 0.522,
+      "strength": "moderate",
+      "sampleSize": 108,
+      "categories": [
+        "lifestyle",
+        "environment"
+      ],
+      "categoryNames": [
+        "Lifestyle",
+        "Environment"
+      ],
+      "crossCategory": true,
+      "interestingScore": 0.983,
+      "direction": "positive"
+    },
+    {
       "var1": "economy.mcdonaldsPerCapita",
       "var2": "demographics.immigrationRate",
       "var1Name": "McDonald's per Capita",
@@ -13775,6 +14115,26 @@
       "crossCategory": true,
       "interestingScore": 0.972,
       "direction": "positive"
+    },
+    {
+      "var1": "lifestyle.metalBandsPerCapita",
+      "var2": "conflict.peaceIndex",
+      "var1Name": "Metal Bands per Capita",
+      "var2Name": "Peace Index",
+      "coefficient": -0.515,
+      "strength": "moderate",
+      "sampleSize": 87,
+      "categories": [
+        "lifestyle",
+        "safety"
+      ],
+      "categoryNames": [
+        "Lifestyle",
+        "Safety"
+      ],
+      "crossCategory": true,
+      "interestingScore": 0.972,
+      "direction": "negative"
     },
     {
       "var1": "health.fertilityRate",
@@ -15497,6 +15857,26 @@
       "direction": "positive"
     },
     {
+      "var1": "health.fertilityRate",
+      "var2": "lifestyle.vegetarianRate",
+      "var1Name": "Fertility Rate",
+      "var2Name": "Vegetarian Rate",
+      "coefficient": -0.49,
+      "strength": "moderate",
+      "sampleSize": 86,
+      "categories": [
+        "health",
+        "lifestyle"
+      ],
+      "categoryNames": [
+        "Health",
+        "Lifestyle"
+      ],
+      "crossCategory": true,
+      "interestingScore": 0.935,
+      "direction": "negative"
+    },
+    {
       "var1": "sex.datingAppUsage",
       "var2": "lifestyle.happinessIndex",
       "var1Name": "Dating App Usage",
@@ -16217,6 +16597,26 @@
       "direction": "negative"
     },
     {
+      "var1": "poverty.gdpPerCapita",
+      "var2": "lifestyle.metalBandsPerCapita",
+      "var1Name": "GDP per Capita",
+      "var2Name": "Metal Bands per Capita",
+      "coefficient": 0.478,
+      "strength": "moderate",
+      "sampleSize": 98,
+      "categories": [
+        "economy",
+        "lifestyle"
+      ],
+      "categoryNames": [
+        "Economy",
+        "Lifestyle"
+      ],
+      "crossCategory": true,
+      "interestingScore": 0.917,
+      "direction": "positive"
+    },
+    {
       "var1": "gender.wblIndex",
       "var2": "education.literacyRate",
       "var1Name": "Women's Legal Rights",
@@ -16291,6 +16691,26 @@
       "categoryNames": [
         "Health",
         "Education"
+      ],
+      "crossCategory": true,
+      "interestingScore": 0.917,
+      "direction": "positive"
+    },
+    {
+      "var1": "demographics.twinBirthRate",
+      "var2": "lifestyle.metalBandsPerCapita",
+      "var1Name": "Twin Birth Rate",
+      "var2Name": "Metal Bands per Capita",
+      "coefficient": 0.478,
+      "strength": "moderate",
+      "sampleSize": 108,
+      "categories": [
+        "demographics",
+        "lifestyle"
+      ],
+      "categoryNames": [
+        "Demographics",
+        "Lifestyle"
       ],
       "crossCategory": true,
       "interestingScore": 0.917,
@@ -16657,6 +17077,26 @@
       "direction": "negative"
     },
     {
+      "var1": "health.airPollution",
+      "var2": "lifestyle.metalBandsPerCapita",
+      "var1Name": "Air Pollution",
+      "var2Name": "Metal Bands per Capita",
+      "coefficient": -0.473,
+      "strength": "moderate",
+      "sampleSize": 108,
+      "categories": [
+        "health",
+        "lifestyle"
+      ],
+      "categoryNames": [
+        "Health",
+        "Lifestyle"
+      ],
+      "crossCategory": true,
+      "interestingScore": 0.909,
+      "direction": "negative"
+    },
+    {
       "var1": "sex.onlyfansCreators",
       "var2": "lifestyle.pizzaConsumption",
       "var1Name": "OnlyFans Creators",
@@ -16791,6 +17231,26 @@
       "categoryNames": [
         "Economy",
         "Health"
+      ],
+      "crossCategory": true,
+      "interestingScore": 0.906,
+      "direction": "positive"
+    },
+    {
+      "var1": "health.lifeExpectancy",
+      "var2": "lifestyle.vegetarianRate",
+      "var1Name": "Life Expectancy",
+      "var2Name": "Vegetarian Rate",
+      "coefficient": 0.47,
+      "strength": "moderate",
+      "sampleSize": 86,
+      "categories": [
+        "health",
+        "lifestyle"
+      ],
+      "categoryNames": [
+        "Health",
+        "Lifestyle"
       ],
       "crossCategory": true,
       "interestingScore": 0.906,
@@ -17777,6 +18237,26 @@
       "direction": "positive"
     },
     {
+      "var1": "sex.ageFirstSex",
+      "var2": "lifestyle.metalBandsPerCapita",
+      "var1Name": "Age of First Sex",
+      "var2Name": "Metal Bands per Capita",
+      "coefficient": -0.456,
+      "strength": "moderate",
+      "sampleSize": 59,
+      "categories": [
+        "sex",
+        "lifestyle"
+      ],
+      "categoryNames": [
+        "Sex & Relationships",
+        "Lifestyle"
+      ],
+      "crossCategory": true,
+      "interestingScore": 0.884,
+      "direction": "negative"
+    },
+    {
       "var1": "education.englishProficiency",
       "var2": "lifestyle.pizzaConsumption",
       "var1Name": "English Proficiency",
@@ -18017,6 +18497,26 @@
       "direction": "negative"
     },
     {
+      "var1": "education.avgIQ",
+      "var2": "lifestyle.vegetarianRate",
+      "var1Name": "Average IQ",
+      "var2Name": "Vegetarian Rate",
+      "coefficient": 0.453,
+      "strength": "moderate",
+      "sampleSize": 85,
+      "categories": [
+        "education",
+        "lifestyle"
+      ],
+      "categoryNames": [
+        "Education",
+        "Lifestyle"
+      ],
+      "crossCategory": true,
+      "interestingScore": 0.879,
+      "direction": "positive"
+    },
+    {
       "var1": "lifestyle.workHoursWeek",
       "var2": "lifestyle.chocolateConsumption",
       "var1Name": "Work Hours/Week",
@@ -18097,6 +18597,26 @@
       "direction": "positive"
     },
     {
+      "var1": "education.avgIQ",
+      "var2": "lifestyle.metalBandsPerCapita",
+      "var1Name": "Average IQ",
+      "var2Name": "Metal Bands per Capita",
+      "coefficient": 0.452,
+      "strength": "moderate",
+      "sampleSize": 48,
+      "categories": [
+        "education",
+        "lifestyle"
+      ],
+      "categoryNames": [
+        "Education",
+        "Lifestyle"
+      ],
+      "crossCategory": true,
+      "interestingScore": 0.878,
+      "direction": "positive"
+    },
+    {
       "var1": "lifestyle.videoGamePlayers",
       "var2": "environment.co2PerCapita",
       "var1Name": "Video Game Players",
@@ -18114,6 +18634,26 @@
       ],
       "crossCategory": true,
       "interestingScore": 0.878,
+      "direction": "positive"
+    },
+    {
+      "var1": "gender.wblIndex",
+      "var2": "lifestyle.metalBandsPerCapita",
+      "var1Name": "Women's Legal Rights",
+      "var2Name": "Metal Bands per Capita",
+      "coefficient": 0.451,
+      "strength": "moderate",
+      "sampleSize": 104,
+      "categories": [
+        "economy",
+        "lifestyle"
+      ],
+      "categoryNames": [
+        "Economy",
+        "Lifestyle"
+      ],
+      "crossCategory": true,
+      "interestingScore": 0.877,
       "direction": "positive"
     },
     {
@@ -18171,6 +18711,26 @@
       "categoryNames": [
         "Governance",
         "Economy"
+      ],
+      "crossCategory": true,
+      "interestingScore": 0.875,
+      "direction": "positive"
+    },
+    {
+      "var1": "health.lifeExpectancy",
+      "var2": "lifestyle.metalBandsPerCapita",
+      "var1Name": "Life Expectancy",
+      "var2Name": "Metal Bands per Capita",
+      "coefficient": 0.45,
+      "strength": "moderate",
+      "sampleSize": 49,
+      "categories": [
+        "health",
+        "lifestyle"
+      ],
+      "categoryNames": [
+        "Health",
+        "Lifestyle"
       ],
       "crossCategory": true,
       "interestingScore": 0.875,
@@ -18375,6 +18935,26 @@
       "crossCategory": true,
       "interestingScore": 0.871,
       "direction": "negative"
+    },
+    {
+      "var1": "economy.incomeTax",
+      "var2": "lifestyle.metalBandsPerCapita",
+      "var1Name": "Top Income Tax Rate",
+      "var2Name": "Metal Bands per Capita",
+      "coefficient": 0.447,
+      "strength": "moderate",
+      "sampleSize": 108,
+      "categories": [
+        "economy",
+        "lifestyle"
+      ],
+      "categoryNames": [
+        "Economy",
+        "Lifestyle"
+      ],
+      "crossCategory": true,
+      "interestingScore": 0.871,
+      "direction": "positive"
     },
     {
       "var1": "health.alcoholConsumption",
@@ -18955,6 +19535,26 @@
       "crossCategory": true,
       "interestingScore": 0.862,
       "direction": "negative"
+    },
+    {
+      "var1": "economy.vatRate",
+      "var2": "lifestyle.metalBandsPerCapita",
+      "var1Name": "VAT/Sales Tax Rate",
+      "var2Name": "Metal Bands per Capita",
+      "coefficient": 0.44,
+      "strength": "moderate",
+      "sampleSize": 108,
+      "categories": [
+        "economy",
+        "lifestyle"
+      ],
+      "categoryNames": [
+        "Economy",
+        "Lifestyle"
+      ],
+      "crossCategory": true,
+      "interestingScore": 0.861,
+      "direction": "positive"
     },
     {
       "var1": "economy.economicFreedom",
@@ -19737,6 +20337,26 @@
       "direction": "positive"
     },
     {
+      "var1": "lifestyle.happinessIndex",
+      "var2": "lifestyle.metalBandsPerCapita",
+      "var1Name": "Happiness Index",
+      "var2Name": "Metal Bands per Capita",
+      "coefficient": 0.649,
+      "strength": "strong",
+      "sampleSize": 43,
+      "categories": [
+        "lifestyle",
+        "lifestyle"
+      ],
+      "categoryNames": [
+        "Lifestyle",
+        "Lifestyle"
+      ],
+      "crossCategory": false,
+      "interestingScore": 0.849,
+      "direction": "positive"
+    },
+    {
       "var1": "lifestyle.internetPenetration",
       "var2": "lifestyle.chocolateConsumption",
       "var1Name": "Internet Users",
@@ -19771,6 +20391,26 @@
       "categoryNames": [
         "Economy",
         "Health"
+      ],
+      "crossCategory": true,
+      "interestingScore": 0.848,
+      "direction": "positive"
+    },
+    {
+      "var1": "economy.economicFreedom",
+      "var2": "lifestyle.metalBandsPerCapita",
+      "var1Name": "Economic Freedom Index",
+      "var2Name": "Metal Bands per Capita",
+      "coefficient": 0.432,
+      "strength": "moderate",
+      "sampleSize": 108,
+      "categories": [
+        "economy",
+        "lifestyle"
+      ],
+      "categoryNames": [
+        "Economy",
+        "Lifestyle"
       ],
       "crossCategory": true,
       "interestingScore": 0.848,
@@ -20415,6 +21055,26 @@
       "crossCategory": true,
       "interestingScore": 0.84,
       "direction": "negative"
+    },
+    {
+      "var1": "economy.renewableEnergy",
+      "var2": "lifestyle.metalBandsPerCapita",
+      "var1Name": "Renewable Energy",
+      "var2Name": "Metal Bands per Capita",
+      "coefficient": 0.426,
+      "strength": "moderate",
+      "sampleSize": 49,
+      "categories": [
+        "economy",
+        "lifestyle"
+      ],
+      "categoryNames": [
+        "Economy",
+        "Lifestyle"
+      ],
+      "crossCategory": true,
+      "interestingScore": 0.839,
+      "direction": "positive"
     },
     {
       "var1": "health.hivPrevalence",
@@ -21517,6 +22177,26 @@
       "direction": "positive"
     },
     {
+      "var1": "sex.lgbtAcceptance",
+      "var2": "lifestyle.vegetarianRate",
+      "var1Name": "LGBT+ Acceptance",
+      "var2Name": "Vegetarian Rate",
+      "coefficient": 0.415,
+      "strength": "moderate",
+      "sampleSize": 126,
+      "categories": [
+        "sex",
+        "lifestyle"
+      ],
+      "categoryNames": [
+        "Sex & Relationships",
+        "Lifestyle"
+      ],
+      "crossCategory": true,
+      "interestingScore": 0.822,
+      "direction": "positive"
+    },
+    {
       "var1": "economy.billionairesPerCapita",
       "var2": "education.pisaMath",
       "var1Name": "Billionaires per Capita",
@@ -22337,6 +23017,26 @@
       "direction": "positive"
     },
     {
+      "var1": "democracy.score",
+      "var2": "lifestyle.vegetarianRate",
+      "var1Name": "Democracy Score",
+      "var2Name": "Vegetarian Rate",
+      "coefficient": 0.407,
+      "strength": "moderate",
+      "sampleSize": 161,
+      "categories": [
+        "governance",
+        "lifestyle"
+      ],
+      "categoryNames": [
+        "Governance",
+        "Lifestyle"
+      ],
+      "crossCategory": true,
+      "interestingScore": 0.811,
+      "direction": "positive"
+    },
+    {
       "var1": "gender.wblIndex",
       "var2": "lifestyle.internetPenetration",
       "var1Name": "Women's Legal Rights",
@@ -22433,6 +23133,26 @@
         "Transport"
       ],
       "crossCategory": true,
+      "interestingScore": 0.811,
+      "direction": "negative"
+    },
+    {
+      "var1": "lifestyle.workHoursWeek",
+      "var2": "lifestyle.metalBandsPerCapita",
+      "var1Name": "Work Hours/Week",
+      "var2Name": "Metal Bands per Capita",
+      "coefficient": -0.611,
+      "strength": "strong",
+      "sampleSize": 43,
+      "categories": [
+        "lifestyle",
+        "lifestyle"
+      ],
+      "categoryNames": [
+        "Lifestyle",
+        "Lifestyle"
+      ],
+      "crossCategory": false,
       "interestingScore": 0.811,
       "direction": "negative"
     },
@@ -24317,6 +25037,26 @@
       "direction": "negative"
     },
     {
+      "var1": "lifestyle.screenTime",
+      "var2": "lifestyle.metalBandsPerCapita",
+      "var1Name": "Screen Time",
+      "var2Name": "Metal Bands per Capita",
+      "coefficient": -0.503,
+      "strength": "moderate",
+      "sampleSize": 44,
+      "categories": [
+        "lifestyle",
+        "lifestyle"
+      ],
+      "categoryNames": [
+        "Lifestyle",
+        "Lifestyle"
+      ],
+      "crossCategory": false,
+      "interestingScore": 0.703,
+      "direction": "negative"
+    },
+    {
       "var1": "economy.millionairesPerCapita",
       "var2": "economy.exportsGdp",
       "var1Name": "Millionaires per Capita",
@@ -24717,6 +25457,26 @@
       "direction": "positive"
     },
     {
+      "var1": "lifestyle.tattooRate",
+      "var2": "lifestyle.metalBandsPerCapita",
+      "var1Name": "Tattoo Rate",
+      "var2Name": "Metal Bands per Capita",
+      "coefficient": 0.461,
+      "strength": "moderate",
+      "sampleSize": 46,
+      "categories": [
+        "lifestyle",
+        "lifestyle"
+      ],
+      "categoryNames": [
+        "Lifestyle",
+        "Lifestyle"
+      ],
+      "crossCategory": false,
+      "interestingScore": 0.661,
+      "direction": "positive"
+    },
+    {
       "var1": "democracy.score",
       "var2": "freedom.cryptoAdoption",
       "var1Name": "Democracy Score",
@@ -24935,6 +25695,26 @@
       "crossCategory": false,
       "interestingScore": 0.646,
       "direction": "negative"
+    },
+    {
+      "var1": "lifestyle.beerConsumption",
+      "var2": "lifestyle.metalBandsPerCapita",
+      "var1Name": "Beer Consumption",
+      "var2Name": "Metal Bands per Capita",
+      "coefficient": 0.444,
+      "strength": "moderate",
+      "sampleSize": 92,
+      "categories": [
+        "lifestyle",
+        "lifestyle"
+      ],
+      "categoryNames": [
+        "Lifestyle",
+        "Lifestyle"
+      ],
+      "crossCategory": false,
+      "interestingScore": 0.644,
+      "direction": "positive"
     },
     {
       "var1": "health.obesityRate",
@@ -25231,6 +26011,26 @@
       "categoryNames": [
         "Sex & Relationships",
         "Sex & Relationships"
+      ],
+      "crossCategory": false,
+      "interestingScore": 0.624,
+      "direction": "positive"
+    },
+    {
+      "var1": "lifestyle.chocolateConsumption",
+      "var2": "lifestyle.metalBandsPerCapita",
+      "var1Name": "Chocolate Consumption",
+      "var2Name": "Metal Bands per Capita",
+      "coefficient": 0.424,
+      "strength": "moderate",
+      "sampleSize": 41,
+      "categories": [
+        "lifestyle",
+        "lifestyle"
+      ],
+      "categoryNames": [
+        "Lifestyle",
+        "Lifestyle"
       ],
       "crossCategory": false,
       "interestingScore": 0.624,

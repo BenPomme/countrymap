@@ -479,6 +479,16 @@ function CountryDetailPanel({ country, onClose }: CountryDetailPanelProps) {
           </div>
         </div>
 
+        {/* View Full Stats Button */}
+        <div className="border-t pt-4">
+          <Link
+            href={`/country/${country.name.toLowerCase().replace(/\s+/g, '-')}/`}
+            className="block w-full text-center bg-blue-600 hover:bg-blue-700 text-white font-medium py-2.5 px-4 rounded-lg transition-colors"
+          >
+            View All {country.name} Rankings →
+          </Link>
+        </div>
+
         <div className="border-t pt-4 text-xs text-gray-400">
           Sources: CIA Factbook, V-Dem, World Bank, UCDP
         </div>
