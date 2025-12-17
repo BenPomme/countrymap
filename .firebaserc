@@ -1,0 +1,11 @@
+{
+  "projects": {},
+  "targets": {},
+  "etags": {
+    "worldtruth-f9789": {
+      "extensionInstances": {
+        "firestore-send-email": "5c915866423db630be9745448121b40fc8fd1f30ca0e47c82c9b9d804bef3c2c"
+      }
+    }
+  }
+}
