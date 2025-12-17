@@ -122,7 +122,7 @@
       "singleParentRate": 4.8,
       "contraceptionUse": 18.4,
       "teenPregnancy": 62.8,
-      "lgbtAcceptance": null,
+      "lgbtAcceptance": 3.5,
       "datingAppUsage": null,
       "onlyfansCreators": null,
       "pornConsumption": null,
@@ -180,9 +180,10 @@
       "yogaPractitioners": 0.2,
       "pizzaConsumption": null,
       "chocolateConsumption": null,
-      "teaConsumption": null,
+      "teaConsumption": 0.85,
       "beerConsumption": null,
-      "wineConsumption": null
+      "wineConsumption": null,
+      "metalBandsPerCapita": 0
     },
     "freedom": {
       "drugPolicyScore": 5,
@@ -346,12 +347,12 @@
     "sex": {
       "sexualPartners": null,
       "ageFirstSex": 20.9,
-      "divorceRate": null,
+      "divorceRate": 2.1,
       "marriageAge": 26.8,
       "singleParentRate": 8.2,
       "contraceptionUse": 46.2,
       "teenPregnancy": 14.8,
-      "lgbtAcceptance": null,
+      "lgbtAcceptance": 32.5,
       "datingAppUsage": null,
       "onlyfansCreators": null,
       "pornConsumption": null,
@@ -410,8 +411,9 @@
       "pizzaConsumption": null,
       "chocolateConsumption": null,
       "teaConsumption": null,
-      "beerConsumption": null,
-      "wineConsumption": null
+      "beerConsumption": 25,
+      "wineConsumption": 5,
+      "metalBandsPerCapita": 0.5
     },
     "freedom": {
       "drugPolicyScore": 25,
@@ -659,7 +661,8 @@
       "chocolateConsumption": null,
       "teaConsumption": null,
       "beerConsumption": null,
-      "wineConsumption": null
+      "wineConsumption": null,
+      "metalBandsPerCapita": 0.07
     },
     "freedom": {
       "drugPolicyScore": 15,
@@ -814,7 +817,7 @@
     "sex": {
       "sexualPartners": null,
       "ageFirstSex": null,
-      "divorceRate": null,
+      "divorceRate": 2.7,
       "marriageAge": 32.8,
       "singleParentRate": 12.4,
       "contraceptionUse": 68.4,
@@ -879,7 +882,8 @@
       "chocolateConsumption": null,
       "teaConsumption": null,
       "beerConsumption": null,
-      "wineConsumption": null
+      "wineConsumption": null,
+      "metalBandsPerCapita": null
     },
     "freedom": {
       "corruptionIndex": 65,
@@ -1119,8 +1123,9 @@
       "pizzaConsumption": null,
       "chocolateConsumption": null,
       "teaConsumption": null,
-      "beerConsumption": null,
-      "wineConsumption": null
+      "beerConsumption": 25,
+      "wineConsumption": null,
+      "metalBandsPerCapita": null
     },
     "freedom": {
       "drugPolicyScore": 15,
@@ -1299,12 +1304,12 @@
     "sex": {
       "sexualPartners": null,
       "ageFirstSex": null,
-      "divorceRate": null,
+      "divorceRate": 1.2,
       "marriageAge": 27.8,
       "singleParentRate": 14.2,
       "contraceptionUse": 75.8,
       "teenPregnancy": 62.8,
-      "lgbtAcceptance": null,
+      "lgbtAcceptance": 64.2,
       "datingAppUsage": 22,
       "onlyfansCreators": 38,
       "pornConsumption": 62,
@@ -1364,7 +1369,8 @@
       "spotifyUsers": 267,
       "fastFoodSpending": 398,
       "gymMembership": 8.7,
-      "yogaPractitioners": 4.8
+      "yogaPractitioners": 4.8,
+      "metalBandsPerCapita": 6.85
     },
     "freedom": {
       "drugPolicyScore": 50,
@@ -1527,12 +1533,12 @@
     "sex": {
       "sexualPartners": null,
       "ageFirstSex": 21.2,
-      "divorceRate": null,
+      "divorceRate": 1,
       "marriageAge": 26.2,
       "singleParentRate": 12.8,
       "contraceptionUse": 57.2,
       "teenPregnancy": 22.8,
-      "lgbtAcceptance": null,
+      "lgbtAcceptance": 18.5,
       "topPornCategory": "Armenian",
       "datingAppUsage": null,
       "onlyfansCreators": null,
@@ -1590,9 +1596,10 @@
       "yogaPractitioners": 1.6,
       "pizzaConsumption": null,
       "chocolateConsumption": null,
-      "teaConsumption": null,
-      "beerConsumption": null,
-      "wineConsumption": null
+      "teaConsumption": 0.42,
+      "beerConsumption": 15,
+      "wineConsumption": 3,
+      "metalBandsPerCapita": 1.01
     },
     "freedom": {
       "drugPolicyScore": 20,
@@ -1840,7 +1847,8 @@
       "spotifyUsers": 413,
       "fastFoodSpending": 967,
       "gymMembership": 14.8,
-      "yogaPractitioners": 8.2
+      "yogaPractitioners": 8.2,
+      "metalBandsPerCapita": 12.95
     },
     "freedom": {
       "drugPolicyScore": 55,
@@ -2085,7 +2093,8 @@
       "fastFoodSpending": 542,
       "gymMembership": 11,
       "yogaPractitioners": 5.3,
-      "teaConsumption": null
+      "teaConsumption": null,
+      "metalBandsPerCapita": 16.33
     },
     "freedom": {
       "drugPolicyScore": 50,
@@ -2247,12 +2256,12 @@
     "sex": {
       "sexualPartners": null,
       "ageFirstSex": null,
-      "divorceRate": null,
+      "divorceRate": 1.5,
       "marriageAge": 24.8,
       "singleParentRate": 8.4,
       "contraceptionUse": 54.8,
       "teenPregnancy": 42.8,
-      "lgbtAcceptance": null,
+      "lgbtAcceptance": 14.2,
       "topPornCategory": "Turkish",
       "datingAppUsage": null,
       "onlyfansCreators": null,
@@ -2310,9 +2319,10 @@
       "yogaPractitioners": 1.3,
       "pizzaConsumption": null,
       "chocolateConsumption": null,
-      "teaConsumption": null,
-      "beerConsumption": null,
-      "wineConsumption": null
+      "teaConsumption": 0.95,
+      "beerConsumption": 5,
+      "wineConsumption": 1,
+      "metalBandsPerCapita": 0.15
     },
     "freedom": {
       "drugPolicyScore": 15,
@@ -2480,7 +2490,7 @@
       "singleParentRate": 4.2,
       "contraceptionUse": 61.8,
       "teenPregnancy": 12.8,
-      "lgbtAcceptance": null,
+      "lgbtAcceptance": 18.5,
       "datingAppUsage": null,
       "onlyfansCreators": null,
       "pornConsumption": null,
@@ -2538,9 +2548,10 @@
       "yogaPractitioners": 5.1,
       "pizzaConsumption": null,
       "chocolateConsumption": null,
-      "teaConsumption": null,
-      "beerConsumption": null,
-      "wineConsumption": null
+      "teaConsumption": 0.92,
+      "beerConsumption": 8,
+      "wineConsumption": null,
+      "metalBandsPerCapita": 1.03
     },
     "freedom": {
       "drugPolicyScore": 10,
@@ -2703,12 +2714,12 @@
     "sex": {
       "sexualPartners": null,
       "ageFirstSex": 16.6,
-      "divorceRate": null,
+      "divorceRate": 0.9,
       "marriageAge": 18.8,
       "singleParentRate": 5.8,
       "contraceptionUse": 62.8,
       "teenPregnancy": 82.8,
-      "lgbtAcceptance": null,
+      "lgbtAcceptance": 8.5,
       "topPornCategory": "Bangla",
       "datingAppUsage": null,
       "onlyfansCreators": null,
@@ -2767,8 +2778,9 @@
       "pizzaConsumption": null,
       "chocolateConsumption": null,
       "teaConsumption": 0.32,
-      "beerConsumption": null,
-      "wineConsumption": null
+      "beerConsumption": 0.1,
+      "wineConsumption": null,
+      "metalBandsPerCapita": 0.05
     },
     "freedom": {
       "drugPolicyScore": 15,
@@ -2931,12 +2943,12 @@
     "sex": {
       "sexualPartners": null,
       "ageFirstSex": null,
-      "divorceRate": null,
+      "divorceRate": 3.7,
       "marriageAge": 26.8,
       "singleParentRate": 16.8,
       "contraceptionUse": 72.4,
       "teenPregnancy": 12.8,
-      "lgbtAcceptance": null,
+      "lgbtAcceptance": 22.5,
       "datingAppUsage": null,
       "onlyfansCreators": null,
       "pornConsumption": null,
@@ -2994,9 +3006,10 @@
       "yogaPractitioners": 1,
       "pizzaConsumption": null,
       "chocolateConsumption": null,
-      "teaConsumption": null,
-      "beerConsumption": null,
-      "wineConsumption": null
+      "teaConsumption": 0.48,
+      "beerConsumption": 42,
+      "wineConsumption": 2,
+      "metalBandsPerCapita": 5.24
     },
     "freedom": {
       "drugPolicyScore": 15,
@@ -3172,12 +3185,12 @@
     "sex": {
       "sexualPartners": null,
       "ageFirstSex": 18,
-      "divorceRate": null,
+      "divorceRate": 1.8,
       "marriageAge": 32.2,
       "singleParentRate": 18.2,
       "contraceptionUse": 66.2,
       "teenPregnancy": 5.8,
-      "lgbtAcceptance": null,
+      "lgbtAcceptance": 81.5,
       "datingAppUsage": 19,
       "onlyfansCreators": 22,
       "pornConsumption": 52,
@@ -3237,7 +3250,8 @@
       "fastFoodSpending": 605,
       "gymMembership": 11.9,
       "yogaPractitioners": 5,
-      "teaConsumption": 0.28
+      "teaConsumption": 0.28,
+      "metalBandsPerCapita": 13.15
     },
     "freedom": {
       "drugPolicyScore": 55,
@@ -3483,7 +3497,8 @@
       "chocolateConsumption": null,
       "teaConsumption": null,
       "beerConsumption": null,
-      "wineConsumption": null
+      "wineConsumption": null,
+      "metalBandsPerCapita": null
     },
     "freedom": {
       "drugPolicyScore": 15,
@@ -3712,7 +3727,8 @@
       "chocolateConsumption": null,
       "teaConsumption": null,
       "beerConsumption": null,
-      "wineConsumption": null
+      "wineConsumption": null,
+      "metalBandsPerCapita": null
     },
     "freedom": {
       "drugPolicyScore": 15,
@@ -3881,7 +3897,7 @@
       "singleParentRate": 15.8,
       "contraceptionUse": 66.8,
       "teenPregnancy": 62.8,
-      "lgbtAcceptance": null,
+      "lgbtAcceptance": 38.5,
       "topPornCategory": "Latina",
       "datingAppUsage": null,
       "onlyfansCreators": null,
@@ -3940,8 +3956,9 @@
       "pizzaConsumption": null,
       "chocolateConsumption": null,
       "teaConsumption": null,
-      "beerConsumption": null,
-      "wineConsumption": null
+      "beerConsumption": 28,
+      "wineConsumption": null,
+      "metalBandsPerCapita": 3.01
     },
     "freedom": {
       "drugPolicyScore": 40,
@@ -4110,7 +4127,7 @@
       "singleParentRate": 9.8,
       "contraceptionUse": 45.8,
       "teenPregnancy": 8.8,
-      "lgbtAcceptance": null,
+      "lgbtAcceptance": 32.5,
       "datingAppUsage": null,
       "onlyfansCreators": null,
       "pornConsumption": null,
@@ -4169,8 +4186,9 @@
       "pizzaConsumption": null,
       "chocolateConsumption": null,
       "teaConsumption": null,
-      "beerConsumption": null,
-      "wineConsumption": null
+      "beerConsumption": 45,
+      "wineConsumption": 5,
+      "metalBandsPerCapita": 4.78
     },
     "freedom": {
       "drugPolicyScore": 25,
@@ -4417,8 +4435,9 @@
       "pizzaConsumption": null,
       "chocolateConsumption": null,
       "teaConsumption": null,
-      "beerConsumption": null,
-      "wineConsumption": null
+      "beerConsumption": 48,
+      "wineConsumption": null,
+      "metalBandsPerCapita": null
     },
     "freedom": {
       "drugPolicyScore": 25,
@@ -4666,7 +4685,8 @@
       "spotifyUsers": 234,
       "fastFoodSpending": 432,
       "gymMembership": 9.6,
-      "yogaPractitioners": 4.3
+      "yogaPractitioners": 4.3,
+      "metalBandsPerCapita": 3.5
     },
     "freedom": {
       "drugPolicyScore": 30,
@@ -4831,7 +4851,7 @@
     "sex": {
       "sexualPartners": null,
       "ageFirstSex": null,
-      "divorceRate": null,
+      "divorceRate": 1.6,
       "marriageAge": 27.8,
       "singleParentRate": 6.8,
       "contraceptionUse": 52.8,
@@ -4896,7 +4916,8 @@
       "chocolateConsumption": null,
       "teaConsumption": null,
       "beerConsumption": null,
-      "wineConsumption": null
+      "wineConsumption": null,
+      "metalBandsPerCapita": 6.12
     },
     "freedom": {
       "drugPolicyScore": 5,
@@ -5060,12 +5081,12 @@
     "sex": {
       "sexualPartners": null,
       "ageFirstSex": null,
-      "divorceRate": null,
+      "divorceRate": 1.4,
       "marriageAge": 28.4,
       "singleParentRate": 14.2,
       "contraceptionUse": 68.4,
       "teenPregnancy": 38.8,
-      "lgbtAcceptance": null,
+      "lgbtAcceptance": 32.5,
       "topPornCategory": "Bulgarian",
       "datingAppUsage": null,
       "onlyfansCreators": null,
@@ -5125,7 +5146,8 @@
       "yogaPractitioners": 0.9,
       "pizzaConsumption": null,
       "chocolateConsumption": null,
-      "teaConsumption": null
+      "teaConsumption": 0.18,
+      "metalBandsPerCapita": 7.02
     },
     "freedom": {
       "drugPolicyScore": 25,
@@ -5371,7 +5393,8 @@
       "chocolateConsumption": null,
       "teaConsumption": null,
       "beerConsumption": null,
-      "wineConsumption": null
+      "wineConsumption": null,
+      "metalBandsPerCapita": null
     },
     "freedom": {
       "drugPolicyScore": 15,
@@ -5616,7 +5639,8 @@
       "chocolateConsumption": null,
       "teaConsumption": null,
       "beerConsumption": null,
-      "wineConsumption": null
+      "wineConsumption": null,
+      "metalBandsPerCapita": null
     },
     "freedom": {
       "drugPolicyScore": 10,
@@ -5785,7 +5809,7 @@
       "singleParentRate": 12.8,
       "contraceptionUse": 56.8,
       "teenPregnancy": 48.8,
-      "lgbtAcceptance": null,
+      "lgbtAcceptance": 35.2,
       "datingAppUsage": null,
       "onlyfansCreators": null,
       "pornConsumption": null,
@@ -5843,9 +5867,10 @@
       "yogaPractitioners": 3.4,
       "pizzaConsumption": null,
       "chocolateConsumption": null,
-      "teaConsumption": null,
+      "teaConsumption": 0.18,
       "beerConsumption": 78.1,
-      "wineConsumption": null
+      "wineConsumption": null,
+      "metalBandsPerCapita": null
     },
     "freedom": {
       "drugPolicyScore": 25,
@@ -6090,8 +6115,9 @@
       "pizzaConsumption": null,
       "chocolateConsumption": null,
       "teaConsumption": null,
-      "beerConsumption": null,
-      "wineConsumption": null
+      "beerConsumption": 35,
+      "wineConsumption": null,
+      "metalBandsPerCapita": null
     },
     "freedom": {
       "drugPolicyScore": 15,
@@ -6340,7 +6366,8 @@
       "spotifyUsers": 434,
       "fastFoodSpending": 982,
       "gymMembership": 14.2,
-      "yogaPractitioners": 8.7
+      "yogaPractitioners": 8.7,
+      "metalBandsPerCapita": 14.1
     },
     "freedom": {
       "drugPolicyScore": 75,
@@ -6585,7 +6612,8 @@
       "chocolateConsumption": null,
       "teaConsumption": null,
       "beerConsumption": null,
-      "wineConsumption": null
+      "wineConsumption": null,
+      "metalBandsPerCapita": null
     },
     "freedom": {
       "drugPolicyScore": 10,
@@ -6831,7 +6859,8 @@
       "chocolateConsumption": null,
       "teaConsumption": null,
       "beerConsumption": null,
-      "wineConsumption": null
+      "wineConsumption": null,
+      "metalBandsPerCapita": null
     },
     "freedom": {
       "drugPolicyScore": 10,
@@ -6994,12 +7023,12 @@
     "sex": {
       "sexualPartners": null,
       "ageFirstSex": null,
-      "divorceRate": null,
+      "divorceRate": 1.5,
       "marriageAge": 29.8,
       "singleParentRate": 14.8,
       "contraceptionUse": 76.8,
       "teenPregnancy": 38.8,
-      "lgbtAcceptance": null,
+      "lgbtAcceptance": 61.5,
       "datingAppUsage": 21,
       "onlyfansCreators": 30,
       "pornConsumption": 60,
@@ -7059,7 +7088,8 @@
       "spotifyUsers": 289,
       "fastFoodSpending": 487,
       "gymMembership": 9.2,
-      "yogaPractitioners": 5.2
+      "yogaPractitioners": 5.2,
+      "metalBandsPerCapita": 16.1
     },
     "freedom": {
       "drugPolicyScore": 45,
@@ -7309,7 +7339,8 @@
       "spotifyUsers": 0,
       "fastFoodSpending": 398,
       "gymMembership": 4.9,
-      "yogaPractitioners": 3.2
+      "yogaPractitioners": 3.2,
+      "metalBandsPerCapita": 0.03
     },
     "freedom": {
       "drugPolicyScore": 10,
@@ -7484,12 +7515,12 @@
     "sex": {
       "sexualPartners": null,
       "ageFirstSex": 17.7,
-      "divorceRate": null,
+      "divorceRate": 0.9,
       "marriageAge": 26.8,
       "singleParentRate": 18.8,
       "contraceptionUse": 81.2,
       "teenPregnancy": 58.8,
-      "lgbtAcceptance": null,
+      "lgbtAcceptance": 48.2,
       "datingAppUsage": 23,
       "onlyfansCreators": 55,
       "pornConsumption": 65,
@@ -7549,7 +7580,8 @@
       "gymMembership": 6.9,
       "yogaPractitioners": 3.3,
       "pizzaConsumption": null,
-      "teaConsumption": null
+      "teaConsumption": 0.05,
+      "metalBandsPerCapita": 4.16
     },
     "freedom": {
       "drugPolicyScore": 45,
@@ -7794,7 +7826,8 @@
       "chocolateConsumption": null,
       "teaConsumption": null,
       "beerConsumption": null,
-      "wineConsumption": null
+      "wineConsumption": null,
+      "metalBandsPerCapita": null
     },
     "freedom": {
       "drugPolicyScore": 10,
@@ -8040,7 +8073,8 @@
       "chocolateConsumption": null,
       "teaConsumption": null,
       "beerConsumption": null,
-      "wineConsumption": null
+      "wineConsumption": null,
+      "metalBandsPerCapita": null
     },
     "freedom": {
       "drugPolicyScore": 15,
@@ -8203,12 +8237,12 @@
     "sex": {
       "sexualPartners": null,
       "ageFirstSex": null,
-      "divorceRate": null,
+      "divorceRate": 2.6,
       "marriageAge": 27.8,
       "singleParentRate": 18.8,
       "contraceptionUse": 76.8,
       "teenPregnancy": 48.8,
-      "lgbtAcceptance": null,
+      "lgbtAcceptance": 54.2,
       "topPornCategory": "Latina",
       "datingAppUsage": null,
       "onlyfansCreators": null,
@@ -8267,8 +8301,9 @@
       "pizzaConsumption": null,
       "chocolateConsumption": null,
       "teaConsumption": null,
-      "beerConsumption": null,
-      "wineConsumption": null
+      "beerConsumption": 52,
+      "wineConsumption": 1.5,
+      "metalBandsPerCapita": 6.75
     },
     "freedom": {
       "drugPolicyScore": 40,
@@ -8514,7 +8549,8 @@
       "chocolateConsumption": null,
       "teaConsumption": null,
       "beerConsumption": null,
-      "wineConsumption": null
+      "wineConsumption": null,
+      "metalBandsPerCapita": null
     },
     "freedom": {
       "drugPolicyScore": 20,
@@ -8677,12 +8713,12 @@
     "sex": {
       "sexualPartners": null,
       "ageFirstSex": 18.5,
-      "divorceRate": null,
+      "divorceRate": 1.1,
       "marriageAge": 30.2,
       "singleParentRate": 12.8,
       "contraceptionUse": 63.8,
       "teenPregnancy": 8.8,
-      "lgbtAcceptance": null,
+      "lgbtAcceptance": 44.2,
       "topPornCategory": "Croatian",
       "datingAppUsage": null,
       "onlyfansCreators": null,
@@ -8742,7 +8778,8 @@
       "gymMembership": 5.9,
       "yogaPractitioners": 1.2,
       "pizzaConsumption": null,
-      "teaConsumption": null
+      "teaConsumption": 0.12,
+      "metalBandsPerCapita": 14
     },
     "freedom": {
       "drugPolicyScore": 35,
@@ -8907,12 +8944,12 @@
     "sex": {
       "sexualPartners": null,
       "ageFirstSex": null,
-      "divorceRate": null,
+      "divorceRate": 2.9,
       "marriageAge": 23.8,
       "singleParentRate": 18.8,
       "contraceptionUse": 73.8,
       "teenPregnancy": 48.8,
-      "lgbtAcceptance": null,
+      "lgbtAcceptance": 52.5,
       "topPornCategory": "Latina",
       "datingAppUsage": null,
       "onlyfansCreators": null,
@@ -8971,8 +9008,9 @@
       "pizzaConsumption": null,
       "chocolateConsumption": null,
       "teaConsumption": null,
-      "beerConsumption": null,
-      "wineConsumption": null
+      "beerConsumption": 18,
+      "wineConsumption": 0.5,
+      "metalBandsPerCapita": 1.03
     },
     "freedom": {
       "drugPolicyScore": 15,
@@ -9140,7 +9178,7 @@
       "singleParentRate": 8.8,
       "contraceptionUse": 58.8,
       "teenPregnancy": 5.8,
-      "lgbtAcceptance": null,
+      "lgbtAcceptance": 48.2,
       "datingAppUsage": null,
       "onlyfansCreators": null,
       "pornConsumption": null,
@@ -9199,8 +9237,9 @@
       "pizzaConsumption": null,
       "chocolateConsumption": null,
       "teaConsumption": null,
-      "beerConsumption": null,
-      "wineConsumption": 13.7
+      "beerConsumption": 55,
+      "wineConsumption": 13.7,
+      "metalBandsPerCapita": 7.16
     },
     "freedom": {
       "drugPolicyScore": 35,
@@ -9363,12 +9402,12 @@
     "sex": {
       "sexualPartners": null,
       "ageFirstSex": 17.6,
-      "divorceRate": null,
+      "divorceRate": 1.8,
       "marriageAge": 31.4,
       "singleParentRate": 14.8,
       "contraceptionUse": 86.2,
       "teenPregnancy": 9.8,
-      "lgbtAcceptance": null,
+      "lgbtAcceptance": 52.8,
       "datingAppUsage": null,
       "onlyfansCreators": null,
       "pornConsumption": null,
@@ -9426,9 +9465,10 @@
       "yogaPractitioners": 2.8,
       "pizzaConsumption": null,
       "chocolateConsumption": 4.2,
-      "teaConsumption": null,
+      "teaConsumption": 0.35,
       "beerConsumption": 140,
-      "wineConsumption": 11.2
+      "wineConsumption": 11.2,
+      "metalBandsPerCapita": 15.91
     },
     "freedom": {
       "drugPolicyScore": 60,
@@ -9677,7 +9717,8 @@
       "spotifyUsers": 563,
       "fastFoodSpending": 668,
       "gymMembership": 15.1,
-      "yogaPractitioners": 5.9
+      "yogaPractitioners": 5.9,
+      "metalBandsPerCapita": 20.52
     },
     "freedom": {
       "drugPolicyScore": 50,
@@ -9922,7 +9963,8 @@
       "chocolateConsumption": null,
       "teaConsumption": null,
       "beerConsumption": null,
-      "wineConsumption": null
+      "wineConsumption": null,
+      "metalBandsPerCapita": null
     },
     "freedom": {
       "drugPolicyScore": 15,
@@ -10086,12 +10128,12 @@
     "sex": {
       "sexualPartners": null,
       "ageFirstSex": 18.2,
-      "divorceRate": null,
+      "divorceRate": 2.4,
       "marriageAge": 24.8,
       "singleParentRate": 22.8,
       "contraceptionUse": 69.8,
       "teenPregnancy": 88.8,
-      "lgbtAcceptance": null,
+      "lgbtAcceptance": 38.5,
       "topPornCategory": "Latina",
       "datingAppUsage": null,
       "onlyfansCreators": null,
@@ -10150,8 +10192,9 @@
       "pizzaConsumption": null,
       "chocolateConsumption": null,
       "teaConsumption": null,
-      "beerConsumption": null,
-      "wineConsumption": null
+      "beerConsumption": 55,
+      "wineConsumption": 0.5,
+      "metalBandsPerCapita": 0.47
     },
     "freedom": {
       "drugPolicyScore": 30,
@@ -10320,7 +10363,7 @@
       "singleParentRate": 16.8,
       "contraceptionUse": 79.8,
       "teenPregnancy": 78.8,
-      "lgbtAcceptance": null,
+      "lgbtAcceptance": 46.5,
       "topPornCategory": "Latina",
       "datingAppUsage": null,
       "onlyfansCreators": null,
@@ -10378,9 +10421,10 @@
       "yogaPractitioners": 2.5,
       "pizzaConsumption": null,
       "chocolateConsumption": null,
-      "teaConsumption": null,
-      "beerConsumption": null,
-      "wineConsumption": null
+      "teaConsumption": 0.08,
+      "beerConsumption": 35,
+      "wineConsumption": null,
+      "metalBandsPerCapita": 0.64
     },
     "freedom": {
       "drugPolicyScore": 40,
@@ -10558,12 +10602,12 @@
     "sex": {
       "sexualPartners": null,
       "ageFirstSex": null,
-      "divorceRate": null,
+      "divorceRate": 2,
       "marriageAge": 23.8,
       "singleParentRate": 6.8,
       "contraceptionUse": 58.8,
       "teenPregnancy": 48.8,
-      "lgbtAcceptance": null,
+      "lgbtAcceptance": 12.5,
       "datingAppUsage": 8,
       "pornConsumption": 30,
       "topPornCategory": "Arab",
@@ -10622,8 +10666,9 @@
       "yogaPractitioners": 1.6,
       "pizzaConsumption": null,
       "chocolateConsumption": null,
-      "beerConsumption": null,
-      "wineConsumption": null
+      "beerConsumption": 1,
+      "wineConsumption": null,
+      "metalBandsPerCapita": 0.05
     },
     "freedom": {
       "drugPolicyScore": 10,
@@ -10786,12 +10831,12 @@
     "sex": {
       "sexualPartners": null,
       "ageFirstSex": null,
-      "divorceRate": null,
+      "divorceRate": 0.8,
       "marriageAge": 24.8,
       "singleParentRate": 24.8,
       "contraceptionUse": 71.8,
       "teenPregnancy": 68.8,
-      "lgbtAcceptance": null,
+      "lgbtAcceptance": 28.5,
       "datingAppUsage": null,
       "onlyfansCreators": null,
       "pornConsumption": null,
@@ -10850,8 +10895,9 @@
       "pizzaConsumption": null,
       "chocolateConsumption": null,
       "teaConsumption": null,
-      "beerConsumption": null,
-      "wineConsumption": null
+      "beerConsumption": 28,
+      "wineConsumption": null,
+      "metalBandsPerCapita": 2.73
     },
     "freedom": {
       "drugPolicyScore": 20,
@@ -11080,7 +11126,8 @@
       "chocolateConsumption": null,
       "teaConsumption": null,
       "beerConsumption": null,
-      "wineConsumption": null
+      "wineConsumption": null,
+      "metalBandsPerCapita": null
     },
     "freedom": {
       "drugPolicyScore": 10,
@@ -11325,7 +11372,8 @@
       "chocolateConsumption": null,
       "teaConsumption": null,
       "beerConsumption": null,
-      "wineConsumption": null
+      "wineConsumption": null,
+      "metalBandsPerCapita": 0
     },
     "freedom": {
       "drugPolicyScore": 10,
@@ -11492,12 +11540,12 @@
     "sex": {
       "sexualPartners": null,
       "ageFirstSex": null,
-      "divorceRate": null,
+      "divorceRate": 1.9,
       "marriageAge": 31.8,
       "singleParentRate": 22.8,
       "contraceptionUse": 63.8,
       "teenPregnancy": 11.8,
-      "lgbtAcceptance": null,
+      "lgbtAcceptance": 55.2,
       "topPornCategory": "Estonian",
       "datingAppUsage": null,
       "onlyfansCreators": null,
@@ -11557,7 +11605,8 @@
       "yogaPractitioners": 1.7,
       "pizzaConsumption": null,
       "teaConsumption": null,
-      "wineConsumption": 16.9
+      "wineConsumption": 16.9,
+      "metalBandsPerCapita": 18.88
     },
     "freedom": {
       "drugPolicyScore": 35,
@@ -11802,7 +11851,8 @@
       "chocolateConsumption": null,
       "teaConsumption": null,
       "beerConsumption": null,
-      "wineConsumption": null
+      "wineConsumption": null,
+      "metalBandsPerCapita": null
     },
     "freedom": {
       "drugPolicyScore": 15,
@@ -12049,9 +12099,10 @@
       "yogaPractitioners": 0.3,
       "pizzaConsumption": null,
       "chocolateConsumption": null,
-      "teaConsumption": null,
-      "beerConsumption": null,
-      "wineConsumption": null
+      "teaConsumption": 0.12,
+      "beerConsumption": 10,
+      "wineConsumption": null,
+      "metalBandsPerCapita": null
     },
     "freedom": {
       "drugPolicyScore": 10,
@@ -12299,7 +12350,8 @@
       "spotifyUsers": 519,
       "fastFoodSpending": 647,
       "gymMembership": 12.8,
-      "yogaPractitioners": 4
+      "yogaPractitioners": 4,
+      "metalBandsPerCapita": 84.5
     },
     "freedom": {
       "drugPolicyScore": 30,
@@ -12548,7 +12600,8 @@
       "spotifyUsers": 253,
       "fastFoodSpending": 521,
       "gymMembership": 9.8,
-      "yogaPractitioners": 4.5
+      "yogaPractitioners": 4.5,
+      "metalBandsPerCapita": 9.14
     },
     "freedom": {
       "drugPolicyScore": 40,
@@ -12794,7 +12847,8 @@
       "chocolateConsumption": null,
       "teaConsumption": null,
       "beerConsumption": null,
-      "wineConsumption": null
+      "wineConsumption": null,
+      "metalBandsPerCapita": null
     },
     "freedom": {
       "drugPolicyScore": 15,
@@ -13039,7 +13093,8 @@
       "chocolateConsumption": null,
       "teaConsumption": null,
       "beerConsumption": null,
-      "wineConsumption": null
+      "wineConsumption": null,
+      "metalBandsPerCapita": null
     },
     "freedom": {
       "drugPolicyScore": 15,
@@ -13203,12 +13258,12 @@
     "sex": {
       "sexualPartners": null,
       "ageFirstSex": null,
-      "divorceRate": null,
+      "divorceRate": 3.7,
       "marriageAge": 27.8,
       "singleParentRate": 14.8,
       "contraceptionUse": 53.8,
       "teenPregnancy": 42.8,
-      "lgbtAcceptance": null,
+      "lgbtAcceptance": 28.5,
       "topPornCategory": "Russian",
       "datingAppUsage": null,
       "onlyfansCreators": null,
@@ -13266,9 +13321,10 @@
       "yogaPractitioners": 1.8,
       "pizzaConsumption": null,
       "chocolateConsumption": null,
-      "teaConsumption": null,
-      "beerConsumption": null,
-      "wineConsumption": null
+      "teaConsumption": 0.58,
+      "beerConsumption": 18,
+      "wineConsumption": 15,
+      "metalBandsPerCapita": 1.15
     },
     "freedom": {
       "drugPolicyScore": 55,
@@ -13517,7 +13573,8 @@
       "spotifyUsers": 351,
       "fastFoodSpending": 563,
       "gymMembership": 13.2,
-      "yogaPractitioners": 5.6
+      "yogaPractitioners": 5.6,
+      "metalBandsPerCapita": 15.25
     },
     "freedom": {
       "drugPolicyScore": 65,
@@ -13764,9 +13821,10 @@
       "yogaPractitioners": 0.7,
       "pizzaConsumption": null,
       "chocolateConsumption": null,
-      "teaConsumption": null,
-      "beerConsumption": null,
-      "wineConsumption": null
+      "teaConsumption": 0.08,
+      "beerConsumption": 8,
+      "wineConsumption": null,
+      "metalBandsPerCapita": null
     },
     "freedom": {
       "drugPolicyScore": 25,
@@ -13930,12 +13988,12 @@
     "sex": {
       "sexualPartners": null,
       "ageFirstSex": 18.4,
-      "divorceRate": null,
+      "divorceRate": 1.2,
       "marriageAge": 32.4,
       "singleParentRate": 8.8,
       "contraceptionUse": 68.8,
       "teenPregnancy": 7.8,
-      "lgbtAcceptance": null,
+      "lgbtAcceptance": 52.8,
       "onlyfansCreators": 25,
       "pornConsumption": 58,
       "topPornCategory": "Greek",
@@ -13995,7 +14053,8 @@
       "spotifyUsers": 149,
       "fastFoodSpending": 398,
       "gymMembership": 7.4,
-      "yogaPractitioners": 3
+      "yogaPractitioners": 3,
+      "metalBandsPerCapita": 22.7
     },
     "freedom": {
       "drugPolicyScore": 35,
@@ -14158,12 +14217,12 @@
     "sex": {
       "sexualPartners": null,
       "ageFirstSex": 18.6,
-      "divorceRate": null,
+      "divorceRate": 0.6,
       "marriageAge": 22.8,
       "singleParentRate": 18.8,
       "contraceptionUse": 60.8,
       "teenPregnancy": 78.8,
-      "lgbtAcceptance": null,
+      "lgbtAcceptance": 25.2,
       "datingAppUsage": null,
       "onlyfansCreators": null,
       "pornConsumption": null,
@@ -14222,8 +14281,9 @@
       "pizzaConsumption": null,
       "chocolateConsumption": null,
       "teaConsumption": null,
-      "beerConsumption": null,
-      "wineConsumption": null
+      "beerConsumption": 22,
+      "wineConsumption": null,
+      "metalBandsPerCapita": 0.95
     },
     "freedom": {
       "drugPolicyScore": 25,
@@ -14469,7 +14529,8 @@
       "chocolateConsumption": null,
       "teaConsumption": null,
       "beerConsumption": null,
-      "wineConsumption": null
+      "wineConsumption": null,
+      "metalBandsPerCapita": null
     },
     "freedom": {
       "drugPolicyScore": 15,
@@ -14715,7 +14776,8 @@
       "chocolateConsumption": null,
       "teaConsumption": null,
       "beerConsumption": null,
-      "wineConsumption": null
+      "wineConsumption": null,
+      "metalBandsPerCapita": null
     },
     "freedom": {
       "drugPolicyScore": 15,
@@ -14945,7 +15007,8 @@
       "chocolateConsumption": null,
       "teaConsumption": null,
       "beerConsumption": null,
-      "wineConsumption": null
+      "wineConsumption": null,
+      "metalBandsPerCapita": null
     },
     "freedom": {
       "drugPolicyScore": 35,
@@ -15175,7 +15238,8 @@
       "chocolateConsumption": null,
       "teaConsumption": null,
       "beerConsumption": null,
-      "wineConsumption": null
+      "wineConsumption": null,
+      "metalBandsPerCapita": null
     },
     "freedom": {
       "drugPolicyScore": 20,
@@ -15338,12 +15402,12 @@
     "sex": {
       "sexualPartners": null,
       "ageFirstSex": 18.4,
-      "divorceRate": null,
+      "divorceRate": 0.6,
       "marriageAge": 22.8,
       "singleParentRate": 22.8,
       "contraceptionUse": 73.8,
       "teenPregnancy": 78.8,
-      "lgbtAcceptance": null,
+      "lgbtAcceptance": 22.5,
       "datingAppUsage": null,
       "onlyfansCreators": null,
       "pornConsumption": null,
@@ -15402,8 +15466,9 @@
       "pizzaConsumption": null,
       "chocolateConsumption": null,
       "teaConsumption": null,
-      "beerConsumption": null,
-      "wineConsumption": null
+      "beerConsumption": 30,
+      "wineConsumption": null,
+      "metalBandsPerCapita": 0.77
     },
     "freedom": {
       "drugPolicyScore": 20,
@@ -15566,12 +15631,12 @@
     "sex": {
       "sexualPartners": null,
       "ageFirstSex": 18.4,
-      "divorceRate": null,
+      "divorceRate": 1.7,
       "marriageAge": 30.8,
       "singleParentRate": 14.8,
       "contraceptionUse": 61.8,
       "teenPregnancy": 22.8,
-      "lgbtAcceptance": null,
+      "lgbtAcceptance": 38.5,
       "onlyfansCreators": 40,
       "pornConsumption": 65,
       "topPornCategory": "Hungarian",
@@ -15631,7 +15696,8 @@
       "spotifyUsers": 133,
       "fastFoodSpending": 332,
       "gymMembership": 5.6,
-      "yogaPractitioners": 2.3
+      "yogaPractitioners": 2.3,
+      "metalBandsPerCapita": 13.48
     },
     "freedom": {
       "drugPolicyScore": 25,
@@ -15877,9 +15943,10 @@
       "yogaPractitioners": 4.3,
       "pizzaConsumption": null,
       "chocolateConsumption": 7.19,
-      "teaConsumption": null,
-      "beerConsumption": null,
-      "wineConsumption": 13.6
+      "teaConsumption": 0.35,
+      "beerConsumption": 62,
+      "wineConsumption": 13.6,
+      "metalBandsPerCapita": 52.11
     },
     "freedom": {
       "drugPolicyScore": 50,
@@ -16128,7 +16195,8 @@
       "spotifyUsers": 98,
       "fastFoodSpending": 198,
       "gymMembership": 2.1,
-      "yogaPractitioners": 9.6
+      "yogaPractitioners": 9.6,
+      "metalBandsPerCapita": 0.02
     },
     "freedom": {
       "drugPolicyScore": 25,
@@ -16377,7 +16445,8 @@
       "yogaPractitioners": 3.8,
       "pizzaConsumption": null,
       "chocolateConsumption": null,
-      "beerConsumption": null
+      "beerConsumption": null,
+      "metalBandsPerCapita": 0.83
     },
     "freedom": {
       "drugPolicyScore": 10,
@@ -16624,8 +16693,9 @@
       "yogaPractitioners": 1.2,
       "pizzaConsumption": null,
       "chocolateConsumption": null,
-      "beerConsumption": null,
-      "wineConsumption": null
+      "beerConsumption": 0.5,
+      "wineConsumption": null,
+      "metalBandsPerCapita": 0.16
     },
     "freedom": {
       "drugPolicyScore": 10,
@@ -16789,12 +16859,12 @@
     "sex": {
       "sexualPartners": null,
       "ageFirstSex": null,
-      "divorceRate": null,
+      "divorceRate": 1.8,
       "marriageAge": 23.8,
       "singleParentRate": 8.8,
       "contraceptionUse": 52.8,
       "teenPregnancy": 68.8,
-      "lgbtAcceptance": null,
+      "lgbtAcceptance": 5.5,
       "topPornCategory": "Arab",
       "datingAppUsage": null,
       "onlyfansCreators": null,
@@ -16852,9 +16922,10 @@
       "yogaPractitioners": 0.8,
       "pizzaConsumption": null,
       "chocolateConsumption": null,
-      "teaConsumption": null,
-      "beerConsumption": null,
-      "wineConsumption": null
+      "teaConsumption": 1.25,
+      "beerConsumption": 1,
+      "wineConsumption": null,
+      "metalBandsPerCapita": 0.03
     },
     "freedom": {
       "drugPolicyScore": 10,
@@ -17017,12 +17088,12 @@
     "sex": {
       "sexualPartners": null,
       "ageFirstSex": 18.8,
-      "divorceRate": null,
+      "divorceRate": 0.6,
       "marriageAge": 34.8,
       "singleParentRate": 18.8,
       "contraceptionUse": 73.8,
       "teenPregnancy": 8.8,
-      "lgbtAcceptance": null,
+      "lgbtAcceptance": 84.1,
       "datingAppUsage": 24,
       "onlyfansCreators": 35,
       "pornConsumption": 58,
@@ -17082,7 +17153,8 @@
       "spotifyUsers": 372,
       "fastFoodSpending": 847,
       "gymMembership": 11.4,
-      "yogaPractitioners": 4.8
+      "yogaPractitioners": 4.8,
+      "metalBandsPerCapita": 10.3
     },
     "freedom": {
       "drugPolicyScore": 40,
@@ -17331,7 +17403,8 @@
       "gymMembership": 12.7,
       "yogaPractitioners": 5.7,
       "chocolateConsumption": null,
-      "teaConsumption": null
+      "teaConsumption": 0.48,
+      "metalBandsPerCapita": 3.47
     },
     "freedom": {
       "drugPolicyScore": 50,
@@ -17580,7 +17653,8 @@
       "spotifyUsers": 217,
       "fastFoodSpending": 487,
       "gymMembership": 9.4,
-      "yogaPractitioners": 3.5
+      "yogaPractitioners": 3.5,
+      "metalBandsPerCapita": 12.8
     },
     "freedom": {
       "drugPolicyScore": 45,
@@ -17744,12 +17818,12 @@
     "sex": {
       "sexualPartners": null,
       "ageFirstSex": null,
-      "divorceRate": null,
+      "divorceRate": 0.4,
       "marriageAge": 32.8,
       "singleParentRate": 38.8,
       "contraceptionUse": 72.8,
       "teenPregnancy": 52.8,
-      "lgbtAcceptance": null,
+      "lgbtAcceptance": 15.2,
       "topPornCategory": "Ebony",
       "datingAppUsage": null,
       "onlyfansCreators": null,
@@ -17808,8 +17882,9 @@
       "pizzaConsumption": null,
       "chocolateConsumption": null,
       "teaConsumption": null,
-      "beerConsumption": null,
-      "wineConsumption": null
+      "beerConsumption": 35,
+      "wineConsumption": 0.3,
+      "metalBandsPerCapita": null
     },
     "freedom": {
       "drugPolicyScore": 50,
@@ -18059,7 +18134,8 @@
       "spotifyUsers": 276,
       "fastFoodSpending": 456,
       "gymMembership": 10.8,
-      "yogaPractitioners": 4.2
+      "yogaPractitioners": 4.2,
+      "metalBandsPerCapita": 2.21
     },
     "freedom": {
       "drugPolicyScore": 15,
@@ -18222,12 +18298,12 @@
     "sex": {
       "sexualPartners": null,
       "ageFirstSex": null,
-      "divorceRate": null,
+      "divorceRate": 2.1,
       "marriageAge": 26.8,
       "singleParentRate": 4.8,
       "contraceptionUse": 61.8,
       "teenPregnancy": 22.8,
-      "lgbtAcceptance": null,
+      "lgbtAcceptance": 18.7,
       "datingAppUsage": null,
       "onlyfansCreators": null,
       "pornConsumption": null,
@@ -18285,9 +18361,10 @@
       "yogaPractitioners": 2.8,
       "pizzaConsumption": null,
       "chocolateConsumption": null,
-      "teaConsumption": null,
-      "beerConsumption": null,
-      "wineConsumption": null
+      "teaConsumption": 0.85,
+      "beerConsumption": 2,
+      "wineConsumption": null,
+      "metalBandsPerCapita": 0.34
     },
     "freedom": {
       "drugPolicyScore": 15,
@@ -18451,12 +18528,12 @@
     "sex": {
       "sexualPartners": null,
       "ageFirstSex": null,
-      "divorceRate": null,
+      "divorceRate": 2,
       "marriageAge": 25.8,
       "singleParentRate": 14.8,
       "contraceptionUse": 53.8,
       "teenPregnancy": 28.8,
-      "lgbtAcceptance": null,
+      "lgbtAcceptance": 22.5,
       "topPornCategory": "Russian",
       "datingAppUsage": null,
       "onlyfansCreators": null,
@@ -18514,9 +18591,10 @@
       "yogaPractitioners": 1.6,
       "pizzaConsumption": null,
       "chocolateConsumption": null,
-      "teaConsumption": null,
-      "beerConsumption": null,
-      "wineConsumption": null
+      "teaConsumption": 1.01,
+      "beerConsumption": 35,
+      "wineConsumption": 1,
+      "metalBandsPerCapita": 0.34
     },
     "freedom": {
       "drugPolicyScore": 20,
@@ -18764,8 +18842,9 @@
       "yogaPractitioners": 0.9,
       "pizzaConsumption": null,
       "chocolateConsumption": null,
-      "beerConsumption": null,
-      "wineConsumption": null
+      "beerConsumption": 15,
+      "wineConsumption": null,
+      "metalBandsPerCapita": null
     },
     "freedom": {
       "drugPolicyScore": 20,
@@ -18996,7 +19075,8 @@
       "chocolateConsumption": null,
       "teaConsumption": null,
       "beerConsumption": null,
-      "wineConsumption": null
+      "wineConsumption": null,
+      "metalBandsPerCapita": 0
     },
     "freedom": {
       "drugPolicyScore": 5,
@@ -19245,7 +19325,8 @@
       "spotifyUsers": 298,
       "fastFoodSpending": 512,
       "gymMembership": 12.4,
-      "yogaPractitioners": 4.8
+      "yogaPractitioners": 4.8,
+      "metalBandsPerCapita": 0.28
     },
     "freedom": {
       "drugPolicyScore": 15,
@@ -19408,12 +19489,12 @@
     "sex": {
       "sexualPartners": null,
       "ageFirstSex": null,
-      "divorceRate": null,
+      "divorceRate": 1.6,
       "marriageAge": 27.8,
       "singleParentRate": 4.8,
       "contraceptionUse": 52.8,
       "teenPregnancy": 8.8,
-      "lgbtAcceptance": null,
+      "lgbtAcceptance": 15.2,
       "datingAppUsage": null,
       "onlyfansCreators": null,
       "pornConsumption": null,
@@ -19472,8 +19553,9 @@
       "pizzaConsumption": null,
       "chocolateConsumption": null,
       "teaConsumption": 0.75,
-      "beerConsumption": null,
-      "wineConsumption": null
+      "beerConsumption": 0,
+      "wineConsumption": null,
+      "metalBandsPerCapita": null
     },
     "freedom": {
       "drugPolicyScore": 10,
@@ -19637,12 +19719,12 @@
     "sex": {
       "sexualPartners": null,
       "ageFirstSex": 20.5,
-      "divorceRate": null,
+      "divorceRate": 1.8,
       "marriageAge": 23.8,
       "singleParentRate": 14.8,
       "contraceptionUse": 42.8,
       "teenPregnancy": 28.8,
-      "lgbtAcceptance": null,
+      "lgbtAcceptance": 15.2,
       "datingAppUsage": null,
       "onlyfansCreators": null,
       "pornConsumption": null,
@@ -19700,9 +19782,10 @@
       "yogaPractitioners": 0.9,
       "pizzaConsumption": null,
       "chocolateConsumption": null,
-      "teaConsumption": null,
+      "teaConsumption": 0.88,
       "beerConsumption": null,
-      "wineConsumption": null
+      "wineConsumption": 1,
+      "metalBandsPerCapita": 0.16
     },
     "freedom": {
       "drugPolicyScore": 20,
@@ -19872,7 +19955,7 @@
       "singleParentRate": 12.8,
       "contraceptionUse": 54.8,
       "teenPregnancy": 58.8,
-      "lgbtAcceptance": null,
+      "lgbtAcceptance": 32.5,
       "datingAppUsage": null,
       "onlyfansCreators": null,
       "pornConsumption": null,
@@ -19930,9 +20013,10 @@
       "yogaPractitioners": 2.9,
       "pizzaConsumption": null,
       "chocolateConsumption": null,
-      "teaConsumption": null,
-      "beerConsumption": null,
-      "wineConsumption": null
+      "teaConsumption": 0.25,
+      "beerConsumption": 35,
+      "wineConsumption": null,
+      "metalBandsPerCapita": null
     },
     "freedom": {
       "drugPolicyScore": 20,
@@ -20095,12 +20179,12 @@
     "sex": {
       "sexualPartners": null,
       "ageFirstSex": null,
-      "divorceRate": null,
+      "divorceRate": 2.8,
       "marriageAge": 30.8,
       "singleParentRate": 22.8,
       "contraceptionUse": 67.8,
       "teenPregnancy": 13.8,
-      "lgbtAcceptance": null,
+      "lgbtAcceptance": 42.5,
       "topPornCategory": "Latvian",
       "datingAppUsage": null,
       "onlyfansCreators": null,
@@ -20160,7 +20244,8 @@
       "pizzaConsumption": null,
       "chocolateConsumption": null,
       "teaConsumption": null,
-      "wineConsumption": 14.8
+      "wineConsumption": 14.8,
+      "metalBandsPerCapita": 7.65
     },
     "freedom": {
       "drugPolicyScore": 30,
@@ -20323,12 +20408,12 @@
     "sex": {
       "sexualPartners": null,
       "ageFirstSex": null,
-      "divorceRate": null,
+      "divorceRate": 1.2,
       "marriageAge": 28.8,
       "singleParentRate": 6.8,
       "contraceptionUse": 54.8,
       "teenPregnancy": 12.8,
-      "lgbtAcceptance": null,
+      "lgbtAcceptance": 32.5,
       "datingAppUsage": null,
       "onlyfansCreators": null,
       "pornConsumption": null,
@@ -20386,9 +20471,10 @@
       "yogaPractitioners": 3.6,
       "pizzaConsumption": null,
       "chocolateConsumption": null,
-      "teaConsumption": null,
-      "beerConsumption": null,
-      "wineConsumption": null
+      "teaConsumption": 0.52,
+      "beerConsumption": 12,
+      "wineConsumption": 4,
+      "metalBandsPerCapita": 0.9
     },
     "freedom": {
       "drugPolicyScore": 25,
@@ -20634,7 +20720,8 @@
       "chocolateConsumption": null,
       "teaConsumption": null,
       "beerConsumption": null,
-      "wineConsumption": null
+      "wineConsumption": null,
+      "metalBandsPerCapita": null
     },
     "freedom": {
       "drugPolicyScore": 20,
@@ -20880,7 +20967,8 @@
       "chocolateConsumption": null,
       "teaConsumption": null,
       "beerConsumption": null,
-      "wineConsumption": null
+      "wineConsumption": null,
+      "metalBandsPerCapita": null
     },
     "freedom": {
       "drugPolicyScore": 15,
@@ -21065,7 +21153,7 @@
       "singleParentRate": 6.8,
       "contraceptionUse": 41.8,
       "teenPregnancy": 8.8,
-      "lgbtAcceptance": null,
+      "lgbtAcceptance": 5.2,
       "datingAppUsage": null,
       "onlyfansCreators": null,
       "pornConsumption": null,
@@ -21123,9 +21211,10 @@
       "yogaPractitioners": 0.7,
       "pizzaConsumption": null,
       "chocolateConsumption": null,
-      "teaConsumption": null,
+      "teaConsumption": 1.02,
       "beerConsumption": null,
-      "wineConsumption": null
+      "wineConsumption": null,
+      "metalBandsPerCapita": 0
     },
     "freedom": {
       "drugPolicyScore": 10,
@@ -21288,12 +21377,12 @@
     "sex": {
       "sexualPartners": null,
       "ageFirstSex": null,
-      "divorceRate": null,
+      "divorceRate": 2.5,
       "marriageAge": 30.2,
       "singleParentRate": 18.8,
       "contraceptionUse": 63.8,
       "teenPregnancy": 11.8,
-      "lgbtAcceptance": null,
+      "lgbtAcceptance": 38.5,
       "topPornCategory": "Lithuanian",
       "datingAppUsage": null,
       "onlyfansCreators": null,
@@ -21353,7 +21442,8 @@
       "pizzaConsumption": null,
       "chocolateConsumption": null,
       "teaConsumption": null,
-      "wineConsumption": null
+      "wineConsumption": 8,
+      "metalBandsPerCapita": 7.55
     },
     "freedom": {
       "drugPolicyScore": 30,
@@ -21517,12 +21607,12 @@
     "sex": {
       "sexualPartners": null,
       "ageFirstSex": null,
-      "divorceRate": null,
+      "divorceRate": 2.1,
       "marriageAge": 32.8,
       "singleParentRate": 12.8,
       "contraceptionUse": 64.8,
       "teenPregnancy": 5.2,
-      "lgbtAcceptance": null,
+      "lgbtAcceptance": 73.8,
       "datingAppUsage": null,
       "onlyfansCreators": null,
       "pornConsumption": null,
@@ -21580,9 +21670,10 @@
       "yogaPractitioners": 6.4,
       "pizzaConsumption": null,
       "chocolateConsumption": 9.9,
-      "teaConsumption": null,
+      "teaConsumption": 0.28,
       "beerConsumption": 76.5,
-      "wineConsumption": 67.2
+      "wineConsumption": 67.2,
+      "metalBandsPerCapita": 14.87
     },
     "freedom": {
       "drugPolicyScore": 60,
@@ -21829,7 +21920,8 @@
       "chocolateConsumption": null,
       "teaConsumption": null,
       "beerConsumption": null,
-      "wineConsumption": null
+      "wineConsumption": null,
+      "metalBandsPerCapita": 0.07
     },
     "freedom": {
       "drugPolicyScore": 15,
@@ -22015,7 +22107,7 @@
       "singleParentRate": 22.8,
       "contraceptionUse": 62.8,
       "teenPregnancy": 118.8,
-      "lgbtAcceptance": null,
+      "lgbtAcceptance": 17.5,
       "datingAppUsage": null,
       "onlyfansCreators": null,
       "pornConsumption": null,
@@ -22075,7 +22167,8 @@
       "chocolateConsumption": null,
       "teaConsumption": null,
       "beerConsumption": null,
-      "wineConsumption": null
+      "wineConsumption": null,
+      "metalBandsPerCapita": null
     },
     "freedom": {
       "drugPolicyScore": 15,
@@ -22240,12 +22333,12 @@
     "sex": {
       "sexualPartners": null,
       "ageFirstSex": 23.7,
-      "divorceRate": null,
+      "divorceRate": 1.6,
       "marriageAge": 27.8,
       "singleParentRate": 8.8,
       "contraceptionUse": 52.8,
       "teenPregnancy": 12.8,
-      "lgbtAcceptance": null,
+      "lgbtAcceptance": 22.5,
       "datingAppUsage": 16,
       "onlyfansCreators": 8,
       "pornConsumption": 35,
@@ -22305,7 +22398,8 @@
       "yogaPractitioners": 5.3,
       "pizzaConsumption": null,
       "chocolateConsumption": null,
-      "beerConsumption": null
+      "beerConsumption": null,
+      "metalBandsPerCapita": 2.15
     },
     "freedom": {
       "drugPolicyScore": 10,
@@ -22551,7 +22645,8 @@
       "chocolateConsumption": null,
       "teaConsumption": null,
       "beerConsumption": null,
-      "wineConsumption": null
+      "wineConsumption": null,
+      "metalBandsPerCapita": null
     },
     "freedom": {
       "drugPolicyScore": 15,
@@ -22734,7 +22829,7 @@
       "singleParentRate": 12.8,
       "contraceptionUse": 17.8,
       "teenPregnancy": 68.8,
-      "lgbtAcceptance": null,
+      "lgbtAcceptance": 5.2,
       "datingAppUsage": null,
       "onlyfansCreators": null,
       "pornConsumption": null,
@@ -22794,7 +22889,8 @@
       "chocolateConsumption": null,
       "teaConsumption": null,
       "beerConsumption": null,
-      "wineConsumption": null
+      "wineConsumption": null,
+      "metalBandsPerCapita": null
     },
     "freedom": {
       "drugPolicyScore": 10,
@@ -23044,7 +23140,8 @@
       "chocolateConsumption": null,
       "teaConsumption": null,
       "beerConsumption": null,
-      "wineConsumption": null
+      "wineConsumption": null,
+      "metalBandsPerCapita": null
     },
     "freedom": {
       "drugPolicyScore": 20,
@@ -23292,7 +23389,8 @@
       "fastFoodSpending": 512,
       "gymMembership": 7.8,
       "yogaPractitioners": 3.7,
-      "teaConsumption": null
+      "teaConsumption": 0.08,
+      "metalBandsPerCapita": 2.98
     },
     "freedom": {
       "drugPolicyScore": 35,
@@ -23455,12 +23553,12 @@
     "sex": {
       "sexualPartners": null,
       "ageFirstSex": 20,
-      "divorceRate": null,
+      "divorceRate": 3.8,
       "marriageAge": 26.8,
       "singleParentRate": 18.8,
       "contraceptionUse": 59.8,
       "teenPregnancy": 22.8,
-      "lgbtAcceptance": null,
+      "lgbtAcceptance": 28.5,
       "datingAppUsage": null,
       "onlyfansCreators": null,
       "pornConsumption": null,
@@ -23518,9 +23616,10 @@
       "yogaPractitioners": 1.2,
       "pizzaConsumption": null,
       "chocolateConsumption": null,
-      "teaConsumption": null,
-      "beerConsumption": null,
-      "wineConsumption": 17.9
+      "teaConsumption": 0.35,
+      "beerConsumption": 35,
+      "wineConsumption": 17.9,
+      "metalBandsPerCapita": 1.9
     },
     "freedom": {
       "drugPolicyScore": 25,
@@ -23686,12 +23785,12 @@
     "sex": {
       "sexualPartners": null,
       "ageFirstSex": null,
-      "divorceRate": null,
+      "divorceRate": 1.4,
       "marriageAge": 26.4,
       "singleParentRate": 16.8,
       "contraceptionUse": 54.8,
       "teenPregnancy": 28.8,
-      "lgbtAcceptance": null,
+      "lgbtAcceptance": 32.5,
       "datingAppUsage": null,
       "onlyfansCreators": null,
       "pornConsumption": null,
@@ -23749,9 +23848,10 @@
       "yogaPractitioners": 1.9,
       "pizzaConsumption": null,
       "chocolateConsumption": null,
-      "teaConsumption": null,
-      "beerConsumption": null,
-      "wineConsumption": null
+      "teaConsumption": 0.75,
+      "beerConsumption": 22,
+      "wineConsumption": null,
+      "metalBandsPerCapita": null
     },
     "freedom": {
       "drugPolicyScore": 25,
@@ -23916,12 +24016,12 @@
     "sex": {
       "sexualPartners": null,
       "ageFirstSex": null,
-      "divorceRate": null,
+      "divorceRate": 1.3,
       "marriageAge": 29.8,
       "singleParentRate": 12.8,
       "contraceptionUse": 39.8,
       "teenPregnancy": 12.8,
-      "lgbtAcceptance": null,
+      "lgbtAcceptance": 38.5,
       "datingAppUsage": null,
       "onlyfansCreators": null,
       "pornConsumption": null,
@@ -23980,8 +24080,9 @@
       "pizzaConsumption": null,
       "chocolateConsumption": null,
       "teaConsumption": null,
-      "beerConsumption": null,
-      "wineConsumption": 15.1
+      "beerConsumption": 45,
+      "wineConsumption": 15.1,
+      "metalBandsPerCapita": 2.58
     },
     "freedom": {
       "drugPolicyScore": 30,
@@ -24227,8 +24328,9 @@
       "yogaPractitioners": 1.3,
       "pizzaConsumption": null,
       "chocolateConsumption": null,
-      "beerConsumption": null,
-      "wineConsumption": null
+      "beerConsumption": 2,
+      "wineConsumption": null,
+      "metalBandsPerCapita": 0.09
     },
     "freedom": {
       "drugPolicyScore": 20,
@@ -24474,8 +24576,9 @@
       "pizzaConsumption": null,
       "chocolateConsumption": null,
       "teaConsumption": null,
-      "beerConsumption": null,
-      "wineConsumption": null
+      "beerConsumption": 12,
+      "wineConsumption": null,
+      "metalBandsPerCapita": null
     },
     "freedom": {
       "drugPolicyScore": 15,
@@ -24645,7 +24748,7 @@
       "singleParentRate": 14.8,
       "contraceptionUse": 52.8,
       "teenPregnancy": 28.8,
-      "lgbtAcceptance": null,
+      "lgbtAcceptance": 18.2,
       "datingAppUsage": null,
       "onlyfansCreators": null,
       "pornConsumption": null,
@@ -24703,9 +24806,10 @@
       "yogaPractitioners": 4.7,
       "pizzaConsumption": null,
       "chocolateConsumption": null,
-      "teaConsumption": null,
-      "beerConsumption": null,
-      "wineConsumption": null
+      "teaConsumption": 0.79,
+      "beerConsumption": 5,
+      "wineConsumption": null,
+      "metalBandsPerCapita": null
     },
     "freedom": {
       "drugPolicyScore": 15,
@@ -24952,8 +25056,9 @@
       "pizzaConsumption": null,
       "chocolateConsumption": null,
       "teaConsumption": null,
-      "beerConsumption": null,
-      "wineConsumption": 14.9
+      "beerConsumption": 108,
+      "wineConsumption": 14.9,
+      "metalBandsPerCapita": null
     },
     "freedom": {
       "drugPolicyScore": 25,
@@ -25119,12 +25224,12 @@
     "sex": {
       "sexualPartners": null,
       "ageFirstSex": 18.3,
-      "divorceRate": null,
+      "divorceRate": 0.8,
       "marriageAge": 21.8,
       "singleParentRate": 8.8,
       "contraceptionUse": 52.8,
       "teenPregnancy": 62.8,
-      "lgbtAcceptance": null,
+      "lgbtAcceptance": 38.2,
       "datingAppUsage": null,
       "onlyfansCreators": null,
       "pornConsumption": null,
@@ -25182,9 +25287,10 @@
       "yogaPractitioners": 8.2,
       "pizzaConsumption": null,
       "chocolateConsumption": null,
-      "teaConsumption": null,
-      "beerConsumption": null,
-      "wineConsumption": null
+      "teaConsumption": 0.62,
+      "beerConsumption": 5,
+      "wineConsumption": null,
+      "metalBandsPerCapita": 0.13
     },
     "freedom": {
       "drugPolicyScore": 20,
@@ -25433,7 +25539,8 @@
       "spotifyUsers": 498,
       "fastFoodSpending": 626,
       "gymMembership": 17.2,
-      "yogaPractitioners": 6.8
+      "yogaPractitioners": 6.8,
+      "metalBandsPerCapita": 15.94
     },
     "freedom": {
       "drugPolicyScore": 80,
@@ -25598,12 +25705,12 @@
     "sex": {
       "sexualPartners": null,
       "ageFirstSex": 17.5,
-      "divorceRate": null,
+      "divorceRate": 1.5,
       "marriageAge": 30.8,
       "singleParentRate": 18.8,
       "contraceptionUse": 79.8,
       "teenPregnancy": 18.8,
-      "lgbtAcceptance": null,
+      "lgbtAcceptance": 82.3,
       "datingAppUsage": 23,
       "onlyfansCreators": 48,
       "pornConsumption": 65,
@@ -25663,7 +25770,8 @@
       "spotifyUsers": 392,
       "fastFoodSpending": 821,
       "gymMembership": 12.3,
-      "yogaPractitioners": 7.8
+      "yogaPractitioners": 7.8,
+      "metalBandsPerCapita": 10.13
     },
     "freedom": {
       "drugPolicyScore": 50,
@@ -25831,7 +25939,7 @@
       "singleParentRate": 22.8,
       "contraceptionUse": 80.8,
       "teenPregnancy": 82.8,
-      "lgbtAcceptance": null,
+      "lgbtAcceptance": 32.5,
       "datingAppUsage": null,
       "onlyfansCreators": null,
       "pornConsumption": null,
@@ -25890,8 +25998,9 @@
       "pizzaConsumption": null,
       "chocolateConsumption": null,
       "teaConsumption": null,
-      "beerConsumption": null,
-      "wineConsumption": null
+      "beerConsumption": 25,
+      "wineConsumption": null,
+      "metalBandsPerCapita": 0.81
     },
     "freedom": {
       "drugPolicyScore": 25,
@@ -26136,7 +26245,8 @@
       "chocolateConsumption": null,
       "teaConsumption": null,
       "beerConsumption": null,
-      "wineConsumption": null
+      "wineConsumption": null,
+      "metalBandsPerCapita": null
     },
     "freedom": {
       "drugPolicyScore": 10,
@@ -26382,9 +26492,10 @@
       "yogaPractitioners": 0.6,
       "pizzaConsumption": null,
       "chocolateConsumption": null,
-      "teaConsumption": null,
-      "beerConsumption": null,
-      "wineConsumption": null
+      "teaConsumption": 0.05,
+      "beerConsumption": 12,
+      "wineConsumption": null,
+      "metalBandsPerCapita": null
     },
     "freedom": {
       "drugPolicyScore": 15,
@@ -26633,7 +26744,8 @@
       "spotifyUsers": 587,
       "fastFoodSpending": 732,
       "gymMembership": 18.9,
-      "yogaPractitioners": 6.5
+      "yogaPractitioners": 6.5,
+      "metalBandsPerCapita": 38.74
     },
     "freedom": {
       "drugPolicyScore": 55,
@@ -26802,7 +26914,7 @@
       "singleParentRate": 4.8,
       "contraceptionUse": 29.8,
       "teenPregnancy": 12.8,
-      "lgbtAcceptance": null,
+      "lgbtAcceptance": 12.5,
       "datingAppUsage": null,
       "onlyfansCreators": null,
       "pornConsumption": null,
@@ -26860,9 +26972,10 @@
       "yogaPractitioners": 3.9,
       "pizzaConsumption": null,
       "chocolateConsumption": null,
-      "teaConsumption": null,
-      "beerConsumption": null,
-      "wineConsumption": null
+      "teaConsumption": 0.85,
+      "beerConsumption": 2,
+      "wineConsumption": null,
+      "metalBandsPerCapita": null
     },
     "freedom": {
       "drugPolicyScore": 10,
@@ -27110,8 +27223,9 @@
       "yogaPractitioners": 2.1,
       "pizzaConsumption": null,
       "chocolateConsumption": null,
-      "beerConsumption": null,
-      "wineConsumption": null
+      "beerConsumption": 0.1,
+      "wineConsumption": null,
+      "metalBandsPerCapita": 0.03
     },
     "freedom": {
       "drugPolicyScore": 10,
@@ -27274,12 +27388,12 @@
     "sex": {
       "sexualPartners": null,
       "ageFirstSex": null,
-      "divorceRate": null,
+      "divorceRate": 1,
       "marriageAge": 26.8,
       "singleParentRate": 22.8,
       "contraceptionUse": 62.8,
       "teenPregnancy": 78.8,
-      "lgbtAcceptance": null,
+      "lgbtAcceptance": 45.2,
       "topPornCategory": "Latina",
       "datingAppUsage": null,
       "onlyfansCreators": null,
@@ -27339,7 +27453,8 @@
       "chocolateConsumption": null,
       "teaConsumption": null,
       "beerConsumption": 77.7,
-      "wineConsumption": null
+      "wineConsumption": 1,
+      "metalBandsPerCapita": 2.17
     },
     "freedom": {
       "drugPolicyScore": 35,
@@ -27568,7 +27683,8 @@
       "chocolateConsumption": null,
       "teaConsumption": null,
       "beerConsumption": null,
-      "wineConsumption": null
+      "wineConsumption": null,
+      "metalBandsPerCapita": null
     },
     "freedom": {
       "drugPolicyScore": 20,
@@ -27737,7 +27853,7 @@
       "singleParentRate": 16.8,
       "contraceptionUse": 68.8,
       "teenPregnancy": 58.8,
-      "lgbtAcceptance": null,
+      "lgbtAcceptance": 32.5,
       "topPornCategory": "Latina",
       "datingAppUsage": null,
       "onlyfansCreators": null,
@@ -27796,8 +27912,9 @@
       "pizzaConsumption": null,
       "chocolateConsumption": null,
       "teaConsumption": null,
-      "beerConsumption": null,
-      "wineConsumption": null
+      "beerConsumption": 50,
+      "wineConsumption": null,
+      "metalBandsPerCapita": 3.26
     },
     "freedom": {
       "drugPolicyScore": 30,
@@ -27960,12 +28077,12 @@
     "sex": {
       "sexualPartners": null,
       "ageFirstSex": 18.7,
-      "divorceRate": null,
+      "divorceRate": 0.2,
       "marriageAge": 26.8,
       "singleParentRate": 14.8,
       "contraceptionUse": 75.8,
       "teenPregnancy": 48.8,
-      "lgbtAcceptance": null,
+      "lgbtAcceptance": 44.2,
       "datingAppUsage": 19,
       "onlyfansCreators": 22,
       "pornConsumption": 55,
@@ -28023,9 +28140,10 @@
       "yogaPractitioners": 2.9,
       "pizzaConsumption": null,
       "chocolateConsumption": null,
-      "teaConsumption": null,
+      "teaConsumption": 0.15,
       "beerConsumption": 15,
-      "wineConsumption": null
+      "wineConsumption": 1,
+      "metalBandsPerCapita": 2.04
     },
     "freedom": {
       "drugPolicyScore": 35,
@@ -28196,12 +28314,12 @@
     "sex": {
       "sexualPartners": null,
       "ageFirstSex": 20.7,
-      "divorceRate": null,
+      "divorceRate": 0,
       "marriageAge": 26.8,
       "singleParentRate": 14.8,
       "contraceptionUse": 54.8,
       "teenPregnancy": 48.8,
-      "lgbtAcceptance": null,
+      "lgbtAcceptance": 48.5,
       "datingAppUsage": 22,
       "onlyfansCreators": 42,
       "pornConsumption": 80,
@@ -28260,8 +28378,9 @@
       "yogaPractitioners": 3.1,
       "pizzaConsumption": null,
       "chocolateConsumption": null,
-      "teaConsumption": null,
-      "wineConsumption": null
+      "teaConsumption": 0.22,
+      "wineConsumption": 0.2,
+      "metalBandsPerCapita": 0.33
     },
     "freedom": {
       "drugPolicyScore": 15,
@@ -28509,7 +28628,8 @@
       "spotifyUsers": 182,
       "fastFoodSpending": 354,
       "gymMembership": 7.8,
-      "yogaPractitioners": 2.5
+      "yogaPractitioners": 2.5,
+      "metalBandsPerCapita": 10.66
     },
     "freedom": {
       "drugPolicyScore": 25,
@@ -28672,12 +28792,12 @@
     "sex": {
       "sexualPartners": null,
       "ageFirstSex": 18.4,
-      "divorceRate": null,
+      "divorceRate": 1.8,
       "marriageAge": 32.8,
       "singleParentRate": 14.8,
       "contraceptionUse": 73.8,
       "teenPregnancy": 8.8,
-      "lgbtAcceptance": null,
+      "lgbtAcceptance": 72.5,
       "datingAppUsage": 19,
       "onlyfansCreators": 25,
       "pornConsumption": 52,
@@ -28737,7 +28857,8 @@
       "spotifyUsers": 199,
       "fastFoodSpending": 412,
       "gymMembership": 8.6,
-      "yogaPractitioners": 3.3
+      "yogaPractitioners": 3.3,
+      "metalBandsPerCapita": 14.76
     },
     "freedom": {
       "drugPolicyScore": 75,
@@ -28901,12 +29022,12 @@
     "sex": {
       "sexualPartners": null,
       "ageFirstSex": null,
-      "divorceRate": null,
+      "divorceRate": 0.8,
       "marriageAge": 28.8,
       "singleParentRate": 4.8,
       "contraceptionUse": 37.8,
       "teenPregnancy": 9.8,
-      "lgbtAcceptance": null,
+      "lgbtAcceptance": 15.8,
       "datingAppUsage": null,
       "onlyfansCreators": null,
       "pornConsumption": null,
@@ -28964,9 +29085,10 @@
       "yogaPractitioners": 6.8,
       "pizzaConsumption": null,
       "chocolateConsumption": null,
-      "teaConsumption": null,
-      "beerConsumption": null,
-      "wineConsumption": null
+      "teaConsumption": 0.82,
+      "beerConsumption": 5,
+      "wineConsumption": null,
+      "metalBandsPerCapita": null
     },
     "freedom": {
       "drugPolicyScore": 10,
@@ -29130,12 +29252,12 @@
     "sex": {
       "sexualPartners": null,
       "ageFirstSex": 19.3,
-      "divorceRate": null,
+      "divorceRate": 1.2,
       "marriageAge": 28.8,
       "singleParentRate": 12.8,
       "contraceptionUse": 69.8,
       "teenPregnancy": 32.8,
-      "lgbtAcceptance": null,
+      "lgbtAcceptance": 28.5,
       "onlyfansCreators": 52,
       "pornConsumption": 60,
       "topPornCategory": "Romanian",
@@ -29195,7 +29317,8 @@
       "gymMembership": 4.5,
       "yogaPractitioners": 1,
       "chocolateConsumption": null,
-      "teaConsumption": null
+      "teaConsumption": 0.22,
+      "metalBandsPerCapita": 2.58
     },
     "freedom": {
       "drugPolicyScore": 25,
@@ -29444,7 +29567,8 @@
       "spotifyUsers": 0,
       "fastFoodSpending": 287,
       "gymMembership": 5.6,
-      "yogaPractitioners": 1.8
+      "yogaPractitioners": 1.8,
+      "metalBandsPerCapita": 3.68
     },
     "freedom": {
       "drugPolicyScore": 15,
@@ -29692,9 +29816,10 @@
       "yogaPractitioners": 0.6,
       "pizzaConsumption": null,
       "chocolateConsumption": null,
-      "teaConsumption": null,
-      "beerConsumption": null,
-      "wineConsumption": null
+      "teaConsumption": 0.12,
+      "beerConsumption": 22,
+      "wineConsumption": null,
+      "metalBandsPerCapita": null
     },
     "freedom": {
       "drugPolicyScore": 15,
@@ -29941,8 +30066,9 @@
       "yogaPractitioners": 3.4,
       "pizzaConsumption": null,
       "chocolateConsumption": null,
-      "beerConsumption": null,
-      "wineConsumption": null
+      "beerConsumption": 0,
+      "wineConsumption": null,
+      "metalBandsPerCapita": 0.05
     },
     "freedom": {
       "drugPolicyScore": 5,
@@ -30191,7 +30317,8 @@
       "chocolateConsumption": null,
       "teaConsumption": null,
       "beerConsumption": null,
-      "wineConsumption": null
+      "wineConsumption": null,
+      "metalBandsPerCapita": null
     },
     "freedom": {
       "drugPolicyScore": 20,
@@ -30355,12 +30482,12 @@
     "sex": {
       "sexualPartners": null,
       "ageFirstSex": null,
-      "divorceRate": null,
+      "divorceRate": 1.5,
       "marriageAge": 30.4,
       "singleParentRate": 12.8,
       "contraceptionUse": 62.8,
       "teenPregnancy": 14.8,
-      "lgbtAcceptance": null,
+      "lgbtAcceptance": 35.2,
       "topPornCategory": "Serbian",
       "datingAppUsage": null,
       "onlyfansCreators": null,
@@ -30418,9 +30545,10 @@
       "yogaPractitioners": 1.7,
       "pizzaConsumption": null,
       "chocolateConsumption": null,
-      "teaConsumption": null,
-      "beerConsumption": null,
-      "wineConsumption": null
+      "teaConsumption": 0.15,
+      "beerConsumption": 58,
+      "wineConsumption": 12,
+      "metalBandsPerCapita": 7.42
     },
     "freedom": {
       "drugPolicyScore": 25,
@@ -30665,7 +30793,8 @@
       "chocolateConsumption": null,
       "teaConsumption": null,
       "beerConsumption": null,
-      "wineConsumption": null
+      "wineConsumption": null,
+      "metalBandsPerCapita": null
     },
     "freedom": {
       "drugPolicyScore": 15,
@@ -30843,12 +30972,12 @@
     "sex": {
       "sexualPartners": null,
       "ageFirstSex": 22,
-      "divorceRate": null,
+      "divorceRate": 1.6,
       "marriageAge": 30.8,
       "singleParentRate": 8.8,
       "contraceptionUse": 62.8,
       "teenPregnancy": 3.8,
-      "lgbtAcceptance": null,
+      "lgbtAcceptance": 45.2,
       "datingAppUsage": 21,
       "onlyfansCreators": 12,
       "pornConsumption": 40,
@@ -30908,7 +31037,8 @@
       "yogaPractitioners": 8.9,
       "pizzaConsumption": null,
       "chocolateConsumption": null,
-      "beerConsumption": null
+      "beerConsumption": 25,
+      "metalBandsPerCapita": 5.72
     },
     "freedom": {
       "drugPolicyScore": 5,
@@ -31071,7 +31201,7 @@
     "sex": {
       "sexualPartners": null,
       "ageFirstSex": null,
-      "divorceRate": null,
+      "divorceRate": 1.5,
       "marriageAge": 30.4,
       "singleParentRate": 12.8,
       "contraceptionUse": 77.8,
@@ -31136,7 +31266,8 @@
       "gymMembership": 6.3,
       "yogaPractitioners": 2.1,
       "pizzaConsumption": null,
-      "teaConsumption": null
+      "teaConsumption": 0.25,
+      "metalBandsPerCapita": 12.69
     },
     "freedom": {
       "drugPolicyScore": 30,
@@ -31300,12 +31431,12 @@
     "sex": {
       "sexualPartners": null,
       "ageFirstSex": null,
-      "divorceRate": null,
+      "divorceRate": 1,
       "marriageAge": 32.8,
       "singleParentRate": 14.8,
       "contraceptionUse": 78.8,
       "teenPregnancy": 4.8,
-      "lgbtAcceptance": null,
+      "lgbtAcceptance": 51.5,
       "topPornCategory": "Slovenian",
       "datingAppUsage": null,
       "onlyfansCreators": null,
@@ -31364,8 +31495,9 @@
       "gymMembership": 7,
       "yogaPractitioners": 1.9,
       "pizzaConsumption": null,
-      "teaConsumption": null,
-      "wineConsumption": null
+      "teaConsumption": 0.18,
+      "wineConsumption": 34,
+      "metalBandsPerCapita": 15.38
     },
     "freedom": {
       "drugPolicyScore": 40,
@@ -31549,7 +31681,7 @@
       "singleParentRate": 18.8,
       "contraceptionUse": 14.8,
       "teenPregnancy": 98.8,
-      "lgbtAcceptance": null,
+      "lgbtAcceptance": 4.2,
       "datingAppUsage": null,
       "onlyfansCreators": null,
       "pornConsumption": null,
@@ -31609,7 +31741,8 @@
       "chocolateConsumption": null,
       "teaConsumption": null,
       "beerConsumption": null,
-      "wineConsumption": null
+      "wineConsumption": null,
+      "metalBandsPerCapita": 0
     },
     "freedom": {
       "drugPolicyScore": 5,
@@ -31859,7 +31992,8 @@
       "spotifyUsers": 245,
       "fastFoodSpending": 354,
       "gymMembership": 5.1,
-      "yogaPractitioners": 2.7
+      "yogaPractitioners": 2.7,
+      "metalBandsPerCapita": 0.47
     },
     "freedom": {
       "drugPolicyScore": 45,
@@ -32103,8 +32237,9 @@
       "pizzaConsumption": null,
       "chocolateConsumption": null,
       "teaConsumption": null,
-      "beerConsumption": null,
-      "wineConsumption": null
+      "beerConsumption": 8,
+      "wineConsumption": null,
+      "metalBandsPerCapita": null
     },
     "freedom": {
       "drugPolicyScore": 10,
@@ -32353,7 +32488,8 @@
       "spotifyUsers": 235,
       "fastFoodSpending": 468,
       "gymMembership": 10.2,
-      "yogaPractitioners": 3.8
+      "yogaPractitioners": 3.8,
+      "metalBandsPerCapita": 9.95
     },
     "freedom": {
       "drugPolicyScore": 60,
@@ -32518,12 +32654,12 @@
     "sex": {
       "sexualPartners": null,
       "ageFirstSex": null,
-      "divorceRate": null,
+      "divorceRate": 0.15,
       "marriageAge": 26.8,
       "singleParentRate": 12.8,
       "contraceptionUse": 64.8,
       "teenPregnancy": 14.8,
-      "lgbtAcceptance": null,
+      "lgbtAcceptance": 22.5,
       "datingAppUsage": null,
       "onlyfansCreators": null,
       "pornConsumption": null,
@@ -32582,8 +32718,9 @@
       "yogaPractitioners": 5.4,
       "pizzaConsumption": null,
       "chocolateConsumption": null,
-      "beerConsumption": null,
-      "wineConsumption": null
+      "beerConsumption": 8,
+      "wineConsumption": null,
+      "metalBandsPerCapita": 0.23
     },
     "freedom": {
       "drugPolicyScore": 15,
@@ -32768,7 +32905,7 @@
       "singleParentRate": 12.8,
       "contraceptionUse": 12.8,
       "teenPregnancy": 58.8,
-      "lgbtAcceptance": null,
+      "lgbtAcceptance": 4.5,
       "datingAppUsage": null,
       "onlyfansCreators": null,
       "pornConsumption": null,
@@ -32828,7 +32965,8 @@
       "chocolateConsumption": null,
       "teaConsumption": null,
       "beerConsumption": null,
-      "wineConsumption": null
+      "wineConsumption": null,
+      "metalBandsPerCapita": 0
     },
     "freedom": {
       "drugPolicyScore": 5,
@@ -33058,7 +33196,8 @@
       "chocolateConsumption": null,
       "teaConsumption": null,
       "beerConsumption": null,
-      "wineConsumption": null
+      "wineConsumption": null,
+      "metalBandsPerCapita": null
     },
     "freedom": {
       "drugPolicyScore": 30,
@@ -33307,7 +33446,8 @@
       "spotifyUsers": 612,
       "fastFoodSpending": 689,
       "gymMembership": 19.8,
-      "yogaPractitioners": 7.4
+      "yogaPractitioners": 7.4,
+      "metalBandsPerCapita": 51.94
     },
     "freedom": {
       "drugPolicyScore": 25,
@@ -33556,7 +33696,8 @@
       "fastFoodSpending": 711,
       "gymMembership": 13.7,
       "yogaPractitioners": 6.2,
-      "teaConsumption": 0.25
+      "teaConsumption": 0.25,
+      "metalBandsPerCapita": 14.46
     },
     "freedom": {
       "drugPolicyScore": 70,
@@ -33725,7 +33866,7 @@
       "singleParentRate": 8.8,
       "contraceptionUse": 53.8,
       "teenPregnancy": 38.8,
-      "lgbtAcceptance": null,
+      "lgbtAcceptance": 8.5,
       "datingAppUsage": null,
       "onlyfansCreators": null,
       "pornConsumption": null,
@@ -33783,9 +33924,10 @@
       "yogaPractitioners": 0.7,
       "pizzaConsumption": null,
       "chocolateConsumption": null,
-      "teaConsumption": null,
+      "teaConsumption": 0.79,
       "beerConsumption": null,
-      "wineConsumption": null
+      "wineConsumption": null,
+      "metalBandsPerCapita": 0.21
     },
     "freedom": {
       "drugPolicyScore": 10,
@@ -33950,12 +34092,12 @@
     "sex": {
       "sexualPartners": null,
       "ageFirstSex": null,
-      "divorceRate": null,
+      "divorceRate": 2,
       "marriageAge": 32.4,
       "singleParentRate": 10.8,
       "contraceptionUse": 74.8,
       "teenPregnancy": 4.2,
-      "lgbtAcceptance": null,
+      "lgbtAcceptance": 55.2,
       "topPornCategory": "Taiwanese",
       "datingAppUsage": null,
       "onlyfansCreators": null,
@@ -34015,7 +34157,8 @@
       "yogaPractitioners": 6.7,
       "pizzaConsumption": null,
       "chocolateConsumption": null,
-      "beerConsumption": null
+      "beerConsumption": 28,
+      "metalBandsPerCapita": 0.42
     },
     "freedom": {
       "drugPolicyScore": 20,
@@ -34179,12 +34322,12 @@
     "sex": {
       "sexualPartners": null,
       "ageFirstSex": 20.2,
-      "divorceRate": null,
+      "divorceRate": 0.8,
       "marriageAge": 22.8,
       "singleParentRate": 8.8,
       "contraceptionUse": 29.8,
       "teenPregnancy": 38.8,
-      "lgbtAcceptance": null,
+      "lgbtAcceptance": 15.6,
       "datingAppUsage": null,
       "onlyfansCreators": null,
       "pornConsumption": null,
@@ -34242,9 +34385,10 @@
       "yogaPractitioners": 0.6,
       "pizzaConsumption": null,
       "chocolateConsumption": null,
-      "teaConsumption": null,
+      "teaConsumption": 0.72,
       "beerConsumption": null,
-      "wineConsumption": null
+      "wineConsumption": null,
+      "metalBandsPerCapita": 0
     },
     "freedom": {
       "drugPolicyScore": 15,
@@ -34492,9 +34636,10 @@
       "yogaPractitioners": 0.4,
       "pizzaConsumption": null,
       "chocolateConsumption": null,
-      "teaConsumption": null,
-      "beerConsumption": null,
-      "wineConsumption": null
+      "teaConsumption": 0.15,
+      "beerConsumption": 12,
+      "wineConsumption": null,
+      "metalBandsPerCapita": null
     },
     "freedom": {
       "drugPolicyScore": 15,
@@ -34662,12 +34807,12 @@
     "sex": {
       "sexualPartners": null,
       "ageFirstSex": 20.2,
-      "divorceRate": null,
+      "divorceRate": 1.4,
       "marriageAge": 26.8,
       "singleParentRate": 14.8,
       "contraceptionUse": 78.8,
       "teenPregnancy": 38.8,
-      "lgbtAcceptance": null,
+      "lgbtAcceptance": 52.5,
       "datingAppUsage": 20,
       "onlyfansCreators": 28,
       "pornConsumption": 75,
@@ -34727,7 +34872,8 @@
       "gymMembership": 6.8,
       "yogaPractitioners": 7.9,
       "pizzaConsumption": null,
-      "chocolateConsumption": null
+      "chocolateConsumption": null,
+      "metalBandsPerCapita": 0.35
     },
     "freedom": {
       "drugPolicyScore": 60,
@@ -34956,7 +35102,8 @@
       "chocolateConsumption": null,
       "teaConsumption": null,
       "beerConsumption": null,
-      "wineConsumption": null
+      "wineConsumption": null,
+      "metalBandsPerCapita": null
     },
     "freedom": {
       "drugPolicyScore": 20,
@@ -35203,7 +35350,8 @@
       "chocolateConsumption": null,
       "teaConsumption": null,
       "beerConsumption": null,
-      "wineConsumption": null
+      "wineConsumption": null,
+      "metalBandsPerCapita": null
     },
     "freedom": {
       "drugPolicyScore": 15,
@@ -35369,12 +35517,12 @@
     "sex": {
       "sexualPartners": null,
       "ageFirstSex": null,
-      "divorceRate": null,
+      "divorceRate": 0.9,
       "marriageAge": 28.8,
       "singleParentRate": 24.8,
       "contraceptionUse": 46.8,
       "teenPregnancy": 32.8,
-      "lgbtAcceptance": null,
+      "lgbtAcceptance": 28.5,
       "datingAppUsage": null,
       "onlyfansCreators": null,
       "pornConsumption": null,
@@ -35433,8 +35581,9 @@
       "pizzaConsumption": null,
       "chocolateConsumption": null,
       "teaConsumption": null,
-      "beerConsumption": null,
-      "wineConsumption": null
+      "beerConsumption": 42,
+      "wineConsumption": null,
+      "metalBandsPerCapita": null
     },
     "freedom": {
       "drugPolicyScore": 35,
@@ -35681,9 +35830,10 @@
       "yogaPractitioners": 1.6,
       "pizzaConsumption": null,
       "chocolateConsumption": null,
-      "teaConsumption": null,
-      "beerConsumption": null,
-      "wineConsumption": null
+      "teaConsumption": 0.48,
+      "beerConsumption": 15,
+      "wineConsumption": null,
+      "metalBandsPerCapita": 0.28
     },
     "freedom": {
       "drugPolicyScore": 15,
@@ -35931,7 +36081,8 @@
       "spotifyUsers": 234,
       "fastFoodSpending": 298,
       "gymMembership": 7.3,
-      "yogaPractitioners": 2.4
+      "yogaPractitioners": 2.4,
+      "metalBandsPerCapita": 0.75
     },
     "freedom": {
       "drugPolicyScore": 20,
@@ -36100,7 +36251,7 @@
       "singleParentRate": 6.8,
       "contraceptionUse": 50.8,
       "teenPregnancy": 18.8,
-      "lgbtAcceptance": null,
+      "lgbtAcceptance": 8.5,
       "datingAppUsage": null,
       "onlyfansCreators": null,
       "pornConsumption": null,
@@ -36160,7 +36311,8 @@
       "chocolateConsumption": null,
       "teaConsumption": null,
       "beerConsumption": null,
-      "wineConsumption": null
+      "wineConsumption": null,
+      "metalBandsPerCapita": 0
     },
     "freedom": {
       "drugPolicyScore": 10,
@@ -36408,9 +36560,10 @@
       "yogaPractitioners": 0.4,
       "pizzaConsumption": null,
       "chocolateConsumption": null,
-      "teaConsumption": null,
-      "beerConsumption": null,
-      "wineConsumption": null
+      "teaConsumption": 0.08,
+      "beerConsumption": 18,
+      "wineConsumption": null,
+      "metalBandsPerCapita": null
     },
     "freedom": {
       "drugPolicyScore": 15,
@@ -36582,12 +36735,12 @@
     "sex": {
       "sexualPartners": null,
       "ageFirstSex": 19.6,
-      "divorceRate": null,
+      "divorceRate": 2.9,
       "marriageAge": 26.8,
       "singleParentRate": 18.8,
       "contraceptionUse": 65.8,
       "teenPregnancy": 22.8,
-      "lgbtAcceptance": null,
+      "lgbtAcceptance": 32.8,
       "onlyfansCreators": 65,
       "pornConsumption": 58,
       "topPornCategory": "Ukrainian",
@@ -36645,9 +36798,10 @@
       "yogaPractitioners": 1.3,
       "pizzaConsumption": null,
       "chocolateConsumption": null,
-      "teaConsumption": null,
+      "teaConsumption": 0.55,
       "beerConsumption": 30,
-      "wineConsumption": null
+      "wineConsumption": 3,
+      "metalBandsPerCapita": 3
     },
     "freedom": {
       "drugPolicyScore": 20,
@@ -36810,12 +36964,12 @@
     "sex": {
       "sexualPartners": null,
       "ageFirstSex": null,
-      "divorceRate": null,
+      "divorceRate": 1.9,
       "marriageAge": 27.8,
       "singleParentRate": 4.8,
       "contraceptionUse": 52.8,
       "teenPregnancy": 5.8,
-      "lgbtAcceptance": null,
+      "lgbtAcceptance": 22.5,
       "datingAppUsage": 18,
       "pornConsumption": 35,
       "topPornCategory": "Arab",
@@ -36875,7 +37029,8 @@
       "yogaPractitioners": 7.3,
       "pizzaConsumption": null,
       "chocolateConsumption": null,
-      "beerConsumption": null
+      "beerConsumption": 12,
+      "metalBandsPerCapita": 0.34
     },
     "freedom": {
       "drugPolicyScore": 10,
@@ -37124,7 +37279,8 @@
       "spotifyUsers": 476,
       "fastFoodSpending": 893,
       "gymMembership": 15.6,
-      "yogaPractitioners": 7.1
+      "yogaPractitioners": 7.1,
+      "metalBandsPerCapita": 9.88
     },
     "freedom": {
       "drugPolicyScore": 45,
@@ -37374,7 +37530,8 @@
       "spotifyUsers": 455,
       "fastFoodSpending": 1247,
       "gymMembership": 20.3,
-      "yogaPractitioners": 9.3
+      "yogaPractitioners": 9.3,
+      "metalBandsPerCapita": 10.79
     },
     "freedom": {
       "drugPolicyScore": 55,
@@ -37537,12 +37694,12 @@
     "sex": {
       "sexualPartners": null,
       "ageFirstSex": null,
-      "divorceRate": null,
+      "divorceRate": 0.7,
       "marriageAge": 28.8,
       "singleParentRate": 16.8,
       "contraceptionUse": 79.8,
       "teenPregnancy": 48.8,
-      "lgbtAcceptance": null,
+      "lgbtAcceptance": 63.8,
       "topPornCategory": "Latina",
       "datingAppUsage": null,
       "onlyfansCreators": null,
@@ -37601,8 +37758,9 @@
       "pizzaConsumption": null,
       "chocolateConsumption": null,
       "teaConsumption": null,
-      "beerConsumption": null,
-      "wineConsumption": 22.4
+      "beerConsumption": 32,
+      "wineConsumption": 22.4,
+      "metalBandsPerCapita": 6.74
     },
     "freedom": {
       "drugPolicyScore": 85,
@@ -37766,12 +37924,12 @@
     "sex": {
       "sexualPartners": null,
       "ageFirstSex": 20.1,
-      "divorceRate": null,
+      "divorceRate": 1.4,
       "marriageAge": 22.8,
       "singleParentRate": 8.8,
       "contraceptionUse": 64.8,
       "teenPregnancy": 18.8,
-      "lgbtAcceptance": null,
+      "lgbtAcceptance": 12.5,
       "topPornCategory": "Russian",
       "datingAppUsage": null,
       "onlyfansCreators": null,
@@ -37829,9 +37987,10 @@
       "yogaPractitioners": 0.9,
       "pizzaConsumption": null,
       "chocolateConsumption": null,
-      "teaConsumption": null,
-      "beerConsumption": null,
-      "wineConsumption": null
+      "teaConsumption": 0.75,
+      "beerConsumption": 8,
+      "wineConsumption": 0.5,
+      "metalBandsPerCapita": 0.04
     },
     "freedom": {
       "drugPolicyScore": 15,
@@ -37994,12 +38153,12 @@
     "sex": {
       "sexualPartners": null,
       "ageFirstSex": null,
-      "divorceRate": null,
+      "divorceRate": 0.7,
       "marriageAge": 25.8,
       "singleParentRate": 22.8,
       "contraceptionUse": 75.8,
       "teenPregnancy": 78.8,
-      "lgbtAcceptance": null,
+      "lgbtAcceptance": 42.5,
       "onlyfansCreators": 45,
       "topPornCategory": "Latina",
       "datingAppUsage": null,
@@ -38058,8 +38217,9 @@
       "yogaPractitioners": 2.1,
       "pizzaConsumption": null,
       "chocolateConsumption": null,
-      "teaConsumption": null,
-      "wineConsumption": null
+      "teaConsumption": 0.05,
+      "wineConsumption": null,
+      "metalBandsPerCapita": 1.85
     },
     "freedom": {
       "drugPolicyScore": 20,
@@ -38232,12 +38392,12 @@
     "sex": {
       "sexualPartners": null,
       "ageFirstSex": null,
-      "divorceRate": null,
+      "divorceRate": 0.2,
       "marriageAge": 25.8,
       "singleParentRate": 12.8,
       "contraceptionUse": 76.8,
       "teenPregnancy": 28.8,
-      "lgbtAcceptance": null,
+      "lgbtAcceptance": 38.2,
       "datingAppUsage": 13,
       "pornConsumption": 48,
       "topPornCategory": "Vietnamese",
@@ -38297,7 +38457,8 @@
       "yogaPractitioners": 2.7,
       "pizzaConsumption": null,
       "chocolateConsumption": null,
-      "wineConsumption": null
+      "wineConsumption": 0.3,
+      "metalBandsPerCapita": 0.05
     },
     "freedom": {
       "drugPolicyScore": 15,
@@ -38465,7 +38626,7 @@
       "singleParentRate": 8.8,
       "contraceptionUse": 33.8,
       "teenPregnancy": 58.8,
-      "lgbtAcceptance": null,
+      "lgbtAcceptance": 3.8,
       "datingAppUsage": null,
       "onlyfansCreators": null,
       "pornConsumption": null,
@@ -38525,7 +38686,8 @@
       "chocolateConsumption": null,
       "teaConsumption": null,
       "beerConsumption": null,
-      "wineConsumption": null
+      "wineConsumption": null,
+      "metalBandsPerCapita": 0
     },
     "freedom": {
       "drugPolicyScore": 10,
@@ -38772,9 +38934,10 @@
       "yogaPractitioners": 0.5,
       "pizzaConsumption": null,
       "chocolateConsumption": null,
-      "teaConsumption": null,
-      "beerConsumption": null,
-      "wineConsumption": null
+      "teaConsumption": 0.08,
+      "beerConsumption": 18,
+      "wineConsumption": null,
+      "metalBandsPerCapita": null
     },
     "freedom": {
       "drugPolicyScore": 20,
@@ -39022,9 +39185,10 @@
       "yogaPractitioners": 0.5,
       "pizzaConsumption": null,
       "chocolateConsumption": null,
-      "teaConsumption": null,
-      "beerConsumption": null,
-      "wineConsumption": null
+      "teaConsumption": 0.15,
+      "beerConsumption": 28,
+      "wineConsumption": null,
+      "metalBandsPerCapita": null
     },
     "freedom": {
       "drugPolicyScore": 15,

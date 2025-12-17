@@ -1,19 +1,19 @@
 {
   "metadata": {
-    "generatedAt": "2025-12-17T11:37:32.817Z",
+    "generatedAt": "2025-12-17T12:41:14.051Z",
     "totalVariables": 89,
     "totalPairsTested": 3916,
     "minCorrelation": 0.4,
     "minSampleSize": 10
   },
   "stats": {
-    "total": 1314,
-    "veryStrong": 81,
-    "strong": 435,
-    "moderate": 798,
-    "crossCategory": 1126,
-    "positive": 955,
-    "negative": 359
+    "total": 1281,
+    "veryStrong": 73,
+    "strong": 443,
+    "moderate": 765,
+    "crossCategory": 1096,
+    "positive": 939,
+    "negative": 342
   },
   "correlations": [
     {
@@ -257,26 +257,6 @@
       "direction": "positive"
     },
     {
-      "var1": "economy.bigMacIndex",
-      "var2": "sex.lgbtAcceptance",
-      "var1Name": "Big Mac Price (USD)",
-      "var2Name": "LGBT+ Acceptance",
-      "coefficient": 0.88,
-      "strength": "very_strong",
-      "sampleSize": 43,
-      "categories": [
-        "economy",
-        "sex"
-      ],
-      "categoryNames": [
-        "Economy",
-        "Sex & Relationships"
-      ],
-      "crossCategory": true,
-      "interestingScore": 1.52,
-      "direction": "positive"
-    },
-    {
       "var1": "poverty.hdi",
       "var2": "health.fertilityRate",
       "var1Name": "Human Development Index",
@@ -377,46 +357,6 @@
       "direction": "positive"
     },
     {
-      "var1": "sex.lgbtAcceptance",
-      "var2": "transport.carOwnership",
-      "var1Name": "LGBT+ Acceptance",
-      "var2Name": "Car Ownership",
-      "coefficient": 0.853,
-      "strength": "very_strong",
-      "sampleSize": 47,
-      "categories": [
-        "sex",
-        "transport"
-      ],
-      "categoryNames": [
-        "Sex & Relationships",
-        "Transport"
-      ],
-      "crossCategory": true,
-      "interestingScore": 1.48,
-      "direction": "positive"
-    },
-    {
-      "var1": "democracy.score",
-      "var2": "sex.lgbtAcceptance",
-      "var1Name": "Democracy Score",
-      "var2Name": "LGBT+ Acceptance",
-      "coefficient": 0.851,
-      "strength": "very_strong",
-      "sampleSize": 47,
-      "categories": [
-        "governance",
-        "sex"
-      ],
-      "categoryNames": [
-        "Governance",
-        "Sex & Relationships"
-      ],
-      "crossCategory": true,
-      "interestingScore": 1.477,
-      "direction": "positive"
-    },
-    {
       "var1": "poverty.gdpPerCapita",
       "var2": "lifestyle.happinessIndex",
       "var1Name": "GDP per Capita",
@@ -497,26 +437,6 @@
       "direction": "positive"
     },
     {
-      "var1": "sex.lgbtAcceptance",
-      "var2": "lifestyle.happinessIndex",
-      "var1Name": "LGBT+ Acceptance",
-      "var2Name": "Happiness Index",
-      "coefficient": 0.843,
-      "strength": "very_strong",
-      "sampleSize": 47,
-      "categories": [
-        "sex",
-        "lifestyle"
-      ],
-      "categoryNames": [
-        "Sex & Relationships",
-        "Lifestyle"
-      ],
-      "crossCategory": true,
-      "interestingScore": 1.465,
-      "direction": "positive"
-    },
-    {
       "var1": "poverty.hdi",
       "var2": "transport.carOwnership",
       "var1Name": "Human Development Index",
@@ -577,26 +497,6 @@
       "direction": "negative"
     },
     {
-      "var1": "freedom.corruptionIndex",
-      "var2": "sex.lgbtAcceptance",
-      "var1Name": "Corruption Index",
-      "var2Name": "LGBT+ Acceptance",
-      "coefficient": 0.841,
-      "strength": "very_strong",
-      "sampleSize": 47,
-      "categories": [
-        "governance",
-        "sex"
-      ],
-      "categoryNames": [
-        "Governance",
-        "Sex & Relationships"
-      ],
-      "crossCategory": true,
-      "interestingScore": 1.461,
-      "direction": "positive"
-    },
-    {
       "var1": "education.avgIQ",
       "var2": "transport.carOwnership",
       "var1Name": "Average IQ",
@@ -618,26 +518,6 @@
     },
     {
       "var1": "poverty.gdpPerCapita",
-      "var2": "sex.lgbtAcceptance",
-      "var1Name": "GDP per Capita",
-      "var2Name": "LGBT+ Acceptance",
-      "coefficient": 0.839,
-      "strength": "very_strong",
-      "sampleSize": 46,
-      "categories": [
-        "economy",
-        "sex"
-      ],
-      "categoryNames": [
-        "Economy",
-        "Sex & Relationships"
-      ],
-      "crossCategory": true,
-      "interestingScore": 1.459,
-      "direction": "positive"
-    },
-    {
-      "var1": "poverty.gdpPerCapita",
       "var2": "education.avgIQ",
       "var1Name": "GDP per Capita",
       "var2Name": "Average IQ",
@@ -651,26 +531,6 @@
       "categoryNames": [
         "Economy",
         "Education"
-      ],
-      "crossCategory": true,
-      "interestingScore": 1.459,
-      "direction": "positive"
-    },
-    {
-      "var1": "sex.lgbtAcceptance",
-      "var2": "lifestyle.coffeeConsumption",
-      "var1Name": "LGBT+ Acceptance",
-      "var2Name": "Coffee Consumption",
-      "coefficient": 0.839,
-      "strength": "very_strong",
-      "sampleSize": 47,
-      "categories": [
-        "sex",
-        "lifestyle"
-      ],
-      "categoryNames": [
-        "Sex & Relationships",
-        "Lifestyle"
       ],
       "crossCategory": true,
       "interestingScore": 1.459,
@@ -717,6 +577,26 @@
       "direction": "positive"
     },
     {
+      "var1": "sex.lgbtAcceptance",
+      "var2": "lifestyle.happinessIndex",
+      "var1Name": "LGBT+ Acceptance",
+      "var2Name": "Happiness Index",
+      "coefficient": 0.838,
+      "strength": "very_strong",
+      "sampleSize": 56,
+      "categories": [
+        "sex",
+        "lifestyle"
+      ],
+      "categoryNames": [
+        "Sex & Relationships",
+        "Lifestyle"
+      ],
+      "crossCategory": true,
+      "interestingScore": 1.457,
+      "direction": "positive"
+    },
+    {
       "var1": "health.maleHeight",
       "var2": "lifestyle.workHoursWeek",
       "var1Name": "Average Male Height",
@@ -741,9 +621,9 @@
       "var2": "lifestyle.workHoursWeek",
       "var1Name": "LGBT+ Acceptance",
       "var2Name": "Work Hours/Week",
-      "coefficient": -0.835,
+      "coefficient": -0.836,
       "strength": "very_strong",
-      "sampleSize": 47,
+      "sampleSize": 56,
       "categories": [
         "sex",
         "lifestyle"
@@ -753,8 +633,28 @@
         "Lifestyle"
       ],
       "crossCategory": true,
-      "interestingScore": 1.453,
+      "interestingScore": 1.454,
       "direction": "negative"
+    },
+    {
+      "var1": "sex.lgbtAcceptance",
+      "var2": "lifestyle.coffeeConsumption",
+      "var1Name": "LGBT+ Acceptance",
+      "var2Name": "Coffee Consumption",
+      "coefficient": 0.834,
+      "strength": "very_strong",
+      "sampleSize": 56,
+      "categories": [
+        "sex",
+        "lifestyle"
+      ],
+      "categoryNames": [
+        "Sex & Relationships",
+        "Lifestyle"
+      ],
+      "crossCategory": true,
+      "interestingScore": 1.451,
+      "direction": "positive"
     },
     {
       "var1": "demographics.medianAge",
@@ -874,46 +774,6 @@
       ],
       "crossCategory": true,
       "interestingScore": 1.433,
-      "direction": "positive"
-    },
-    {
-      "var1": "poverty.hdi",
-      "var2": "sex.lgbtAcceptance",
-      "var1Name": "Human Development Index",
-      "var2Name": "LGBT+ Acceptance",
-      "coefficient": 0.82,
-      "strength": "very_strong",
-      "sampleSize": 47,
-      "categories": [
-        "economy",
-        "sex"
-      ],
-      "categoryNames": [
-        "Economy",
-        "Sex & Relationships"
-      ],
-      "crossCategory": true,
-      "interestingScore": 1.43,
-      "direction": "positive"
-    },
-    {
-      "var1": "sex.lgbtAcceptance",
-      "var2": "environment.recyclingRate",
-      "var1Name": "LGBT+ Acceptance",
-      "var2Name": "Recycling Rate",
-      "coefficient": 0.82,
-      "strength": "very_strong",
-      "sampleSize": 47,
-      "categories": [
-        "sex",
-        "environment"
-      ],
-      "categoryNames": [
-        "Sex & Relationships",
-        "Environment"
-      ],
-      "crossCategory": true,
-      "interestingScore": 1.43,
       "direction": "positive"
     },
     {
@@ -1118,23 +978,23 @@
     },
     {
       "var1": "sex.lgbtAcceptance",
-      "var2": "transport.trafficIndex",
+      "var2": "lifestyle.tattooRate",
       "var1Name": "LGBT+ Acceptance",
-      "var2Name": "Traffic Index",
-      "coefficient": -0.808,
+      "var2Name": "Tattoo Rate",
+      "coefficient": 0.809,
       "strength": "very_strong",
-      "sampleSize": 47,
+      "sampleSize": 48,
       "categories": [
         "sex",
-        "transport"
+        "lifestyle"
       ],
       "categoryNames": [
         "Sex & Relationships",
-        "Transport"
+        "Lifestyle"
       ],
       "crossCategory": true,
-      "interestingScore": 1.412,
-      "direction": "negative"
+      "interestingScore": 1.413,
+      "direction": "positive"
     },
     {
       "var1": "health.airPollution",
@@ -1638,26 +1498,6 @@
     },
     {
       "var1": "health.maleHeight",
-      "var2": "sex.lgbtAcceptance",
-      "var1Name": "Average Male Height",
-      "var2Name": "LGBT+ Acceptance",
-      "coefficient": 0.792,
-      "strength": "strong",
-      "sampleSize": 47,
-      "categories": [
-        "health",
-        "sex"
-      ],
-      "categoryNames": [
-        "Health",
-        "Sex & Relationships"
-      ],
-      "crossCategory": true,
-      "interestingScore": 1.387,
-      "direction": "positive"
-    },
-    {
-      "var1": "health.maleHeight",
       "var2": "lifestyle.happinessIndex",
       "var1Name": "Average Male Height",
       "var2Name": "Happiness Index",
@@ -1677,23 +1517,23 @@
       "direction": "positive"
     },
     {
-      "var1": "freedom.pressFreedom",
-      "var2": "sex.lgbtAcceptance",
-      "var1Name": "Press Freedom",
-      "var2Name": "LGBT+ Acceptance",
+      "var1": "health.alcoholConsumption",
+      "var2": "lifestyle.beerConsumption",
+      "var1Name": "Alcohol Consumption",
+      "var2Name": "Beer Consumption",
       "coefficient": 0.79,
       "strength": "strong",
-      "sampleSize": 47,
+      "sampleSize": 56,
       "categories": [
-        "governance",
-        "sex"
+        "health",
+        "lifestyle"
       ],
       "categoryNames": [
-        "Governance",
-        "Sex & Relationships"
+        "Health",
+        "Lifestyle"
       ],
       "crossCategory": true,
-      "interestingScore": 1.385,
+      "interestingScore": 1.386,
       "direction": "positive"
     },
     {
@@ -1737,20 +1577,20 @@
       "direction": "positive"
     },
     {
-      "var1": "sex.lgbtAcceptance",
-      "var2": "lifestyle.tattooRate",
-      "var1Name": "LGBT+ Acceptance",
-      "var2Name": "Tattoo Rate",
-      "coefficient": 0.822,
-      "strength": "very_strong",
-      "sampleSize": 30,
+      "var1": "economy.bigMacIndex",
+      "var2": "sex.lgbtAcceptance",
+      "var1Name": "Big Mac Price (USD)",
+      "var2Name": "LGBT+ Acceptance",
+      "coefficient": 0.788,
+      "strength": "strong",
+      "sampleSize": 121,
       "categories": [
-        "sex",
-        "lifestyle"
+        "economy",
+        "sex"
       ],
       "categoryNames": [
-        "Sex & Relationships",
-        "Lifestyle"
+        "Economy",
+        "Sex & Relationships"
       ],
       "crossCategory": true,
       "interestingScore": 1.382,
@@ -1794,6 +1634,26 @@
       ],
       "crossCategory": true,
       "interestingScore": 1.378,
+      "direction": "positive"
+    },
+    {
+      "var1": "democracy.score",
+      "var2": "sex.lgbtAcceptance",
+      "var1Name": "Democracy Score",
+      "var2Name": "LGBT+ Acceptance",
+      "coefficient": 0.784,
+      "strength": "strong",
+      "sampleSize": 127,
+      "categories": [
+        "governance",
+        "sex"
+      ],
+      "categoryNames": [
+        "Governance",
+        "Sex & Relationships"
+      ],
+      "crossCategory": true,
+      "interestingScore": 1.377,
       "direction": "positive"
     },
     {
@@ -1874,46 +1734,6 @@
       ],
       "crossCategory": true,
       "interestingScore": 1.365,
-      "direction": "positive"
-    },
-    {
-      "var1": "sex.divorceRate",
-      "var2": "education.avgIQ",
-      "var1Name": "Divorce Rate",
-      "var2Name": "Average IQ",
-      "coefficient": 0.775,
-      "strength": "strong",
-      "sampleSize": 47,
-      "categories": [
-        "sex",
-        "education"
-      ],
-      "categoryNames": [
-        "Sex & Relationships",
-        "Education"
-      ],
-      "crossCategory": true,
-      "interestingScore": 1.362,
-      "direction": "positive"
-    },
-    {
-      "var1": "sex.lgbtAcceptance",
-      "var2": "demographics.medianAge",
-      "var1Name": "LGBT+ Acceptance",
-      "var2Name": "Median Age",
-      "coefficient": 0.774,
-      "strength": "strong",
-      "sampleSize": 47,
-      "categories": [
-        "sex",
-        "demographics"
-      ],
-      "categoryNames": [
-        "Sex & Relationships",
-        "Demographics"
-      ],
-      "crossCategory": true,
-      "interestingScore": 1.361,
       "direction": "positive"
     },
     {
@@ -2037,26 +1857,6 @@
       "direction": "negative"
     },
     {
-      "var1": "sex.lgbtAcceptance",
-      "var2": "education.avgIQ",
-      "var1Name": "LGBT+ Acceptance",
-      "var2Name": "Average IQ",
-      "coefficient": 0.77,
-      "strength": "strong",
-      "sampleSize": 47,
-      "categories": [
-        "sex",
-        "education"
-      ],
-      "categoryNames": [
-        "Sex & Relationships",
-        "Education"
-      ],
-      "crossCategory": true,
-      "interestingScore": 1.355,
-      "direction": "positive"
-    },
-    {
       "var1": "education.avgIQ",
       "var2": "lifestyle.workHoursWeek",
       "var1Name": "Average IQ",
@@ -2075,26 +1875,6 @@
       "crossCategory": true,
       "interestingScore": 1.355,
       "direction": "negative"
-    },
-    {
-      "var1": "economy.economicFreedom",
-      "var2": "sex.lgbtAcceptance",
-      "var1Name": "Economic Freedom Index",
-      "var2Name": "LGBT+ Acceptance",
-      "coefficient": 0.769,
-      "strength": "strong",
-      "sampleSize": 47,
-      "categories": [
-        "economy",
-        "sex"
-      ],
-      "categoryNames": [
-        "Economy",
-        "Sex & Relationships"
-      ],
-      "crossCategory": true,
-      "interestingScore": 1.354,
-      "direction": "positive"
     },
     {
       "var1": "democracy.score",
@@ -2217,6 +1997,26 @@
       "direction": "negative"
     },
     {
+      "var1": "health.lifeExpectancy",
+      "var2": "sex.lgbtAcceptance",
+      "var1Name": "Life Expectancy",
+      "var2Name": "LGBT+ Acceptance",
+      "coefficient": 0.761,
+      "strength": "strong",
+      "sampleSize": 62,
+      "categories": [
+        "health",
+        "sex"
+      ],
+      "categoryNames": [
+        "Health",
+        "Sex & Relationships"
+      ],
+      "crossCategory": true,
+      "interestingScore": 1.342,
+      "direction": "positive"
+    },
+    {
       "var1": "freedom.corruptionIndex",
       "var2": "health.lifeExpectancy",
       "var1Name": "Corruption Index",
@@ -2257,23 +2057,23 @@
       "direction": "positive"
     },
     {
-      "var1": "sex.divorceRate",
-      "var2": "demographics.medianAge",
-      "var1Name": "Divorce Rate",
-      "var2Name": "Median Age",
-      "coefficient": 0.758,
+      "var1": "sex.lgbtAcceptance",
+      "var2": "education.avgIQ",
+      "var1Name": "LGBT+ Acceptance",
+      "var2Name": "Average IQ",
+      "coefficient": 0.759,
       "strength": "strong",
-      "sampleSize": 47,
+      "sampleSize": 61,
       "categories": [
         "sex",
-        "demographics"
+        "education"
       ],
       "categoryNames": [
         "Sex & Relationships",
-        "Demographics"
+        "Education"
       ],
       "crossCategory": true,
-      "interestingScore": 1.336,
+      "interestingScore": 1.338,
       "direction": "positive"
     },
     {
@@ -2295,6 +2095,26 @@
       "crossCategory": true,
       "interestingScore": 1.335,
       "direction": "negative"
+    },
+    {
+      "var1": "freedom.corruptionIndex",
+      "var2": "sex.lgbtAcceptance",
+      "var1Name": "Corruption Index",
+      "var2Name": "LGBT+ Acceptance",
+      "coefficient": 0.757,
+      "strength": "strong",
+      "sampleSize": 127,
+      "categories": [
+        "governance",
+        "sex"
+      ],
+      "categoryNames": [
+        "Governance",
+        "Sex & Relationships"
+      ],
+      "crossCategory": true,
+      "interestingScore": 1.335,
+      "direction": "positive"
     },
     {
       "var1": "lifestyle.pizzaConsumption",
@@ -2334,6 +2154,26 @@
       ],
       "crossCategory": true,
       "interestingScore": 1.333,
+      "direction": "positive"
+    },
+    {
+      "var1": "sex.lgbtAcceptance",
+      "var2": "environment.recyclingRate",
+      "var1Name": "LGBT+ Acceptance",
+      "var2Name": "Recycling Rate",
+      "coefficient": 0.755,
+      "strength": "strong",
+      "sampleSize": 127,
+      "categories": [
+        "sex",
+        "environment"
+      ],
+      "categoryNames": [
+        "Sex & Relationships",
+        "Environment"
+      ],
+      "crossCategory": true,
+      "interestingScore": 1.332,
       "direction": "positive"
     },
     {
@@ -2377,26 +2217,6 @@
       "direction": "positive"
     },
     {
-      "var1": "gender.wblIndex",
-      "var2": "sex.lgbtAcceptance",
-      "var1Name": "Women's Legal Rights",
-      "var2Name": "LGBT+ Acceptance",
-      "coefficient": 0.753,
-      "strength": "strong",
-      "sampleSize": 47,
-      "categories": [
-        "economy",
-        "sex"
-      ],
-      "categoryNames": [
-        "Economy",
-        "Sex & Relationships"
-      ],
-      "crossCategory": true,
-      "interestingScore": 1.33,
-      "direction": "positive"
-    },
-    {
       "var1": "freedom.corruptionIndex",
       "var2": "lifestyle.internetPenetration",
       "var1Name": "Corruption Index",
@@ -2418,12 +2238,12 @@
     },
     {
       "var1": "poverty.hdi",
-      "var2": "sex.divorceRate",
+      "var2": "sex.lgbtAcceptance",
       "var1Name": "Human Development Index",
-      "var2Name": "Divorce Rate",
-      "coefficient": 0.752,
+      "var2Name": "LGBT+ Acceptance",
+      "coefficient": 0.753,
       "strength": "strong",
-      "sampleSize": 47,
+      "sampleSize": 119,
       "categories": [
         "economy",
         "sex"
@@ -2455,26 +2275,6 @@
       "crossCategory": true,
       "interestingScore": 1.328,
       "direction": "positive"
-    },
-    {
-      "var1": "health.airPollution",
-      "var2": "sex.lgbtAcceptance",
-      "var1Name": "Air Pollution",
-      "var2Name": "LGBT+ Acceptance",
-      "coefficient": -0.752,
-      "strength": "strong",
-      "sampleSize": 47,
-      "categories": [
-        "health",
-        "sex"
-      ],
-      "categoryNames": [
-        "Health",
-        "Sex & Relationships"
-      ],
-      "crossCategory": true,
-      "interestingScore": 1.328,
-      "direction": "negative"
     },
     {
       "var1": "lifestyle.workHoursWeek",
@@ -2531,26 +2331,6 @@
       "categoryNames": [
         "Governance",
         "Lifestyle"
-      ],
-      "crossCategory": true,
-      "interestingScore": 1.326,
-      "direction": "positive"
-    },
-    {
-      "var1": "health.lifeExpectancy",
-      "var2": "sex.lgbtAcceptance",
-      "var1Name": "Life Expectancy",
-      "var2Name": "LGBT+ Acceptance",
-      "coefficient": 0.751,
-      "strength": "strong",
-      "sampleSize": 47,
-      "categories": [
-        "health",
-        "sex"
-      ],
-      "categoryNames": [
-        "Health",
-        "Sex & Relationships"
       ],
       "crossCategory": true,
       "interestingScore": 1.326,
@@ -2714,26 +2494,6 @@
       ],
       "crossCategory": true,
       "interestingScore": 1.322,
-      "direction": "positive"
-    },
-    {
-      "var1": "sex.divorceRate",
-      "var2": "lifestyle.internetPenetration",
-      "var1Name": "Divorce Rate",
-      "var2Name": "Internet Users",
-      "coefficient": 0.748,
-      "strength": "strong",
-      "sampleSize": 47,
-      "categories": [
-        "sex",
-        "lifestyle"
-      ],
-      "categoryNames": [
-        "Sex & Relationships",
-        "Lifestyle"
-      ],
-      "crossCategory": true,
-      "interestingScore": 1.321,
       "direction": "positive"
     },
     {
@@ -3017,6 +2777,26 @@
       "direction": "positive"
     },
     {
+      "var1": "sex.divorceRate",
+      "var2": "lifestyle.internetPenetration",
+      "var1Name": "Divorce Rate",
+      "var2Name": "Internet Users",
+      "coefficient": 0.738,
+      "strength": "strong",
+      "sampleSize": 51,
+      "categories": [
+        "sex",
+        "lifestyle"
+      ],
+      "categoryNames": [
+        "Sex & Relationships",
+        "Lifestyle"
+      ],
+      "crossCategory": true,
+      "interestingScore": 1.307,
+      "direction": "positive"
+    },
+    {
       "var1": "freedom.corruptionIndex",
       "var2": "sex.sexualPartners",
       "var1Name": "Corruption Index",
@@ -3157,6 +2937,26 @@
       "direction": "positive"
     },
     {
+      "var1": "freedom.pressFreedom",
+      "var2": "sex.lgbtAcceptance",
+      "var1Name": "Press Freedom",
+      "var2Name": "LGBT+ Acceptance",
+      "coefficient": 0.731,
+      "strength": "strong",
+      "sampleSize": 127,
+      "categories": [
+        "governance",
+        "sex"
+      ],
+      "categoryNames": [
+        "Governance",
+        "Sex & Relationships"
+      ],
+      "crossCategory": true,
+      "interestingScore": 1.296,
+      "direction": "positive"
+    },
+    {
       "var1": "health.lifeExpectancy",
       "var2": "lifestyle.coffeeConsumption",
       "var1Name": "Life Expectancy",
@@ -3257,26 +3057,6 @@
       "direction": "positive"
     },
     {
-      "var1": "health.alcoholConsumption",
-      "var2": "lifestyle.beerConsumption",
-      "var1Name": "Alcohol Consumption",
-      "var2Name": "Beer Consumption",
-      "coefficient": 0.748,
-      "strength": "strong",
-      "sampleSize": 33,
-      "categories": [
-        "health",
-        "lifestyle"
-      ],
-      "categoryNames": [
-        "Health",
-        "Lifestyle"
-      ],
-      "crossCategory": true,
-      "interestingScore": 1.288,
-      "direction": "positive"
-    },
-    {
       "var1": "education.nobelPrizesPerCapita",
       "var2": "lifestyle.workHoursWeek",
       "var1Name": "Nobel Prizes per Capita",
@@ -3335,6 +3115,26 @@
       "crossCategory": true,
       "interestingScore": 1.283,
       "direction": "negative"
+    },
+    {
+      "var1": "sex.lgbtAcceptance",
+      "var2": "transport.carOwnership",
+      "var1Name": "LGBT+ Acceptance",
+      "var2Name": "Car Ownership",
+      "coefficient": 0.722,
+      "strength": "strong",
+      "sampleSize": 127,
+      "categories": [
+        "sex",
+        "transport"
+      ],
+      "categoryNames": [
+        "Sex & Relationships",
+        "Transport"
+      ],
+      "crossCategory": true,
+      "interestingScore": 1.283,
+      "direction": "positive"
     },
     {
       "var1": "freedom.cryptoAdoption",
@@ -3537,13 +3337,13 @@
       "direction": "positive"
     },
     {
-      "var1": "health.fertilityRate",
-      "var2": "sex.divorceRate",
-      "var1Name": "Fertility Rate",
-      "var2Name": "Divorce Rate",
-      "coefficient": -0.714,
+      "var1": "health.airPollution",
+      "var2": "sex.lgbtAcceptance",
+      "var1Name": "Air Pollution",
+      "var2Name": "LGBT+ Acceptance",
+      "coefficient": -0.715,
       "strength": "strong",
-      "sampleSize": 47,
+      "sampleSize": 127,
       "categories": [
         "health",
         "sex"
@@ -3553,7 +3353,7 @@
         "Sex & Relationships"
       ],
       "crossCategory": true,
-      "interestingScore": 1.271,
+      "interestingScore": 1.272,
       "direction": "negative"
     },
     {
@@ -3657,6 +3457,26 @@
       "direction": "positive"
     },
     {
+      "var1": "health.maleHeight",
+      "var2": "sex.lgbtAcceptance",
+      "var1Name": "Average Male Height",
+      "var2Name": "LGBT+ Acceptance",
+      "coefficient": 0.712,
+      "strength": "strong",
+      "sampleSize": 62,
+      "categories": [
+        "health",
+        "sex"
+      ],
+      "categoryNames": [
+        "Health",
+        "Sex & Relationships"
+      ],
+      "crossCategory": true,
+      "interestingScore": 1.268,
+      "direction": "positive"
+    },
+    {
       "var1": "health.breastSize",
       "var2": "lifestyle.happinessIndex",
       "var1Name": "Average Breast Size",
@@ -3697,13 +3517,13 @@
       "direction": "positive"
     },
     {
-      "var1": "sex.lgbtAcceptance",
-      "var2": "lifestyle.internetPenetration",
-      "var1Name": "LGBT+ Acceptance",
-      "var2Name": "Internet Users",
+      "var1": "sex.sexualPartners",
+      "var2": "lifestyle.beerConsumption",
+      "var1Name": "Avg Sexual Partners",
+      "var2Name": "Beer Consumption",
       "coefficient": 0.711,
       "strength": "strong",
-      "sampleSize": 47,
+      "sampleSize": 43,
       "categories": [
         "sex",
         "lifestyle"
@@ -3977,26 +3797,6 @@
       "direction": "positive"
     },
     {
-      "var1": "health.breastSize",
-      "var2": "sex.lgbtAcceptance",
-      "var1Name": "Average Breast Size",
-      "var2Name": "LGBT+ Acceptance",
-      "coefficient": 0.708,
-      "strength": "strong",
-      "sampleSize": 38,
-      "categories": [
-        "health",
-        "sex"
-      ],
-      "categoryNames": [
-        "Health",
-        "Sex & Relationships"
-      ],
-      "crossCategory": true,
-      "interestingScore": 1.253,
-      "direction": "positive"
-    },
-    {
       "var1": "democracy.score",
       "var2": "environment.recyclingRate",
       "var1Name": "Democracy Score",
@@ -4058,19 +3858,19 @@
     },
     {
       "var1": "sex.lgbtAcceptance",
-      "var2": "demographics.urbanPopulation",
+      "var2": "lifestyle.internetPenetration",
       "var1Name": "LGBT+ Acceptance",
-      "var2Name": "Urban Population",
-      "coefficient": 0.701,
+      "var2Name": "Internet Users",
+      "coefficient": 0.702,
       "strength": "strong",
-      "sampleSize": 47,
+      "sampleSize": 56,
       "categories": [
         "sex",
-        "demographics"
+        "lifestyle"
       ],
       "categoryNames": [
         "Sex & Relationships",
-        "Demographics"
+        "Lifestyle"
       ],
       "crossCategory": true,
       "interestingScore": 1.252,
@@ -4177,6 +3977,46 @@
       "direction": "positive"
     },
     {
+      "var1": "sex.divorceRate",
+      "var2": "education.avgIQ",
+      "var1Name": "Divorce Rate",
+      "var2Name": "Average IQ",
+      "coefficient": 0.698,
+      "strength": "strong",
+      "sampleSize": 55,
+      "categories": [
+        "sex",
+        "education"
+      ],
+      "categoryNames": [
+        "Sex & Relationships",
+        "Education"
+      ],
+      "crossCategory": true,
+      "interestingScore": 1.247,
+      "direction": "positive"
+    },
+    {
+      "var1": "sex.lgbtAcceptance",
+      "var2": "demographics.medianAge",
+      "var1Name": "LGBT+ Acceptance",
+      "var2Name": "Median Age",
+      "coefficient": 0.698,
+      "strength": "strong",
+      "sampleSize": 91,
+      "categories": [
+        "sex",
+        "demographics"
+      ],
+      "categoryNames": [
+        "Sex & Relationships",
+        "Demographics"
+      ],
+      "crossCategory": true,
+      "interestingScore": 1.247,
+      "direction": "positive"
+    },
+    {
       "var1": "lifestyle.happinessIndex",
       "var2": "environment.co2PerCapita",
       "var1Name": "Happiness Index",
@@ -4277,6 +4117,46 @@
       "direction": "positive"
     },
     {
+      "var1": "sex.lgbtAcceptance",
+      "var2": "lifestyle.pizzaConsumption",
+      "var1Name": "LGBT+ Acceptance",
+      "var2Name": "Pizza Consumption",
+      "coefficient": 0.711,
+      "strength": "strong",
+      "sampleSize": 35,
+      "categories": [
+        "sex",
+        "lifestyle"
+      ],
+      "categoryNames": [
+        "Sex & Relationships",
+        "Lifestyle"
+      ],
+      "crossCategory": true,
+      "interestingScore": 1.242,
+      "direction": "positive"
+    },
+    {
+      "var1": "education.englishProficiency",
+      "var2": "lifestyle.beerConsumption",
+      "var1Name": "English Proficiency",
+      "var2Name": "Beer Consumption",
+      "coefficient": 0.694,
+      "strength": "strong",
+      "sampleSize": 51,
+      "categories": [
+        "education",
+        "lifestyle"
+      ],
+      "categoryNames": [
+        "Education",
+        "Lifestyle"
+      ],
+      "crossCategory": true,
+      "interestingScore": 1.241,
+      "direction": "positive"
+    },
+    {
       "var1": "health.plasticSurgeryRate",
       "var2": "lifestyle.internetPenetration",
       "var1Name": "Plastic Surgery Rate",
@@ -4317,6 +4197,26 @@
       "direction": "positive"
     },
     {
+      "var1": "gender.wblIndex",
+      "var2": "sex.lgbtAcceptance",
+      "var1Name": "Women's Legal Rights",
+      "var2Name": "LGBT+ Acceptance",
+      "coefficient": 0.69,
+      "strength": "strong",
+      "sampleSize": 124,
+      "categories": [
+        "economy",
+        "sex"
+      ],
+      "categoryNames": [
+        "Economy",
+        "Sex & Relationships"
+      ],
+      "crossCategory": true,
+      "interestingScore": 1.236,
+      "direction": "positive"
+    },
+    {
       "var1": "health.lifeExpectancy",
       "var2": "conflict.peaceIndex",
       "var1Name": "Life Expectancy",
@@ -4350,26 +4250,6 @@
       ],
       "categoryNames": [
         "Health",
-        "Demographics"
-      ],
-      "crossCategory": true,
-      "interestingScore": 1.235,
-      "direction": "positive"
-    },
-    {
-      "var1": "sex.divorceRate",
-      "var2": "demographics.urbanPopulation",
-      "var1Name": "Divorce Rate",
-      "var2Name": "Urban Population",
-      "coefficient": 0.69,
-      "strength": "strong",
-      "sampleSize": 47,
-      "categories": [
-        "sex",
-        "demographics"
-      ],
-      "categoryNames": [
-        "Sex & Relationships",
         "Demographics"
       ],
       "crossCategory": true,
@@ -4455,26 +4335,6 @@
       "crossCategory": true,
       "interestingScore": 1.234,
       "direction": "negative"
-    },
-    {
-      "var1": "sex.divorceRate",
-      "var2": "lifestyle.happinessIndex",
-      "var1Name": "Divorce Rate",
-      "var2Name": "Happiness Index",
-      "coefficient": 0.689,
-      "strength": "strong",
-      "sampleSize": 47,
-      "categories": [
-        "sex",
-        "lifestyle"
-      ],
-      "categoryNames": [
-        "Sex & Relationships",
-        "Lifestyle"
-      ],
-      "crossCategory": true,
-      "interestingScore": 1.234,
-      "direction": "positive"
     },
     {
       "var1": "lifestyle.pizzaConsumption",
@@ -4597,6 +4457,26 @@
       "direction": "positive"
     },
     {
+      "var1": "sex.divorceRate",
+      "var2": "lifestyle.happinessIndex",
+      "var1Name": "Divorce Rate",
+      "var2Name": "Happiness Index",
+      "coefficient": 0.685,
+      "strength": "strong",
+      "sampleSize": 51,
+      "categories": [
+        "sex",
+        "lifestyle"
+      ],
+      "categoryNames": [
+        "Sex & Relationships",
+        "Lifestyle"
+      ],
+      "crossCategory": true,
+      "interestingScore": 1.228,
+      "direction": "positive"
+    },
+    {
       "var1": "demographics.urbanPopulation",
       "var2": "education.avgIQ",
       "var1Name": "Urban Population",
@@ -4651,46 +4531,6 @@
       "categoryNames": [
         "Economy",
         "Health"
-      ],
-      "crossCategory": true,
-      "interestingScore": 1.226,
-      "direction": "positive"
-    },
-    {
-      "var1": "sex.lgbtAcceptance",
-      "var2": "education.literacyRate",
-      "var1Name": "LGBT+ Acceptance",
-      "var2Name": "Literacy Rate",
-      "coefficient": 0.684,
-      "strength": "strong",
-      "sampleSize": 47,
-      "categories": [
-        "sex",
-        "education"
-      ],
-      "categoryNames": [
-        "Sex & Relationships",
-        "Education"
-      ],
-      "crossCategory": true,
-      "interestingScore": 1.226,
-      "direction": "positive"
-    },
-    {
-      "var1": "sex.lgbtAcceptance",
-      "var2": "lifestyle.pizzaConsumption",
-      "var1Name": "LGBT+ Acceptance",
-      "var2Name": "Pizza Consumption",
-      "coefficient": 0.731,
-      "strength": "strong",
-      "sampleSize": 26,
-      "categories": [
-        "sex",
-        "lifestyle"
-      ],
-      "categoryNames": [
-        "Sex & Relationships",
-        "Lifestyle"
       ],
       "crossCategory": true,
       "interestingScore": 1.226,
@@ -4857,6 +4697,26 @@
       "direction": "negative"
     },
     {
+      "var1": "sex.lgbtAcceptance",
+      "var2": "education.literacyRate",
+      "var1Name": "LGBT+ Acceptance",
+      "var2Name": "Literacy Rate",
+      "coefficient": 0.681,
+      "strength": "strong",
+      "sampleSize": 61,
+      "categories": [
+        "sex",
+        "education"
+      ],
+      "categoryNames": [
+        "Sex & Relationships",
+        "Education"
+      ],
+      "crossCategory": true,
+      "interestingScore": 1.222,
+      "direction": "positive"
+    },
+    {
       "var1": "democracy.score",
       "var2": "education.englishProficiency",
       "var1Name": "Democracy Score",
@@ -4911,26 +4771,6 @@
       "categoryNames": [
         "Economy",
         "Health"
-      ],
-      "crossCategory": true,
-      "interestingScore": 1.22,
-      "direction": "positive"
-    },
-    {
-      "var1": "health.lifeExpectancy",
-      "var2": "sex.divorceRate",
-      "var1Name": "Life Expectancy",
-      "var2Name": "Divorce Rate",
-      "coefficient": 0.68,
-      "strength": "strong",
-      "sampleSize": 47,
-      "categories": [
-        "health",
-        "sex"
-      ],
-      "categoryNames": [
-        "Health",
-        "Sex & Relationships"
       ],
       "crossCategory": true,
       "interestingScore": 1.22,
@@ -5054,26 +4894,6 @@
       ],
       "crossCategory": true,
       "interestingScore": 1.218,
-      "direction": "negative"
-    },
-    {
-      "var1": "economy.gdpGrowth",
-      "var2": "sex.lgbtAcceptance",
-      "var1Name": "GDP Growth Rate",
-      "var2Name": "LGBT+ Acceptance",
-      "coefficient": -0.678,
-      "strength": "strong",
-      "sampleSize": 47,
-      "categories": [
-        "economy",
-        "sex"
-      ],
-      "categoryNames": [
-        "Economy",
-        "Sex & Relationships"
-      ],
-      "crossCategory": true,
-      "interestingScore": 1.217,
       "direction": "negative"
     },
     {
@@ -5257,26 +5077,6 @@
       "direction": "positive"
     },
     {
-      "var1": "health.fertilityRate",
-      "var2": "sex.lgbtAcceptance",
-      "var1Name": "Fertility Rate",
-      "var2Name": "LGBT+ Acceptance",
-      "coefficient": -0.674,
-      "strength": "strong",
-      "sampleSize": 47,
-      "categories": [
-        "health",
-        "sex"
-      ],
-      "categoryNames": [
-        "Health",
-        "Sex & Relationships"
-      ],
-      "crossCategory": true,
-      "interestingScore": 1.21,
-      "direction": "negative"
-    },
-    {
       "var1": "democracy.score",
       "var2": "economy.bigMacIndex",
       "var1Name": "Democracy Score",
@@ -5335,6 +5135,46 @@
       "crossCategory": true,
       "interestingScore": 1.208,
       "direction": "positive"
+    },
+    {
+      "var1": "health.maleHeight",
+      "var2": "sex.divorceRate",
+      "var1Name": "Average Male Height",
+      "var2Name": "Divorce Rate",
+      "coefficient": 0.672,
+      "strength": "strong",
+      "sampleSize": 56,
+      "categories": [
+        "health",
+        "sex"
+      ],
+      "categoryNames": [
+        "Health",
+        "Sex & Relationships"
+      ],
+      "crossCategory": true,
+      "interestingScore": 1.208,
+      "direction": "positive"
+    },
+    {
+      "var1": "health.fertilityRate",
+      "var2": "sex.lgbtAcceptance",
+      "var1Name": "Fertility Rate",
+      "var2Name": "LGBT+ Acceptance",
+      "coefficient": -0.671,
+      "strength": "strong",
+      "sampleSize": 62,
+      "categories": [
+        "health",
+        "sex"
+      ],
+      "categoryNames": [
+        "Health",
+        "Sex & Relationships"
+      ],
+      "crossCategory": true,
+      "interestingScore": 1.207,
+      "direction": "negative"
     },
     {
       "var1": "lifestyle.pizzaConsumption",
@@ -5497,46 +5337,6 @@
       "direction": "positive"
     },
     {
-      "var1": "sex.divorceRate",
-      "var2": "education.literacyRate",
-      "var1Name": "Divorce Rate",
-      "var2Name": "Literacy Rate",
-      "coefficient": 0.667,
-      "strength": "strong",
-      "sampleSize": 47,
-      "categories": [
-        "sex",
-        "education"
-      ],
-      "categoryNames": [
-        "Sex & Relationships",
-        "Education"
-      ],
-      "crossCategory": true,
-      "interestingScore": 1.201,
-      "direction": "positive"
-    },
-    {
-      "var1": "sex.lgbtAcceptance",
-      "var2": "education.nobelPrizesPerCapita",
-      "var1Name": "LGBT+ Acceptance",
-      "var2Name": "Nobel Prizes per Capita",
-      "coefficient": 0.68,
-      "strength": "strong",
-      "sampleSize": 36,
-      "categories": [
-        "sex",
-        "education"
-      ],
-      "categoryNames": [
-        "Sex & Relationships",
-        "Education"
-      ],
-      "crossCategory": true,
-      "interestingScore": 1.201,
-      "direction": "positive"
-    },
-    {
       "var1": "freedom.pressFreedom",
       "var2": "environment.recyclingRate",
       "var1Name": "Press Freedom",
@@ -5657,26 +5457,6 @@
       "direction": "positive"
     },
     {
-      "var1": "lifestyle.beerConsumption",
-      "var2": "transport.averageCommute",
-      "var1Name": "Beer Consumption",
-      "var2Name": "Average Commute",
-      "coefficient": -0.665,
-      "strength": "strong",
-      "sampleSize": 53,
-      "categories": [
-        "lifestyle",
-        "transport"
-      ],
-      "categoryNames": [
-        "Lifestyle",
-        "Transport"
-      ],
-      "crossCategory": true,
-      "interestingScore": 1.198,
-      "direction": "negative"
-    },
-    {
       "var1": "democracy.score",
       "var2": "lifestyle.internetPenetration",
       "var1Name": "Democracy Score",
@@ -5731,26 +5511,6 @@
       "categoryNames": [
         "Governance",
         "Demographics"
-      ],
-      "crossCategory": true,
-      "interestingScore": 1.193,
-      "direction": "positive"
-    },
-    {
-      "var1": "sex.divorceRate",
-      "var2": "environment.co2PerCapita",
-      "var1Name": "Divorce Rate",
-      "var2Name": "CO2 per Capita",
-      "coefficient": 0.662,
-      "strength": "strong",
-      "sampleSize": 47,
-      "categories": [
-        "sex",
-        "environment"
-      ],
-      "categoryNames": [
-        "Sex & Relationships",
-        "Environment"
       ],
       "crossCategory": true,
       "interestingScore": 1.193,
@@ -5977,26 +5737,6 @@
       "direction": "positive"
     },
     {
-      "var1": "poverty.gdpPerCapita",
-      "var2": "sex.divorceRate",
-      "var1Name": "GDP per Capita",
-      "var2Name": "Divorce Rate",
-      "coefficient": 0.657,
-      "strength": "strong",
-      "sampleSize": 46,
-      "categories": [
-        "economy",
-        "sex"
-      ],
-      "categoryNames": [
-        "Economy",
-        "Sex & Relationships"
-      ],
-      "crossCategory": true,
-      "interestingScore": 1.185,
-      "direction": "positive"
-    },
-    {
       "var1": "demographics.ethnicDiversity",
       "var2": "lifestyle.workHoursWeek",
       "var1Name": "Ethnic Diversity",
@@ -6097,20 +5837,20 @@
       "direction": "negative"
     },
     {
-      "var1": "health.maleHeight",
-      "var2": "sex.divorceRate",
-      "var1Name": "Average Male Height",
-      "var2Name": "Divorce Rate",
+      "var1": "democracy.score",
+      "var2": "lifestyle.beerConsumption",
+      "var1Name": "Democracy Score",
+      "var2Name": "Beer Consumption",
       "coefficient": 0.655,
       "strength": "strong",
-      "sampleSize": 47,
+      "sampleSize": 116,
       "categories": [
-        "health",
-        "sex"
+        "governance",
+        "lifestyle"
       ],
       "categoryNames": [
-        "Health",
-        "Sex & Relationships"
+        "Governance",
+        "Lifestyle"
       ],
       "crossCategory": true,
       "interestingScore": 1.182,
@@ -6131,6 +5871,26 @@
       "categoryNames": [
         "Economy",
         "Health"
+      ],
+      "crossCategory": true,
+      "interestingScore": 1.181,
+      "direction": "negative"
+    },
+    {
+      "var1": "health.fertilityRate",
+      "var2": "sex.divorceRate",
+      "var1Name": "Fertility Rate",
+      "var2Name": "Divorce Rate",
+      "coefficient": -0.654,
+      "strength": "strong",
+      "sampleSize": 56,
+      "categories": [
+        "health",
+        "sex"
+      ],
+      "categoryNames": [
+        "Health",
+        "Sex & Relationships"
       ],
       "crossCategory": true,
       "interestingScore": 1.181,
@@ -6377,6 +6137,26 @@
       "direction": "positive"
     },
     {
+      "var1": "health.maleHeight",
+      "var2": "lifestyle.beerConsumption",
+      "var1Name": "Average Male Height",
+      "var2Name": "Beer Consumption",
+      "coefficient": 0.649,
+      "strength": "strong",
+      "sampleSize": 56,
+      "categories": [
+        "health",
+        "lifestyle"
+      ],
+      "categoryNames": [
+        "Health",
+        "Lifestyle"
+      ],
+      "crossCategory": true,
+      "interestingScore": 1.173,
+      "direction": "positive"
+    },
+    {
       "var1": "education.literacyRate",
       "var2": "lifestyle.workHoursWeek",
       "var1Name": "Literacy Rate",
@@ -6577,6 +6357,26 @@
       "direction": "negative"
     },
     {
+      "var1": "gender.wblIndex",
+      "var2": "lifestyle.beerConsumption",
+      "var1Name": "Women's Legal Rights",
+      "var2Name": "Beer Consumption",
+      "coefficient": 0.645,
+      "strength": "strong",
+      "sampleSize": 114,
+      "categories": [
+        "economy",
+        "lifestyle"
+      ],
+      "categoryNames": [
+        "Economy",
+        "Lifestyle"
+      ],
+      "crossCategory": true,
+      "interestingScore": 1.167,
+      "direction": "positive"
+    },
+    {
       "var1": "lifestyle.happinessIndex",
       "var2": "transport.trafficIndex",
       "var1Name": "Happiness Index",
@@ -6717,20 +6517,20 @@
       "direction": "positive"
     },
     {
-      "var1": "sex.lgbtAcceptance",
-      "var2": "education.englishProficiency",
-      "var1Name": "LGBT+ Acceptance",
-      "var2Name": "English Proficiency",
-      "coefficient": 0.689,
+      "var1": "lifestyle.beerConsumption",
+      "var2": "environment.recyclingRate",
+      "var1Name": "Beer Consumption",
+      "var2Name": "Recycling Rate",
+      "coefficient": 0.643,
       "strength": "strong",
-      "sampleSize": 26,
+      "sampleSize": 116,
       "categories": [
-        "sex",
-        "education"
+        "lifestyle",
+        "environment"
       ],
       "categoryNames": [
-        "Sex & Relationships",
-        "Education"
+        "Lifestyle",
+        "Environment"
       ],
       "crossCategory": true,
       "interestingScore": 1.164,
@@ -6817,26 +6617,6 @@
       "direction": "positive"
     },
     {
-      "var1": "sex.divorceRate",
-      "var2": "transport.carOwnership",
-      "var1Name": "Divorce Rate",
-      "var2Name": "Car Ownership",
-      "coefficient": 0.64,
-      "strength": "strong",
-      "sampleSize": 47,
-      "categories": [
-        "sex",
-        "transport"
-      ],
-      "categoryNames": [
-        "Sex & Relationships",
-        "Transport"
-      ],
-      "crossCategory": true,
-      "interestingScore": 1.16,
-      "direction": "positive"
-    },
-    {
       "var1": "transport.carOwnership",
       "var2": "environment.co2PerCapita",
       "var1Name": "Car Ownership",
@@ -6897,6 +6677,26 @@
       "direction": "positive"
     },
     {
+      "var1": "sex.lgbtAcceptance",
+      "var2": "conflict.peaceIndex",
+      "var1Name": "LGBT+ Acceptance",
+      "var2Name": "Peace Index",
+      "coefficient": -0.639,
+      "strength": "strong",
+      "sampleSize": 95,
+      "categories": [
+        "sex",
+        "safety"
+      ],
+      "categoryNames": [
+        "Sex & Relationships",
+        "Safety"
+      ],
+      "crossCategory": true,
+      "interestingScore": 1.158,
+      "direction": "negative"
+    },
+    {
       "var1": "demographics.medianAge",
       "var2": "environment.co2PerCapita",
       "var1Name": "Median Age",
@@ -6914,6 +6714,46 @@
       ],
       "crossCategory": true,
       "interestingScore": 1.158,
+      "direction": "positive"
+    },
+    {
+      "var1": "poverty.gdpPerCapita",
+      "var2": "sex.lgbtAcceptance",
+      "var1Name": "GDP per Capita",
+      "var2Name": "LGBT+ Acceptance",
+      "coefficient": 0.638,
+      "strength": "strong",
+      "sampleSize": 119,
+      "categories": [
+        "economy",
+        "sex"
+      ],
+      "categoryNames": [
+        "Economy",
+        "Sex & Relationships"
+      ],
+      "crossCategory": true,
+      "interestingScore": 1.157,
+      "direction": "positive"
+    },
+    {
+      "var1": "sex.lgbtAcceptance",
+      "var2": "education.englishProficiency",
+      "var1Name": "LGBT+ Acceptance",
+      "var2Name": "English Proficiency",
+      "coefficient": 0.637,
+      "strength": "strong",
+      "sampleSize": 53,
+      "categories": [
+        "sex",
+        "education"
+      ],
+      "categoryNames": [
+        "Sex & Relationships",
+        "Education"
+      ],
+      "crossCategory": true,
+      "interestingScore": 1.156,
       "direction": "positive"
     },
     {
@@ -7097,6 +6937,26 @@
       "direction": "negative"
     },
     {
+      "var1": "education.literacyRate",
+      "var2": "lifestyle.beerConsumption",
+      "var1Name": "Literacy Rate",
+      "var2Name": "Beer Consumption",
+      "coefficient": 0.635,
+      "strength": "strong",
+      "sampleSize": 55,
+      "categories": [
+        "education",
+        "lifestyle"
+      ],
+      "categoryNames": [
+        "Education",
+        "Lifestyle"
+      ],
+      "crossCategory": true,
+      "interestingScore": 1.152,
+      "direction": "positive"
+    },
+    {
       "var1": "freedom.pressFreedom",
       "var2": "lifestyle.chocolateConsumption",
       "var1Name": "Press Freedom",
@@ -7157,24 +7017,44 @@
       "direction": "positive"
     },
     {
-      "var1": "lifestyle.beerConsumption",
-      "var2": "conflict.peaceIndex",
-      "var1Name": "Beer Consumption",
-      "var2Name": "Peace Index",
-      "coefficient": -0.634,
+      "var1": "freedom.pressFreedom",
+      "var2": "lifestyle.beerConsumption",
+      "var1Name": "Press Freedom",
+      "var2Name": "Beer Consumption",
+      "coefficient": 0.632,
       "strength": "strong",
-      "sampleSize": 48,
+      "sampleSize": 116,
       "categories": [
-        "lifestyle",
-        "safety"
+        "governance",
+        "lifestyle"
       ],
       "categoryNames": [
-        "Lifestyle",
-        "Safety"
+        "Governance",
+        "Lifestyle"
       ],
       "crossCategory": true,
-      "interestingScore": 1.151,
-      "direction": "negative"
+      "interestingScore": 1.149,
+      "direction": "positive"
+    },
+    {
+      "var1": "health.breastSize",
+      "var2": "sex.lgbtAcceptance",
+      "var1Name": "Average Breast Size",
+      "var2Name": "LGBT+ Acceptance",
+      "coefficient": 0.633,
+      "strength": "strong",
+      "sampleSize": 66,
+      "categories": [
+        "health",
+        "sex"
+      ],
+      "categoryNames": [
+        "Health",
+        "Sex & Relationships"
+      ],
+      "crossCategory": true,
+      "interestingScore": 1.149,
+      "direction": "positive"
     },
     {
       "var1": "economy.renewableEnergy",
@@ -7335,26 +7215,6 @@
       "crossCategory": true,
       "interestingScore": 1.142,
       "direction": "positive"
-    },
-    {
-      "var1": "sex.lgbtAcceptance",
-      "var2": "conflict.peaceIndex",
-      "var1Name": "LGBT+ Acceptance",
-      "var2Name": "Peace Index",
-      "coefficient": -0.628,
-      "strength": "strong",
-      "sampleSize": 43,
-      "categories": [
-        "sex",
-        "safety"
-      ],
-      "categoryNames": [
-        "Sex & Relationships",
-        "Safety"
-      ],
-      "crossCategory": true,
-      "interestingScore": 1.142,
-      "direction": "negative"
     },
     {
       "var1": "health.obesityRate",
@@ -7557,26 +7417,6 @@
       "direction": "positive"
     },
     {
-      "var1": "health.maleHeight",
-      "var2": "lifestyle.beerConsumption",
-      "var1Name": "Average Male Height",
-      "var2Name": "Beer Consumption",
-      "coefficient": 0.647,
-      "strength": "strong",
-      "sampleSize": 33,
-      "categories": [
-        "health",
-        "lifestyle"
-      ],
-      "categoryNames": [
-        "Health",
-        "Lifestyle"
-      ],
-      "crossCategory": true,
-      "interestingScore": 1.135,
-      "direction": "positive"
-    },
-    {
       "var1": "democracy.score",
       "var2": "health.airPollution",
       "var1Name": "Democracy Score",
@@ -7594,6 +7434,106 @@
       ],
       "crossCategory": true,
       "interestingScore": 1.134,
+      "direction": "negative"
+    },
+    {
+      "var1": "health.alcoholConsumption",
+      "var2": "sex.lgbtAcceptance",
+      "var1Name": "Alcohol Consumption",
+      "var2Name": "LGBT+ Acceptance",
+      "coefficient": 0.622,
+      "strength": "strong",
+      "sampleSize": 62,
+      "categories": [
+        "health",
+        "sex"
+      ],
+      "categoryNames": [
+        "Health",
+        "Sex & Relationships"
+      ],
+      "crossCategory": true,
+      "interestingScore": 1.133,
+      "direction": "positive"
+    },
+    {
+      "var1": "lifestyle.beerConsumption",
+      "var2": "transport.carOwnership",
+      "var1Name": "Beer Consumption",
+      "var2Name": "Car Ownership",
+      "coefficient": 0.622,
+      "strength": "strong",
+      "sampleSize": 116,
+      "categories": [
+        "lifestyle",
+        "transport"
+      ],
+      "categoryNames": [
+        "Lifestyle",
+        "Transport"
+      ],
+      "crossCategory": true,
+      "interestingScore": 1.133,
+      "direction": "positive"
+    },
+    {
+      "var1": "health.airPollution",
+      "var2": "lifestyle.beerConsumption",
+      "var1Name": "Air Pollution",
+      "var2Name": "Beer Consumption",
+      "coefficient": -0.621,
+      "strength": "strong",
+      "sampleSize": 116,
+      "categories": [
+        "health",
+        "lifestyle"
+      ],
+      "categoryNames": [
+        "Health",
+        "Lifestyle"
+      ],
+      "crossCategory": true,
+      "interestingScore": 1.132,
+      "direction": "negative"
+    },
+    {
+      "var1": "sex.lgbtAcceptance",
+      "var2": "lifestyle.beerConsumption",
+      "var1Name": "LGBT+ Acceptance",
+      "var2Name": "Beer Consumption",
+      "coefficient": 0.621,
+      "strength": "strong",
+      "sampleSize": 111,
+      "categories": [
+        "sex",
+        "lifestyle"
+      ],
+      "categoryNames": [
+        "Sex & Relationships",
+        "Lifestyle"
+      ],
+      "crossCategory": true,
+      "interestingScore": 1.131,
+      "direction": "positive"
+    },
+    {
+      "var1": "lifestyle.beerConsumption",
+      "var2": "conflict.peaceIndex",
+      "var1Name": "Beer Consumption",
+      "var2Name": "Peace Index",
+      "coefficient": -0.621,
+      "strength": "strong",
+      "sampleSize": 89,
+      "categories": [
+        "lifestyle",
+        "safety"
+      ],
+      "categoryNames": [
+        "Lifestyle",
+        "Safety"
+      ],
+      "crossCategory": true,
+      "interestingScore": 1.131,
       "direction": "negative"
     },
     {
@@ -7697,6 +7637,26 @@
       "direction": "positive"
     },
     {
+      "var1": "health.maleHeight",
+      "var2": "lifestyle.wineConsumption",
+      "var1Name": "Average Male Height",
+      "var2Name": "Wine Consumption",
+      "coefficient": 0.627,
+      "strength": "strong",
+      "sampleSize": 37,
+      "categories": [
+        "health",
+        "lifestyle"
+      ],
+      "categoryNames": [
+        "Health",
+        "Lifestyle"
+      ],
+      "crossCategory": true,
+      "interestingScore": 1.125,
+      "direction": "positive"
+    },
+    {
       "var1": "demographics.medianAge",
       "var2": "transport.trafficIndex",
       "var1Name": "Median Age",
@@ -7795,26 +7755,6 @@
       "crossCategory": true,
       "interestingScore": 1.122,
       "direction": "positive"
-    },
-    {
-      "var1": "sex.divorceRate",
-      "var2": "demographics.ethnicDiversity",
-      "var1Name": "Divorce Rate",
-      "var2Name": "Ethnic Diversity",
-      "coefficient": -0.615,
-      "strength": "strong",
-      "sampleSize": 47,
-      "categories": [
-        "sex",
-        "demographics"
-      ],
-      "categoryNames": [
-        "Sex & Relationships",
-        "Demographics"
-      ],
-      "crossCategory": true,
-      "interestingScore": 1.122,
-      "direction": "negative"
     },
     {
       "var1": "lifestyle.workHoursWeek",
@@ -7954,6 +7894,26 @@
       ],
       "crossCategory": true,
       "interestingScore": 1.119,
+      "direction": "positive"
+    },
+    {
+      "var1": "economy.economicFreedom",
+      "var2": "sex.lgbtAcceptance",
+      "var1Name": "Economic Freedom Index",
+      "var2Name": "LGBT+ Acceptance",
+      "coefficient": 0.612,
+      "strength": "strong",
+      "sampleSize": 124,
+      "categories": [
+        "economy",
+        "sex"
+      ],
+      "categoryNames": [
+        "Economy",
+        "Sex & Relationships"
+      ],
+      "crossCategory": true,
+      "interestingScore": 1.118,
       "direction": "positive"
     },
     {
@@ -8115,6 +8075,46 @@
       "crossCategory": true,
       "interestingScore": 1.114,
       "direction": "positive"
+    },
+    {
+      "var1": "lifestyle.wineConsumption",
+      "var2": "transport.carOwnership",
+      "var1Name": "Wine Consumption",
+      "var2Name": "Car Ownership",
+      "coefficient": 0.61,
+      "strength": "strong",
+      "sampleSize": 77,
+      "categories": [
+        "lifestyle",
+        "transport"
+      ],
+      "categoryNames": [
+        "Lifestyle",
+        "Transport"
+      ],
+      "crossCategory": true,
+      "interestingScore": 1.114,
+      "direction": "positive"
+    },
+    {
+      "var1": "sex.lgbtAcceptance",
+      "var2": "transport.trafficIndex",
+      "var1Name": "LGBT+ Acceptance",
+      "var2Name": "Traffic Index",
+      "coefficient": -0.609,
+      "strength": "strong",
+      "sampleSize": 127,
+      "categories": [
+        "sex",
+        "transport"
+      ],
+      "categoryNames": [
+        "Sex & Relationships",
+        "Transport"
+      ],
+      "crossCategory": true,
+      "interestingScore": 1.113,
+      "direction": "negative"
     },
     {
       "var1": "lifestyle.screenTime",
@@ -8497,23 +8497,23 @@
       "direction": "negative"
     },
     {
-      "var1": "economy.millionairesPerCapita",
-      "var2": "sex.lgbtAcceptance",
-      "var1Name": "Millionaires per Capita",
-      "var2Name": "LGBT+ Acceptance",
-      "coefficient": 0.644,
+      "var1": "sex.lgbtAcceptance",
+      "var2": "education.nobelPrizesPerCapita",
+      "var1Name": "LGBT+ Acceptance",
+      "var2Name": "Nobel Prizes per Capita",
+      "coefficient": 0.601,
       "strength": "strong",
-      "sampleSize": 27,
+      "sampleSize": 72,
       "categories": [
-        "economy",
-        "sex"
+        "sex",
+        "education"
       ],
       "categoryNames": [
-        "Economy",
-        "Sex & Relationships"
+        "Sex & Relationships",
+        "Education"
       ],
       "crossCategory": true,
-      "interestingScore": 1.101,
+      "interestingScore": 1.102,
       "direction": "positive"
     },
     {
@@ -8557,6 +8557,26 @@
       "direction": "positive"
     },
     {
+      "var1": "economy.millionairesPerCapita",
+      "var2": "lifestyle.wineConsumption",
+      "var1Name": "Millionaires per Capita",
+      "var2Name": "Wine Consumption",
+      "coefficient": 0.6,
+      "strength": "strong",
+      "sampleSize": 45,
+      "categories": [
+        "economy",
+        "lifestyle"
+      ],
+      "categoryNames": [
+        "Economy",
+        "Lifestyle"
+      ],
+      "crossCategory": true,
+      "interestingScore": 1.1,
+      "direction": "positive"
+    },
+    {
       "var1": "lifestyle.screenTime",
       "var2": "crime.safetyIndex",
       "var1Name": "Screen Time",
@@ -8577,24 +8597,24 @@
       "direction": "negative"
     },
     {
-      "var1": "sex.divorceRate",
-      "var2": "lifestyle.workHoursWeek",
-      "var1Name": "Divorce Rate",
-      "var2Name": "Work Hours/Week",
-      "coefficient": -0.6,
+      "var1": "gender.wblIndex",
+      "var2": "lifestyle.wineConsumption",
+      "var1Name": "Women's Legal Rights",
+      "var2Name": "Wine Consumption",
+      "coefficient": 0.599,
       "strength": "moderate",
-      "sampleSize": 47,
+      "sampleSize": 75,
       "categories": [
-        "sex",
+        "economy",
         "lifestyle"
       ],
       "categoryNames": [
-        "Sex & Relationships",
+        "Economy",
         "Lifestyle"
       ],
       "crossCategory": true,
       "interestingScore": 1.099,
-      "direction": "negative"
+      "direction": "positive"
     },
     {
       "var1": "demographics.netMigrationRate",
@@ -8637,26 +8657,6 @@
       "direction": "positive"
     },
     {
-      "var1": "education.englishProficiency",
-      "var2": "lifestyle.beerConsumption",
-      "var1Name": "English Proficiency",
-      "var2Name": "Beer Consumption",
-      "coefficient": 0.608,
-      "strength": "strong",
-      "sampleSize": 37,
-      "categories": [
-        "education",
-        "lifestyle"
-      ],
-      "categoryNames": [
-        "Education",
-        "Lifestyle"
-      ],
-      "crossCategory": true,
-      "interestingScore": 1.098,
-      "direction": "positive"
-    },
-    {
       "var1": "health.fertilityRate",
       "var2": "conflict.peaceIndex",
       "var1Name": "Fertility Rate",
@@ -8677,26 +8677,6 @@
       "direction": "positive"
     },
     {
-      "var1": "economy.incomeTax",
-      "var2": "sex.lgbtAcceptance",
-      "var1Name": "Top Income Tax Rate",
-      "var2Name": "LGBT+ Acceptance",
-      "coefficient": 0.597,
-      "strength": "moderate",
-      "sampleSize": 47,
-      "categories": [
-        "economy",
-        "sex"
-      ],
-      "categoryNames": [
-        "Economy",
-        "Sex & Relationships"
-      ],
-      "crossCategory": true,
-      "interestingScore": 1.095,
-      "direction": "positive"
-    },
-    {
       "var1": "poverty.hdi",
       "var2": "crime.safetyIndex",
       "var1Name": "Human Development Index",
@@ -8714,46 +8694,6 @@
       ],
       "crossCategory": true,
       "interestingScore": 1.094,
-      "direction": "positive"
-    },
-    {
-      "var1": "gender.wblIndex",
-      "var2": "lifestyle.wineConsumption",
-      "var1Name": "Women's Legal Rights",
-      "var2Name": "Wine Consumption",
-      "coefficient": 0.596,
-      "strength": "moderate",
-      "sampleSize": 54,
-      "categories": [
-        "economy",
-        "lifestyle"
-      ],
-      "categoryNames": [
-        "Economy",
-        "Lifestyle"
-      ],
-      "crossCategory": true,
-      "interestingScore": 1.094,
-      "direction": "positive"
-    },
-    {
-      "var1": "health.maleHeight",
-      "var2": "lifestyle.wineConsumption",
-      "var1Name": "Average Male Height",
-      "var2Name": "Wine Consumption",
-      "coefficient": 0.615,
-      "strength": "strong",
-      "sampleSize": 34,
-      "categories": [
-        "health",
-        "lifestyle"
-      ],
-      "categoryNames": [
-        "Health",
-        "Lifestyle"
-      ],
-      "crossCategory": true,
-      "interestingScore": 1.093,
       "direction": "positive"
     },
     {
@@ -8815,6 +8755,46 @@
       "crossCategory": true,
       "interestingScore": 1.092,
       "direction": "positive"
+    },
+    {
+      "var1": "lifestyle.beerConsumption",
+      "var2": "transport.trafficIndex",
+      "var1Name": "Beer Consumption",
+      "var2Name": "Traffic Index",
+      "coefficient": -0.595,
+      "strength": "moderate",
+      "sampleSize": 116,
+      "categories": [
+        "lifestyle",
+        "transport"
+      ],
+      "categoryNames": [
+        "Lifestyle",
+        "Transport"
+      ],
+      "crossCategory": true,
+      "interestingScore": 1.092,
+      "direction": "negative"
+    },
+    {
+      "var1": "sex.divorceRate",
+      "var2": "lifestyle.workHoursWeek",
+      "var1Name": "Divorce Rate",
+      "var2Name": "Work Hours/Week",
+      "coefficient": -0.594,
+      "strength": "moderate",
+      "sampleSize": 51,
+      "categories": [
+        "sex",
+        "lifestyle"
+      ],
+      "categoryNames": [
+        "Sex & Relationships",
+        "Lifestyle"
+      ],
+      "crossCategory": true,
+      "interestingScore": 1.091,
+      "direction": "negative"
     },
     {
       "var1": "demographics.netMigrationRate",
@@ -9077,6 +9057,26 @@
       "direction": "positive"
     },
     {
+      "var1": "economy.evAdoption",
+      "var2": "sex.lgbtAcceptance",
+      "var1Name": "EV Adoption",
+      "var2Name": "LGBT+ Acceptance",
+      "coefficient": 0.59,
+      "strength": "moderate",
+      "sampleSize": 48,
+      "categories": [
+        "economy",
+        "sex"
+      ],
+      "categoryNames": [
+        "Economy",
+        "Sex & Relationships"
+      ],
+      "crossCategory": true,
+      "interestingScore": 1.085,
+      "direction": "positive"
+    },
+    {
       "var1": "health.penisSize",
       "var2": "sex.ageFirstSex",
       "var1Name": "Average Penis Size",
@@ -9217,6 +9217,26 @@
       "direction": "negative"
     },
     {
+      "var1": "demographics.medianAge",
+      "var2": "lifestyle.beerConsumption",
+      "var1Name": "Median Age",
+      "var2Name": "Beer Consumption",
+      "coefficient": 0.588,
+      "strength": "moderate",
+      "sampleSize": 85,
+      "categories": [
+        "demographics",
+        "lifestyle"
+      ],
+      "categoryNames": [
+        "Demographics",
+        "Lifestyle"
+      ],
+      "crossCategory": true,
+      "interestingScore": 1.082,
+      "direction": "positive"
+    },
+    {
       "var1": "economy.billionairesPerCapita",
       "var2": "transport.trafficIndex",
       "var1Name": "Billionaires per Capita",
@@ -9235,6 +9255,46 @@
       "crossCategory": true,
       "interestingScore": 1.081,
       "direction": "negative"
+    },
+    {
+      "var1": "health.lifeExpectancy",
+      "var2": "sex.divorceRate",
+      "var1Name": "Life Expectancy",
+      "var2Name": "Divorce Rate",
+      "coefficient": 0.588,
+      "strength": "moderate",
+      "sampleSize": 56,
+      "categories": [
+        "health",
+        "sex"
+      ],
+      "categoryNames": [
+        "Health",
+        "Sex & Relationships"
+      ],
+      "crossCategory": true,
+      "interestingScore": 1.081,
+      "direction": "positive"
+    },
+    {
+      "var1": "sex.lgbtAcceptance",
+      "var2": "lifestyle.wineConsumption",
+      "var1Name": "LGBT+ Acceptance",
+      "var2Name": "Wine Consumption",
+      "coefficient": 0.587,
+      "strength": "moderate",
+      "sampleSize": 76,
+      "categories": [
+        "sex",
+        "lifestyle"
+      ],
+      "categoryNames": [
+        "Sex & Relationships",
+        "Lifestyle"
+      ],
+      "crossCategory": true,
+      "interestingScore": 1.081,
+      "direction": "positive"
     },
     {
       "var1": "economy.mcdonaldsPerCapita",
@@ -9277,26 +9337,6 @@
       "direction": "positive"
     },
     {
-      "var1": "lifestyle.beerConsumption",
-      "var2": "transport.trafficIndex",
-      "var1Name": "Beer Consumption",
-      "var2Name": "Traffic Index",
-      "coefficient": -0.587,
-      "strength": "moderate",
-      "sampleSize": 53,
-      "categories": [
-        "lifestyle",
-        "transport"
-      ],
-      "categoryNames": [
-        "Lifestyle",
-        "Transport"
-      ],
-      "crossCategory": true,
-      "interestingScore": 1.08,
-      "direction": "negative"
-    },
-    {
       "var1": "health.airPollution",
       "var2": "lifestyle.happinessIndex",
       "var1Name": "Air Pollution",
@@ -9331,26 +9371,6 @@
       "categoryNames": [
         "Governance",
         "Health"
-      ],
-      "crossCategory": true,
-      "interestingScore": 1.078,
-      "direction": "positive"
-    },
-    {
-      "var1": "economy.mcdonaldsPerCapita",
-      "var2": "sex.lgbtAcceptance",
-      "var1Name": "McDonald's per Capita",
-      "var2Name": "LGBT+ Acceptance",
-      "coefficient": 0.615,
-      "strength": "strong",
-      "sampleSize": 31,
-      "categories": [
-        "economy",
-        "sex"
-      ],
-      "categoryNames": [
-        "Economy",
-        "Sex & Relationships"
       ],
       "crossCategory": true,
       "interestingScore": 1.078,
@@ -9577,6 +9597,26 @@
       "direction": "negative"
     },
     {
+      "var1": "economy.incomeTax",
+      "var2": "sex.lgbtAcceptance",
+      "var1Name": "Top Income Tax Rate",
+      "var2Name": "LGBT+ Acceptance",
+      "coefficient": 0.58,
+      "strength": "moderate",
+      "sampleSize": 127,
+      "categories": [
+        "economy",
+        "sex"
+      ],
+      "categoryNames": [
+        "Economy",
+        "Sex & Relationships"
+      ],
+      "crossCategory": true,
+      "interestingScore": 1.071,
+      "direction": "positive"
+    },
+    {
       "var1": "economy.economicFreedom",
       "var2": "education.nobelPrizesPerCapita",
       "var1Name": "Economic Freedom Index",
@@ -9778,6 +9818,26 @@
     },
     {
       "var1": "health.breastSize",
+      "var2": "lifestyle.beerConsumption",
+      "var1Name": "Average Breast Size",
+      "var2Name": "Beer Consumption",
+      "coefficient": 0.579,
+      "strength": "moderate",
+      "sampleSize": 63,
+      "categories": [
+        "health",
+        "lifestyle"
+      ],
+      "categoryNames": [
+        "Health",
+        "Lifestyle"
+      ],
+      "crossCategory": true,
+      "interestingScore": 1.068,
+      "direction": "positive"
+    },
+    {
+      "var1": "health.breastSize",
       "var2": "sex.datingAppUsage",
       "var1Name": "Average Breast Size",
       "var2Name": "Dating App Usage",
@@ -9795,6 +9855,26 @@
       "crossCategory": true,
       "interestingScore": 1.067,
       "direction": "positive"
+    },
+    {
+      "var1": "sex.consanguinityRate",
+      "var2": "lifestyle.beerConsumption",
+      "var1Name": "Consanguinity Rate",
+      "var2Name": "Beer Consumption",
+      "coefficient": -0.578,
+      "strength": "moderate",
+      "sampleSize": 116,
+      "categories": [
+        "sex",
+        "lifestyle"
+      ],
+      "categoryNames": [
+        "Sex & Relationships",
+        "Lifestyle"
+      ],
+      "crossCategory": true,
+      "interestingScore": 1.067,
+      "direction": "negative"
     },
     {
       "var1": "economy.millionairesPerCapita",
@@ -9877,6 +9957,26 @@
       "direction": "positive"
     },
     {
+      "var1": "freedom.pressFreedom",
+      "var2": "lifestyle.wineConsumption",
+      "var1Name": "Press Freedom",
+      "var2Name": "Wine Consumption",
+      "coefficient": 0.576,
+      "strength": "moderate",
+      "sampleSize": 77,
+      "categories": [
+        "governance",
+        "lifestyle"
+      ],
+      "categoryNames": [
+        "Governance",
+        "Lifestyle"
+      ],
+      "crossCategory": true,
+      "interestingScore": 1.063,
+      "direction": "positive"
+    },
+    {
       "var1": "health.airPollution",
       "var2": "sex.datingAppUsage",
       "var1Name": "Air Pollution",
@@ -9924,26 +10024,6 @@
       "coefficient": 0.575,
       "strength": "moderate",
       "sampleSize": 82,
-      "categories": [
-        "economy",
-        "lifestyle"
-      ],
-      "categoryNames": [
-        "Economy",
-        "Lifestyle"
-      ],
-      "crossCategory": true,
-      "interestingScore": 1.062,
-      "direction": "positive"
-    },
-    {
-      "var1": "economy.millionairesPerCapita",
-      "var2": "lifestyle.wineConsumption",
-      "var1Name": "Millionaires per Capita",
-      "var2Name": "Wine Consumption",
-      "coefficient": 0.574,
-      "strength": "moderate",
-      "sampleSize": 42,
       "categories": [
         "economy",
         "lifestyle"
@@ -10097,6 +10177,26 @@
       "direction": "negative"
     },
     {
+      "var1": "democracy.score",
+      "var2": "lifestyle.wineConsumption",
+      "var1Name": "Democracy Score",
+      "var2Name": "Wine Consumption",
+      "coefficient": 0.573,
+      "strength": "moderate",
+      "sampleSize": 77,
+      "categories": [
+        "governance",
+        "lifestyle"
+      ],
+      "categoryNames": [
+        "Governance",
+        "Lifestyle"
+      ],
+      "crossCategory": true,
+      "interestingScore": 1.06,
+      "direction": "positive"
+    },
+    {
       "var1": "economy.bigMacIndex",
       "var2": "demographics.urbanPopulation",
       "var1Name": "Big Mac Price (USD)",
@@ -10111,6 +10211,26 @@
       "categoryNames": [
         "Economy",
         "Demographics"
+      ],
+      "crossCategory": true,
+      "interestingScore": 1.06,
+      "direction": "positive"
+    },
+    {
+      "var1": "sex.lgbtAcceptance",
+      "var2": "lifestyle.chocolateConsumption",
+      "var1Name": "LGBT+ Acceptance",
+      "var2Name": "Chocolate Consumption",
+      "coefficient": 0.573,
+      "strength": "moderate",
+      "sampleSize": 40,
+      "categories": [
+        "sex",
+        "lifestyle"
+      ],
+      "categoryNames": [
+        "Sex & Relationships",
+        "Lifestyle"
       ],
       "crossCategory": true,
       "interestingScore": 1.06,
@@ -10154,26 +10274,6 @@
       ],
       "crossCategory": true,
       "interestingScore": 1.058,
-      "direction": "positive"
-    },
-    {
-      "var1": "economy.interestRate",
-      "var2": "lifestyle.teaConsumption",
-      "var1Name": "Central Bank Interest Rate",
-      "var2Name": "Tea Consumption",
-      "coefficient": 0.571,
-      "strength": "moderate",
-      "sampleSize": 47,
-      "categories": [
-        "economy",
-        "lifestyle"
-      ],
-      "categoryNames": [
-        "Economy",
-        "Lifestyle"
-      ],
-      "crossCategory": true,
-      "interestingScore": 1.056,
       "direction": "positive"
     },
     {
@@ -10335,26 +10435,6 @@
       "crossCategory": true,
       "interestingScore": 1.05,
       "direction": "negative"
-    },
-    {
-      "var1": "economy.bigMacIndex",
-      "var2": "lifestyle.wineConsumption",
-      "var1Name": "Big Mac Price (USD)",
-      "var2Name": "Wine Consumption",
-      "coefficient": 0.566,
-      "strength": "moderate",
-      "sampleSize": 55,
-      "categories": [
-        "economy",
-        "lifestyle"
-      ],
-      "categoryNames": [
-        "Economy",
-        "Lifestyle"
-      ],
-      "crossCategory": true,
-      "interestingScore": 1.049,
-      "direction": "positive"
     },
     {
       "var1": "health.airPollution",
@@ -10677,26 +10757,6 @@
       "direction": "positive"
     },
     {
-      "var1": "health.alcoholConsumption",
-      "var2": "sex.lgbtAcceptance",
-      "var1Name": "Alcohol Consumption",
-      "var2Name": "LGBT+ Acceptance",
-      "coefficient": 0.563,
-      "strength": "moderate",
-      "sampleSize": 47,
-      "categories": [
-        "health",
-        "sex"
-      ],
-      "categoryNames": [
-        "Health",
-        "Sex & Relationships"
-      ],
-      "crossCategory": true,
-      "interestingScore": 1.045,
-      "direction": "positive"
-    },
-    {
       "var1": "sex.sexualPartners",
       "var2": "demographics.netMigrationRate",
       "var1Name": "Avg Sexual Partners",
@@ -10711,6 +10771,26 @@
       "categoryNames": [
         "Sex & Relationships",
         "Demographics"
+      ],
+      "crossCategory": true,
+      "interestingScore": 1.045,
+      "direction": "positive"
+    },
+    {
+      "var1": "lifestyle.wineConsumption",
+      "var2": "environment.recyclingRate",
+      "var1Name": "Wine Consumption",
+      "var2Name": "Recycling Rate",
+      "coefficient": 0.563,
+      "strength": "moderate",
+      "sampleSize": 77,
+      "categories": [
+        "lifestyle",
+        "environment"
+      ],
+      "categoryNames": [
+        "Lifestyle",
+        "Environment"
       ],
       "crossCategory": true,
       "interestingScore": 1.045,
@@ -10777,6 +10857,26 @@
       "direction": "positive"
     },
     {
+      "var1": "economy.bigMacIndex",
+      "var2": "lifestyle.wineConsumption",
+      "var1Name": "Big Mac Price (USD)",
+      "var2Name": "Wine Consumption",
+      "coefficient": 0.562,
+      "strength": "moderate",
+      "sampleSize": 76,
+      "categories": [
+        "economy",
+        "lifestyle"
+      ],
+      "categoryNames": [
+        "Economy",
+        "Lifestyle"
+      ],
+      "crossCategory": true,
+      "interestingScore": 1.043,
+      "direction": "positive"
+    },
+    {
       "var1": "health.maleHeight",
       "var2": "demographics.netMigrationRate",
       "var1Name": "Average Male Height",
@@ -10831,6 +10931,26 @@
       "categoryNames": [
         "Health",
         "Lifestyle"
+      ],
+      "crossCategory": true,
+      "interestingScore": 1.042,
+      "direction": "positive"
+    },
+    {
+      "var1": "sex.divorceRate",
+      "var2": "demographics.medianAge",
+      "var1Name": "Divorce Rate",
+      "var2Name": "Median Age",
+      "coefficient": 0.561,
+      "strength": "moderate",
+      "sampleSize": 84,
+      "categories": [
+        "sex",
+        "demographics"
+      ],
+      "categoryNames": [
+        "Sex & Relationships",
+        "Demographics"
       ],
       "crossCategory": true,
       "interestingScore": 1.042,
@@ -10977,26 +11097,6 @@
       "direction": "positive"
     },
     {
-      "var1": "sex.lgbtAcceptance",
-      "var2": "lifestyle.chocolateConsumption",
-      "var1Name": "LGBT+ Acceptance",
-      "var2Name": "Chocolate Consumption",
-      "coefficient": 0.605,
-      "strength": "strong",
-      "sampleSize": 26,
-      "categories": [
-        "sex",
-        "lifestyle"
-      ],
-      "categoryNames": [
-        "Sex & Relationships",
-        "Lifestyle"
-      ],
-      "crossCategory": true,
-      "interestingScore": 1.038,
-      "direction": "positive"
-    },
-    {
       "var1": "demographics.illegalImmigrationRate",
       "var2": "demographics.refugeesHosted",
       "var1Name": "Illegal Immigration Rate",
@@ -11071,46 +11171,6 @@
       "categoryNames": [
         "Health",
         "Education"
-      ],
-      "crossCategory": true,
-      "interestingScore": 1.036,
-      "direction": "positive"
-    },
-    {
-      "var1": "health.airPollution",
-      "var2": "sex.divorceRate",
-      "var1Name": "Air Pollution",
-      "var2Name": "Divorce Rate",
-      "coefficient": -0.557,
-      "strength": "moderate",
-      "sampleSize": 47,
-      "categories": [
-        "health",
-        "sex"
-      ],
-      "categoryNames": [
-        "Health",
-        "Sex & Relationships"
-      ],
-      "crossCategory": true,
-      "interestingScore": 1.036,
-      "direction": "negative"
-    },
-    {
-      "var1": "sex.lgbtAcceptance",
-      "var2": "lifestyle.wineConsumption",
-      "var1Name": "LGBT+ Acceptance",
-      "var2Name": "Wine Consumption",
-      "coefficient": 0.594,
-      "strength": "moderate",
-      "sampleSize": 29,
-      "categories": [
-        "sex",
-        "lifestyle"
-      ],
-      "categoryNames": [
-        "Sex & Relationships",
-        "Lifestyle"
       ],
       "crossCategory": true,
       "interestingScore": 1.036,
@@ -11477,26 +11537,6 @@
       "direction": "positive"
     },
     {
-      "var1": "freedom.pressFreedom",
-      "var2": "lifestyle.wineConsumption",
-      "var1Name": "Press Freedom",
-      "var2Name": "Wine Consumption",
-      "coefficient": 0.552,
-      "strength": "moderate",
-      "sampleSize": 55,
-      "categories": [
-        "governance",
-        "lifestyle"
-      ],
-      "categoryNames": [
-        "Governance",
-        "Lifestyle"
-      ],
-      "crossCategory": true,
-      "interestingScore": 1.028,
-      "direction": "positive"
-    },
-    {
       "var1": "demographics.urbanPopulation",
       "var2": "lifestyle.videoGamePlayers",
       "var1Name": "Urban Population",
@@ -11657,20 +11697,20 @@
       "direction": "positive"
     },
     {
-      "var1": "sex.lgbtAcceptance",
-      "var2": "demographics.netMigrationRate",
-      "var1Name": "LGBT+ Acceptance",
-      "var2Name": "Net Migration Rate",
-      "coefficient": 0.57,
+      "var1": "education.avgIQ",
+      "var2": "lifestyle.beerConsumption",
+      "var1Name": "Average IQ",
+      "var2Name": "Beer Consumption",
+      "coefficient": 0.55,
       "strength": "moderate",
-      "sampleSize": 34,
+      "sampleSize": 55,
       "categories": [
-        "sex",
-        "demographics"
+        "education",
+        "lifestyle"
       ],
       "categoryNames": [
-        "Sex & Relationships",
-        "Demographics"
+        "Education",
+        "Lifestyle"
       ],
       "crossCategory": true,
       "interestingScore": 1.025,
@@ -11717,6 +11757,26 @@
       "direction": "negative"
     },
     {
+      "var1": "poverty.hdi",
+      "var2": "lifestyle.beerConsumption",
+      "var1Name": "Human Development Index",
+      "var2Name": "Beer Consumption",
+      "coefficient": 0.549,
+      "strength": "moderate",
+      "sampleSize": 112,
+      "categories": [
+        "economy",
+        "lifestyle"
+      ],
+      "categoryNames": [
+        "Economy",
+        "Lifestyle"
+      ],
+      "crossCategory": true,
+      "interestingScore": 1.023,
+      "direction": "positive"
+    },
+    {
       "var1": "freedom.corruptionIndex",
       "var2": "health.alcoholConsumption",
       "var1Name": "Corruption Index",
@@ -11751,6 +11811,26 @@
       "categoryNames": [
         "Governance",
         "Environment"
+      ],
+      "crossCategory": true,
+      "interestingScore": 1.021,
+      "direction": "positive"
+    },
+    {
+      "var1": "poverty.gdpPerCapita",
+      "var2": "lifestyle.wineConsumption",
+      "var1Name": "GDP per Capita",
+      "var2Name": "Wine Consumption",
+      "coefficient": 0.547,
+      "strength": "moderate",
+      "sampleSize": 73,
+      "categories": [
+        "economy",
+        "lifestyle"
+      ],
+      "categoryNames": [
+        "Economy",
+        "Lifestyle"
       ],
       "crossCategory": true,
       "interestingScore": 1.021,
@@ -11797,26 +11877,6 @@
       "direction": "positive"
     },
     {
-      "var1": "health.alcoholConsumption",
-      "var2": "lifestyle.wineConsumption",
-      "var1Name": "Alcohol Consumption",
-      "var2Name": "Wine Consumption",
-      "coefficient": 0.567,
-      "strength": "moderate",
-      "sampleSize": 34,
-      "categories": [
-        "health",
-        "lifestyle"
-      ],
-      "categoryNames": [
-        "Health",
-        "Lifestyle"
-      ],
-      "crossCategory": true,
-      "interestingScore": 1.021,
-      "direction": "positive"
-    },
-    {
       "var1": "health.plasticSurgeryRate",
       "var2": "lifestyle.workHoursWeek",
       "var1Name": "Plastic Surgery Rate",
@@ -11835,6 +11895,26 @@
       "crossCategory": true,
       "interestingScore": 1.021,
       "direction": "negative"
+    },
+    {
+      "var1": "sex.divorceRate",
+      "var2": "education.literacyRate",
+      "var1Name": "Divorce Rate",
+      "var2Name": "Literacy Rate",
+      "coefficient": 0.547,
+      "strength": "moderate",
+      "sampleSize": 55,
+      "categories": [
+        "sex",
+        "education"
+      ],
+      "categoryNames": [
+        "Sex & Relationships",
+        "Education"
+      ],
+      "crossCategory": true,
+      "interestingScore": 1.021,
+      "direction": "positive"
     },
     {
       "var1": "demographics.netMigrationRate",
@@ -11891,6 +11971,26 @@
       "categoryNames": [
         "Governance",
         "Education"
+      ],
+      "crossCategory": true,
+      "interestingScore": 1.019,
+      "direction": "positive"
+    },
+    {
+      "var1": "economy.mcdonaldsPerCapita",
+      "var2": "sex.lgbtAcceptance",
+      "var1Name": "McDonald's per Capita",
+      "var2Name": "LGBT+ Acceptance",
+      "coefficient": 0.546,
+      "strength": "moderate",
+      "sampleSize": 84,
+      "categories": [
+        "economy",
+        "sex"
+      ],
+      "categoryNames": [
+        "Economy",
+        "Sex & Relationships"
       ],
       "crossCategory": true,
       "interestingScore": 1.019,
@@ -12137,20 +12237,20 @@
       "direction": "negative"
     },
     {
-      "var1": "economy.billionairesPerCapita",
-      "var2": "sex.lgbtAcceptance",
-      "var1Name": "Billionaires per Capita",
-      "var2Name": "LGBT+ Acceptance",
-      "coefficient": 0.576,
+      "var1": "freedom.corruptionIndex",
+      "var2": "lifestyle.wineConsumption",
+      "var1Name": "Corruption Index",
+      "var2Name": "Wine Consumption",
+      "coefficient": 0.543,
       "strength": "moderate",
-      "sampleSize": 30,
+      "sampleSize": 77,
       "categories": [
-        "economy",
-        "sex"
+        "governance",
+        "lifestyle"
       ],
       "categoryNames": [
-        "Economy",
-        "Sex & Relationships"
+        "Governance",
+        "Lifestyle"
       ],
       "crossCategory": true,
       "interestingScore": 1.014,
@@ -12517,6 +12617,26 @@
       "direction": "positive"
     },
     {
+      "var1": "sex.lgbtAcceptance",
+      "var2": "demographics.urbanPopulation",
+      "var1Name": "LGBT+ Acceptance",
+      "var2Name": "Urban Population",
+      "coefficient": 0.537,
+      "strength": "moderate",
+      "sampleSize": 125,
+      "categories": [
+        "sex",
+        "demographics"
+      ],
+      "categoryNames": [
+        "Sex & Relationships",
+        "Demographics"
+      ],
+      "crossCategory": true,
+      "interestingScore": 1.005,
+      "direction": "positive"
+    },
+    {
       "var1": "health.maleHeight",
       "var2": "education.englishProficiency",
       "var1Name": "Average Male Height",
@@ -12531,6 +12651,26 @@
       "categoryNames": [
         "Health",
         "Education"
+      ],
+      "crossCategory": true,
+      "interestingScore": 1.004,
+      "direction": "positive"
+    },
+    {
+      "var1": "health.alcoholConsumption",
+      "var2": "lifestyle.wineConsumption",
+      "var1Name": "Alcohol Consumption",
+      "var2Name": "Wine Consumption",
+      "coefficient": 0.546,
+      "strength": "moderate",
+      "sampleSize": 37,
+      "categories": [
+        "health",
+        "lifestyle"
+      ],
+      "categoryNames": [
+        "Health",
+        "Lifestyle"
       ],
       "crossCategory": true,
       "interestingScore": 1.004,
@@ -12754,46 +12894,6 @@
       ],
       "crossCategory": true,
       "interestingScore": 0.995,
-      "direction": "positive"
-    },
-    {
-      "var1": "lifestyle.beerConsumption",
-      "var2": "transport.carOwnership",
-      "var1Name": "Beer Consumption",
-      "var2Name": "Car Ownership",
-      "coefficient": 0.53,
-      "strength": "moderate",
-      "sampleSize": 53,
-      "categories": [
-        "lifestyle",
-        "transport"
-      ],
-      "categoryNames": [
-        "Lifestyle",
-        "Transport"
-      ],
-      "crossCategory": true,
-      "interestingScore": 0.995,
-      "direction": "positive"
-    },
-    {
-      "var1": "democracy.score",
-      "var2": "lifestyle.wineConsumption",
-      "var1Name": "Democracy Score",
-      "var2Name": "Wine Consumption",
-      "coefficient": 0.529,
-      "strength": "moderate",
-      "sampleSize": 55,
-      "categories": [
-        "governance",
-        "lifestyle"
-      ],
-      "categoryNames": [
-        "Governance",
-        "Lifestyle"
-      ],
-      "crossCategory": true,
-      "interestingScore": 0.994,
       "direction": "positive"
     },
     {
@@ -13037,13 +13137,13 @@
       "direction": "positive"
     },
     {
-      "var1": "economy.currentAccount",
+      "var1": "economy.millionairesPerCapita",
       "var2": "sex.lgbtAcceptance",
-      "var1Name": "Current Account Balance",
+      "var1Name": "Millionaires per Capita",
       "var2Name": "LGBT+ Acceptance",
       "coefficient": 0.527,
       "strength": "moderate",
-      "sampleSize": 47,
+      "sampleSize": 49,
       "categories": [
         "economy",
         "sex"
@@ -13054,6 +13154,26 @@
       ],
       "crossCategory": true,
       "interestingScore": 0.99,
+      "direction": "positive"
+    },
+    {
+      "var1": "economy.economicFreedom",
+      "var2": "lifestyle.beerConsumption",
+      "var1Name": "Economic Freedom Index",
+      "var2Name": "Beer Consumption",
+      "coefficient": 0.526,
+      "strength": "moderate",
+      "sampleSize": 113,
+      "categories": [
+        "economy",
+        "lifestyle"
+      ],
+      "categoryNames": [
+        "Economy",
+        "Lifestyle"
+      ],
+      "crossCategory": true,
+      "interestingScore": 0.988,
       "direction": "positive"
     },
     {
@@ -13158,6 +13278,26 @@
     },
     {
       "var1": "health.plasticSurgeryRate",
+      "var2": "sex.lgbtAcceptance",
+      "var1Name": "Plastic Surgery Rate",
+      "var2Name": "LGBT+ Acceptance",
+      "coefficient": 0.523,
+      "strength": "moderate",
+      "sampleSize": 127,
+      "categories": [
+        "health",
+        "sex"
+      ],
+      "categoryNames": [
+        "Health",
+        "Sex & Relationships"
+      ],
+      "crossCategory": true,
+      "interestingScore": 0.984,
+      "direction": "positive"
+    },
+    {
+      "var1": "health.plasticSurgeryRate",
       "var2": "environment.co2PerCapita",
       "var1Name": "Plastic Surgery Rate",
       "var2Name": "CO2 per Capita",
@@ -13197,26 +13337,6 @@
       "direction": "positive"
     },
     {
-      "var1": "sex.consanguinityRate",
-      "var2": "lifestyle.beerConsumption",
-      "var1Name": "Consanguinity Rate",
-      "var2Name": "Beer Consumption",
-      "coefficient": -0.521,
-      "strength": "moderate",
-      "sampleSize": 53,
-      "categories": [
-        "sex",
-        "lifestyle"
-      ],
-      "categoryNames": [
-        "Sex & Relationships",
-        "Lifestyle"
-      ],
-      "crossCategory": true,
-      "interestingScore": 0.982,
-      "direction": "negative"
-    },
-    {
       "var1": "economy.mcdonaldsPerCapita",
       "var2": "demographics.immigrationRate",
       "var1Name": "McDonald's per Capita",
@@ -13231,26 +13351,6 @@
       "categoryNames": [
         "Economy",
         "Demographics"
-      ],
-      "crossCategory": true,
-      "interestingScore": 0.981,
-      "direction": "positive"
-    },
-    {
-      "var1": "economy.evAdoption",
-      "var2": "sex.lgbtAcceptance",
-      "var1Name": "EV Adoption",
-      "var2Name": "LGBT+ Acceptance",
-      "coefficient": 0.557,
-      "strength": "moderate",
-      "sampleSize": 29,
-      "categories": [
-        "economy",
-        "sex"
-      ],
-      "categoryNames": [
-        "Economy",
-        "Sex & Relationships"
       ],
       "crossCategory": true,
       "interestingScore": 0.981,
@@ -13537,6 +13637,26 @@
       "direction": "negative"
     },
     {
+      "var1": "sex.lgbtAcceptance",
+      "var2": "lifestyle.videoGamePlayers",
+      "var1Name": "LGBT+ Acceptance",
+      "var2Name": "Video Game Players",
+      "coefficient": 0.517,
+      "strength": "moderate",
+      "sampleSize": 49,
+      "categories": [
+        "sex",
+        "lifestyle"
+      ],
+      "categoryNames": [
+        "Sex & Relationships",
+        "Lifestyle"
+      ],
+      "crossCategory": true,
+      "interestingScore": 0.975,
+      "direction": "positive"
+    },
+    {
       "var1": "democracy.score",
       "var2": "economy.millionairesPerCapita",
       "var1Name": "Democracy Score",
@@ -13657,26 +13777,6 @@
       "direction": "positive"
     },
     {
-      "var1": "gender.wblIndex",
-      "var2": "lifestyle.beerConsumption",
-      "var1Name": "Women's Legal Rights",
-      "var2Name": "Beer Consumption",
-      "coefficient": 0.514,
-      "strength": "moderate",
-      "sampleSize": 53,
-      "categories": [
-        "economy",
-        "lifestyle"
-      ],
-      "categoryNames": [
-        "Economy",
-        "Lifestyle"
-      ],
-      "crossCategory": true,
-      "interestingScore": 0.971,
-      "direction": "positive"
-    },
-    {
       "var1": "health.fertilityRate",
       "var2": "sex.consanguinityRate",
       "var1Name": "Fertility Rate",
@@ -13691,6 +13791,26 @@
       "categoryNames": [
         "Health",
         "Sex & Relationships"
+      ],
+      "crossCategory": true,
+      "interestingScore": 0.971,
+      "direction": "positive"
+    },
+    {
+      "var1": "sex.lgbtAcceptance",
+      "var2": "education.pisaMath",
+      "var1Name": "LGBT+ Acceptance",
+      "var2Name": "PISA Math Score",
+      "coefficient": 0.514,
+      "strength": "moderate",
+      "sampleSize": 76,
+      "categories": [
+        "sex",
+        "education"
+      ],
+      "categoryNames": [
+        "Sex & Relationships",
+        "Education"
       ],
       "crossCategory": true,
       "interestingScore": 0.971,
@@ -13857,26 +13977,6 @@
       "direction": "positive"
     },
     {
-      "var1": "sex.divorceRate",
-      "var2": "environment.recyclingRate",
-      "var1Name": "Divorce Rate",
-      "var2Name": "Recycling Rate",
-      "coefficient": 0.513,
-      "strength": "moderate",
-      "sampleSize": 47,
-      "categories": [
-        "sex",
-        "environment"
-      ],
-      "categoryNames": [
-        "Sex & Relationships",
-        "Environment"
-      ],
-      "crossCategory": true,
-      "interestingScore": 0.969,
-      "direction": "positive"
-    },
-    {
       "var1": "education.avgIQ",
       "var2": "transport.trafficIndex",
       "var1Name": "Average IQ",
@@ -13897,6 +13997,26 @@
       "direction": "negative"
     },
     {
+      "var1": "freedom.corruptionIndex",
+      "var2": "lifestyle.beerConsumption",
+      "var1Name": "Corruption Index",
+      "var2Name": "Beer Consumption",
+      "coefficient": 0.512,
+      "strength": "moderate",
+      "sampleSize": 116,
+      "categories": [
+        "governance",
+        "lifestyle"
+      ],
+      "categoryNames": [
+        "Governance",
+        "Lifestyle"
+      ],
+      "crossCategory": true,
+      "interestingScore": 0.968,
+      "direction": "positive"
+    },
+    {
       "var1": "lifestyle.tattooRate",
       "var2": "environment.recyclingRate",
       "var1Name": "Tattoo Rate",
@@ -13904,26 +14024,6 @@
       "coefficient": 0.512,
       "strength": "moderate",
       "sampleSize": 48,
-      "categories": [
-        "lifestyle",
-        "environment"
-      ],
-      "categoryNames": [
-        "Lifestyle",
-        "Environment"
-      ],
-      "crossCategory": true,
-      "interestingScore": 0.968,
-      "direction": "positive"
-    },
-    {
-      "var1": "lifestyle.beerConsumption",
-      "var2": "environment.recyclingRate",
-      "var1Name": "Beer Consumption",
-      "var2Name": "Recycling Rate",
-      "coefficient": 0.512,
-      "strength": "moderate",
-      "sampleSize": 53,
       "categories": [
         "lifestyle",
         "environment"
@@ -14317,6 +14417,26 @@
       "direction": "positive"
     },
     {
+      "var1": "lifestyle.wineConsumption",
+      "var2": "conflict.peaceIndex",
+      "var1Name": "Wine Consumption",
+      "var2Name": "Peace Index",
+      "coefficient": -0.507,
+      "strength": "moderate",
+      "sampleSize": 62,
+      "categories": [
+        "lifestyle",
+        "safety"
+      ],
+      "categoryNames": [
+        "Lifestyle",
+        "Safety"
+      ],
+      "crossCategory": true,
+      "interestingScore": 0.961,
+      "direction": "negative"
+    },
+    {
       "var1": "freedom.corruptionIndex",
       "var2": "lifestyle.tattooRate",
       "var1Name": "Corruption Index",
@@ -14375,26 +14495,6 @@
       "crossCategory": true,
       "interestingScore": 0.96,
       "direction": "positive"
-    },
-    {
-      "var1": "sex.lgbtAcceptance",
-      "var2": "demographics.ethnicDiversity",
-      "var1Name": "LGBT+ Acceptance",
-      "var2Name": "Ethnic Diversity",
-      "coefficient": -0.507,
-      "strength": "moderate",
-      "sampleSize": 47,
-      "categories": [
-        "sex",
-        "demographics"
-      ],
-      "categoryNames": [
-        "Sex & Relationships",
-        "Demographics"
-      ],
-      "crossCategory": true,
-      "interestingScore": 0.96,
-      "direction": "negative"
     },
     {
       "var1": "demographics.medianAge",
@@ -14537,26 +14637,6 @@
       "direction": "positive"
     },
     {
-      "var1": "health.airPollution",
-      "var2": "lifestyle.wineConsumption",
-      "var1Name": "Air Pollution",
-      "var2Name": "Wine Consumption",
-      "coefficient": -0.503,
-      "strength": "moderate",
-      "sampleSize": 55,
-      "categories": [
-        "health",
-        "lifestyle"
-      ],
-      "categoryNames": [
-        "Health",
-        "Lifestyle"
-      ],
-      "crossCategory": true,
-      "interestingScore": 0.955,
-      "direction": "negative"
-    },
-    {
       "var1": "freedom.pressFreedom",
       "var2": "economy.mcdonaldsPerCapita",
       "var1Name": "Press Freedom",
@@ -14571,26 +14651,6 @@
       "categoryNames": [
         "Governance",
         "Economy"
-      ],
-      "crossCategory": true,
-      "interestingScore": 0.954,
-      "direction": "positive"
-    },
-    {
-      "var1": "sex.lgbtAcceptance",
-      "var2": "lifestyle.videoGamePlayers",
-      "var1Name": "LGBT+ Acceptance",
-      "var2Name": "Video Game Players",
-      "coefficient": 0.536,
-      "strength": "moderate",
-      "sampleSize": 30,
-      "categories": [
-        "sex",
-        "lifestyle"
-      ],
-      "categoryNames": [
-        "Sex & Relationships",
-        "Lifestyle"
       ],
       "crossCategory": true,
       "interestingScore": 0.954,
@@ -14737,26 +14797,6 @@
       "direction": "negative"
     },
     {
-      "var1": "lifestyle.wineConsumption",
-      "var2": "transport.carOwnership",
-      "var1Name": "Wine Consumption",
-      "var2Name": "Car Ownership",
-      "coefficient": 0.501,
-      "strength": "moderate",
-      "sampleSize": 55,
-      "categories": [
-        "lifestyle",
-        "transport"
-      ],
-      "categoryNames": [
-        "Lifestyle",
-        "Transport"
-      ],
-      "crossCategory": true,
-      "interestingScore": 0.952,
-      "direction": "positive"
-    },
-    {
       "var1": "sex.datingAppUsage",
       "var2": "lifestyle.pizzaConsumption",
       "var1Name": "Dating App Usage",
@@ -14837,46 +14877,6 @@
       "direction": "positive"
     },
     {
-      "var1": "sex.sexualPartners",
-      "var2": "lifestyle.beerConsumption",
-      "var1Name": "Avg Sexual Partners",
-      "var2Name": "Beer Consumption",
-      "coefficient": 0.546,
-      "strength": "moderate",
-      "sampleSize": 26,
-      "categories": [
-        "sex",
-        "lifestyle"
-      ],
-      "categoryNames": [
-        "Sex & Relationships",
-        "Lifestyle"
-      ],
-      "crossCategory": true,
-      "interestingScore": 0.949,
-      "direction": "positive"
-    },
-    {
-      "var1": "economy.exportsGdp",
-      "var2": "sex.lgbtAcceptance",
-      "var1Name": "Exports (% GDP)",
-      "var2Name": "LGBT+ Acceptance",
-      "coefficient": 0.498,
-      "strength": "moderate",
-      "sampleSize": 47,
-      "categories": [
-        "economy",
-        "sex"
-      ],
-      "categoryNames": [
-        "Economy",
-        "Sex & Relationships"
-      ],
-      "crossCategory": true,
-      "interestingScore": 0.948,
-      "direction": "positive"
-    },
-    {
       "var1": "economy.giniIndex",
       "var2": "lifestyle.chocolateConsumption",
       "var1Name": "Gini Index (Inequality)",
@@ -14890,6 +14890,26 @@
       ],
       "categoryNames": [
         "Economy",
+        "Lifestyle"
+      ],
+      "crossCategory": true,
+      "interestingScore": 0.948,
+      "direction": "negative"
+    },
+    {
+      "var1": "health.airPollution",
+      "var2": "lifestyle.wineConsumption",
+      "var1Name": "Air Pollution",
+      "var2Name": "Wine Consumption",
+      "coefficient": -0.499,
+      "strength": "moderate",
+      "sampleSize": 77,
+      "categories": [
+        "health",
+        "lifestyle"
+      ],
+      "categoryNames": [
+        "Health",
         "Lifestyle"
       ],
       "crossCategory": true,
@@ -14955,46 +14975,6 @@
       "crossCategory": true,
       "interestingScore": 0.947,
       "direction": "negative"
-    },
-    {
-      "var1": "demographics.medianAge",
-      "var2": "lifestyle.beerConsumption",
-      "var1Name": "Median Age",
-      "var2Name": "Beer Consumption",
-      "coefficient": 0.498,
-      "strength": "moderate",
-      "sampleSize": 48,
-      "categories": [
-        "demographics",
-        "lifestyle"
-      ],
-      "categoryNames": [
-        "Demographics",
-        "Lifestyle"
-      ],
-      "crossCategory": true,
-      "interestingScore": 0.947,
-      "direction": "positive"
-    },
-    {
-      "var1": "health.sleepDuration",
-      "var2": "lifestyle.wineConsumption",
-      "var1Name": "Sleep Duration",
-      "var2Name": "Wine Consumption",
-      "coefficient": 0.497,
-      "strength": "moderate",
-      "sampleSize": 55,
-      "categories": [
-        "health",
-        "lifestyle"
-      ],
-      "categoryNames": [
-        "Health",
-        "Lifestyle"
-      ],
-      "crossCategory": true,
-      "interestingScore": 0.946,
-      "direction": "positive"
     },
     {
       "var1": "economy.currentAccount",
@@ -15117,6 +15097,26 @@
       "direction": "negative"
     },
     {
+      "var1": "health.fertilityRate",
+      "var2": "lifestyle.beerConsumption",
+      "var1Name": "Fertility Rate",
+      "var2Name": "Beer Consumption",
+      "coefficient": -0.496,
+      "strength": "moderate",
+      "sampleSize": 56,
+      "categories": [
+        "health",
+        "lifestyle"
+      ],
+      "categoryNames": [
+        "Health",
+        "Lifestyle"
+      ],
+      "crossCategory": true,
+      "interestingScore": 0.944,
+      "direction": "negative"
+    },
+    {
       "var1": "freedom.cryptoAdoption",
       "var2": "demographics.medianAge",
       "var1Name": "Crypto Adoption",
@@ -15197,6 +15197,26 @@
       "direction": "negative"
     },
     {
+      "var1": "sex.datingAppUsage",
+      "var2": "lifestyle.beerConsumption",
+      "var1Name": "Dating App Usage",
+      "var2Name": "Beer Consumption",
+      "coefficient": 0.495,
+      "strength": "moderate",
+      "sampleSize": 43,
+      "categories": [
+        "sex",
+        "lifestyle"
+      ],
+      "categoryNames": [
+        "Sex & Relationships",
+        "Lifestyle"
+      ],
+      "crossCategory": true,
+      "interestingScore": 0.942,
+      "direction": "positive"
+    },
+    {
       "var1": "freedom.cryptoAdoption",
       "var2": "health.alcoholConsumption",
       "var1Name": "Crypto Adoption",
@@ -15257,33 +15277,13 @@
       "direction": "positive"
     },
     {
-      "var1": "sex.lgbtAcceptance",
-      "var2": "transport.averageCommute",
-      "var1Name": "LGBT+ Acceptance",
-      "var2Name": "Average Commute",
-      "coefficient": -0.493,
+      "var1": "education.englishProficiency",
+      "var2": "lifestyle.wineConsumption",
+      "var1Name": "English Proficiency",
+      "var2Name": "Wine Consumption",
+      "coefficient": 0.493,
       "strength": "moderate",
-      "sampleSize": 47,
-      "categories": [
-        "sex",
-        "transport"
-      ],
-      "categoryNames": [
-        "Sex & Relationships",
-        "Transport"
-      ],
-      "crossCategory": true,
-      "interestingScore": 0.94,
-      "direction": "negative"
-    },
-    {
-      "var1": "education.literacyRate",
-      "var2": "lifestyle.beerConsumption",
-      "var1Name": "Literacy Rate",
-      "var2Name": "Beer Consumption",
-      "coefficient": 0.52,
-      "strength": "moderate",
-      "sampleSize": 32,
+      "sampleSize": 43,
       "categories": [
         "education",
         "lifestyle"
@@ -15537,6 +15537,26 @@
       "direction": "negative"
     },
     {
+      "var1": "poverty.hdi",
+      "var2": "sex.divorceRate",
+      "var1Name": "Human Development Index",
+      "var2Name": "Divorce Rate",
+      "coefficient": 0.489,
+      "strength": "moderate",
+      "sampleSize": 106,
+      "categories": [
+        "economy",
+        "sex"
+      ],
+      "categoryNames": [
+        "Economy",
+        "Sex & Relationships"
+      ],
+      "crossCategory": true,
+      "interestingScore": 0.934,
+      "direction": "positive"
+    },
+    {
       "var1": "health.alcoholConsumption",
       "var2": "education.pisaMath",
       "var1Name": "Alcohol Consumption",
@@ -15615,26 +15635,6 @@
       "crossCategory": true,
       "interestingScore": 0.933,
       "direction": "negative"
-    },
-    {
-      "var1": "demographics.refugeesHosted",
-      "var2": "lifestyle.teaConsumption",
-      "var1Name": "Refugees Hosted",
-      "var2Name": "Tea Consumption",
-      "coefficient": 0.496,
-      "strength": "moderate",
-      "sampleSize": 38,
-      "categories": [
-        "demographics",
-        "lifestyle"
-      ],
-      "categoryNames": [
-        "Demographics",
-        "Lifestyle"
-      ],
-      "crossCategory": true,
-      "interestingScore": 0.933,
-      "direction": "positive"
     },
     {
       "var1": "economy.millionairesPerCapita",
@@ -15777,26 +15777,6 @@
       "direction": "positive"
     },
     {
-      "var1": "sex.divorceRate",
-      "var2": "transport.trafficIndex",
-      "var1Name": "Divorce Rate",
-      "var2Name": "Traffic Index",
-      "coefficient": -0.485,
-      "strength": "moderate",
-      "sampleSize": 47,
-      "categories": [
-        "sex",
-        "transport"
-      ],
-      "categoryNames": [
-        "Sex & Relationships",
-        "Transport"
-      ],
-      "crossCategory": true,
-      "interestingScore": 0.927,
-      "direction": "negative"
-    },
-    {
       "var1": "democracy.score",
       "var2": "sex.pornConsumption",
       "var1Name": "Democracy Score",
@@ -15811,26 +15791,6 @@
       "categoryNames": [
         "Governance",
         "Sex & Relationships"
-      ],
-      "crossCategory": true,
-      "interestingScore": 0.926,
-      "direction": "positive"
-    },
-    {
-      "var1": "freedom.pressFreedom",
-      "var2": "lifestyle.beerConsumption",
-      "var1Name": "Press Freedom",
-      "var2Name": "Beer Consumption",
-      "coefficient": 0.484,
-      "strength": "moderate",
-      "sampleSize": 53,
-      "categories": [
-        "governance",
-        "lifestyle"
-      ],
-      "categoryNames": [
-        "Governance",
-        "Lifestyle"
       ],
       "crossCategory": true,
       "interestingScore": 0.926,
@@ -15975,26 +15935,6 @@
       "crossCategory": true,
       "interestingScore": 0.924,
       "direction": "negative"
-    },
-    {
-      "var1": "health.plasticSurgeryRate",
-      "var2": "sex.lgbtAcceptance",
-      "var1Name": "Plastic Surgery Rate",
-      "var2Name": "LGBT+ Acceptance",
-      "coefficient": 0.482,
-      "strength": "moderate",
-      "sampleSize": 47,
-      "categories": [
-        "health",
-        "sex"
-      ],
-      "categoryNames": [
-        "Health",
-        "Sex & Relationships"
-      ],
-      "crossCategory": true,
-      "interestingScore": 0.924,
-      "direction": "positive"
     },
     {
       "var1": "health.sleepDuration",
@@ -16237,6 +16177,26 @@
       "direction": "positive"
     },
     {
+      "var1": "sex.lgbtAcceptance",
+      "var2": "sex.datingAppUsage",
+      "var1Name": "LGBT+ Acceptance",
+      "var2Name": "Dating App Usage",
+      "coefficient": 0.72,
+      "strength": "strong",
+      "sampleSize": 45,
+      "categories": [
+        "sex",
+        "sex"
+      ],
+      "categoryNames": [
+        "Sex & Relationships",
+        "Sex & Relationships"
+      ],
+      "crossCategory": false,
+      "interestingScore": 0.92,
+      "direction": "positive"
+    },
+    {
       "var1": "sex.consanguinityRate",
       "var2": "environment.forestCoverage",
       "var1Name": "Consanguinity Rate",
@@ -16255,46 +16215,6 @@
       "crossCategory": true,
       "interestingScore": 0.92,
       "direction": "negative"
-    },
-    {
-      "var1": "economy.fdiInflows",
-      "var2": "lifestyle.wineConsumption",
-      "var1Name": "FDI Inflows (% GDP)",
-      "var2Name": "Wine Consumption",
-      "coefficient": 0.478,
-      "strength": "moderate",
-      "sampleSize": 55,
-      "categories": [
-        "economy",
-        "lifestyle"
-      ],
-      "categoryNames": [
-        "Economy",
-        "Lifestyle"
-      ],
-      "crossCategory": true,
-      "interestingScore": 0.918,
-      "direction": "positive"
-    },
-    {
-      "var1": "freedom.cryptoAdoption",
-      "var2": "sex.lgbtAcceptance",
-      "var1Name": "Crypto Adoption",
-      "var2Name": "LGBT+ Acceptance",
-      "coefficient": 0.478,
-      "strength": "moderate",
-      "sampleSize": 47,
-      "categories": [
-        "governance",
-        "sex"
-      ],
-      "categoryNames": [
-        "Governance",
-        "Sex & Relationships"
-      ],
-      "crossCategory": true,
-      "interestingScore": 0.917,
-      "direction": "positive"
     },
     {
       "var1": "gender.wblIndex",
@@ -16395,26 +16315,6 @@
       "crossCategory": true,
       "interestingScore": 0.916,
       "direction": "positive"
-    },
-    {
-      "var1": "economy.corporateTax",
-      "var2": "sex.divorceRate",
-      "var1Name": "Corporate Tax Rate",
-      "var2Name": "Divorce Rate",
-      "coefficient": -0.477,
-      "strength": "moderate",
-      "sampleSize": 47,
-      "categories": [
-        "economy",
-        "sex"
-      ],
-      "categoryNames": [
-        "Economy",
-        "Sex & Relationships"
-      ],
-      "crossCategory": true,
-      "interestingScore": 0.916,
-      "direction": "negative"
     },
     {
       "var1": "health.maleHeight",
@@ -16537,26 +16437,6 @@
       "direction": "negative"
     },
     {
-      "var1": "sex.divorceRate",
-      "var2": "crime.safetyIndex",
-      "var1Name": "Divorce Rate",
-      "var2Name": "Safety Index",
-      "coefficient": 0.476,
-      "strength": "moderate",
-      "sampleSize": 46,
-      "categories": [
-        "sex",
-        "safety"
-      ],
-      "categoryNames": [
-        "Sex & Relationships",
-        "Safety"
-      ],
-      "crossCategory": true,
-      "interestingScore": 0.914,
-      "direction": "positive"
-    },
-    {
       "var1": "education.avgIQ",
       "var2": "lifestyle.chocolateConsumption",
       "var1Name": "Average IQ",
@@ -16634,6 +16514,26 @@
       ],
       "crossCategory": true,
       "interestingScore": 0.912,
+      "direction": "positive"
+    },
+    {
+      "var1": "freedom.cryptoAdoption",
+      "var2": "sex.lgbtAcceptance",
+      "var1Name": "Crypto Adoption",
+      "var2Name": "LGBT+ Acceptance",
+      "coefficient": 0.474,
+      "strength": "moderate",
+      "sampleSize": 127,
+      "categories": [
+        "governance",
+        "sex"
+      ],
+      "categoryNames": [
+        "Governance",
+        "Sex & Relationships"
+      ],
+      "crossCategory": true,
+      "interestingScore": 0.911,
       "direction": "positive"
     },
     {
@@ -16817,6 +16717,26 @@
       "direction": "negative"
     },
     {
+      "var1": "demographics.twinBirthRate",
+      "var2": "lifestyle.wineConsumption",
+      "var1Name": "Twin Birth Rate",
+      "var2Name": "Wine Consumption",
+      "coefficient": 0.471,
+      "strength": "moderate",
+      "sampleSize": 77,
+      "categories": [
+        "demographics",
+        "lifestyle"
+      ],
+      "categoryNames": [
+        "Demographics",
+        "Lifestyle"
+      ],
+      "crossCategory": true,
+      "interestingScore": 0.907,
+      "direction": "positive"
+    },
+    {
       "var1": "lifestyle.happinessIndex",
       "var2": "lifestyle.chocolateConsumption",
       "var1Name": "Happiness Index",
@@ -16914,26 +16834,6 @@
       ],
       "crossCategory": true,
       "interestingScore": 0.906,
-      "direction": "positive"
-    },
-    {
-      "var1": "demographics.medianAge",
-      "var2": "lifestyle.wineConsumption",
-      "var1Name": "Median Age",
-      "var2Name": "Wine Consumption",
-      "coefficient": 0.47,
-      "strength": "moderate",
-      "sampleSize": 52,
-      "categories": [
-        "demographics",
-        "lifestyle"
-      ],
-      "categoryNames": [
-        "Demographics",
-        "Lifestyle"
-      ],
-      "crossCategory": true,
-      "interestingScore": 0.905,
       "direction": "positive"
     },
     {
@@ -17097,26 +16997,6 @@
       "direction": "positive"
     },
     {
-      "var1": "education.avgIQ",
-      "var2": "lifestyle.beerConsumption",
-      "var1Name": "Average IQ",
-      "var2Name": "Beer Consumption",
-      "coefficient": 0.495,
-      "strength": "moderate",
-      "sampleSize": 32,
-      "categories": [
-        "education",
-        "lifestyle"
-      ],
-      "categoryNames": [
-        "Education",
-        "Lifestyle"
-      ],
-      "crossCategory": true,
-      "interestingScore": 0.902,
-      "direction": "positive"
-    },
-    {
       "var1": "freedom.pressFreedom",
       "var2": "lifestyle.screenTime",
       "var1Name": "Press Freedom",
@@ -17155,26 +17035,6 @@
       "crossCategory": true,
       "interestingScore": 0.901,
       "direction": "positive"
-    },
-    {
-      "var1": "health.hivPrevalence",
-      "var2": "sex.divorceRate",
-      "var1Name": "HIV Prevalence",
-      "var2Name": "Divorce Rate",
-      "coefficient": -0.467,
-      "strength": "moderate",
-      "sampleSize": 44,
-      "categories": [
-        "health",
-        "sex"
-      ],
-      "categoryNames": [
-        "Health",
-        "Sex & Relationships"
-      ],
-      "crossCategory": true,
-      "interestingScore": 0.9,
-      "direction": "negative"
     },
     {
       "var1": "health.sleepDuration",
@@ -17217,6 +17077,26 @@
       "direction": "positive"
     },
     {
+      "var1": "health.obesityRate",
+      "var2": "sex.divorceRate",
+      "var1Name": "Obesity Rate",
+      "var2Name": "Divorce Rate",
+      "coefficient": 0.466,
+      "strength": "moderate",
+      "sampleSize": 56,
+      "categories": [
+        "health",
+        "sex"
+      ],
+      "categoryNames": [
+        "Health",
+        "Sex & Relationships"
+      ],
+      "crossCategory": true,
+      "interestingScore": 0.899,
+      "direction": "positive"
+    },
+    {
       "var1": "demographics.illegalImmigrationRate",
       "var2": "education.pisaMath",
       "var1Name": "Illegal Immigration Rate",
@@ -17237,6 +17117,26 @@
       "direction": "negative"
     },
     {
+      "var1": "economy.gdpGrowth",
+      "var2": "lifestyle.wineConsumption",
+      "var1Name": "GDP Growth Rate",
+      "var2Name": "Wine Consumption",
+      "coefficient": -0.465,
+      "strength": "moderate",
+      "sampleSize": 77,
+      "categories": [
+        "economy",
+        "lifestyle"
+      ],
+      "categoryNames": [
+        "Economy",
+        "Lifestyle"
+      ],
+      "crossCategory": true,
+      "interestingScore": 0.898,
+      "direction": "negative"
+    },
+    {
       "var1": "sex.datingAppUsage",
       "var2": "demographics.urbanPopulation",
       "var1Name": "Dating App Usage",
@@ -17251,26 +17151,6 @@
       "categoryNames": [
         "Sex & Relationships",
         "Demographics"
-      ],
-      "crossCategory": true,
-      "interestingScore": 0.898,
-      "direction": "positive"
-    },
-    {
-      "var1": "lifestyle.beerConsumption",
-      "var2": "crime.safetyIndex",
-      "var1Name": "Beer Consumption",
-      "var2Name": "Safety Index",
-      "coefficient": 0.465,
-      "strength": "moderate",
-      "sampleSize": 53,
-      "categories": [
-        "lifestyle",
-        "safety"
-      ],
-      "categoryNames": [
-        "Lifestyle",
-        "Safety"
       ],
       "crossCategory": true,
       "interestingScore": 0.898,
@@ -17317,26 +17197,6 @@
       "direction": "negative"
     },
     {
-      "var1": "sex.lgbtAcceptance",
-      "var2": "demographics.illegalImmigrationRate",
-      "var1Name": "LGBT+ Acceptance",
-      "var2Name": "Illegal Immigration Rate",
-      "coefficient": -0.481,
-      "strength": "moderate",
-      "sampleSize": 35,
-      "categories": [
-        "sex",
-        "demographics"
-      ],
-      "categoryNames": [
-        "Sex & Relationships",
-        "Demographics"
-      ],
-      "crossCategory": true,
-      "interestingScore": 0.897,
-      "direction": "negative"
-    },
-    {
       "var1": "economy.touristArrivals",
       "var2": "health.lifeExpectancy",
       "var1Name": "Tourist Arrivals",
@@ -17371,26 +17231,6 @@
       "categoryNames": [
         "Health",
         "Sex & Relationships"
-      ],
-      "crossCategory": true,
-      "interestingScore": 0.896,
-      "direction": "positive"
-    },
-    {
-      "var1": "education.englishProficiency",
-      "var2": "lifestyle.wineConsumption",
-      "var1Name": "English Proficiency",
-      "var2Name": "Wine Consumption",
-      "coefficient": 0.471,
-      "strength": "moderate",
-      "sampleSize": 38,
-      "categories": [
-        "education",
-        "lifestyle"
-      ],
-      "categoryNames": [
-        "Education",
-        "Lifestyle"
       ],
       "crossCategory": true,
       "interestingScore": 0.896,
@@ -17497,6 +17337,26 @@
       "direction": "positive"
     },
     {
+      "var1": "health.lifeExpectancy",
+      "var2": "lifestyle.beerConsumption",
+      "var1Name": "Life Expectancy",
+      "var2Name": "Beer Consumption",
+      "coefficient": 0.462,
+      "strength": "moderate",
+      "sampleSize": 56,
+      "categories": [
+        "health",
+        "lifestyle"
+      ],
+      "categoryNames": [
+        "Health",
+        "Lifestyle"
+      ],
+      "crossCategory": true,
+      "interestingScore": 0.894,
+      "direction": "positive"
+    },
+    {
       "var1": "lifestyle.screenTime",
       "var2": "transport.carOwnership",
       "var1Name": "Screen Time",
@@ -17504,26 +17364,6 @@
       "coefficient": -0.462,
       "strength": "moderate",
       "sampleSize": 46,
-      "categories": [
-        "lifestyle",
-        "transport"
-      ],
-      "categoryNames": [
-        "Lifestyle",
-        "Transport"
-      ],
-      "crossCategory": true,
-      "interestingScore": 0.894,
-      "direction": "negative"
-    },
-    {
-      "var1": "lifestyle.wineConsumption",
-      "var2": "transport.averageCommute",
-      "var1Name": "Wine Consumption",
-      "var2Name": "Average Commute",
-      "coefficient": -0.463,
-      "strength": "moderate",
-      "sampleSize": 55,
       "categories": [
         "lifestyle",
         "transport"
@@ -17554,26 +17394,6 @@
       ],
       "crossCategory": true,
       "interestingScore": 0.893,
-      "direction": "negative"
-    },
-    {
-      "var1": "health.diabetesRate",
-      "var2": "lifestyle.wineConsumption",
-      "var1Name": "Diabetes Rate",
-      "var2Name": "Wine Consumption",
-      "coefficient": -0.461,
-      "strength": "moderate",
-      "sampleSize": 55,
-      "categories": [
-        "health",
-        "lifestyle"
-      ],
-      "categoryNames": [
-        "Health",
-        "Lifestyle"
-      ],
-      "crossCategory": true,
-      "interestingScore": 0.892,
       "direction": "negative"
     },
     {
@@ -17697,6 +17517,26 @@
       "direction": "negative"
     },
     {
+      "var1": "health.suicideRate",
+      "var2": "lifestyle.beerConsumption",
+      "var1Name": "Suicide Rate",
+      "var2Name": "Beer Consumption",
+      "coefficient": 0.46,
+      "strength": "moderate",
+      "sampleSize": 56,
+      "categories": [
+        "health",
+        "lifestyle"
+      ],
+      "categoryNames": [
+        "Health",
+        "Lifestyle"
+      ],
+      "crossCategory": true,
+      "interestingScore": 0.89,
+      "direction": "positive"
+    },
+    {
       "var1": "health.lifeExpectancy",
       "var2": "health.maleHeight",
       "var1Name": "Life Expectancy",
@@ -17717,24 +17557,24 @@
       "direction": "positive"
     },
     {
-      "var1": "health.plasticSurgeryRate",
-      "var2": "sex.divorceRate",
-      "var1Name": "Plastic Surgery Rate",
-      "var2Name": "Divorce Rate",
-      "coefficient": 0.459,
+      "var1": "sex.ageFirstSex",
+      "var2": "lifestyle.wineConsumption",
+      "var1Name": "Age of First Sex",
+      "var2Name": "Wine Consumption",
+      "coefficient": -0.458,
       "strength": "moderate",
-      "sampleSize": 47,
+      "sampleSize": 49,
       "categories": [
-        "health",
-        "sex"
+        "sex",
+        "lifestyle"
       ],
       "categoryNames": [
-        "Health",
-        "Sex & Relationships"
+        "Sex & Relationships",
+        "Lifestyle"
       ],
       "crossCategory": true,
       "interestingScore": 0.888,
-      "direction": "positive"
+      "direction": "negative"
     },
     {
       "var1": "health.plasticSurgeryRate",
@@ -17791,26 +17631,6 @@
       "categoryNames": [
         "Economy",
         "Lifestyle"
-      ],
-      "crossCategory": true,
-      "interestingScore": 0.886,
-      "direction": "negative"
-    },
-    {
-      "var1": "economy.giniIndex",
-      "var2": "sex.divorceRate",
-      "var1Name": "Gini Index (Inequality)",
-      "var2Name": "Divorce Rate",
-      "coefficient": -0.458,
-      "strength": "moderate",
-      "sampleSize": 47,
-      "categories": [
-        "economy",
-        "sex"
-      ],
-      "categoryNames": [
-        "Economy",
-        "Sex & Relationships"
       ],
       "crossCategory": true,
       "interestingScore": 0.886,
@@ -18017,6 +17837,26 @@
       "direction": "positive"
     },
     {
+      "var1": "demographics.medianAge",
+      "var2": "lifestyle.wineConsumption",
+      "var1Name": "Median Age",
+      "var2Name": "Wine Consumption",
+      "coefficient": 0.455,
+      "strength": "moderate",
+      "sampleSize": 63,
+      "categories": [
+        "demographics",
+        "lifestyle"
+      ],
+      "categoryNames": [
+        "Demographics",
+        "Lifestyle"
+      ],
+      "crossCategory": true,
+      "interestingScore": 0.883,
+      "direction": "positive"
+    },
+    {
       "var1": "economy.mcdonaldsPerCapita",
       "var2": "education.literacyRate",
       "var1Name": "McDonald's per Capita",
@@ -18137,26 +17977,6 @@
       "direction": "positive"
     },
     {
-      "var1": "education.chessGrandmasters",
-      "var2": "lifestyle.beerConsumption",
-      "var1Name": "Chess Grandmasters",
-      "var2Name": "Beer Consumption",
-      "coefficient": 0.463,
-      "strength": "moderate",
-      "sampleSize": 37,
-      "categories": [
-        "education",
-        "lifestyle"
-      ],
-      "categoryNames": [
-        "Education",
-        "Lifestyle"
-      ],
-      "crossCategory": true,
-      "interestingScore": 0.88,
-      "direction": "positive"
-    },
-    {
       "var1": "economy.giniIndex",
       "var2": "health.lifeExpectancy",
       "var1Name": "Gini Index (Inequality)",
@@ -18195,46 +18015,6 @@
       "crossCategory": true,
       "interestingScore": 0.879,
       "direction": "negative"
-    },
-    {
-      "var1": "economy.economicFreedom",
-      "var2": "lifestyle.beerConsumption",
-      "var1Name": "Economic Freedom Index",
-      "var2Name": "Beer Consumption",
-      "coefficient": 0.453,
-      "strength": "moderate",
-      "sampleSize": 53,
-      "categories": [
-        "economy",
-        "lifestyle"
-      ],
-      "categoryNames": [
-        "Economy",
-        "Lifestyle"
-      ],
-      "crossCategory": true,
-      "interestingScore": 0.879,
-      "direction": "positive"
-    },
-    {
-      "var1": "sex.lgbtAcceptance",
-      "var2": "sex.datingAppUsage",
-      "var1Name": "LGBT+ Acceptance",
-      "var2Name": "Dating App Usage",
-      "coefficient": 0.729,
-      "strength": "strong",
-      "sampleSize": 30,
-      "categories": [
-        "sex",
-        "sex"
-      ],
-      "categoryNames": [
-        "Sex & Relationships",
-        "Sex & Relationships"
-      ],
-      "crossCategory": false,
-      "interestingScore": 0.879,
-      "direction": "positive"
     },
     {
       "var1": "lifestyle.workHoursWeek",
@@ -18297,6 +18077,26 @@
       "direction": "positive"
     },
     {
+      "var1": "sex.divorceRate",
+      "var2": "lifestyle.coffeeConsumption",
+      "var1Name": "Divorce Rate",
+      "var2Name": "Coffee Consumption",
+      "coefficient": 0.452,
+      "strength": "moderate",
+      "sampleSize": 51,
+      "categories": [
+        "sex",
+        "lifestyle"
+      ],
+      "categoryNames": [
+        "Sex & Relationships",
+        "Lifestyle"
+      ],
+      "crossCategory": true,
+      "interestingScore": 0.878,
+      "direction": "positive"
+    },
+    {
       "var1": "lifestyle.videoGamePlayers",
       "var2": "environment.co2PerCapita",
       "var1Name": "Video Game Players",
@@ -18333,6 +18133,26 @@
         "Demographics"
       ],
       "crossCategory": true,
+      "interestingScore": 0.876,
+      "direction": "positive"
+    },
+    {
+      "var1": "lifestyle.tattooRate",
+      "var2": "lifestyle.beerConsumption",
+      "var1Name": "Tattoo Rate",
+      "var2Name": "Beer Consumption",
+      "coefficient": 0.676,
+      "strength": "strong",
+      "sampleSize": 46,
+      "categories": [
+        "lifestyle",
+        "lifestyle"
+      ],
+      "categoryNames": [
+        "Lifestyle",
+        "Lifestyle"
+      ],
+      "crossCategory": false,
       "interestingScore": 0.876,
       "direction": "positive"
     },
@@ -18411,26 +18231,6 @@
       "categoryNames": [
         "Health",
         "Demographics"
-      ],
-      "crossCategory": true,
-      "interestingScore": 0.874,
-      "direction": "positive"
-    },
-    {
-      "var1": "sex.divorceRate",
-      "var2": "lifestyle.coffeeConsumption",
-      "var1Name": "Divorce Rate",
-      "var2Name": "Coffee Consumption",
-      "coefficient": 0.449,
-      "strength": "moderate",
-      "sampleSize": 47,
-      "categories": [
-        "sex",
-        "lifestyle"
-      ],
-      "categoryNames": [
-        "Sex & Relationships",
-        "Lifestyle"
       ],
       "crossCategory": true,
       "interestingScore": 0.874,
@@ -18597,26 +18397,6 @@
       "direction": "positive"
     },
     {
-      "var1": "sex.divorceRate",
-      "var2": "education.pisaMath",
-      "var1Name": "Divorce Rate",
-      "var2Name": "PISA Math Score",
-      "coefficient": 0.484,
-      "strength": "moderate",
-      "sampleSize": 29,
-      "categories": [
-        "sex",
-        "education"
-      ],
-      "categoryNames": [
-        "Sex & Relationships",
-        "Education"
-      ],
-      "crossCategory": true,
-      "interestingScore": 0.871,
-      "direction": "positive"
-    },
-    {
       "var1": "education.literacyRate",
       "var2": "lifestyle.pizzaConsumption",
       "var1Name": "Literacy Rate",
@@ -18695,6 +18475,46 @@
       "crossCategory": true,
       "interestingScore": 0.87,
       "direction": "negative"
+    },
+    {
+      "var1": "poverty.gdpPerCapita",
+      "var2": "lifestyle.beerConsumption",
+      "var1Name": "GDP per Capita",
+      "var2Name": "Beer Consumption",
+      "coefficient": 0.446,
+      "strength": "moderate",
+      "sampleSize": 110,
+      "categories": [
+        "economy",
+        "lifestyle"
+      ],
+      "categoryNames": [
+        "Economy",
+        "Lifestyle"
+      ],
+      "crossCategory": true,
+      "interestingScore": 0.869,
+      "direction": "positive"
+    },
+    {
+      "var1": "economy.fdiInflows",
+      "var2": "lifestyle.wineConsumption",
+      "var1Name": "FDI Inflows (% GDP)",
+      "var2Name": "Wine Consumption",
+      "coefficient": 0.446,
+      "strength": "moderate",
+      "sampleSize": 75,
+      "categories": [
+        "economy",
+        "lifestyle"
+      ],
+      "categoryNames": [
+        "Economy",
+        "Lifestyle"
+      ],
+      "crossCategory": true,
+      "interestingScore": 0.869,
+      "direction": "positive"
     },
     {
       "var1": "health.obesityRate",
@@ -18797,26 +18617,6 @@
       "direction": "positive"
     },
     {
-      "var1": "poverty.gdpPerCapita",
-      "var2": "lifestyle.wineConsumption",
-      "var1Name": "GDP per Capita",
-      "var2Name": "Wine Consumption",
-      "coefficient": 0.445,
-      "strength": "moderate",
-      "sampleSize": 53,
-      "categories": [
-        "economy",
-        "lifestyle"
-      ],
-      "categoryNames": [
-        "Economy",
-        "Lifestyle"
-      ],
-      "crossCategory": true,
-      "interestingScore": 0.867,
-      "direction": "positive"
-    },
-    {
       "var1": "gender.wblIndex",
       "var2": "health.lifeExpectancy",
       "var1Name": "Women's Legal Rights",
@@ -18835,26 +18635,6 @@
       "crossCategory": true,
       "interestingScore": 0.867,
       "direction": "positive"
-    },
-    {
-      "var1": "health.airPollution",
-      "var2": "lifestyle.beerConsumption",
-      "var1Name": "Air Pollution",
-      "var2Name": "Beer Consumption",
-      "coefficient": -0.445,
-      "strength": "moderate",
-      "sampleSize": 53,
-      "categories": [
-        "health",
-        "lifestyle"
-      ],
-      "categoryNames": [
-        "Health",
-        "Lifestyle"
-      ],
-      "crossCategory": true,
-      "interestingScore": 0.867,
-      "direction": "negative"
     },
     {
       "var1": "freedom.pressFreedom",
@@ -18915,26 +18695,6 @@
       "crossCategory": false,
       "interestingScore": 0.866,
       "direction": "positive"
-    },
-    {
-      "var1": "lifestyle.wineConsumption",
-      "var2": "conflict.peaceIndex",
-      "var1Name": "Wine Consumption",
-      "var2Name": "Peace Index",
-      "coefficient": -0.444,
-      "strength": "moderate",
-      "sampleSize": 49,
-      "categories": [
-        "lifestyle",
-        "safety"
-      ],
-      "categoryNames": [
-        "Lifestyle",
-        "Safety"
-      ],
-      "crossCategory": true,
-      "interestingScore": 0.866,
-      "direction": "negative"
     },
     {
       "var1": "economy.renewableEnergy",
@@ -19077,46 +18837,6 @@
       "direction": "negative"
     },
     {
-      "var1": "lifestyle.wineConsumption",
-      "var2": "environment.recyclingRate",
-      "var1Name": "Wine Consumption",
-      "var2Name": "Recycling Rate",
-      "coefficient": 0.443,
-      "strength": "moderate",
-      "sampleSize": 55,
-      "categories": [
-        "lifestyle",
-        "environment"
-      ],
-      "categoryNames": [
-        "Lifestyle",
-        "Environment"
-      ],
-      "crossCategory": true,
-      "interestingScore": 0.864,
-      "direction": "positive"
-    },
-    {
-      "var1": "poverty.gdpPerCapita",
-      "var2": "lifestyle.beerConsumption",
-      "var1Name": "GDP per Capita",
-      "var2Name": "Beer Consumption",
-      "coefficient": 0.442,
-      "strength": "moderate",
-      "sampleSize": 51,
-      "categories": [
-        "economy",
-        "lifestyle"
-      ],
-      "categoryNames": [
-        "Economy",
-        "Lifestyle"
-      ],
-      "crossCategory": true,
-      "interestingScore": 0.863,
-      "direction": "positive"
-    },
-    {
       "var1": "economy.renewableEnergy",
       "var2": "transport.trafficIndex",
       "var1Name": "Renewable Energy",
@@ -19157,26 +18877,6 @@
       "direction": "positive"
     },
     {
-      "var1": "sex.lgbtAcceptance",
-      "var2": "lifestyle.teaConsumption",
-      "var1Name": "LGBT+ Acceptance",
-      "var2Name": "Tea Consumption",
-      "coefficient": -0.478,
-      "strength": "moderate",
-      "sampleSize": 29,
-      "categories": [
-        "sex",
-        "lifestyle"
-      ],
-      "categoryNames": [
-        "Sex & Relationships",
-        "Lifestyle"
-      ],
-      "crossCategory": true,
-      "interestingScore": 0.863,
-      "direction": "negative"
-    },
-    {
       "var1": "demographics.ethnicDiversity",
       "var2": "demographics.medianAge",
       "var1Name": "Ethnic Diversity",
@@ -19215,26 +18915,6 @@
       "crossCategory": true,
       "interestingScore": 0.863,
       "direction": "negative"
-    },
-    {
-      "var1": "freedom.corruptionIndex",
-      "var2": "sex.divorceRate",
-      "var1Name": "Corruption Index",
-      "var2Name": "Divorce Rate",
-      "coefficient": 0.441,
-      "strength": "moderate",
-      "sampleSize": 47,
-      "categories": [
-        "governance",
-        "sex"
-      ],
-      "categoryNames": [
-        "Governance",
-        "Sex & Relationships"
-      ],
-      "crossCategory": true,
-      "interestingScore": 0.862,
-      "direction": "positive"
     },
     {
       "var1": "economy.mcdonaldsPerCapita",
@@ -19357,26 +19037,6 @@
       "direction": "positive"
     },
     {
-      "var1": "sex.divorceRate",
-      "var2": "lifestyle.videoGamePlayers",
-      "var1Name": "Divorce Rate",
-      "var2Name": "Video Game Players",
-      "coefficient": 0.473,
-      "strength": "moderate",
-      "sampleSize": 30,
-      "categories": [
-        "sex",
-        "lifestyle"
-      ],
-      "categoryNames": [
-        "Sex & Relationships",
-        "Lifestyle"
-      ],
-      "crossCategory": true,
-      "interestingScore": 0.86,
-      "direction": "positive"
-    },
-    {
       "var1": "economy.economicFreedom",
       "var2": "sex.consanguinityRate",
       "var1Name": "Economic Freedom Index",
@@ -19395,6 +19055,26 @@
       "crossCategory": true,
       "interestingScore": 0.859,
       "direction": "negative"
+    },
+    {
+      "var1": "health.sleepDuration",
+      "var2": "lifestyle.wineConsumption",
+      "var1Name": "Sleep Duration",
+      "var2Name": "Wine Consumption",
+      "coefficient": 0.439,
+      "strength": "moderate",
+      "sampleSize": 77,
+      "categories": [
+        "health",
+        "lifestyle"
+      ],
+      "categoryNames": [
+        "Health",
+        "Lifestyle"
+      ],
+      "crossCategory": true,
+      "interestingScore": 0.859,
+      "direction": "positive"
     },
     {
       "var1": "lifestyle.internetPenetration",
@@ -19477,26 +19157,6 @@
       "direction": "negative"
     },
     {
-      "var1": "economy.gdpGrowth",
-      "var2": "lifestyle.wineConsumption",
-      "var1Name": "GDP Growth Rate",
-      "var2Name": "Wine Consumption",
-      "coefficient": -0.439,
-      "strength": "moderate",
-      "sampleSize": 55,
-      "categories": [
-        "economy",
-        "lifestyle"
-      ],
-      "categoryNames": [
-        "Economy",
-        "Lifestyle"
-      ],
-      "crossCategory": true,
-      "interestingScore": 0.858,
-      "direction": "negative"
-    },
-    {
       "var1": "health.alcoholConsumption",
       "var2": "sex.pornConsumption",
       "var1Name": "Alcohol Consumption",
@@ -19551,26 +19211,6 @@
       "categoryNames": [
         "Economy",
         "Environment"
-      ],
-      "crossCategory": true,
-      "interestingScore": 0.857,
-      "direction": "positive"
-    },
-    {
-      "var1": "economy.currentAccount",
-      "var2": "sex.divorceRate",
-      "var1Name": "Current Account Balance",
-      "var2Name": "Divorce Rate",
-      "coefficient": 0.438,
-      "strength": "moderate",
-      "sampleSize": 47,
-      "categories": [
-        "economy",
-        "sex"
-      ],
-      "categoryNames": [
-        "Economy",
-        "Sex & Relationships"
       ],
       "crossCategory": true,
       "interestingScore": 0.857,
@@ -19711,26 +19351,6 @@
       "categoryNames": [
         "Health",
         "Environment"
-      ],
-      "crossCategory": true,
-      "interestingScore": 0.855,
-      "direction": "positive"
-    },
-    {
-      "var1": "health.sleepDuration",
-      "var2": "lifestyle.beerConsumption",
-      "var1Name": "Sleep Duration",
-      "var2Name": "Beer Consumption",
-      "coefficient": 0.437,
-      "strength": "moderate",
-      "sampleSize": 53,
-      "categories": [
-        "health",
-        "lifestyle"
-      ],
-      "categoryNames": [
-        "Health",
-        "Lifestyle"
       ],
       "crossCategory": true,
       "interestingScore": 0.855,
@@ -19891,46 +19511,6 @@
       "categoryNames": [
         "Economy",
         "Education"
-      ],
-      "crossCategory": true,
-      "interestingScore": 0.851,
-      "direction": "positive"
-    },
-    {
-      "var1": "economy.gdpGrowth",
-      "var2": "sex.divorceRate",
-      "var1Name": "GDP Growth Rate",
-      "var2Name": "Divorce Rate",
-      "coefficient": -0.434,
-      "strength": "moderate",
-      "sampleSize": 47,
-      "categories": [
-        "economy",
-        "sex"
-      ],
-      "categoryNames": [
-        "Economy",
-        "Sex & Relationships"
-      ],
-      "crossCategory": true,
-      "interestingScore": 0.851,
-      "direction": "negative"
-    },
-    {
-      "var1": "health.obesityRate",
-      "var2": "sex.divorceRate",
-      "var1Name": "Obesity Rate",
-      "var2Name": "Divorce Rate",
-      "coefficient": 0.434,
-      "strength": "moderate",
-      "sampleSize": 47,
-      "categories": [
-        "health",
-        "sex"
-      ],
-      "categoryNames": [
-        "Health",
-        "Sex & Relationships"
       ],
       "crossCategory": true,
       "interestingScore": 0.851,
@@ -20237,6 +19817,26 @@
       "direction": "negative"
     },
     {
+      "var1": "poverty.hdi",
+      "var2": "lifestyle.wineConsumption",
+      "var1Name": "Human Development Index",
+      "var2Name": "Wine Consumption",
+      "coefficient": 0.431,
+      "strength": "moderate",
+      "sampleSize": 75,
+      "categories": [
+        "economy",
+        "lifestyle"
+      ],
+      "categoryNames": [
+        "Economy",
+        "Lifestyle"
+      ],
+      "crossCategory": true,
+      "interestingScore": 0.847,
+      "direction": "positive"
+    },
+    {
       "var1": "economy.evAdoption",
       "var2": "health.airPollution",
       "var1Name": "EV Adoption",
@@ -20297,13 +19897,53 @@
       "direction": "positive"
     },
     {
-      "var1": "economy.exportsGdp",
+      "var1": "lifestyle.workHoursWeek",
       "var2": "lifestyle.beerConsumption",
-      "var1Name": "Exports (% GDP)",
+      "var1Name": "Work Hours/Week",
       "var2Name": "Beer Consumption",
-      "coefficient": 0.431,
+      "coefficient": -0.647,
+      "strength": "strong",
+      "sampleSize": 51,
+      "categories": [
+        "lifestyle",
+        "lifestyle"
+      ],
+      "categoryNames": [
+        "Lifestyle",
+        "Lifestyle"
+      ],
+      "crossCategory": false,
+      "interestingScore": 0.847,
+      "direction": "negative"
+    },
+    {
+      "var1": "lifestyle.wineConsumption",
+      "var2": "transport.trafficIndex",
+      "var1Name": "Wine Consumption",
+      "var2Name": "Traffic Index",
+      "coefficient": -0.431,
       "strength": "moderate",
-      "sampleSize": 52,
+      "sampleSize": 77,
+      "categories": [
+        "lifestyle",
+        "transport"
+      ],
+      "categoryNames": [
+        "Lifestyle",
+        "Transport"
+      ],
+      "crossCategory": true,
+      "interestingScore": 0.847,
+      "direction": "negative"
+    },
+    {
+      "var1": "economy.bigMacIndex",
+      "var2": "lifestyle.beerConsumption",
+      "var1Name": "Big Mac Price (USD)",
+      "var2Name": "Beer Consumption",
+      "coefficient": 0.43,
+      "strength": "moderate",
+      "sampleSize": 110,
       "categories": [
         "economy",
         "lifestyle"
@@ -20457,20 +20097,20 @@
       "direction": "positive"
     },
     {
-      "var1": "sex.lgbtAcceptance",
-      "var2": "environment.co2PerCapita",
-      "var1Name": "LGBT+ Acceptance",
-      "var2Name": "CO2 per Capita",
-      "coefficient": 0.429,
+      "var1": "sex.divorceRate",
+      "var2": "demographics.urbanPopulation",
+      "var1Name": "Divorce Rate",
+      "var2Name": "Urban Population",
+      "coefficient": 0.43,
       "strength": "moderate",
-      "sampleSize": 47,
+      "sampleSize": 108,
       "categories": [
         "sex",
-        "environment"
+        "demographics"
       ],
       "categoryNames": [
         "Sex & Relationships",
-        "Environment"
+        "Demographics"
       ],
       "crossCategory": true,
       "interestingScore": 0.844,
@@ -20524,6 +20164,26 @@
       "coefficient": 0.429,
       "strength": "moderate",
       "sampleSize": 44,
+      "categories": [
+        "education",
+        "lifestyle"
+      ],
+      "categoryNames": [
+        "Education",
+        "Lifestyle"
+      ],
+      "crossCategory": true,
+      "interestingScore": 0.843,
+      "direction": "positive"
+    },
+    {
+      "var1": "education.pisaMath",
+      "var2": "lifestyle.beerConsumption",
+      "var1Name": "PISA Math Score",
+      "var2Name": "Beer Consumption",
+      "coefficient": 0.429,
+      "strength": "moderate",
+      "sampleSize": 75,
       "categories": [
         "education",
         "lifestyle"
@@ -20614,26 +20274,6 @@
       ],
       "crossCategory": true,
       "interestingScore": 0.842,
-      "direction": "positive"
-    },
-    {
-      "var1": "democracy.score",
-      "var2": "lifestyle.beerConsumption",
-      "var1Name": "Democracy Score",
-      "var2Name": "Beer Consumption",
-      "coefficient": 0.428,
-      "strength": "moderate",
-      "sampleSize": 53,
-      "categories": [
-        "governance",
-        "lifestyle"
-      ],
-      "categoryNames": [
-        "Governance",
-        "Lifestyle"
-      ],
-      "crossCategory": true,
-      "interestingScore": 0.841,
       "direction": "positive"
     },
     {
@@ -20815,26 +20455,6 @@
       "crossCategory": false,
       "interestingScore": 0.839,
       "direction": "negative"
-    },
-    {
-      "var1": "freedom.corruptionIndex",
-      "var2": "lifestyle.wineConsumption",
-      "var1Name": "Corruption Index",
-      "var2Name": "Wine Consumption",
-      "coefficient": 0.425,
-      "strength": "moderate",
-      "sampleSize": 55,
-      "categories": [
-        "governance",
-        "lifestyle"
-      ],
-      "categoryNames": [
-        "Governance",
-        "Lifestyle"
-      ],
-      "crossCategory": true,
-      "interestingScore": 0.838,
-      "direction": "positive"
     },
     {
       "var1": "freedom.pressFreedom",
@@ -21037,6 +20657,26 @@
       "direction": "negative"
     },
     {
+      "var1": "lifestyle.tattooRate",
+      "var2": "lifestyle.wineConsumption",
+      "var1Name": "Tattoo Rate",
+      "var2Name": "Wine Consumption",
+      "coefficient": 0.636,
+      "strength": "strong",
+      "sampleSize": 44,
+      "categories": [
+        "lifestyle",
+        "lifestyle"
+      ],
+      "categoryNames": [
+        "Lifestyle",
+        "Lifestyle"
+      ],
+      "crossCategory": false,
+      "interestingScore": 0.836,
+      "direction": "positive"
+    },
+    {
       "var1": "economy.millionairesPerCapita",
       "var2": "lifestyle.videoGamePlayers",
       "var1Name": "Millionaires per Capita",
@@ -21071,26 +20711,6 @@
       "categoryNames": [
         "Economy",
         "Environment"
-      ],
-      "crossCategory": true,
-      "interestingScore": 0.835,
-      "direction": "positive"
-    },
-    {
-      "var1": "sex.lgbtAcceptance",
-      "var2": "education.pisaMath",
-      "var1Name": "LGBT+ Acceptance",
-      "var2Name": "PISA Math Score",
-      "coefficient": 0.46,
-      "strength": "moderate",
-      "sampleSize": 29,
-      "categories": [
-        "sex",
-        "education"
-      ],
-      "categoryNames": [
-        "Sex & Relationships",
-        "Education"
       ],
       "crossCategory": true,
       "interestingScore": 0.835,
@@ -21155,26 +20775,6 @@
       "crossCategory": true,
       "interestingScore": 0.834,
       "direction": "negative"
-    },
-    {
-      "var1": "health.obesityRate",
-      "var2": "sex.lgbtAcceptance",
-      "var1Name": "Obesity Rate",
-      "var2Name": "LGBT+ Acceptance",
-      "coefficient": 0.422,
-      "strength": "moderate",
-      "sampleSize": 47,
-      "categories": [
-        "health",
-        "sex"
-      ],
-      "categoryNames": [
-        "Health",
-        "Sex & Relationships"
-      ],
-      "crossCategory": true,
-      "interestingScore": 0.833,
-      "direction": "positive"
     },
     {
       "var1": "demographics.medianAge",
@@ -21257,106 +20857,6 @@
       "direction": "negative"
     },
     {
-      "var1": "economy.inflation",
-      "var2": "sex.lgbtAcceptance",
-      "var1Name": "Inflation Rate",
-      "var2Name": "LGBT+ Acceptance",
-      "coefficient": -0.421,
-      "strength": "moderate",
-      "sampleSize": 47,
-      "categories": [
-        "economy",
-        "sex"
-      ],
-      "categoryNames": [
-        "Economy",
-        "Sex & Relationships"
-      ],
-      "crossCategory": true,
-      "interestingScore": 0.832,
-      "direction": "negative"
-    },
-    {
-      "var1": "economy.touristArrivals",
-      "var2": "sex.lgbtAcceptance",
-      "var1Name": "Tourist Arrivals",
-      "var2Name": "LGBT+ Acceptance",
-      "coefficient": 0.46,
-      "strength": "moderate",
-      "sampleSize": 28,
-      "categories": [
-        "economy",
-        "sex"
-      ],
-      "categoryNames": [
-        "Economy",
-        "Sex & Relationships"
-      ],
-      "crossCategory": true,
-      "interestingScore": 0.831,
-      "direction": "positive"
-    },
-    {
-      "var1": "economy.tradeBalance",
-      "var2": "sex.divorceRate",
-      "var1Name": "Trade Balance",
-      "var2Name": "Divorce Rate",
-      "coefficient": 0.42,
-      "strength": "moderate",
-      "sampleSize": 47,
-      "categories": [
-        "economy",
-        "sex"
-      ],
-      "categoryNames": [
-        "Economy",
-        "Sex & Relationships"
-      ],
-      "crossCategory": true,
-      "interestingScore": 0.831,
-      "direction": "positive"
-    },
-    {
-      "var1": "health.breastSize",
-      "var2": "sex.divorceRate",
-      "var1Name": "Average Breast Size",
-      "var2Name": "Divorce Rate",
-      "coefficient": 0.427,
-      "strength": "moderate",
-      "sampleSize": 38,
-      "categories": [
-        "health",
-        "sex"
-      ],
-      "categoryNames": [
-        "Health",
-        "Sex & Relationships"
-      ],
-      "crossCategory": true,
-      "interestingScore": 0.831,
-      "direction": "positive"
-    },
-    {
-      "var1": "sex.lgbtAcceptance",
-      "var2": "crime.gunOwnership",
-      "var1Name": "LGBT+ Acceptance",
-      "var2Name": "Gun Ownership",
-      "coefficient": 0.421,
-      "strength": "moderate",
-      "sampleSize": 42,
-      "categories": [
-        "sex",
-        "safety"
-      ],
-      "categoryNames": [
-        "Sex & Relationships",
-        "Safety"
-      ],
-      "crossCategory": true,
-      "interestingScore": 0.831,
-      "direction": "positive"
-    },
-    {
       "var1": "economy.millionairesPerCapita",
       "var2": "economy.bigMacIndex",
       "var1Name": "Millionaires per Capita",
@@ -21417,6 +20917,46 @@
       "direction": "positive"
     },
     {
+      "var1": "sex.pornConsumption",
+      "var2": "lifestyle.beerConsumption",
+      "var1Name": "Porn Consumption",
+      "var2Name": "Beer Consumption",
+      "coefficient": 0.42,
+      "strength": "moderate",
+      "sampleSize": 47,
+      "categories": [
+        "sex",
+        "lifestyle"
+      ],
+      "categoryNames": [
+        "Sex & Relationships",
+        "Lifestyle"
+      ],
+      "crossCategory": true,
+      "interestingScore": 0.83,
+      "direction": "positive"
+    },
+    {
+      "var1": "demographics.netMigrationRate",
+      "var2": "lifestyle.wineConsumption",
+      "var1Name": "Net Migration Rate",
+      "var2Name": "Wine Consumption",
+      "coefficient": 0.42,
+      "strength": "moderate",
+      "sampleSize": 66,
+      "categories": [
+        "demographics",
+        "lifestyle"
+      ],
+      "categoryNames": [
+        "Demographics",
+        "Lifestyle"
+      ],
+      "crossCategory": true,
+      "interestingScore": 0.83,
+      "direction": "positive"
+    },
+    {
       "var1": "crime.gunOwnership",
       "var2": "transport.trafficIndex",
       "var1Name": "Gun Ownership",
@@ -21457,20 +20997,40 @@
       "direction": "positive"
     },
     {
-      "var1": "economy.giniIndex",
-      "var2": "lifestyle.beerConsumption",
-      "var1Name": "Gini Index (Inequality)",
-      "var2Name": "Beer Consumption",
-      "coefficient": -0.419,
+      "var1": "sex.divorceRate",
+      "var2": "transport.carOwnership",
+      "var1Name": "Divorce Rate",
+      "var2Name": "Car Ownership",
+      "coefficient": 0.419,
       "strength": "moderate",
-      "sampleSize": 53,
+      "sampleSize": 110,
       "categories": [
-        "economy",
-        "lifestyle"
+        "sex",
+        "transport"
       ],
       "categoryNames": [
-        "Economy",
-        "Lifestyle"
+        "Sex & Relationships",
+        "Transport"
+      ],
+      "crossCategory": true,
+      "interestingScore": 0.829,
+      "direction": "positive"
+    },
+    {
+      "var1": "lifestyle.wineConsumption",
+      "var2": "transport.averageCommute",
+      "var1Name": "Wine Consumption",
+      "var2Name": "Average Commute",
+      "coefficient": -0.419,
+      "strength": "moderate",
+      "sampleSize": 77,
+      "categories": [
+        "lifestyle",
+        "transport"
+      ],
+      "categoryNames": [
+        "Lifestyle",
+        "Transport"
       ],
       "crossCategory": true,
       "interestingScore": 0.829,
@@ -21697,46 +21257,6 @@
       "direction": "positive"
     },
     {
-      "var1": "sex.ageFirstSex",
-      "var2": "lifestyle.wineConsumption",
-      "var1Name": "Age of First Sex",
-      "var2Name": "Wine Consumption",
-      "coefficient": -0.417,
-      "strength": "moderate",
-      "sampleSize": 41,
-      "categories": [
-        "sex",
-        "lifestyle"
-      ],
-      "categoryNames": [
-        "Sex & Relationships",
-        "Lifestyle"
-      ],
-      "crossCategory": true,
-      "interestingScore": 0.825,
-      "direction": "negative"
-    },
-    {
-      "var1": "sex.lgbtAcceptance",
-      "var2": "demographics.immigrationRate",
-      "var1Name": "LGBT+ Acceptance",
-      "var2Name": "Immigration Rate",
-      "coefficient": 0.437,
-      "strength": "moderate",
-      "sampleSize": 34,
-      "categories": [
-        "sex",
-        "demographics"
-      ],
-      "categoryNames": [
-        "Sex & Relationships",
-        "Demographics"
-      ],
-      "crossCategory": true,
-      "interestingScore": 0.825,
-      "direction": "positive"
-    },
-    {
       "var1": "demographics.twinBirthRate",
       "var2": "education.englishProficiency",
       "var1Name": "Twin Birth Rate",
@@ -21835,6 +21355,26 @@
       "crossCategory": true,
       "interestingScore": 0.824,
       "direction": "positive"
+    },
+    {
+      "var1": "lifestyle.beerConsumption",
+      "var2": "transport.averageCommute",
+      "var1Name": "Beer Consumption",
+      "var2Name": "Average Commute",
+      "coefficient": -0.416,
+      "strength": "moderate",
+      "sampleSize": 116,
+      "categories": [
+        "lifestyle",
+        "transport"
+      ],
+      "categoryNames": [
+        "Lifestyle",
+        "Transport"
+      ],
+      "crossCategory": true,
+      "interestingScore": 0.824,
+      "direction": "negative"
     },
     {
       "var1": "gender.wblIndex",
@@ -21977,26 +21517,6 @@
       "direction": "positive"
     },
     {
-      "var1": "lifestyle.tattooRate",
-      "var2": "lifestyle.wineConsumption",
-      "var1Name": "Tattoo Rate",
-      "var2Name": "Wine Consumption",
-      "coefficient": 0.622,
-      "strength": "strong",
-      "sampleSize": 41,
-      "categories": [
-        "lifestyle",
-        "lifestyle"
-      ],
-      "categoryNames": [
-        "Lifestyle",
-        "Lifestyle"
-      ],
-      "crossCategory": false,
-      "interestingScore": 0.822,
-      "direction": "positive"
-    },
-    {
       "var1": "economy.billionairesPerCapita",
       "var2": "education.pisaMath",
       "var1Name": "Billionaires per Capita",
@@ -22077,6 +21597,26 @@
       "direction": "positive"
     },
     {
+      "var1": "education.nobelPrizesPerCapita",
+      "var2": "lifestyle.beerConsumption",
+      "var1Name": "Nobel Prizes per Capita",
+      "var2Name": "Beer Consumption",
+      "coefficient": 0.414,
+      "strength": "moderate",
+      "sampleSize": 71,
+      "categories": [
+        "education",
+        "lifestyle"
+      ],
+      "categoryNames": [
+        "Education",
+        "Lifestyle"
+      ],
+      "crossCategory": true,
+      "interestingScore": 0.821,
+      "direction": "positive"
+    },
+    {
       "var1": "freedom.cryptoAdoption",
       "var2": "health.airPollution",
       "var1Name": "Crypto Adoption",
@@ -22113,66 +21653,6 @@
         "Transport"
       ],
       "crossCategory": true,
-      "interestingScore": 0.82,
-      "direction": "negative"
-    },
-    {
-      "var1": "economy.giniIndex",
-      "var2": "sex.lgbtAcceptance",
-      "var1Name": "Gini Index (Inequality)",
-      "var2Name": "LGBT+ Acceptance",
-      "coefficient": -0.414,
-      "strength": "moderate",
-      "sampleSize": 47,
-      "categories": [
-        "economy",
-        "sex"
-      ],
-      "categoryNames": [
-        "Economy",
-        "Sex & Relationships"
-      ],
-      "crossCategory": true,
-      "interestingScore": 0.82,
-      "direction": "negative"
-    },
-    {
-      "var1": "economy.economicFreedom",
-      "var2": "sex.divorceRate",
-      "var1Name": "Economic Freedom Index",
-      "var2Name": "Divorce Rate",
-      "coefficient": 0.413,
-      "strength": "moderate",
-      "sampleSize": 47,
-      "categories": [
-        "economy",
-        "sex"
-      ],
-      "categoryNames": [
-        "Economy",
-        "Sex & Relationships"
-      ],
-      "crossCategory": true,
-      "interestingScore": 0.82,
-      "direction": "positive"
-    },
-    {
-      "var1": "sex.lgbtAcceptance",
-      "var2": "sex.consanguinityRate",
-      "var1Name": "LGBT+ Acceptance",
-      "var2Name": "Consanguinity Rate",
-      "coefficient": -0.62,
-      "strength": "strong",
-      "sampleSize": 47,
-      "categories": [
-        "sex",
-        "sex"
-      ],
-      "categoryNames": [
-        "Sex & Relationships",
-        "Sex & Relationships"
-      ],
-      "crossCategory": false,
       "interestingScore": 0.82,
       "direction": "negative"
     },
@@ -22515,26 +21995,6 @@
       "crossCategory": true,
       "interestingScore": 0.816,
       "direction": "positive"
-    },
-    {
-      "var1": "education.englishProficiency",
-      "var2": "lifestyle.teaConsumption",
-      "var1Name": "English Proficiency",
-      "var2Name": "Tea Consumption",
-      "coefficient": -0.421,
-      "strength": "moderate",
-      "sampleSize": 37,
-      "categories": [
-        "education",
-        "lifestyle"
-      ],
-      "categoryNames": [
-        "Education",
-        "Lifestyle"
-      ],
-      "crossCategory": true,
-      "interestingScore": 0.816,
-      "direction": "negative"
     },
     {
       "var1": "lifestyle.chocolateConsumption",
@@ -22997,26 +22457,6 @@
       "direction": "negative"
     },
     {
-      "var1": "economy.renewableEnergy",
-      "var2": "sex.lgbtAcceptance",
-      "var1Name": "Renewable Energy",
-      "var2Name": "LGBT+ Acceptance",
-      "coefficient": 0.44,
-      "strength": "moderate",
-      "sampleSize": 30,
-      "categories": [
-        "economy",
-        "sex"
-      ],
-      "categoryNames": [
-        "Economy",
-        "Sex & Relationships"
-      ],
-      "crossCategory": true,
-      "interestingScore": 0.81,
-      "direction": "positive"
-    },
-    {
       "var1": "health.breastSize",
       "var2": "sex.pornConsumption",
       "var1Name": "Average Breast Size",
@@ -23057,26 +22497,6 @@
       "direction": "positive"
     },
     {
-      "var1": "sex.lgbtAcceptance",
-      "var2": "lifestyle.beerConsumption",
-      "var1Name": "LGBT+ Acceptance",
-      "var2Name": "Beer Consumption",
-      "coefficient": 0.453,
-      "strength": "moderate",
-      "sampleSize": 26,
-      "categories": [
-        "sex",
-        "lifestyle"
-      ],
-      "categoryNames": [
-        "Sex & Relationships",
-        "Lifestyle"
-      ],
-      "crossCategory": true,
-      "interestingScore": 0.81,
-      "direction": "positive"
-    },
-    {
       "var1": "lifestyle.happinessIndex",
       "var2": "lifestyle.pizzaConsumption",
       "var1Name": "Happiness Index",
@@ -23084,6 +22504,26 @@
       "coefficient": 0.67,
       "strength": "strong",
       "sampleSize": 28,
+      "categories": [
+        "lifestyle",
+        "lifestyle"
+      ],
+      "categoryNames": [
+        "Lifestyle",
+        "Lifestyle"
+      ],
+      "crossCategory": false,
+      "interestingScore": 0.81,
+      "direction": "positive"
+    },
+    {
+      "var1": "lifestyle.happinessIndex",
+      "var2": "lifestyle.beerConsumption",
+      "var1Name": "Happiness Index",
+      "var2Name": "Beer Consumption",
+      "coefficient": 0.61,
+      "strength": "strong",
+      "sampleSize": 51,
       "categories": [
         "lifestyle",
         "lifestyle"
@@ -23337,6 +22777,26 @@
       "direction": "positive"
     },
     {
+      "var1": "sex.divorceRate",
+      "var2": "transport.trafficIndex",
+      "var1Name": "Divorce Rate",
+      "var2Name": "Traffic Index",
+      "coefficient": -0.404,
+      "strength": "moderate",
+      "sampleSize": 109,
+      "categories": [
+        "sex",
+        "transport"
+      ],
+      "categoryNames": [
+        "Sex & Relationships",
+        "Transport"
+      ],
+      "crossCategory": true,
+      "interestingScore": 0.807,
+      "direction": "negative"
+    },
+    {
       "var1": "health.airPollution",
       "var2": "education.pisaMath",
       "var1Name": "Air Pollution",
@@ -23437,6 +22897,26 @@
       "direction": "positive"
     },
     {
+      "var1": "health.lifeExpectancy",
+      "var2": "lifestyle.wineConsumption",
+      "var1Name": "Life Expectancy",
+      "var2Name": "Wine Consumption",
+      "coefficient": 0.414,
+      "strength": "moderate",
+      "sampleSize": 37,
+      "categories": [
+        "health",
+        "lifestyle"
+      ],
+      "categoryNames": [
+        "Health",
+        "Lifestyle"
+      ],
+      "crossCategory": true,
+      "interestingScore": 0.805,
+      "direction": "positive"
+    },
+    {
       "var1": "lifestyle.workHoursWeek",
       "var2": "transport.averageCommute",
       "var1Name": "Work Hours/Week",
@@ -23517,23 +22997,43 @@
       "direction": "positive"
     },
     {
-      "var1": "economy.bigMacIndex",
-      "var2": "lifestyle.teaConsumption",
-      "var1Name": "Big Mac Price (USD)",
-      "var2Name": "Tea Consumption",
-      "coefficient": -0.403,
+      "var1": "sex.lgbtAcceptance",
+      "var2": "sex.consanguinityRate",
+      "var1Name": "LGBT+ Acceptance",
+      "var2Name": "Consanguinity Rate",
+      "coefficient": -0.603,
+      "strength": "strong",
+      "sampleSize": 127,
+      "categories": [
+        "sex",
+        "sex"
+      ],
+      "categoryNames": [
+        "Sex & Relationships",
+        "Sex & Relationships"
+      ],
+      "crossCategory": false,
+      "interestingScore": 0.803,
+      "direction": "negative"
+    },
+    {
+      "var1": "economy.giniIndex",
+      "var2": "sex.divorceRate",
+      "var1Name": "Gini Index (Inequality)",
+      "var2Name": "Divorce Rate",
+      "coefficient": -0.402,
       "strength": "moderate",
-      "sampleSize": 44,
+      "sampleSize": 108,
       "categories": [
         "economy",
-        "lifestyle"
+        "sex"
       ],
       "categoryNames": [
         "Economy",
-        "Lifestyle"
+        "Sex & Relationships"
       ],
       "crossCategory": true,
-      "interestingScore": 0.804,
+      "interestingScore": 0.802,
       "direction": "negative"
     },
     {
@@ -23564,26 +23064,6 @@
       "coefficient": 0.401,
       "strength": "moderate",
       "sampleSize": 42,
-      "categories": [
-        "economy",
-        "lifestyle"
-      ],
-      "categoryNames": [
-        "Economy",
-        "Lifestyle"
-      ],
-      "crossCategory": true,
-      "interestingScore": 0.801,
-      "direction": "positive"
-    },
-    {
-      "var1": "economy.touristArrivals",
-      "var2": "lifestyle.beerConsumption",
-      "var1Name": "Tourist Arrivals",
-      "var2Name": "Beer Consumption",
-      "coefficient": 0.417,
-      "strength": "moderate",
-      "sampleSize": 35,
       "categories": [
         "economy",
         "lifestyle"
@@ -23917,46 +23397,6 @@
       "direction": "positive"
     },
     {
-      "var1": "lifestyle.chocolateConsumption",
-      "var2": "lifestyle.beerConsumption",
-      "var1Name": "Chocolate Consumption",
-      "var2Name": "Beer Consumption",
-      "coefficient": 0.583,
-      "strength": "moderate",
-      "sampleSize": 40,
-      "categories": [
-        "lifestyle",
-        "lifestyle"
-      ],
-      "categoryNames": [
-        "Lifestyle",
-        "Lifestyle"
-      ],
-      "crossCategory": false,
-      "interestingScore": 0.783,
-      "direction": "positive"
-    },
-    {
-      "var1": "lifestyle.chocolateConsumption",
-      "var2": "lifestyle.wineConsumption",
-      "var1Name": "Chocolate Consumption",
-      "var2Name": "Wine Consumption",
-      "coefficient": 0.583,
-      "strength": "moderate",
-      "sampleSize": 40,
-      "categories": [
-        "lifestyle",
-        "lifestyle"
-      ],
-      "categoryNames": [
-        "Lifestyle",
-        "Lifestyle"
-      ],
-      "crossCategory": false,
-      "interestingScore": 0.783,
-      "direction": "positive"
-    },
-    {
       "var1": "lifestyle.internetPenetration",
       "var2": "lifestyle.pizzaConsumption",
       "var1Name": "Internet Users",
@@ -23964,6 +23404,26 @@
       "coefficient": 0.641,
       "strength": "strong",
       "sampleSize": 28,
+      "categories": [
+        "lifestyle",
+        "lifestyle"
+      ],
+      "categoryNames": [
+        "Lifestyle",
+        "Lifestyle"
+      ],
+      "crossCategory": false,
+      "interestingScore": 0.781,
+      "direction": "positive"
+    },
+    {
+      "var1": "lifestyle.coffeeConsumption",
+      "var2": "lifestyle.beerConsumption",
+      "var1Name": "Coffee Consumption",
+      "var2Name": "Beer Consumption",
+      "coefficient": 0.581,
+      "strength": "moderate",
+      "sampleSize": 51,
       "categories": [
         "lifestyle",
         "lifestyle"
@@ -23997,24 +23457,24 @@
       "direction": "positive"
     },
     {
-      "var1": "sex.sexualPartners",
-      "var2": "lifestyle.teaConsumption",
-      "var1Name": "Avg Sexual Partners",
-      "var2Name": "Tea Consumption",
-      "coefficient": -0.42,
+      "var1": "lifestyle.chocolateConsumption",
+      "var2": "lifestyle.wineConsumption",
+      "var1Name": "Chocolate Consumption",
+      "var2Name": "Wine Consumption",
+      "coefficient": 0.573,
       "strength": "moderate",
-      "sampleSize": 29,
+      "sampleSize": 41,
       "categories": [
-        "sex",
+        "lifestyle",
         "lifestyle"
       ],
       "categoryNames": [
-        "Sex & Relationships",
+        "Lifestyle",
         "Lifestyle"
       ],
-      "crossCategory": true,
-      "interestingScore": 0.775,
-      "direction": "negative"
+      "crossCategory": false,
+      "interestingScore": 0.773,
+      "direction": "positive"
     },
     {
       "var1": "health.lifeExpectancy",
@@ -24093,6 +23553,26 @@
         "Lifestyle"
       ],
       "crossCategory": true,
+      "interestingScore": 0.771,
+      "direction": "positive"
+    },
+    {
+      "var1": "lifestyle.chocolateConsumption",
+      "var2": "lifestyle.beerConsumption",
+      "var1Name": "Chocolate Consumption",
+      "var2Name": "Beer Consumption",
+      "coefficient": 0.571,
+      "strength": "moderate",
+      "sampleSize": 41,
+      "categories": [
+        "lifestyle",
+        "lifestyle"
+      ],
+      "categoryNames": [
+        "Lifestyle",
+        "Lifestyle"
+      ],
+      "crossCategory": false,
       "interestingScore": 0.771,
       "direction": "positive"
     },
@@ -24417,26 +23897,6 @@
       "direction": "positive"
     },
     {
-      "var1": "lifestyle.internetPenetration",
-      "var2": "lifestyle.beerConsumption",
-      "var1Name": "Internet Users",
-      "var2Name": "Beer Consumption",
-      "coefficient": 0.6,
-      "strength": "moderate",
-      "sampleSize": 29,
-      "categories": [
-        "lifestyle",
-        "lifestyle"
-      ],
-      "categoryNames": [
-        "Lifestyle",
-        "Lifestyle"
-      ],
-      "crossCategory": false,
-      "interestingScore": 0.745,
-      "direction": "positive"
-    },
-    {
       "var1": "health.lifeExpectancy",
       "var2": "health.obesityRate",
       "var1Name": "Life Expectancy",
@@ -24454,6 +23914,26 @@
       ],
       "crossCategory": false,
       "interestingScore": 0.744,
+      "direction": "positive"
+    },
+    {
+      "var1": "lifestyle.internetPenetration",
+      "var2": "lifestyle.beerConsumption",
+      "var1Name": "Internet Users",
+      "var2Name": "Beer Consumption",
+      "coefficient": 0.541,
+      "strength": "moderate",
+      "sampleSize": 51,
+      "categories": [
+        "lifestyle",
+        "lifestyle"
+      ],
+      "categoryNames": [
+        "Lifestyle",
+        "Lifestyle"
+      ],
+      "crossCategory": false,
+      "interestingScore": 0.741,
       "direction": "positive"
     },
     {
@@ -24577,26 +24057,6 @@
       "direction": "positive"
     },
     {
-      "var1": "lifestyle.tattooRate",
-      "var2": "lifestyle.beerConsumption",
-      "var1Name": "Tattoo Rate",
-      "var2Name": "Beer Consumption",
-      "coefficient": 0.521,
-      "strength": "moderate",
-      "sampleSize": 40,
-      "categories": [
-        "lifestyle",
-        "lifestyle"
-      ],
-      "categoryNames": [
-        "Lifestyle",
-        "Lifestyle"
-      ],
-      "crossCategory": false,
-      "interestingScore": 0.721,
-      "direction": "positive"
-    },
-    {
       "var1": "gender.wblIndex",
       "var2": "economy.bigMacIndex",
       "var1Name": "Women's Legal Rights",
@@ -24714,26 +24174,6 @@
       ],
       "crossCategory": false,
       "interestingScore": 0.715,
-      "direction": "positive"
-    },
-    {
-      "var1": "lifestyle.happinessIndex",
-      "var2": "lifestyle.beerConsumption",
-      "var1Name": "Happiness Index",
-      "var2Name": "Beer Consumption",
-      "coefficient": 0.569,
-      "strength": "moderate",
-      "sampleSize": 29,
-      "categories": [
-        "lifestyle",
-        "lifestyle"
-      ],
-      "categoryNames": [
-        "Lifestyle",
-        "Lifestyle"
-      ],
-      "crossCategory": false,
-      "interestingScore": 0.714,
       "direction": "positive"
     },
     {
@@ -24897,6 +24337,26 @@
       "direction": "positive"
     },
     {
+      "var1": "sex.lgbtAcceptance",
+      "var2": "sex.pornConsumption",
+      "var1Name": "LGBT+ Acceptance",
+      "var2Name": "Porn Consumption",
+      "coefficient": 0.498,
+      "strength": "moderate",
+      "sampleSize": 49,
+      "categories": [
+        "sex",
+        "sex"
+      ],
+      "categoryNames": [
+        "Sex & Relationships",
+        "Sex & Relationships"
+      ],
+      "crossCategory": false,
+      "interestingScore": 0.698,
+      "direction": "positive"
+    },
+    {
       "var1": "economy.touristArrivals",
       "var2": "economy.renewableEnergy",
       "var1Name": "Tourist Arrivals",
@@ -24935,26 +24395,6 @@
       "crossCategory": false,
       "interestingScore": 0.691,
       "direction": "positive"
-    },
-    {
-      "var1": "lifestyle.workHoursWeek",
-      "var2": "lifestyle.beerConsumption",
-      "var1Name": "Work Hours/Week",
-      "var2Name": "Beer Consumption",
-      "coefficient": -0.542,
-      "strength": "moderate",
-      "sampleSize": 29,
-      "categories": [
-        "lifestyle",
-        "lifestyle"
-      ],
-      "categoryNames": [
-        "Lifestyle",
-        "Lifestyle"
-      ],
-      "crossCategory": false,
-      "interestingScore": 0.687,
-      "direction": "negative"
     },
     {
       "var1": "lifestyle.internetPenetration",
@@ -25157,26 +24597,6 @@
       "direction": "positive"
     },
     {
-      "var1": "sex.divorceRate",
-      "var2": "sex.lgbtAcceptance",
-      "var1Name": "Divorce Rate",
-      "var2Name": "LGBT+ Acceptance",
-      "coefficient": 0.475,
-      "strength": "moderate",
-      "sampleSize": 47,
-      "categories": [
-        "sex",
-        "sex"
-      ],
-      "categoryNames": [
-        "Sex & Relationships",
-        "Sex & Relationships"
-      ],
-      "crossCategory": false,
-      "interestingScore": 0.675,
-      "direction": "positive"
-    },
-    {
       "var1": "education.nobelPrizesPerCapita",
       "var2": "education.chessGrandmasters",
       "var1Name": "Nobel Prizes per Capita",
@@ -25231,26 +24651,6 @@
       "categoryNames": [
         "Economy",
         "Economy"
-      ],
-      "crossCategory": false,
-      "interestingScore": 0.67,
-      "direction": "positive"
-    },
-    {
-      "var1": "sex.lgbtAcceptance",
-      "var2": "sex.pornConsumption",
-      "var1Name": "LGBT+ Acceptance",
-      "var2Name": "Porn Consumption",
-      "coefficient": 0.52,
-      "strength": "moderate",
-      "sampleSize": 30,
-      "categories": [
-        "sex",
-        "sex"
-      ],
-      "categoryNames": [
-        "Sex & Relationships",
-        "Sex & Relationships"
       ],
       "crossCategory": false,
       "interestingScore": 0.67,
@@ -25557,6 +24957,26 @@
       "direction": "negative"
     },
     {
+      "var1": "lifestyle.screenTime",
+      "var2": "lifestyle.wineConsumption",
+      "var1Name": "Screen Time",
+      "var2Name": "Wine Consumption",
+      "coefficient": -0.44,
+      "strength": "moderate",
+      "sampleSize": 43,
+      "categories": [
+        "lifestyle",
+        "lifestyle"
+      ],
+      "categoryNames": [
+        "Lifestyle",
+        "Lifestyle"
+      ],
+      "crossCategory": false,
+      "interestingScore": 0.64,
+      "direction": "negative"
+    },
+    {
       "var1": "economy.evAdoption",
       "var2": "economy.economicFreedom",
       "var1Name": "EV Adoption",
@@ -25697,26 +25117,6 @@
       "direction": "negative"
     },
     {
-      "var1": "lifestyle.coffeeConsumption",
-      "var2": "lifestyle.teaConsumption",
-      "var1Name": "Coffee Consumption",
-      "var2Name": "Tea Consumption",
-      "coefficient": -0.475,
-      "strength": "moderate",
-      "sampleSize": 32,
-      "categories": [
-        "lifestyle",
-        "lifestyle"
-      ],
-      "categoryNames": [
-        "Lifestyle",
-        "Lifestyle"
-      ],
-      "crossCategory": false,
-      "interestingScore": 0.635,
-      "direction": "negative"
-    },
-    {
       "var1": "lifestyle.pizzaConsumption",
       "var2": "lifestyle.beerConsumption",
       "var1Name": "Pizza Consumption",
@@ -25755,26 +25155,6 @@
       "crossCategory": false,
       "interestingScore": 0.633,
       "direction": "positive"
-    },
-    {
-      "var1": "lifestyle.screenTime",
-      "var2": "lifestyle.wineConsumption",
-      "var1Name": "Screen Time",
-      "var2Name": "Wine Consumption",
-      "coefficient": -0.429,
-      "strength": "moderate",
-      "sampleSize": 40,
-      "categories": [
-        "lifestyle",
-        "lifestyle"
-      ],
-      "categoryNames": [
-        "Lifestyle",
-        "Lifestyle"
-      ],
-      "crossCategory": false,
-      "interestingScore": 0.629,
-      "direction": "negative"
     },
     {
       "var1": "poverty.gdpPerCapita",
@@ -25974,6 +25354,26 @@
       ],
       "crossCategory": false,
       "interestingScore": 0.619,
+      "direction": "positive"
+    },
+    {
+      "var1": "lifestyle.beerConsumption",
+      "var2": "lifestyle.wineConsumption",
+      "var1Name": "Beer Consumption",
+      "var2Name": "Wine Consumption",
+      "coefficient": 0.418,
+      "strength": "moderate",
+      "sampleSize": 74,
+      "categories": [
+        "lifestyle",
+        "lifestyle"
+      ],
+      "categoryNames": [
+        "Lifestyle",
+        "Lifestyle"
+      ],
+      "crossCategory": false,
+      "interestingScore": 0.618,
       "direction": "positive"
     },
     {
@@ -26217,26 +25617,6 @@
       "direction": "positive"
     },
     {
-      "var1": "lifestyle.workHoursWeek",
-      "var2": "lifestyle.teaConsumption",
-      "var1Name": "Work Hours/Week",
-      "var2Name": "Tea Consumption",
-      "coefficient": 0.435,
-      "strength": "moderate",
-      "sampleSize": 32,
-      "categories": [
-        "lifestyle",
-        "lifestyle"
-      ],
-      "categoryNames": [
-        "Lifestyle",
-        "Lifestyle"
-      ],
-      "crossCategory": false,
-      "interestingScore": 0.595,
-      "direction": "positive"
-    },
-    {
       "var1": "lifestyle.coffeeConsumption",
       "var2": "lifestyle.videoGamePlayers",
       "var1Name": "Coffee Consumption",
@@ -26254,46 +25634,6 @@
       ],
       "crossCategory": false,
       "interestingScore": 0.578,
-      "direction": "positive"
-    },
-    {
-      "var1": "lifestyle.happinessIndex",
-      "var2": "lifestyle.teaConsumption",
-      "var1Name": "Happiness Index",
-      "var2Name": "Tea Consumption",
-      "coefficient": -0.413,
-      "strength": "moderate",
-      "sampleSize": 32,
-      "categories": [
-        "lifestyle",
-        "lifestyle"
-      ],
-      "categoryNames": [
-        "Lifestyle",
-        "Lifestyle"
-      ],
-      "crossCategory": false,
-      "interestingScore": 0.573,
-      "direction": "negative"
-    },
-    {
-      "var1": "lifestyle.coffeeConsumption",
-      "var2": "lifestyle.beerConsumption",
-      "var1Name": "Coffee Consumption",
-      "var2Name": "Beer Consumption",
-      "coefficient": 0.424,
-      "strength": "moderate",
-      "sampleSize": 29,
-      "categories": [
-        "lifestyle",
-        "lifestyle"
-      ],
-      "categoryNames": [
-        "Lifestyle",
-        "Lifestyle"
-      ],
-      "crossCategory": false,
-      "interestingScore": 0.569,
       "direction": "positive"
     }
   ]

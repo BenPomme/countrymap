@@ -909,6 +909,17 @@ export const VARIABLES: Record<ColorVariable, VariableConfig> = {
     format: (v) => v !== null ? `${Math.round(v as number)} L/year` : 'N/A',
     higherIsBetter: true,
   },
+  'lifestyle.metalBandsPerCapita': {
+    id: 'lifestyle.metalBandsPerCapita',
+    name: 'Metal Bands per Capita',
+    description: 'Heavy metal bands per 100,000 people (via Encyclopaedia Metallum)',
+    category: 'lifestyle',
+    type: 'numeric',
+    domain: [0, 90],
+    colorScheme: 'interpolateGreys',
+    format: (v) => v !== null ? `${(v as number).toFixed(1)} per 100k` : 'N/A',
+    higherIsBetter: true,
+  },
 
   // === SAFETY & CRIME ===
   'crime.homicideRate': {

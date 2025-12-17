@@ -83,6 +83,7 @@ const variablePaths = [
   'lifestyle.teaConsumption',
   'lifestyle.beerConsumption',
   'lifestyle.wineConsumption',
+  'lifestyle.metalBandsPerCapita',
   'crime.homicideRate',
   'crime.safetyIndex',
   'crime.gunOwnership',

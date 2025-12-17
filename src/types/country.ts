@@ -140,6 +140,7 @@ export interface LifestyleData {
   teaConsumption: number | null // kg per capita per year
   beerConsumption: number | null // liters per capita per year
   wineConsumption: number | null // liters per capita per year
+  metalBandsPerCapita: number | null // heavy metal bands per 100,000 people
 }
 
 // Freedom & Governance
@@ -342,6 +343,7 @@ export type ColorVariable =
   | 'lifestyle.teaConsumption'
   | 'lifestyle.beerConsumption'
   | 'lifestyle.wineConsumption'
+  | 'lifestyle.metalBandsPerCapita'
   // Freedom
   | 'freedom.corruptionIndex'
   | 'freedom.pressFreedom'
