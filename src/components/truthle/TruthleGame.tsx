@@ -4,7 +4,7 @@ import { useState, useEffect, useCallback } from 'react'
 import type { Country } from '@/types/country'
 import { generateDailyQuestions, getTodayDateString, getTruthleDay, TruthleQuestion } from '@/lib/truthle/generator'
 import { calculateScore, estimatePercentile, getGrade, generateShareText, TruthleScore } from '@/lib/truthle/scoring'
-import { hasPlayedToday, saveAttempt, getLocalState, getStats, addCoins, getCoins, updateAchievementStats } from '@/lib/truthle/storage'
+import { hasPlayedToday, saveAttempt, getLocalState, getStats, addCoins, getCoins, updateAchievementStats, recordShare } from '@/lib/truthle/storage'
 import { calculateCoinsEarned, isStreakMilestone, getNextStreakMilestone, CoinBreakdown } from '@/lib/truthle/coins'
 import { AdSidebar } from '@/components/ads'
 import { AD_SLOTS } from '@/lib/constants/ads'
@@ -31,6 +31,7 @@ export default function TruthleGame({ countries }: TruthleGameProps) {
   const [copied, setCopied] = useState(false)
   const [coinsEarned, setCoinsEarned] = useState<{ total: number; breakdown: CoinBreakdown } | null>(null)
   const [coinBalance, setCoinBalance] = useState(0)
+  const [showBadgeUnlock, setShowBadgeUnlock] = useState<string | null>(null)
 
   const truthleDay = getTruthleDay()
 
@@ -153,6 +154,13 @@ export default function TruthleGame({ countries }: TruthleGameProps) {
     )
 
     try {
+      // Record the share
+      const { isFirstShare } = recordShare()
+      if (isFirstShare) {
+        setShowBadgeUnlock('Social Butterfly')
+        setTimeout(() => setShowBadgeUnlock(null), 3000)
+      }
+
       if (navigator.share) {
         await navigator.share({
           title: `Truthle #${truthleDay}`,
@@ -584,6 +592,14 @@ export default function TruthleGame({ countries }: TruthleGameProps) {
         >
           {copied ? '✓ Copied!' : 'Share Results'}
         </button>
+
+        {/* Badge unlock notification */}
+        {showBadgeUnlock && (
+          <div className="fixed top-4 left-1/2 transform -translate-x-1/2 bg-gradient-to-r from-purple-500 to-pink-500 text-white px-6 py-3 rounded-full shadow-lg animate-bounce z-50">
+            <span className="text-xl mr-2">🦋</span>
+            <span className="font-semibold">Badge Unlocked: {showBadgeUnlock}!</span>
+          </div>
+        )}
 
         <div className="text-gray-500 text-sm">
           <p>Next Truthle in</p>

@@ -1,17 +1,25 @@
 import type { Country } from '@/types/country'
 import { VARIABLES, VARIABLE_CATEGORIES } from '@/lib/constants/variables'
 import { getNestedValue } from '@/lib/utils'
+import correlationsData from '../../../data/correlations.json'
+import { generateCorrelationQuestions, type Correlation, type CorrelationQuestion } from './correlationQuestions'
 
 export interface TruthleQuestion {
   id: string
-  type: 'highest' | 'lowest' | 'compare'
+  type: 'highest' | 'lowest' | 'compare' | 'direction' | 'yes_no' | 'strongest_pair'
   question: string
   options: string[]
   correctAnswer: number
   explanation: string
-  variablePath: string
+  variablePath?: string
   category: string
   categoryIcon: string
+  correlationData?: {
+    var1Name: string
+    var2Name: string
+    coefficient: number
+    direction: string
+  }
 }
 
 // Seeded random number generator (Mulberry32)
@@ -252,6 +260,21 @@ function generateCompareQuestion(
   }
 }
 
+// Convert CorrelationQuestion to TruthleQuestion format
+function convertCorrelationQuestion(cq: CorrelationQuestion): TruthleQuestion {
+  return {
+    id: cq.id,
+    type: cq.type,
+    question: cq.question,
+    options: cq.options,
+    correctAnswer: cq.correctAnswer,
+    explanation: cq.explanation,
+    category: cq.category,
+    categoryIcon: cq.categoryIcon,
+    correlationData: cq.correlationData,
+  }
+}
+
 export function generateDailyQuestions(countries: Country[], dateStr?: string, count: number = 10): TruthleQuestion[] {
   const date = dateStr || getTodayDateString()
   const seed = dateToSeed(date)
@@ -259,6 +282,24 @@ export function generateDailyQuestions(countries: Country[], dateStr?: string, c
 
   const questions: TruthleQuestion[] = []
   const usedVariables = new Set<string>()
+
+  // Generate 2-3 correlation questions first
+  const correlationCount = 2 + Math.floor(rng() * 2) // 2 or 3
+  const correlations = (correlationsData as { correlations: Correlation[] }).correlations
+  const correlationQuestions = generateCorrelationQuestions(correlations, rng, correlationCount)
+    .map(convertCorrelationQuestion)
+
+  // Determine positions for correlation questions (spread throughout the game)
+  const correlationPositions = new Set<number>()
+  const positionOptions = [2, 4, 6, 8] // Middle positions
+  const shuffledPositions = shuffleWithRng(positionOptions, rng)
+  for (let i = 0; i < correlationQuestions.length && i < shuffledPositions.length; i++) {
+    correlationPositions.add(shuffledPositions[i])
+  }
+
+  // Generate regular questions
+  const regularQuestionCount = count - correlationQuestions.length
+  const regularQuestions: TruthleQuestion[] = []
 
   // Shuffle variables for this day
   const shuffledVariables = shuffleWithRng([...TRUTHLE_VARIABLES], rng)
@@ -273,7 +314,7 @@ export function generateDailyQuestions(countries: Country[], dateStr?: string, c
   let attempts = 0
   const maxAttempts = 100
 
-  while (questions.length < count && attempts < maxAttempts && varIndex < shuffledVariables.length) {
+  while (regularQuestions.length < regularQuestionCount && attempts < maxAttempts && varIndex < shuffledVariables.length) {
     attempts++
 
     const variablePath = shuffledVariables[varIndex]
@@ -289,11 +330,35 @@ export function generateDailyQuestions(countries: Country[], dateStr?: string, c
     const question = generator(countries, variablePath, rng)
 
     if (question) {
-      questions.push(question)
+      regularQuestions.push(question)
       usedVariables.add(variablePath)
     }
 
     varIndex++
+  }
+
+  // Interleave questions - place correlation questions at designated positions
+  let regularIndex = 0
+  let correlationIndex = 0
+
+  for (let i = 0; i < count; i++) {
+    if (correlationPositions.has(i) && correlationIndex < correlationQuestions.length) {
+      questions.push(correlationQuestions[correlationIndex])
+      correlationIndex++
+    } else if (regularIndex < regularQuestions.length) {
+      questions.push(regularQuestions[regularIndex])
+      regularIndex++
+    }
+  }
+
+  // Add any remaining questions
+  while (correlationIndex < correlationQuestions.length && questions.length < count) {
+    questions.push(correlationQuestions[correlationIndex])
+    correlationIndex++
+  }
+  while (regularIndex < regularQuestions.length && questions.length < count) {
+    questions.push(regularQuestions[regularIndex])
+    regularIndex++
   }
 
   return questions

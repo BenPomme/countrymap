@@ -37,6 +37,11 @@ export interface TruthleLocalState {
   perfectGames: number
   fastAnswersTotal: number
   unlockedAchievements: string[]
+  // Email signup
+  emailSignupBonusClaimed: boolean
+  // Share tracking
+  totalShares: number
+  lastShareDate: string | null
 }
 
 const LOCAL_STORAGE_KEY = 'truthle_state'
@@ -70,6 +75,11 @@ function getDefaultState(): TruthleLocalState {
     perfectGames: 0,
     fastAnswersTotal: 0,
     unlockedAchievements: [],
+    // Email signup
+    emailSignupBonusClaimed: false,
+    // Share tracking
+    totalShares: 0,
+    lastShareDate: null,
   }
 }
 
@@ -466,6 +476,82 @@ export function getAchievementStats(): {
     fastAnswersTotal: state.fastAnswersTotal,
     totalCoinsEarned: state.totalCoinsEarned,
     ownedItemsCount: state.ownedItems.length,
+  }
+}
+
+// ============================================
+// EMAIL SIGNUP BONUS
+// ============================================
+
+// Check if email signup bonus has been claimed
+export function hasClaimedEmailBonus(): boolean {
+  return getLocalState().emailSignupBonusClaimed
+}
+
+// Claim email signup bonus (100 coins + Verified Player badge)
+export function claimEmailSignupBonus(): { success: boolean; coins: number } {
+  const state = getLocalState()
+
+  if (state.emailSignupBonusClaimed) {
+    return { success: false, coins: 0 }
+  }
+
+  const bonusCoins = 100
+
+  saveLocalState({
+    ...state,
+    emailSignupBonusClaimed: true,
+    coins: state.coins + bonusCoins,
+    totalCoinsEarned: state.totalCoinsEarned + bonusCoins,
+    // Unlock Verified Player badge
+    ownedItems: state.ownedItems.includes('badge_verified')
+      ? state.ownedItems
+      : [...state.ownedItems, 'badge_verified'],
+    unlockedAchievements: state.unlockedAchievements.includes('email_verified')
+      ? state.unlockedAchievements
+      : [...state.unlockedAchievements, 'email_verified'],
+  })
+
+  return { success: true, coins: bonusCoins }
+}
+
+// ============================================
+// SHARE TRACKING
+// ============================================
+
+// Record a share action
+export function recordShare(): { isFirstShare: boolean; newTotal: number } {
+  const state = getLocalState()
+  const today = getTodayDateString()
+  const isFirstShare = state.totalShares === 0
+  const newTotal = state.totalShares + 1
+
+  const updates: Partial<TruthleLocalState> = {
+    totalShares: newTotal,
+    lastShareDate: today,
+  }
+
+  // Award Social Butterfly badge on first share
+  if (isFirstShare) {
+    updates.ownedItems = state.ownedItems.includes('badge_social_butterfly')
+      ? state.ownedItems
+      : [...state.ownedItems, 'badge_social_butterfly']
+    updates.unlockedAchievements = state.unlockedAchievements.includes('first_share')
+      ? state.unlockedAchievements
+      : [...state.unlockedAchievements, 'first_share']
+  }
+
+  saveLocalState({ ...state, ...updates })
+
+  return { isFirstShare, newTotal }
+}
+
+// Get share stats
+export function getShareStats(): { totalShares: number; lastShareDate: string | null } {
+  const state = getLocalState()
+  return {
+    totalShares: state.totalShares,
+    lastShareDate: state.lastShareDate,
   }
 }
 

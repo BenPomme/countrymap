@@ -22,6 +22,7 @@ export const COIN_REWARDS = {
   firstPlay: 100,          // Welcome bonus
   shareResult: 15,         // Sharing to social
   referral: 200,           // When referred friend plays first game
+  emailSignup: 100,        // Email signup/link bonus
 
   // Offer wall rewards (estimated, actual values come from provider)
   watchAd: 5,              // Rewarded video ad

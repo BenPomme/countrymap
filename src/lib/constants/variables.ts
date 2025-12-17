@@ -1134,4 +1134,49 @@ export const DATA_SOURCES = {
     url: 'https://ilga.org/',
     description: 'LGBT+ rights and acceptance data',
   },
+  numbeo: {
+    name: 'Numbeo',
+    url: 'https://www.numbeo.com/',
+    description: 'Quality of life indices including safety, crime, and cost of living',
+  },
+  un_population: {
+    name: 'UN World Population Prospects',
+    url: 'https://population.un.org/wpp/',
+    description: 'Population estimates, median age, and demographic projections',
+  },
+  ubs_wealth: {
+    name: 'UBS Global Wealth Report',
+    url: 'https://www.ubs.com/global/en/wealthmanagement/insights/global-wealth-report.html',
+    description: 'Millionaires per capita and global wealth statistics',
+  },
+  cb_insights: {
+    name: 'CB Insights',
+    url: 'https://www.cbinsights.com/research-unicorn-companies',
+    description: 'Startup unicorn data and venture capital statistics',
+  },
+  kirin: {
+    name: 'Kirin Holdings',
+    url: 'https://www.kirinholdings.com/',
+    description: 'Global beer consumption statistics by country',
+  },
+  oiv: {
+    name: 'International Organisation of Vine and Wine',
+    url: 'https://www.oiv.int/',
+    description: 'Wine production and consumption statistics',
+  },
+  fao: {
+    name: 'FAO',
+    url: 'https://www.fao.org/faostat/',
+    description: 'Food and agriculture statistics including tea consumption',
+  },
+  mcdonalds: {
+    name: "McDonald's Corporate",
+    url: 'https://corporate.mcdonalds.com/',
+    description: "McDonald's restaurant locations by country",
+  },
+  nobel_foundation: {
+    name: 'Nobel Prize',
+    url: 'https://www.nobelprize.org/',
+    description: 'Nobel Prize laureates by country',
+  },
 }

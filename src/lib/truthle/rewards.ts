@@ -97,6 +97,28 @@ export const BADGES: VirtualReward[] = [
     rarity: 'legendary',
   },
 
+  // Account badges
+  {
+    id: 'badge_verified',
+    name: 'Verified Player',
+    description: 'Linked your account with email',
+    category: 'badge',
+    price: 0,
+    icon: '✉️',
+    rarity: 'rare',
+    unlockCondition: 'email_verified',
+  },
+  {
+    id: 'badge_social_butterfly',
+    name: 'Social Butterfly',
+    description: 'Share your Truthle results for the first time',
+    category: 'badge',
+    price: 0,
+    icon: '🦋',
+    rarity: 'common',
+    unlockCondition: 'first_share',
+  },
+
   // Streak badges (unlocked at milestones)
   {
     id: 'badge_streak_7',

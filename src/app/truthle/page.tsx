@@ -4,6 +4,7 @@ import Link from 'next/link'
 import type { Country } from '@/types/country'
 import TruthleGame from '@/components/truthle/TruthleGame'
 import CoinBalance from '@/components/truthle/CoinBalance'
+import AccountButton from '@/components/truthle/AccountButton'
 import { AdBanner } from '@/components/ads'
 import { AD_SLOTS } from '@/lib/constants/ads'
 import countriesData from '../../../data/countries.json'
@@ -23,11 +24,12 @@ export default function TruthlePage() {
             </svg>
             <span className="text-sm font-medium">World Truth Map</span>
           </Link>
-          <nav className="flex items-center gap-4 text-sm">
-            <Link href="/charts" className="text-gray-600 hover:text-gray-900">Charts</Link>
-            <Link href="/discoveries" className="text-gray-600 hover:text-gray-900">Discoveries</Link>
-            <Link href="/quiz" className="text-gray-600 hover:text-gray-900">Quiz</Link>
+          <nav className="flex items-center gap-3 text-sm">
+            <Link href="/charts" className="text-gray-600 hover:text-gray-900 hidden sm:block">Charts</Link>
+            <Link href="/discoveries" className="text-gray-600 hover:text-gray-900 hidden sm:block">Discoveries</Link>
+            <Link href="/quiz" className="text-gray-600 hover:text-gray-900 hidden sm:block">Quiz</Link>
             <CoinBalance size="sm" />
+            <AccountButton />
           </nav>
         </div>
       </header>
