@@ -16,7 +16,7 @@ import {
   Cell,
 } from 'recharts'
 import type { Country, ColorVariable } from '@/types/country'
-import { Globe, ArrowLeft, Share2, Twitter, Facebook, Linkedin, Link2, Check, Menu, HelpCircle, Sparkles } from 'lucide-react'
+import { Globe, ArrowLeft, Menu, HelpCircle, Sparkles } from 'lucide-react'
 import CoinBalance from '@/components/truthle/CoinBalance'
 import countriesData from '../../../data/countries.json'
 import { VARIABLES, VARIABLE_CATEGORIES } from '@/lib/constants/variables'
@@ -95,8 +95,6 @@ function ChartsContent() {
   const [xVariable, setXVariable] = useState<ColorVariable>(initialX)
   const [yVariable, setYVariable] = useState<ColorVariable>(initialY)
   const [colorBy, setColorBy] = useState<'religion' | 'region'>(initialColor)
-  const [showShareMenu, setShowShareMenu] = useState(false)
-  const [copied, setCopied] = useState(false)
   const chartContainerRef = useRef<HTMLDivElement>(null)
 
   // Update URL when state changes
@@ -117,12 +115,6 @@ function ChartsContent() {
     updateURL()
   }, [updateURL])
 
-  // Generate share URL
-  const getShareURL = () => {
-    if (typeof window === 'undefined') return ''
-    return window.location.href
-  }
-
   // Generate share text based on current chart
   const getShareText = () => {
     if (selectedChart === 'correlation') {
@@ -139,45 +131,6 @@ function ChartsContent() {
       return 'Check out how Democracy and GDP correlate across countries!'
     }
     return 'Check out this interesting country comparison data!'
-  }
-
-  // Share functions
-  const shareOnTwitter = () => {
-    const url = encodeURIComponent(getShareURL())
-    const text = encodeURIComponent(getShareText())
-    window.open(`https://twitter.com/intent/tweet?url=${url}&text=${text}`, '_blank')
-    setShowShareMenu(false)
-  }
-
-  const shareOnFacebook = () => {
-    const url = encodeURIComponent(getShareURL())
-    window.open(`https://www.facebook.com/sharer/sharer.php?u=${url}`, '_blank')
-    setShowShareMenu(false)
-  }
-
-  const shareOnLinkedIn = () => {
-    const url = encodeURIComponent(getShareURL())
-    window.open(`https://www.linkedin.com/sharing/share-offsite/?url=${url}`, '_blank')
-    setShowShareMenu(false)
-  }
-
-  const copyLink = async () => {
-    try {
-      await navigator.clipboard.writeText(getShareURL())
-      setCopied(true)
-      setTimeout(() => setCopied(false), 2000)
-    } catch {
-      // Fallback for older browsers
-      const textarea = document.createElement('textarea')
-      textarea.value = getShareURL()
-      document.body.appendChild(textarea)
-      textarea.select()
-      document.execCommand('copy')
-      document.body.removeChild(textarea)
-      setCopied(true)
-      setTimeout(() => setCopied(false), 2000)
-    }
-    setShowShareMenu(false)
   }
 
   // Get variable config for ranking
@@ -297,61 +250,6 @@ function ChartsContent() {
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center gap-2">
-            {/* Share Button */}
-            <div className="relative">
-              <button
-                onClick={() => setShowShareMenu(!showShareMenu)}
-                className="flex items-center gap-2 px-4 py-2 text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-md transition-colors"
-              >
-                <Share2 className="w-4 h-4" />
-                Share
-              </button>
-
-              {/* Share Menu Dropdown */}
-              {showShareMenu && (
-                <div className="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg border border-gray-200 py-2 z-50">
-                  <button
-                    onClick={shareOnTwitter}
-                    className="w-full flex items-center gap-3 px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                  >
-                    <Twitter className="w-4 h-4 text-[#1DA1F2]" />
-                    Share on Twitter
-                  </button>
-                  <button
-                    onClick={shareOnFacebook}
-                    className="w-full flex items-center gap-3 px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                  >
-                    <Facebook className="w-4 h-4 text-[#4267B2]" />
-                    Share on Facebook
-                  </button>
-                  <button
-                    onClick={shareOnLinkedIn}
-                    className="w-full flex items-center gap-3 px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                  >
-                    <Linkedin className="w-4 h-4 text-[#0077B5]" />
-                    Share on LinkedIn
-                  </button>
-                  <hr className="my-2 border-gray-200" />
-                  <button
-                    onClick={copyLink}
-                    className="w-full flex items-center gap-3 px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                  >
-                    {copied ? (
-                      <>
-                        <Check className="w-4 h-4 text-green-600" />
-                        <span className="text-green-600">Copied!</span>
-                      </>
-                    ) : (
-                      <>
-                        <Link2 className="w-4 h-4" />
-                        Copy Link
-                      </>
-                    )}
-                  </button>
-                </div>
-              )}
-            </div>
-
             <VisualShare
               targetRef={chartContainerRef}
               title={`Chart - ${getShareText().slice(0, 50)}`}
@@ -433,70 +331,6 @@ function ChartsContent() {
 
       {/* Ad Banner - Desktop only */}
       <AdBanner slotId={AD_SLOTS.chartsBanner} hideOnMobile={true} className="bg-gray-100" />
-
-      {/* Click outside to close share menu */}
-      {showShareMenu && (
-        <div
-          className="fixed inset-0 z-40"
-          onClick={() => setShowShareMenu(false)}
-        />
-      )}
-
-      {/* Mobile Share Modal */}
-      {showShareMenu && (
-        <div className="md:hidden fixed bottom-0 left-0 right-0 bg-white rounded-t-xl shadow-xl border-t border-gray-200 z-50 p-4">
-          <div className="flex items-center justify-between mb-4">
-            <h3 className="font-semibold text-gray-900">Share</h3>
-            <button
-              onClick={() => setShowShareMenu(false)}
-              className="text-gray-400 hover:text-gray-600"
-            >
-              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-              </svg>
-            </button>
-          </div>
-          <div className="grid grid-cols-4 gap-4">
-            <button
-              onClick={shareOnTwitter}
-              className="flex flex-col items-center gap-2 p-3 rounded-lg hover:bg-gray-100"
-            >
-              <Twitter className="w-6 h-6 text-[#1DA1F2]" />
-              <span className="text-xs text-gray-600">Twitter</span>
-            </button>
-            <button
-              onClick={shareOnFacebook}
-              className="flex flex-col items-center gap-2 p-3 rounded-lg hover:bg-gray-100"
-            >
-              <Facebook className="w-6 h-6 text-[#4267B2]" />
-              <span className="text-xs text-gray-600">Facebook</span>
-            </button>
-            <button
-              onClick={shareOnLinkedIn}
-              className="flex flex-col items-center gap-2 p-3 rounded-lg hover:bg-gray-100"
-            >
-              <Linkedin className="w-6 h-6 text-[#0077B5]" />
-              <span className="text-xs text-gray-600">LinkedIn</span>
-            </button>
-            <button
-              onClick={copyLink}
-              className="flex flex-col items-center gap-2 p-3 rounded-lg hover:bg-gray-100"
-            >
-              {copied ? (
-                <>
-                  <Check className="w-6 h-6 text-green-600" />
-                  <span className="text-xs text-green-600">Copied!</span>
-                </>
-              ) : (
-                <>
-                  <Link2 className="w-6 h-6 text-gray-600" />
-                  <span className="text-xs text-gray-600">Copy Link</span>
-                </>
-              )}
-            </button>
-          </div>
-        </div>
-      )}
 
       {/* Chart Selection */}
       <div className="p-4 md:p-6">
