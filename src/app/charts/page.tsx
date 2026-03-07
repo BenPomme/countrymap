@@ -23,6 +23,7 @@ import { VARIABLES, VARIABLE_CATEGORIES } from '@/lib/constants/variables'
 import { AdBanner } from '@/components/ads'
 import { AD_SLOTS } from '@/lib/constants/ads'
 import { VisualShare } from '@/components/share'
+import { useEmbeddedAppMode } from '@/lib/useEmbeddedAppMode'
 
 const religionColors: Record<string, string> = {
   'Christianity': '#3b82f6',
@@ -234,10 +235,12 @@ function ChartsContent() {
   }
 
   const [showMobileMenu, setShowMobileMenu] = useState(false)
+  const embeddedMode = useEmbeddedAppMode()
 
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Header */}
+      {!embeddedMode && (
       <header className="bg-white border-b border-gray-200 px-4 md:px-6 py-3 md:py-4">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2 md:gap-3">
@@ -328,18 +331,22 @@ function ChartsContent() {
           </nav>
         )}
       </header>
+      )}
 
       {/* Ad Banner - Desktop only */}
-      <AdBanner slotId={AD_SLOTS.chartsBanner} hideOnMobile={true} className="bg-gray-100" />
+      {!embeddedMode && (
+        <AdBanner slotId={AD_SLOTS.chartsBanner} hideOnMobile={true} className="bg-gray-100" />
+      )}
 
       {/* Chart Selection */}
-      <div className="p-4 md:p-6">
-        <div className="grid grid-cols-2 md:flex md:flex-wrap gap-2 mb-6">
+      <div className={embeddedMode ? 'px-4 pt-4 pb-10' : 'p-4 md:p-6'}>
+        <div className={embeddedMode ? 'mb-6 -mx-1 overflow-x-auto pb-2' : 'mb-6'}>
+          <div className={embeddedMode ? 'flex min-w-max gap-2 px-1' : 'grid grid-cols-2 md:flex md:flex-wrap gap-2'}>
           <button
             onClick={() => setSelectedChart('correlation')}
-            className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${
+            className={`rounded-full px-4 py-2.5 text-sm font-medium transition-colors ${
               selectedChart === 'correlation'
-                ? 'bg-purple-600 text-white'
+                ? 'bg-purple-600 text-white shadow-sm'
                 : 'bg-white text-gray-700 hover:bg-gray-100'
             }`}
           >
@@ -347,9 +354,9 @@ function ChartsContent() {
           </button>
           <button
             onClick={() => setSelectedChart('ranking')}
-            className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${
+            className={`rounded-full px-4 py-2.5 text-sm font-medium transition-colors ${
               selectedChart === 'ranking'
-                ? 'bg-blue-600 text-white'
+                ? 'bg-blue-600 text-white shadow-sm'
                 : 'bg-white text-gray-700 hover:bg-gray-100'
             }`}
           >
@@ -357,9 +364,9 @@ function ChartsContent() {
           </button>
           <button
             onClick={() => setSelectedChart('scatter')}
-            className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${
+            className={`rounded-full px-4 py-2.5 text-sm font-medium transition-colors ${
               selectedChart === 'scatter'
-                ? 'bg-blue-600 text-white'
+                ? 'bg-blue-600 text-white shadow-sm'
                 : 'bg-white text-gray-700 hover:bg-gray-100'
             }`}
           >
@@ -367,36 +374,50 @@ function ChartsContent() {
           </button>
           <button
             onClick={() => setSelectedChart('distribution')}
-            className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${
+            className={`rounded-full px-4 py-2.5 text-sm font-medium transition-colors ${
               selectedChart === 'distribution'
-                ? 'bg-blue-600 text-white'
+                ? 'bg-blue-600 text-white shadow-sm'
                 : 'bg-white text-gray-700 hover:bg-gray-100'
             }`}
           >
             Religion Distribution
           </button>
+          </div>
         </div>
 
         {/* Chart Container for Screenshot */}
         <div ref={chartContainerRef}>
         {/* Custom Correlation Chart */}
         {selectedChart === 'correlation' && (
-          <div className="bg-white rounded-lg shadow-sm p-4 md:p-6">
-            <div className="flex items-center justify-between mb-2">
-              <h2 className="text-base md:text-lg font-semibold">Custom Correlation Explorer</h2>
-            </div>
-            <p className="text-xs md:text-sm text-gray-500 mb-4">
-              Select any two variables to explore correlations between them ({numericVariables.length} numeric variables available)
-            </p>
+          <div className={`bg-white shadow-sm ${embeddedMode ? 'overflow-hidden rounded-[24px] border border-purple-100' : 'rounded-lg p-4 md:p-6'}`}>
+            {embeddedMode && (
+              <div className="bg-gradient-to-r from-purple-600 via-indigo-600 to-blue-500 px-5 py-5 text-white">
+                <h2 className="text-lg font-semibold">Custom Correlation Explorer</h2>
+                <p className="mt-2 text-sm text-white/80">
+                  Explore any two variables across countries without the desktop clutter.
+                </p>
+              </div>
+            )}
+            <div className={embeddedMode ? 'space-y-5 p-4 pt-5' : ''}>
+            {!embeddedMode && (
+              <>
+                <div className="flex items-center justify-between mb-2">
+                  <h2 className="text-base md:text-lg font-semibold">Custom Correlation Explorer</h2>
+                </div>
+                <p className="text-xs md:text-sm text-gray-500 mb-4">
+                  Select any two variables to explore correlations between them ({numericVariables.length} numeric variables available)
+                </p>
+              </>
+            )}
 
             {/* Variable Selectors */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">X-Axis Variable</label>
+            <div className={`grid ${embeddedMode ? 'grid-cols-1 gap-3' : 'grid-cols-1 md:grid-cols-3 gap-4'} mb-6`}>
+              <div className={embeddedMode ? 'rounded-2xl border border-slate-200 bg-slate-50 p-3' : ''}>
+                <label className={`block ${embeddedMode ? 'mb-2 text-[11px] font-semibold uppercase tracking-[0.18em] text-slate-500' : 'mb-1 text-sm font-medium text-gray-700'}`}>X-Axis Variable</label>
                 <select
                   value={xVariable}
                   onChange={(e) => setXVariable(e.target.value as ColorVariable)}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md text-sm"
+                  className={`w-full px-3 py-2 border border-gray-300 text-sm ${embeddedMode ? 'rounded-xl bg-white shadow-sm' : 'rounded-md'}`}
                 >
                   {variablesByCategory.map(cat => (
                     <optgroup key={cat.id} label={`${cat.icon} ${cat.name}`}>
@@ -407,12 +428,12 @@ function ChartsContent() {
                   ))}
                 </select>
               </div>
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Y-Axis Variable</label>
+              <div className={embeddedMode ? 'rounded-2xl border border-slate-200 bg-slate-50 p-3' : ''}>
+                <label className={`block ${embeddedMode ? 'mb-2 text-[11px] font-semibold uppercase tracking-[0.18em] text-slate-500' : 'mb-1 text-sm font-medium text-gray-700'}`}>Y-Axis Variable</label>
                 <select
                   value={yVariable}
                   onChange={(e) => setYVariable(e.target.value as ColorVariable)}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md text-sm"
+                  className={`w-full px-3 py-2 border border-gray-300 text-sm ${embeddedMode ? 'rounded-xl bg-white shadow-sm' : 'rounded-md'}`}
                 >
                   {variablesByCategory.map(cat => (
                     <optgroup key={cat.id} label={`${cat.icon} ${cat.name}`}>
@@ -423,12 +444,12 @@ function ChartsContent() {
                   ))}
                 </select>
               </div>
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Color By</label>
+              <div className={embeddedMode ? 'rounded-2xl border border-slate-200 bg-slate-50 p-3' : ''}>
+                <label className={`block ${embeddedMode ? 'mb-2 text-[11px] font-semibold uppercase tracking-[0.18em] text-slate-500' : 'mb-1 text-sm font-medium text-gray-700'}`}>Color By</label>
                 <select
                   value={colorBy}
                   onChange={(e) => setColorBy(e.target.value as 'religion' | 'region')}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md text-sm"
+                  className={`w-full px-3 py-2 border border-gray-300 text-sm ${embeddedMode ? 'rounded-xl bg-white shadow-sm' : 'rounded-md'}`}
                 >
                   <option value="religion">Religion</option>
                   <option value="region">Region</option>
@@ -437,13 +458,13 @@ function ChartsContent() {
             </div>
 
             {/* Correlation Stats */}
-            <div className="flex flex-wrap gap-4 mb-4">
-              <div className="bg-gray-50 rounded-lg px-4 py-2">
+            <div className={`mb-4 ${embeddedMode ? 'grid grid-cols-2 gap-3' : 'flex flex-wrap gap-4'}`}>
+              <div className={`px-4 py-3 ${embeddedMode ? 'rounded-2xl border border-slate-200 bg-slate-50' : 'bg-gray-50 rounded-lg py-2'}`}>
                 <span className="text-sm text-gray-500">Countries with data:</span>
                 <span className="ml-2 font-semibold">{correlationData.length}</span>
               </div>
               {correlation !== null && (
-                <div className={`rounded-lg px-4 py-2 ${
+                <div className={`px-4 py-3 ${embeddedMode ? 'rounded-2xl' : 'rounded-lg py-2'} ${
                   Math.abs(correlation) > 0.7 ? 'bg-green-50' :
                   Math.abs(correlation) > 0.4 ? 'bg-yellow-50' : 'bg-gray-50'
                 }`}>
@@ -461,16 +482,16 @@ function ChartsContent() {
             </div>
 
             {/* Scatter Plot */}
-            <div className="h-[350px] md:h-[500px]">
+            <div className={embeddedMode ? 'h-[500px] rounded-[22px] border border-slate-200 bg-white p-2 shadow-sm' : 'h-[350px] md:h-[500px]'}>
               <ResponsiveContainer width="100%" height="100%">
-                <ScatterChart margin={{ top: 20, right: 20, bottom: 60, left: 80 }}>
+                <ScatterChart margin={embeddedMode ? { top: 16, right: 8, bottom: 30, left: 8 } : { top: 20, right: 20, bottom: 60, left: 80 }}>
                   <CartesianGrid strokeDasharray="3 3" />
                   <XAxis
                     type="number"
                     dataKey="x"
                     name={VARIABLES[xVariable]?.name || xVariable}
                     domain={['auto', 'auto']}
-                    label={{
+                    label={embeddedMode ? undefined : {
                       value: VARIABLES[xVariable]?.name || xVariable,
                       position: 'bottom',
                       offset: 40
@@ -483,13 +504,15 @@ function ChartsContent() {
                       }
                       return v
                     }}
+                    tick={{ fontSize: embeddedMode ? 10 : 12 }}
                   />
                   <YAxis
                     type="number"
                     dataKey="y"
                     name={VARIABLES[yVariable]?.name || yVariable}
                     domain={['auto', 'auto']}
-                    label={{
+                    width={embeddedMode ? 44 : 60}
+                    label={embeddedMode ? undefined : {
                       value: VARIABLES[yVariable]?.name || yVariable,
                       angle: -90,
                       position: 'left',
@@ -503,6 +526,7 @@ function ChartsContent() {
                       }
                       return v
                     }}
+                    tick={{ fontSize: embeddedMode ? 10 : 12 }}
                   />
                   <Tooltip
                     content={({ payload }) => {
@@ -544,7 +568,7 @@ function ChartsContent() {
               <p className="text-xs text-gray-500 mb-2">
                 Points colored by {colorBy === 'religion' ? 'major religion' : 'region'}:
               </p>
-              <div className="flex flex-wrap gap-3">
+              <div className={`flex flex-wrap gap-3 ${embeddedMode ? 'rounded-2xl border border-slate-200 bg-slate-50 p-4' : ''}`}>
                 {Object.entries(colorBy === 'religion' ? religionColors : regionColors).map(([label, color]) => (
                   <div key={label} className="flex items-center gap-1.5">
                     <div className="w-3 h-3 rounded-full" style={{ backgroundColor: color }} />
@@ -557,7 +581,7 @@ function ChartsContent() {
             {/* Quick Presets */}
             <div className="mt-4 pt-4 border-t border-gray-200">
               <p className="text-xs text-gray-500 mb-2">Interesting correlations to explore:</p>
-              <div className="flex flex-wrap gap-2">
+              <div className={embeddedMode ? 'flex gap-2 overflow-x-auto pb-2' : 'flex flex-wrap gap-2'}>
                 {[
                   { x: 'health.penisSize', y: 'education.avgIQ', label: 'Penis Size vs IQ' },
                   { x: 'lifestyle.happinessIndex', y: 'poverty.gdpPerCapita', label: 'Happiness vs Wealth' },
@@ -574,12 +598,13 @@ function ChartsContent() {
                       setXVariable(preset.x as ColorVariable)
                       setYVariable(preset.y as ColorVariable)
                     }}
-                    className="px-3 py-1 text-xs bg-gray-100 hover:bg-gray-200 rounded-full text-gray-700 transition-colors"
+                    className="shrink-0 rounded-full bg-gray-100 px-3 py-1 text-xs text-gray-700 transition-colors hover:bg-gray-200"
                   >
                     {preset.label}
                   </button>
                 ))}
               </div>
+            </div>
             </div>
           </div>
         )}

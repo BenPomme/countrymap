@@ -11,6 +11,7 @@ import { scaleLinear, scaleOrdinal } from 'd3-scale'
 import type { Country, ColorVariable } from '@/types/country'
 import { getNestedValue } from '@/lib/utils'
 import { VARIABLES, MAJOR_RELIGIONS } from '@/lib/constants/variables'
+import { useEmbeddedAppMode } from '@/lib/useEmbeddedAppMode'
 import MapTooltip from './MapTooltip'
 import MapLegend from './MapLegend'
 
@@ -78,6 +79,7 @@ export default function WorldMap({
   colorVariable,
   onCountryClick,
 }: WorldMapProps) {
+  const embeddedMode = useEmbeddedAppMode()
   const [tooltipContent, setTooltipContent] = useState<Country | null>(null)
   const [tooltipPosition, setTooltipPosition] = useState({ x: 0, y: 0 })
 
@@ -171,12 +173,12 @@ export default function WorldMap({
   )
 
   return (
-    <div className="relative w-full h-full min-h-[500px]">
+    <div className={`relative w-full ${embeddedMode ? 'h-[72svh] min-h-[560px]' : 'h-full min-h-[500px]'}`}>
       <ComposableMap
         projection="geoMercator"
         projectionConfig={{
-          scale: 120,
-          center: [0, 30],
+          scale: embeddedMode ? 145 : 120,
+          center: embeddedMode ? [0, 22] : [0, 30],
         }}
         className="w-full h-full"
       >

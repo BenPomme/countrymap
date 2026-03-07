@@ -2,6 +2,7 @@
 
 import { useEffect, useRef } from 'react'
 import { ADSENSE_CONFIG } from '@/lib/constants/ads'
+import { useEmbeddedAppMode } from '@/lib/useEmbeddedAppMode'
 
 declare global {
   interface Window {
@@ -24,10 +25,13 @@ export default function AdUnit({
   className = '',
   style,
 }: AdUnitProps) {
+  const embeddedMode = useEmbeddedAppMode()
   const adRef = useRef<HTMLModElement>(null)
   const isLoaded = useRef(false)
 
   useEffect(() => {
+    if (embeddedMode) return
+
     // Don't load if no slot ID configured
     if (!slotId) return
 
@@ -43,7 +47,11 @@ export default function AdUnit({
     } catch (error) {
       console.error('AdSense error:', error)
     }
-  }, [slotId])
+  }, [embeddedMode, slotId])
+
+  if (embeddedMode) {
+    return null
+  }
 
   // Show placeholder if no slot ID configured
   if (!slotId) {

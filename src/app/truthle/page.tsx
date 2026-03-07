@@ -8,14 +8,18 @@ import AccountButton from '@/components/truthle/AccountButton'
 import { AdBanner } from '@/components/ads'
 import { AD_SLOTS } from '@/lib/constants/ads'
 import countriesData from '../../../data/countries.json'
+import { useEmbeddedAppMode } from '@/lib/useEmbeddedAppMode'
 
 // Import countries at build time (same as main page)
 const countries = countriesData as Country[]
 
 export default function TruthlePage() {
+  const embeddedMode = useEmbeddedAppMode()
+
   return (
     <div className="min-h-screen bg-gradient-to-b from-emerald-50 to-white">
       {/* Header */}
+      {!embeddedMode && (
       <header className="bg-white shadow-sm">
         <div className="max-w-4xl mx-auto px-4 py-3 flex justify-between items-center">
           <Link href="/" className="text-gray-600 hover:text-gray-900 flex items-center gap-2">
@@ -33,16 +37,20 @@ export default function TruthlePage() {
           </nav>
         </div>
       </header>
+      )}
 
       {/* Ad Banner */}
-      <AdBanner slotId={AD_SLOTS.truthleBanner} hideOnMobile={true} className="bg-gray-50 border-b border-gray-100" />
+      {!embeddedMode && (
+        <AdBanner slotId={AD_SLOTS.truthleBanner} hideOnMobile={true} className="bg-gray-50 border-b border-gray-100" />
+      )}
 
       {/* Main content */}
-      <main className="max-w-4xl mx-auto py-8">
+      <main className={`max-w-4xl mx-auto ${embeddedMode ? 'py-4' : 'py-8'}`}>
         <TruthleGame countries={countries} />
       </main>
 
       {/* Footer */}
+      {!embeddedMode && (
       <footer className="mt-auto py-6 text-center text-sm text-gray-500">
         <p>
           Truthle is part of{' '}
@@ -57,6 +65,7 @@ export default function TruthlePage() {
           </Link>
         </p>
       </footer>
+      )}
     </div>
   )
 }

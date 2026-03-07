@@ -1,5 +1,6 @@
-import { db, ensureAnonymousAuth } from '@/lib/firebase/config'
+import { db, ensureAnonymousAuth, functionsClient } from '@/lib/firebase/config'
 import { doc, getDoc, setDoc, serverTimestamp } from 'firebase/firestore'
+import { httpsCallable } from 'firebase/functions'
 import { getTodayDateString } from './generator'
 
 export interface TruthleAttempt {
@@ -8,6 +9,14 @@ export interface TruthleAttempt {
   times: number[]
   streak: number
   timestamp: unknown
+}
+
+export interface TruthleRetryStatus {
+  date: string
+  granted: boolean
+  consumed: boolean
+  canConsume: boolean
+  source: 'backend' | 'none'
 }
 
 export interface TruthleLocalState {
@@ -228,6 +237,34 @@ export async function saveAttempt(
     console.error('Error saving to Firebase:', e)
     // Still return success since we saved locally
     return { success: true, streak }
+  }
+}
+
+// Save retry attempt (keeps primary daily attempt immutable)
+export async function saveRetryAttempt(
+  score: number,
+  results: boolean[],
+  times: number[],
+  streak: number
+): Promise<{ success: boolean }> {
+  const today = getTodayDateString()
+
+  try {
+    const user = await ensureAnonymousAuth()
+    const retryRef = doc(db, 'users', user.uid, 'truthle_retries', today)
+
+    await setDoc(retryRef, {
+      score,
+      results,
+      times,
+      streak,
+      timestamp: serverTimestamp(),
+    })
+
+    return { success: true }
+  } catch (e) {
+    console.error('Error saving retry attempt:', e)
+    return { success: false }
   }
 }
 
@@ -552,6 +589,40 @@ export function getShareStats(): { totalShares: number; lastShareDate: string | 
   return {
     totalShares: state.totalShares,
     lastShareDate: state.lastShareDate,
+  }
+}
+
+// ============================================
+// RETRY ENTITLEMENTS (IAP + REWARDED ADS)
+// ============================================
+
+export async function getCloudRetryStatus(): Promise<TruthleRetryStatus> {
+  try {
+    await ensureAnonymousAuth()
+    const callable = httpsCallable<unknown, TruthleRetryStatus>(functionsClient, 'getTruthleRetryStatus')
+    const response = await callable({})
+    return response.data
+  } catch (error) {
+    console.error('Error getting retry status:', error)
+    return {
+      date: getTodayDateString(),
+      granted: false,
+      consumed: false,
+      canConsume: false,
+      source: 'none',
+    }
+  }
+}
+
+export async function consumeCloudRetry(): Promise<{ success: boolean; remainingRetries: number }> {
+  try {
+    await ensureAnonymousAuth()
+    const callable = httpsCallable<unknown, { success: boolean; remainingRetries: number }>(functionsClient, 'consumeTruthleRetry')
+    const response = await callable({})
+    return response.data
+  } catch (error) {
+    console.error('Error consuming retry entitlement:', error)
+    return { success: false, remainingRetries: 0 }
   }
 }
 

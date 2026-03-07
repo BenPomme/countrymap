@@ -28,6 +28,11 @@ const OFFERTORO_SECRET = functions.config().offertoro?.secret || '';
 // Coin conversion rate (1 cent = X coins)
 // Offertoro pays in cents, we convert to coins
 const CENTS_TO_COINS = 10; // $0.01 = 10 coins, so $1 = 1000 coins
+const RETRY_ENTITLEMENT_LIMIT_PER_DAY = 1;
+
+// Optional secret to harden AdMob callback validation.
+// Set with: firebase functions:config:set admob.ssv_secret="YOUR_SECRET"
+const ADMOB_SSV_SECRET = functions.config().admob?.ssv_secret || '';
 
 /**
  * Verify Offertoro signature
@@ -204,6 +209,197 @@ exports.redeemCoins = functions.https.onCall(async (data, context) => {
     }
     console.error('Error redeeming coins:', error);
     throw new functions.https.HttpsError('internal', 'Failed to redeem coins');
+  }
+});
+
+function getUTCDateKey() {
+  const now = new Date();
+  const year = now.getUTCFullYear();
+  const month = String(now.getUTCMonth() + 1).padStart(2, '0');
+  const day = String(now.getUTCDate()).padStart(2, '0');
+  return `${year}-${month}-${day}`;
+}
+
+function getRetryDocId(dateKey, userId) {
+  return `${dateKey}_${userId}`;
+}
+
+async function grantRetryEntitlement({userId, provider, providerEventId, rewardAmount, rawPayload}) {
+  const dateKey = getUTCDateKey();
+  const entitlementRef = db.collection('truthle_retry_entitlements').doc(getRetryDocId(dateKey, userId));
+  const eventRef = db.collection('ad_reward_events').doc(providerEventId);
+
+  await db.runTransaction(async (transaction) => {
+    const eventDoc = await transaction.get(eventRef);
+    if (eventDoc.exists) {
+      return;
+    }
+
+    const entitlementDoc = await transaction.get(entitlementRef);
+    const existing = entitlementDoc.exists ? entitlementDoc.data() : null;
+    const grantCount = Math.min(
+      RETRY_ENTITLEMENT_LIMIT_PER_DAY,
+      Math.max(existing?.grantCount || 0, 0) + 1
+    );
+
+    transaction.set(entitlementRef, {
+      userId,
+      date: dateKey,
+      granted: grantCount > 0,
+      consumed: existing?.consumed || false,
+      grantCount,
+      lastGrantedAt: admin.firestore.FieldValue.serverTimestamp(),
+      provider,
+      lastProviderEventId: providerEventId,
+      updatedAt: admin.firestore.FieldValue.serverTimestamp(),
+      ...(existing?.consumedAt ? { consumedAt: existing.consumedAt } : {}),
+    }, {merge: true});
+
+    transaction.set(eventRef, {
+      provider,
+      providerEventId,
+      userId,
+      rewardAmount: rewardAmount || 1,
+      date: dateKey,
+      processedAt: admin.firestore.FieldValue.serverTimestamp(),
+      rawPayload,
+    }, {merge: true});
+  });
+
+  return {date: dateKey, userId};
+}
+
+/**
+ * AdMob Rewarded SSV callback
+ * Idempotent endpoint that grants one Truthle retry entitlement per UTC day.
+ */
+exports.admobRewardedSSV = functions.https.onRequest(async (req, res) => {
+  if (req.method !== 'GET') {
+    return res.status(405).send('Method not allowed');
+  }
+
+  const {
+    user_id,
+    custom_data,
+    transaction_id,
+    reward_amount,
+    ad_network,
+    ssv_secret,
+  } = req.query;
+
+  const userId = user_id || custom_data;
+  const providerEventId = transaction_id || `${Date.now()}_${Math.random().toString(36).slice(2)}`;
+
+  if (!userId) {
+    console.error('Missing user identifier in AdMob SSV callback');
+    return res.status(400).send('Missing user identifier');
+  }
+
+  if (ADMOB_SSV_SECRET && ssv_secret !== ADMOB_SSV_SECRET) {
+    console.error('Invalid AdMob SSV shared secret');
+    return res.status(403).send('Forbidden');
+  }
+
+  try {
+    await grantRetryEntitlement({
+      userId,
+      provider: ad_network || 'admob',
+      providerEventId,
+      rewardAmount: parseInt(reward_amount, 10) || 1,
+      rawPayload: req.query,
+    });
+
+    return res.status(200).send('OK');
+  } catch (error) {
+    console.error('Error processing AdMob SSV callback:', error);
+    return res.status(500).send('Internal error');
+  }
+});
+
+/**
+ * Returns today retry entitlement for authenticated user.
+ */
+exports.getTruthleRetryStatus = functions.https.onCall(async (data, context) => {
+  if (!context.auth) {
+    throw new functions.https.HttpsError('unauthenticated', 'User must be authenticated');
+  }
+
+  const userId = context.auth.uid;
+  const date = getUTCDateKey();
+  const entitlementRef = db.collection('truthle_retry_entitlements').doc(getRetryDocId(date, userId));
+
+  try {
+    const docSnap = await entitlementRef.get();
+    if (!docSnap.exists) {
+      return {
+        date,
+        granted: false,
+        consumed: false,
+        canConsume: false,
+        source: 'none',
+      };
+    }
+
+    const entitlement = docSnap.data();
+    const granted = !!entitlement.granted;
+    const consumed = !!entitlement.consumed;
+
+    return {
+      date,
+      granted,
+      consumed,
+      canConsume: granted && !consumed,
+      source: 'backend',
+    };
+  } catch (error) {
+    console.error('Error getting retry entitlement:', error);
+    throw new functions.https.HttpsError('internal', 'Failed to get retry status');
+  }
+});
+
+/**
+ * Consumes one retry entitlement for the authenticated user.
+ */
+exports.consumeTruthleRetry = functions.https.onCall(async (data, context) => {
+  if (!context.auth) {
+    throw new functions.https.HttpsError('unauthenticated', 'User must be authenticated');
+  }
+
+  const userId = context.auth.uid;
+  const date = getUTCDateKey();
+  const entitlementRef = db.collection('truthle_retry_entitlements').doc(getRetryDocId(date, userId));
+
+  try {
+    const result = await db.runTransaction(async (transaction) => {
+      const snap = await transaction.get(entitlementRef);
+      if (!snap.exists) {
+        throw new functions.https.HttpsError('failed-precondition', 'No retry available');
+      }
+
+      const data = snap.data();
+      const granted = !!data.granted;
+      const consumed = !!data.consumed;
+
+      if (!granted || consumed) {
+        throw new functions.https.HttpsError('failed-precondition', 'Retry already consumed');
+      }
+
+      transaction.set(entitlementRef, {
+        consumed: true,
+        consumedAt: admin.firestore.FieldValue.serverTimestamp(),
+        updatedAt: admin.firestore.FieldValue.serverTimestamp(),
+      }, {merge: true});
+
+      return {success: true, remainingRetries: 0};
+    });
+
+    return result;
+  } catch (error) {
+    if (error instanceof functions.https.HttpsError) {
+      throw error;
+    }
+    console.error('Error consuming retry entitlement:', error);
+    throw new functions.https.HttpsError('internal', 'Failed to consume retry');
   }
 });
 

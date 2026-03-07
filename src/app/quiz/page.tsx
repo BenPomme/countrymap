@@ -8,6 +8,8 @@ import type { Country } from '@/types/country'
 import { generateQuizQuestions, calculateScore, type QuizQuestion } from '@/lib/quiz/questionGenerator'
 import countriesData from '../../../data/countries.json'
 import { VisualShare } from '@/components/share'
+import { postBridgeMessage } from '@/lib/bridge/webBridge'
+import { useEmbeddedAppMode } from '@/lib/useEmbeddedAppMode'
 
 type GameState = 'start' | 'playing' | 'answered' | 'finished'
 
@@ -24,6 +26,7 @@ export default function QuizPage() {
   const [showTimer, setShowTimer] = useState(true)
   const [answers, setAnswers] = useState<boolean[]>([])
   const resultsRef = useRef<HTMLDivElement>(null)
+  const embeddedMode = useEmbeddedAppMode()
 
   const countries = countriesData as Country[]
 
@@ -119,11 +122,29 @@ export default function QuizPage() {
 
   const currentQuestion = questions[currentQuestionIndex]
 
+  useEffect(() => {
+    if (gameState !== 'finished') return
+
+    const { score } = calculateScore(correctAnswers, questions.length, streakBonus)
+
+    postBridgeMessage({
+      type: 'session_completed',
+      payload: {
+        route: '/quiz',
+        sessionType: 'quiz',
+        reason: 'completed',
+        score,
+        timestamp: new Date().toISOString(),
+      },
+    })
+  }, [correctAnswers, gameState, questions.length, streakBonus])
+
   // Start Screen
   if (gameState === 'start') {
     return (
       <div className="min-h-screen bg-gradient-to-br from-blue-600 via-purple-600 to-pink-500 flex flex-col">
         {/* Header */}
+        {!embeddedMode && (
         <header className="bg-white/10 backdrop-blur-sm px-4 md:px-6 py-3 md:py-4">
           <div className="max-w-4xl mx-auto flex items-center justify-between">
             <Link href="/" className="flex items-center gap-2 md:gap-3">
@@ -151,9 +172,10 @@ export default function QuizPage() {
             </nav>
           </div>
         </header>
+        )}
 
         {/* Start Content */}
-        <div className="flex-1 flex items-center justify-center p-4">
+        <div className={`flex-1 flex items-center justify-center p-4 ${embeddedMode ? 'pt-8' : ''}`}>
           <div className="text-center text-white max-w-md">
             <div className="text-6xl mb-6">🌍</div>
             <h1 className="text-4xl md:text-5xl font-bold mb-4">The Truth Quiz</h1>
@@ -219,6 +241,7 @@ export default function QuizPage() {
     return (
       <div className="min-h-screen bg-gradient-to-br from-blue-600 via-purple-600 to-pink-500 flex flex-col">
         {/* Header */}
+        {!embeddedMode && (
         <header className="bg-white/10 backdrop-blur-sm px-4 md:px-6 py-3 md:py-4">
           <div className="max-w-4xl mx-auto flex items-center justify-between">
             <Link href="/" className="flex items-center gap-2 md:gap-3">
@@ -229,9 +252,10 @@ export default function QuizPage() {
             </Link>
           </div>
         </header>
+        )}
 
         {/* Results Content */}
-        <div className="flex-1 flex items-center justify-center p-4">
+        <div className={`flex-1 flex items-center justify-center p-4 ${embeddedMode ? 'pt-8' : ''}`}>
           <div ref={resultsRef} className="bg-white rounded-2xl shadow-2xl p-8 max-w-md w-full text-center">
             <div className="text-5xl mb-4">
               {grade === 'S' || grade === 'A' ? '🏆' : grade === 'B' || grade === 'C' ? '🎉' : '📚'}
@@ -313,6 +337,7 @@ export default function QuizPage() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-600 via-purple-600 to-pink-500 flex flex-col">
       {/* Header with progress */}
+      {!embeddedMode && (
       <header className="bg-white/10 backdrop-blur-sm px-4 md:px-6 py-3">
         <div className="max-w-4xl mx-auto">
           <div className="flex items-center justify-between mb-2">
@@ -352,10 +377,49 @@ export default function QuizPage() {
           </div>
         </div>
       </header>
+      )}
 
       {/* Question Content */}
-      <div className="flex-1 flex items-center justify-center p-4">
+      <div className={`flex-1 flex items-center justify-center p-4 ${embeddedMode ? 'pt-8' : ''}`}>
         <div className="bg-white rounded-2xl shadow-2xl p-6 md:p-8 max-w-2xl w-full">
+          {embeddedMode && (
+            <div className="mb-5 space-y-3">
+              <div className="flex items-center justify-between text-sm">
+                <span className="font-semibold text-gray-700">
+                  Question {currentQuestionIndex + 1}/{questions.length}
+                </span>
+                <div className="flex items-center gap-3">
+                  {showTimer && gameState === 'playing' && (
+                    <span className={`font-mono font-bold ${timeLeft <= 5 ? 'text-red-500' : 'text-purple-600'}`}>
+                      {timeLeft}s
+                    </span>
+                  )}
+                  <span className="font-bold text-green-600">{correctAnswers} correct</span>
+                </div>
+              </div>
+              <div className="grid grid-cols-3 gap-2">
+                <div className="rounded-2xl bg-purple-50 px-3 py-2 text-center">
+                  <div className="text-[11px] uppercase tracking-[0.18em] text-purple-500">Score</div>
+                  <div className="text-lg font-bold text-purple-700">{correctAnswers}</div>
+                </div>
+                <div className="rounded-2xl bg-orange-50 px-3 py-2 text-center">
+                  <div className="text-[11px] uppercase tracking-[0.18em] text-orange-500">Streak</div>
+                  <div className="text-lg font-bold text-orange-700">{streak}</div>
+                </div>
+                <div className="rounded-2xl bg-blue-50 px-3 py-2 text-center">
+                  <div className="text-[11px] uppercase tracking-[0.18em] text-blue-500">Bonus</div>
+                  <div className="text-lg font-bold text-blue-700">+{streakBonus}</div>
+                </div>
+              </div>
+              <div className="h-2 overflow-hidden rounded-full bg-purple-100">
+                <div
+                  className="h-full rounded-full bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 transition-all duration-300"
+                  style={{ width: `${((currentQuestionIndex + 1) / questions.length) * 100}%` }}
+                />
+              </div>
+            </div>
+          )}
+
           {/* Category Badge */}
           <div className="flex items-center gap-2 mb-4">
             <span className="text-2xl">{currentQuestion?.categoryIcon}</span>

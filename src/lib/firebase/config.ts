@@ -13,6 +13,7 @@ import {
   updateProfile
 } from 'firebase/auth'
 import { getFirestore, doc, setDoc, getDoc, serverTimestamp } from 'firebase/firestore'
+import { getFunctions } from 'firebase/functions'
 
 const firebaseConfig = {
   apiKey: "AIzaSyATKR_CgZopNx44uXa7WELA_IQIoEHDmjM",
@@ -28,6 +29,7 @@ const firebaseConfig = {
 const app = getApps().length === 0 ? initializeApp(firebaseConfig) : getApps()[0]
 const auth = getAuth(app)
 const db = getFirestore(app)
+const functionsClient = getFunctions(app, 'us-central1')
 
 // Anonymous auth helper
 export async function ensureAnonymousAuth(): Promise<User> {
@@ -153,4 +155,4 @@ export async function updateUserProfile(
   await setDoc(doc(db, 'users', userId, 'profile', 'data'), data, { merge: true })
 }
 
-export { app, auth, db }
+export { app, auth, db, functionsClient }

@@ -32,6 +32,7 @@ import {
   syncCloudCoins
 } from '@/lib/truthle/storage'
 import OfferWall from './OfferWall'
+import { useEmbeddedAppMode } from '@/lib/useEmbeddedAppMode'
 
 // Check if Offertoro is configured
 const OFFERTORO_ENABLED = !!process.env.NEXT_PUBLIC_OFFERTORO_PUBID
@@ -39,6 +40,7 @@ const OFFERTORO_ENABLED = !!process.env.NEXT_PUBLIC_OFFERTORO_PUBID
 type TabType = 'earn' | 'all' | 'badges' | 'themes' | 'powerups' | 'profile' | 'achievements'
 
 export default function RewardShop() {
+  const embeddedMode = useEmbeddedAppMode()
   const [activeTab, setActiveTab] = useState<TabType>('all')
   const [coins, setCoins] = useState(0)
   const [ownedItems, setOwnedItems] = useState<string[]>([])
@@ -215,7 +217,7 @@ export default function RewardShop() {
 
   const tabs: { id: TabType; label: string; icon: string; badge?: string }[] = [
     // Only show Earn tab when Offertoro is configured
-    ...(OFFERTORO_ENABLED ? [{ id: 'earn' as TabType, label: 'Earn Coins', icon: '🎁' }] : []),
+    ...(!embeddedMode && OFFERTORO_ENABLED ? [{ id: 'earn' as TabType, label: 'Earn Coins', icon: '🎁' }] : []),
     { id: 'all', label: 'Shop', icon: '🛒' },
     { id: 'achievements', label: 'Achievements', icon: '🏆', badge: `${achievementStats.unlocked}/${achievementStats.total}` },
     { id: 'badges', label: 'Badges', icon: '🏅' },
@@ -227,27 +229,29 @@ export default function RewardShop() {
   const rewards = getRewardsForTab()
 
   return (
-    <div className="max-w-4xl mx-auto px-4 py-8">
+    <div className={`max-w-4xl mx-auto px-4 ${embeddedMode ? 'py-5' : 'py-8'}`}>
       {/* Header */}
-      <div className="flex justify-between items-center mb-8">
+      <div className={`mb-8 ${embeddedMode ? 'space-y-4' : 'flex justify-between items-center'}`}>
         <div>
           <h1 className="text-3xl font-bold text-gray-900">Rewards Shop</h1>
           <p className="text-gray-600">Spend your Truthle Coins on virtual rewards</p>
         </div>
-        <div className="flex items-center gap-3">
-          <div className="bg-amber-100 px-4 py-2 rounded-full flex items-center gap-2">
+        <div className={`flex items-center gap-3 ${embeddedMode ? 'justify-between' : ''}`}>
+          <div className="bg-amber-100 px-4 py-2 rounded-full flex items-center gap-2 shadow-sm">
             <span className="text-xl">🪙</span>
             <span className="text-xl font-bold text-amber-700">{coins.toLocaleString()}</span>
           </div>
-          <Link
-            href="/truthle"
-            className="text-gray-600 hover:text-gray-900 flex items-center gap-1"
-          >
-            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
-            </svg>
-            Back
-          </Link>
+          {!embeddedMode && (
+            <Link
+              href="/truthle"
+              className="text-gray-600 hover:text-gray-900 flex items-center gap-1"
+            >
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+              </svg>
+              Back
+            </Link>
+          )}
         </div>
       </div>
 
@@ -288,7 +292,7 @@ export default function RewardShop() {
       </div>
 
       {/* Earn Coins Tab - Offer Wall (only when Offertoro configured) */}
-      {OFFERTORO_ENABLED && activeTab === 'earn' && (
+      {!embeddedMode && OFFERTORO_ENABLED && activeTab === 'earn' && (
         <div className="mb-8">
           <OfferWall />
         </div>

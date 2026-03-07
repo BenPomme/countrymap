@@ -1,7 +1,10 @@
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
+import { Suspense } from 'react'
 import './globals.css'
 import Analytics from '@/components/Analytics'
+import AppBridgeLifecycle from '@/components/bridge/AppBridgeLifecycle'
+import AdSenseLoader from '@/components/ads/AdSenseLoader'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -218,14 +221,12 @@ export default function RootLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
-        {/* Google AdSense */}
-        <script
-          async
-          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6325580740065771"
-          crossOrigin="anonymous"
-        />
       </head>
       <body className={inter.className}>
+        <AdSenseLoader />
+        <Suspense fallback={null}>
+          <AppBridgeLifecycle />
+        </Suspense>
         <Analytics />
         {children}
       </body>

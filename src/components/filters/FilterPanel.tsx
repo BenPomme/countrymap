@@ -27,6 +27,7 @@ interface FilterPanelProps {
   totalCountries: number
   filteredCount: number
   onClose?: () => void
+  containerClassName?: string
 }
 
 export default function FilterPanel({
@@ -37,6 +38,7 @@ export default function FilterPanel({
   totalCountries,
   filteredCount,
   onClose,
+  containerClassName,
 }: FilterPanelProps) {
   const [expandedSections, setExpandedSections] = useState<Set<string>>(
     new Set(['colorBy', 'religion', 'democracy'])
@@ -70,7 +72,7 @@ export default function FilterPanel({
   })
 
   return (
-    <div className="w-72 md:w-72 bg-white border-r border-gray-200 h-full overflow-y-auto">
+    <div className={containerClassName ?? "w-72 md:w-72 bg-white border-r border-gray-200 h-full overflow-y-auto"}>
       <div className="p-4 border-b border-gray-200">
         <div className="flex items-center justify-between mb-2">
           <h2 className="font-semibold text-lg flex items-center gap-2">

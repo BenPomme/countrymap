@@ -4,12 +4,28 @@ import { useState, useEffect, useCallback } from 'react'
 import type { Country } from '@/types/country'
 import { generateDailyQuestions, getTodayDateString, getTruthleDay, TruthleQuestion } from '@/lib/truthle/generator'
 import { calculateScore, estimatePercentile, getGrade, generateShareText, TruthleScore } from '@/lib/truthle/scoring'
-import { hasPlayedToday, saveAttempt, getLocalState, getStats, addCoins, getCoins, updateAchievementStats, recordShare } from '@/lib/truthle/storage'
+import {
+  hasPlayedToday,
+  saveAttempt,
+  saveRetryAttempt,
+  getLocalState,
+  getStats,
+  addCoins,
+  getCoins,
+  updateAchievementStats,
+  recordShare,
+  getCloudRetryStatus,
+  consumeCloudRetry,
+} from '@/lib/truthle/storage'
 import { calculateCoinsEarned, isStreakMilestone, getNextStreakMilestone, CoinBreakdown } from '@/lib/truthle/coins'
 import { AdSidebar } from '@/components/ads'
 import { AD_SLOTS } from '@/lib/constants/ads'
 import Image from 'next/image'
 import Link from 'next/link'
+import { useEmbeddedAppMode } from '@/lib/useEmbeddedAppMode'
+import { onNativeBridgeMessage, postBridgeMessage } from '@/lib/bridge/webBridge'
+import type { IOSToWebBridgeMessage } from '@/lib/bridge/types'
+import { ensureAnonymousAuth } from '@/lib/firebase/config'
 
 type GameState = 'loading' | 'ready' | 'playing' | 'answered' | 'finished' | 'already_played'
 
@@ -17,7 +33,18 @@ interface TruthleGameProps {
   countries: Country[]
 }
 
+const EMPTY_COIN_BREAKDOWN: CoinBreakdown = {
+  dailyPlay: 0,
+  correctAnswers: 0,
+  speedBonus: 0,
+  perfectBonus: 0,
+  streakBonus: 0,
+  firstPlayBonus: 0,
+  shareBonus: 0,
+}
+
 export default function TruthleGame({ countries }: TruthleGameProps) {
+  const embeddedMode = useEmbeddedAppMode()
   const [gameState, setGameState] = useState<GameState>('loading')
   const [questions, setQuestions] = useState<TruthleQuestion[]>([])
   const [currentIndex, setCurrentIndex] = useState(0)
@@ -32,17 +59,84 @@ export default function TruthleGame({ countries }: TruthleGameProps) {
   const [coinsEarned, setCoinsEarned] = useState<{ total: number; breakdown: CoinBreakdown } | null>(null)
   const [coinBalance, setCoinBalance] = useState(0)
   const [showBadgeUnlock, setShowBadgeUnlock] = useState<string | null>(null)
+  const [playedToday, setPlayedToday] = useState(false)
+  const [hasRetryAvailable, setHasRetryAvailable] = useState(false)
+  const [retryRequesting, setRetryRequesting] = useState(false)
+  const [retryMessage, setRetryMessage] = useState<string | null>(null)
+  const [isRetryRun, setIsRetryRun] = useState(false)
+  const [authenticatedUserId, setAuthenticatedUserId] = useState<string | null>(null)
 
   const truthleDay = getTruthleDay()
 
+  const postTruthleState = useCallback((state: string, stateScore?: number) => {
+    postBridgeMessage({
+      type: 'truthle_state',
+      payload: {
+        state,
+        score: stateScore,
+        truthleDay,
+        hasRetryAvailable,
+        userId: authenticatedUserId || undefined,
+        timestamp: new Date().toISOString(),
+      },
+    })
+  }, [authenticatedUserId, hasRetryAvailable, truthleDay])
+
+  const refreshRetryStatus = useCallback(async () => {
+    if (!embeddedMode) return false
+
+    const status = await getCloudRetryStatus()
+    const canRetry = status.canConsume
+
+    setHasRetryAvailable(canRetry)
+
+    postBridgeMessage({
+      type: 'retry_status_changed',
+      payload: {
+        granted: status.granted,
+        consumed: status.consumed,
+        source: status.source,
+        timestamp: new Date().toISOString(),
+      },
+    })
+
+    return canRetry
+  }, [embeddedMode])
+
+  const wait = (ms: number) => new Promise((resolve) => {
+    window.setTimeout(resolve, ms)
+  })
+
+  const pollRetryStatus = useCallback(async () => {
+    for (let attempt = 0; attempt < 6; attempt += 1) {
+      const canRetry = await refreshRetryStatus()
+      if (canRetry) return true
+      await wait(2000)
+    }
+
+    return false
+  }, [refreshRetryStatus])
+
   // Initialize game
   useEffect(() => {
+    let cancelled = false
+
     async function init() {
       // Get coin balance
       setCoinBalance(getCoins())
 
+      try {
+        const user = await ensureAnonymousAuth()
+        if (!cancelled) {
+          setAuthenticatedUserId(user.uid)
+        }
+      } catch (error) {
+        console.error('Failed to ensure auth for Truthle bridge:', error)
+      }
+
       // Check if already played
       const { played, attempt } = await hasPlayedToday()
+      if (cancelled) return
 
       if (played && attempt) {
         setPreviousAttempt({
@@ -51,6 +145,12 @@ export default function TruthleGame({ countries }: TruthleGameProps) {
           streak: attempt.streak,
         })
         setStreak(attempt.streak)
+        setPlayedToday(true)
+
+        if (embeddedMode) {
+          await refreshRetryStatus()
+        }
+
         setGameState('already_played')
         return
       }
@@ -67,13 +167,120 @@ export default function TruthleGame({ countries }: TruthleGameProps) {
     }
 
     init()
-  }, [countries])
+
+    return () => {
+      cancelled = true
+    }
+  }, [countries, embeddedMode, refreshRetryStatus])
+
+  // Listen for native iOS bridge responses
+  useEffect(() => {
+    if (!embeddedMode) return
+
+    const unsubscribe = onNativeBridgeMessage(async (message: IOSToWebBridgeMessage) => {
+      if (message.type !== 'rewarded_result') return
+
+      setRetryRequesting(false)
+
+      if (message.payload.status === 'closed') {
+        setRetryMessage('Ad was closed before completion.')
+        return
+      }
+
+      if (message.payload.status === 'failed') {
+        setRetryMessage(message.payload.reason || 'Rewarded ad failed. Please try again later.')
+        return
+      }
+
+      setRetryMessage('Reward completed. Verifying retry entitlement...')
+      const granted = await pollRetryStatus()
+
+      if (granted) {
+        setRetryMessage('Retry unlocked. You can play one extra run today.')
+        postTruthleState('retry_unlocked')
+      } else {
+        setRetryMessage('Reward processed, but retry is still pending. Please try again in a moment.')
+      }
+    })
+
+    return unsubscribe
+  }, [embeddedMode, pollRetryStatus, postTruthleState])
+
+  useEffect(() => {
+    postTruthleState(gameState, score?.totalScore)
+  }, [gameState, postTruthleState, score])
+
+  useEffect(() => {
+    if (gameState !== 'finished' || !score) return
+
+    postBridgeMessage({
+      type: 'session_completed',
+      payload: {
+        route: '/truthle',
+        sessionType: isRetryRun ? 'truthle_retry' : 'truthle_primary',
+        reason: 'completed',
+        score: score.totalScore,
+        timestamp: new Date().toISOString(),
+      },
+    })
+  }, [gameState, isRetryRun, score])
 
   // Start the game
-  const startGame = useCallback(() => {
+  const startGame = useCallback(async () => {
+    if (playedToday && hasRetryAvailable && !isRetryRun) {
+      const consumed = await consumeCloudRetry()
+      if (!consumed.success) {
+        setRetryMessage('Retry token is no longer available. Please watch another rewarded ad.')
+        setHasRetryAvailable(false)
+        postBridgeMessage({
+          type: 'retry_consumed',
+          payload: {
+            success: false,
+            timestamp: new Date().toISOString(),
+          },
+        })
+        return
+      }
+
+      setIsRetryRun(true)
+      setHasRetryAvailable(false)
+      setRetryMessage(null)
+
+      postBridgeMessage({
+        type: 'retry_consumed',
+        payload: {
+          success: true,
+          timestamp: new Date().toISOString(),
+        },
+      })
+    }
+
+    setCurrentIndex(0)
+    setResults([])
+    setTimes([])
+    setSelectedAnswer(null)
+    setScore(null)
+    setCoinsEarned(null)
     setGameState('playing')
     setQuestionStartTime(Date.now())
-  }, [])
+  }, [hasRetryAvailable, isRetryRun, playedToday])
+
+  const requestRewardedRetry = useCallback(() => {
+    if (!embeddedMode || retryRequesting) return
+
+    setRetryRequesting(true)
+    setRetryMessage('Requesting rewarded ad...')
+
+    postBridgeMessage({
+      type: 'request_rewarded_retry',
+      payload: {
+        route: '/truthle',
+        date: getTodayDateString(),
+        truthleDay,
+        timestamp: new Date().toISOString(),
+      },
+    })
+  }, [embeddedMode, retryRequesting, truthleDay])
 
   // Handle answer selection
   const handleAnswer = useCallback((answerIndex: number) => {
@@ -105,7 +312,7 @@ export default function TruthleGame({ countries }: TruthleGameProps) {
       const newStreak = localState.lastPlayedDate
         ? (new Date(getTodayDateString()).getTime() - new Date(localState.lastPlayedDate).getTime()) / (1000 * 60 * 60 * 24) === 1
           ? localState.streak + 1
-          : 1
+          : localState.streak
         : 1
 
       // Use actual results
@@ -116,33 +323,38 @@ export default function TruthleGame({ countries }: TruthleGameProps) {
       setScore(calculatedScore)
       setStreak(newStreak)
 
-      // Calculate coins earned
-      const fastAnswers = finalTimes.filter(t => t < 3).length
-      const isPerfect = finalResults.every(r => r)
-      const isFirstPlay = localState.gamesPlayed === 0
+      if (!isRetryRun) {
+        // Calculate coins earned only on the primary daily run
+        const fastAnswers = finalTimes.filter(t => t < 3).length
+        const isPerfect = finalResults.every(r => r)
+        const isFirstPlay = localState.gamesPlayed === 0
 
-      const earnedCoins = calculateCoinsEarned(
-        calculatedScore.correctCount,
-        fastAnswers,
-        newStreak,
-        isPerfect,
-        isFirstPlay,
-        false // didShare - will be tracked separately
-      )
+        const earnedCoins = calculateCoinsEarned(
+          calculatedScore.correctCount,
+          fastAnswers,
+          newStreak,
+          isPerfect,
+          isFirstPlay,
+          false // didShare - tracked separately
+        )
 
-      setCoinsEarned(earnedCoins)
+        setCoinsEarned(earnedCoins)
 
-      // Add coins to balance
-      const newBalance = addCoins(earnedCoins.total)
-      setCoinBalance(newBalance)
+        // Add coins to balance
+        const newBalance = addCoins(earnedCoins.total)
+        setCoinBalance(newBalance)
 
-      // Update achievement stats
-      updateAchievementStats(isPerfect, fastAnswers)
+        // Update achievement stats
+        updateAchievementStats(isPerfect, fastAnswers)
 
-      // Save attempt
-      await saveAttempt(calculatedScore.totalScore, finalResults, finalTimes)
+        // Save primary attempt
+        await saveAttempt(calculatedScore.totalScore, finalResults, finalTimes)
+      } else {
+        setCoinsEarned({ total: 0, breakdown: EMPTY_COIN_BREAKDOWN })
+        await saveRetryAttempt(calculatedScore.totalScore, finalResults, finalTimes, newStreak)
+      }
     }
-  }, [currentIndex, questions.length, results, times])
+  }, [currentIndex, questions.length, results, times, isRetryRun])
 
   // Share results
   const shareResults = useCallback(async () => {
@@ -228,15 +440,26 @@ export default function TruthleGame({ countries }: TruthleGameProps) {
     return (
       <div className="flex flex-col items-center justify-center min-h-[500px] text-center px-4">
         {/* Coin balance header */}
-        <div className="absolute top-4 right-4 flex items-center gap-2 bg-amber-100 px-3 py-1.5 rounded-full">
-          <span className="text-lg">🪙</span>
-          <span className="font-bold text-amber-700">{coinBalance.toLocaleString()}</span>
-          <Link href="/truthle/shop" className="text-amber-600 hover:text-amber-800 ml-1">
-            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
-            </svg>
+        {embeddedMode ? (
+          <Link
+            href="/truthle/shop"
+            className="mb-5 flex items-center gap-2 rounded-full bg-amber-100 px-4 py-2 text-amber-800 shadow-sm transition-transform hover:scale-[1.02]"
+          >
+            <span className="text-lg">🪙</span>
+            <span className="font-bold">{coinBalance.toLocaleString()}</span>
+            <span className="text-sm font-medium text-amber-700">Shop</span>
           </Link>
-        </div>
+        ) : (
+          <div className="absolute top-4 right-4 flex items-center gap-2 bg-amber-100 px-3 py-1.5 rounded-full">
+            <span className="text-lg">🪙</span>
+            <span className="font-bold text-amber-700">{coinBalance.toLocaleString()}</span>
+            <Link href="/truthle/shop" className="text-amber-600 hover:text-amber-800 ml-1">
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+              </svg>
+            </Link>
+          </div>
+        )}
 
         <Image
           src="/truthle.png"
@@ -247,7 +470,10 @@ export default function TruthleGame({ countries }: TruthleGameProps) {
         />
         <h1 className="text-3xl font-bold text-gray-900 mb-2">Truthle</h1>
         <p className="text-gray-600 mb-1">Daily World Facts Quiz</p>
-        <p className="text-sm text-gray-500 mb-6">#{truthleDay} • 10 Questions</p>
+        <p className="text-sm text-gray-500 mb-2">#{truthleDay} • 10 Questions</p>
+        {isRetryRun && (
+          <p className="text-sm text-blue-600 font-medium mb-4">Retry run active (ad reward)</p>
+        )}
 
         {stats.gamesPlayed > 0 && (
           <div className="flex gap-6 mb-6 text-center">
@@ -267,7 +493,7 @@ export default function TruthleGame({ countries }: TruthleGameProps) {
         )}
 
         {/* Next milestone preview */}
-        {nextMilestone && stats.gamesPlayed > 0 && (
+        {nextMilestone && stats.gamesPlayed > 0 && !isRetryRun && (
           <div className="bg-gradient-to-r from-amber-50 to-orange-50 border border-amber-200 rounded-lg px-4 py-2 mb-4">
             <p className="text-sm text-amber-700">
               🎯 {nextMilestone.days - stats.currentStreak} days to {nextMilestone.days}-day streak
@@ -280,7 +506,7 @@ export default function TruthleGame({ countries }: TruthleGameProps) {
           onClick={startGame}
           className="bg-emerald-500 hover:bg-emerald-600 text-white font-semibold py-3 px-8 rounded-lg text-lg transition-colors shadow-lg hover:shadow-xl"
         >
-          Play Today&apos;s Truthle
+          {isRetryRun ? 'Play Retry Run' : 'Play Today\'s Truthle'}
         </button>
 
         <p className="text-xs text-gray-400 mt-6">
@@ -299,15 +525,26 @@ export default function TruthleGame({ countries }: TruthleGameProps) {
     return (
       <div className="flex flex-col items-center justify-center min-h-[500px] text-center px-4 relative">
         {/* Coin balance header */}
-        <div className="absolute top-4 right-4 flex items-center gap-2 bg-amber-100 px-3 py-1.5 rounded-full">
-          <span className="text-lg">🪙</span>
-          <span className="font-bold text-amber-700">{coinBalance.toLocaleString()}</span>
-          <Link href="/truthle/shop" className="text-amber-600 hover:text-amber-800 ml-1">
-            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
-            </svg>
+        {embeddedMode ? (
+          <Link
+            href="/truthle/shop"
+            className="mb-5 flex items-center gap-2 rounded-full bg-amber-100 px-4 py-2 text-amber-800 shadow-sm transition-transform hover:scale-[1.02]"
+          >
+            <span className="text-lg">🪙</span>
+            <span className="font-bold">{coinBalance.toLocaleString()}</span>
+            <span className="text-sm font-medium text-amber-700">Shop</span>
           </Link>
-        </div>
+        ) : (
+          <div className="absolute top-4 right-4 flex items-center gap-2 bg-amber-100 px-3 py-1.5 rounded-full">
+            <span className="text-lg">🪙</span>
+            <span className="font-bold text-amber-700">{coinBalance.toLocaleString()}</span>
+            <Link href="/truthle/shop" className="text-amber-600 hover:text-amber-800 ml-1">
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+              </svg>
+            </Link>
+          </div>
+        )}
 
         <Image
           src="/truthle.png"
@@ -353,6 +590,25 @@ export default function TruthleGame({ countries }: TruthleGameProps) {
             Shop
           </Link>
         </div>
+
+        {embeddedMode && (
+          <div className="mb-4 w-full max-w-sm">
+            <button
+              onClick={hasRetryAvailable ? startGame : requestRewardedRetry}
+              disabled={retryRequesting}
+              className="w-full bg-purple-600 hover:bg-purple-700 disabled:bg-purple-300 text-white font-semibold py-2.5 px-4 rounded-lg transition-colors"
+            >
+              {hasRetryAvailable
+                ? 'Use Rewarded Retry'
+                : retryRequesting
+                ? 'Opening rewarded ad...'
+                : 'Watch Ad for One Retry'}
+            </button>
+            {retryMessage && (
+              <p className="text-sm text-purple-700 mt-2">{retryMessage}</p>
+            )}
+          </div>
+        )}
 
         <div className="text-gray-500 text-sm">
           <p>Next Truthle in</p>
@@ -509,8 +765,14 @@ export default function TruthleGame({ countries }: TruthleGameProps) {
           )}
         </div>
 
+        {isRetryRun && (
+          <div className="bg-blue-50 border border-blue-200 rounded-lg px-4 py-2 mb-4 text-sm text-blue-700">
+            This was your rewarded retry run.
+          </div>
+        )}
+
         {/* Coins earned */}
-        {coinsEarned && (
+        {coinsEarned && coinsEarned.total > 0 && (
           <div className="bg-gradient-to-r from-amber-50 to-yellow-50 border border-amber-200 rounded-lg p-4 mb-6 w-full max-w-xs">
             <div className="flex items-center justify-center gap-2 mb-3">
               <span className="text-2xl">🪙</span>

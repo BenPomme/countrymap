@@ -2,11 +2,15 @@
 
 import Link from 'next/link'
 import RewardShop from '@/components/truthle/RewardShop'
+import { useEmbeddedAppMode } from '@/lib/useEmbeddedAppMode'
 
 export default function ShopPage() {
+  const embeddedMode = useEmbeddedAppMode()
+
   return (
     <div className="min-h-screen bg-gradient-to-b from-amber-50 to-white">
       {/* Header */}
+      {!embeddedMode && (
       <header className="bg-white shadow-sm">
         <div className="max-w-4xl mx-auto px-4 py-3 flex justify-between items-center">
           <Link href="/truthle" className="text-gray-600 hover:text-gray-900 flex items-center gap-2">
@@ -22,6 +26,7 @@ export default function ShopPage() {
           </nav>
         </div>
       </header>
+      )}
 
       {/* Main content */}
       <main>
@@ -29,6 +34,7 @@ export default function ShopPage() {
       </main>
 
       {/* Footer */}
+      {!embeddedMode && (
       <footer className="mt-auto py-6 text-center text-sm text-gray-500">
         <p>
           Truthle Shop is part of{' '}
@@ -37,6 +43,7 @@ export default function ShopPage() {
           </Link>
         </p>
       </footer>
+      )}
     </div>
   )
 }

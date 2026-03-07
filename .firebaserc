@@ -1,5 +1,7 @@
 {
-  "projects": {},
+  "projects": {
+    "default": "worldtruth-f9789"
+  },
   "targets": {},
   "etags": {
     "worldtruth-f9789": {

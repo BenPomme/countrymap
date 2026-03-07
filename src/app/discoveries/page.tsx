@@ -20,6 +20,7 @@ import {
 import CoinBalance from '@/components/truthle/CoinBalance'
 import correlationsData from '../../../data/correlations.json'
 import { VisualShare } from '@/components/share'
+import { useEmbeddedAppMode } from '@/lib/useEmbeddedAppMode'
 
 interface Correlation {
   var1: string
@@ -81,6 +82,7 @@ export default function DiscoveriesPage() {
   const [showFilters, setShowFilters] = useState(false)
   const [selectedCorrelation, setSelectedCorrelation] = useState<Correlation | null>(null)
   const cardRef = useRef<HTMLDivElement>(null)
+  const embeddedMode = useEmbeddedAppMode()
 
   const correlations = correlationsData.correlations as Correlation[]
   const metadata = correlationsData.metadata
@@ -172,10 +174,12 @@ export default function DiscoveriesPage() {
   }
 
   const hasActiveFilters = searchQuery || selectedCategory || strengthFilter !== 'all' || directionFilter !== 'all' || crossCategoryOnly
+  const featuredCorrelations = filteredCorrelations.slice(0, 3)
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-purple-600 via-indigo-600 to-blue-500 flex flex-col">
       {/* Header */}
+      {!embeddedMode && (
       <header className="bg-white/10 backdrop-blur-sm px-4 md:px-6 py-3 md:py-4">
         <div className="max-w-6xl mx-auto flex items-center justify-between">
           <Link href="/" className="flex items-center gap-2 md:gap-3">
@@ -210,16 +214,17 @@ export default function DiscoveriesPage() {
           </nav>
         </div>
       </header>
+      )}
 
       {/* Hero Section */}
-      <div className="px-4 py-8 md:py-12 text-center text-white">
+      <div className={embeddedMode ? 'px-4 pt-6 pb-8 text-center text-white' : 'px-4 py-8 md:py-12 text-center text-white'}>
         <div className="max-w-4xl mx-auto">
           <div className="flex items-center justify-center gap-2 mb-4">
-            <Sparkles className="w-8 h-8 text-yellow-300" />
-            <h1 className="text-3xl md:text-4xl font-bold">Data Discoveries</h1>
-            <Sparkles className="w-8 h-8 text-yellow-300" />
+            <Sparkles className={`${embeddedMode ? 'w-7 h-7' : 'w-8 h-8'} text-yellow-300`} />
+            <h1 className={`${embeddedMode ? 'text-[2rem]' : 'text-3xl md:text-4xl'} font-bold`}>Data Discoveries</h1>
+            <Sparkles className={`${embeddedMode ? 'w-7 h-7' : 'w-8 h-8'} text-yellow-300`} />
           </div>
-          <p className="text-lg text-white/80 mb-6">
+          <p className={`${embeddedMode ? 'mx-auto max-w-2xl text-base text-white/75' : 'text-lg text-white/80'} mb-6`}>
             Explore {stats.total.toLocaleString()} surprising correlations found across {metadata.totalVariables} variables
           </p>
 
@@ -258,7 +263,7 @@ export default function DiscoveriesPage() {
       <div className="flex-1 bg-gray-50 rounded-t-3xl px-4 py-6">
         <div className="max-w-6xl mx-auto">
           {/* Search and Filters */}
-          <div className="bg-white rounded-xl shadow-sm p-4 mb-6">
+          <div className={`bg-white rounded-xl shadow-sm p-4 mb-6 ${embeddedMode ? 'sticky top-4 z-10 border border-white/70 shadow-[0_20px_45px_rgba(88,28,135,0.08)] backdrop-blur' : ''}`}>
             <div className="flex flex-col md:flex-row gap-4">
               {/* Search */}
               <div className="relative flex-1">
@@ -382,6 +387,26 @@ export default function DiscoveriesPage() {
             )}
           </div>
 
+          {embeddedMode && featuredCorrelations.length > 0 && !hasActiveFilters && (
+            <div className="mb-6">
+              <div className="mb-3 flex items-center justify-between">
+                <h2 className="text-sm font-semibold uppercase tracking-[0.18em] text-purple-700">Featured Finds</h2>
+                <span className="text-xs text-gray-500">Top-ranked surprises</span>
+              </div>
+              <div className="grid grid-cols-1 gap-4">
+                {featuredCorrelations.map((correlation, index) => (
+                  <CorrelationCard
+                    key={`featured-${correlation.var1}-${correlation.var2}`}
+                    correlation={correlation}
+                    rank={index + 1}
+                    onSelect={() => setSelectedCorrelation(correlation)}
+                    featured
+                  />
+                ))}
+              </div>
+            </div>
+          )}
+
           {/* Results Count */}
           <div className="flex items-center justify-between mb-4">
             <div className="text-sm text-gray-600">
@@ -390,12 +415,12 @@ export default function DiscoveriesPage() {
           </div>
 
           {/* Correlation Cards Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            {filteredCorrelations.slice(0, 50).map((correlation, index) => (
+          <div className={`grid ${embeddedMode ? 'grid-cols-1 gap-4' : 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4'}`}>
+            {(embeddedMode && !hasActiveFilters ? filteredCorrelations.slice(3, 53) : filteredCorrelations.slice(0, 50)).map((correlation, index) => (
               <CorrelationCard
                 key={`${correlation.var1}-${correlation.var2}`}
                 correlation={correlation}
-                rank={index + 1}
+                rank={embeddedMode && !hasActiveFilters ? index + 4 : index + 1}
                 onSelect={() => setSelectedCorrelation(correlation)}
               />
             ))}
@@ -529,45 +554,49 @@ function CorrelationCard({
   correlation,
   rank,
   onSelect,
+  featured = false,
 }: {
   correlation: Correlation
   rank: number
   onSelect: () => void
+  featured?: boolean
 }) {
   const isTopTen = rank <= 10
 
   return (
     <button
       onClick={onSelect}
-      className={`text-left bg-white rounded-xl shadow-sm border hover:shadow-md hover:border-purple-300 transition-all p-4 ${
-        isTopTen ? 'border-purple-200' : 'border-gray-100'
+      className={`text-left rounded-xl border p-4 transition-all hover:border-purple-300 hover:shadow-md ${
+        featured
+          ? 'bg-gradient-to-br from-purple-600 via-indigo-600 to-blue-500 text-white shadow-[0_20px_45px_rgba(88,28,135,0.18)]'
+          : `bg-white shadow-sm ${isTopTen ? 'border-purple-200' : 'border-gray-100'}`
       }`}
     >
       {/* Header */}
       <div className="flex items-start justify-between mb-3">
         <div className="flex items-center gap-2">
           <span className="text-lg">{CATEGORY_ICONS[correlation.categories[0]]}</span>
-          <span className="text-gray-300">×</span>
+          <span className={featured ? 'text-white/40' : 'text-gray-300'}>×</span>
           <span className="text-lg">{CATEGORY_ICONS[correlation.categories[1]]}</span>
         </div>
         {isTopTen && (
-          <span className="bg-gradient-to-r from-purple-600 to-pink-600 text-white text-xs font-bold px-2 py-1 rounded">
+          <span className={`${featured ? 'bg-white/20 text-white' : 'bg-gradient-to-r from-purple-600 to-pink-600 text-white'} text-xs font-bold px-2 py-1 rounded`}>
             #{rank}
           </span>
         )}
       </div>
 
       {/* Variables */}
-      <h3 className="font-semibold text-gray-800 mb-1 line-clamp-1">{correlation.var1Name}</h3>
-      <h3 className="font-semibold text-gray-800 mb-3 line-clamp-1">vs {correlation.var2Name}</h3>
+      <h3 className={`mb-1 line-clamp-1 font-semibold ${featured ? 'text-white' : 'text-gray-800'}`}>{correlation.var1Name}</h3>
+      <h3 className={`mb-3 line-clamp-1 font-semibold ${featured ? 'text-white' : 'text-gray-800'}`}>vs {correlation.var2Name}</h3>
 
       {/* Correlation Value */}
       <div className="flex items-center gap-2 mb-3">
         <div
           className={`flex items-center gap-1 px-2 py-1 rounded text-sm font-mono font-bold ${
             correlation.direction === 'positive'
-              ? 'bg-green-100 text-green-700'
-              : 'bg-red-100 text-red-700'
+              ? featured ? 'bg-white/15 text-white' : 'bg-green-100 text-green-700'
+              : featured ? 'bg-white/15 text-white' : 'bg-red-100 text-red-700'
           }`}
         >
           {correlation.direction === 'positive' ? (
@@ -580,10 +609,10 @@ function CorrelationCard({
         <span
           className={`px-2 py-1 rounded text-xs font-medium ${
             correlation.strength === 'very_strong'
-              ? 'bg-purple-100 text-purple-700'
+              ? featured ? 'bg-white/15 text-white' : 'bg-purple-100 text-purple-700'
               : correlation.strength === 'strong'
-              ? 'bg-blue-100 text-blue-700'
-              : 'bg-gray-100 text-gray-600'
+              ? featured ? 'bg-white/15 text-white' : 'bg-blue-100 text-blue-700'
+              : featured ? 'bg-white/15 text-white' : 'bg-gray-100 text-gray-600'
           }`}
         >
           {STRENGTH_CONFIG[correlation.strength].label}
@@ -591,10 +620,10 @@ function CorrelationCard({
       </div>
 
       {/* Footer */}
-      <div className="flex items-center justify-between text-xs text-gray-500">
+      <div className={`flex items-center justify-between text-xs ${featured ? 'text-white/75' : 'text-gray-500'}`}>
         <span>n = {correlation.sampleSize}</span>
         {correlation.crossCategory && (
-          <span className="text-yellow-600 font-medium">Cross-Category</span>
+          <span className={featured ? 'font-medium text-yellow-200' : 'text-yellow-600 font-medium'}>Cross-Category</span>
         )}
       </div>
     </button>

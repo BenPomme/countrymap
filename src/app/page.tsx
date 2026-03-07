@@ -13,6 +13,7 @@ import countriesData from '../../data/countries.json'
 import { AdBanner, AdSidebar } from '@/components/ads'
 import { AD_SLOTS } from '@/lib/constants/ads'
 import { VisualShare } from '@/components/share'
+import { useEmbeddedAppMode } from '@/lib/useEmbeddedAppMode'
 
 // Dynamic import for map to avoid SSR issues
 const WorldMap = dynamic(() => import('@/components/maps/WorldMap'), {
@@ -32,6 +33,7 @@ export default function HomePage() {
   const [showMobileMenu, setShowMobileMenu] = useState(false)
   const [showMobileFilters, setShowMobileFilters] = useState(false)
   const mapContainerRef = useRef<HTMLDivElement>(null)
+  const embeddedMode = useEmbeddedAppMode()
 
   const countries = countriesData as Country[]
   const currentVariable = VARIABLES[colorVariable]
@@ -42,8 +44,9 @@ export default function HomePage() {
   )
 
   return (
-    <div className="h-screen flex flex-col">
+    <div className={embeddedMode ? "min-h-[100svh] bg-slate-50" : "h-screen flex flex-col"}>
       {/* Header */}
+      {!embeddedMode && (
       <header className="bg-white border-b border-gray-200 px-4 md:px-6 py-3 md:py-4">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2 md:gap-3">
@@ -169,16 +172,19 @@ export default function HomePage() {
           </nav>
         )}
       </header>
+      )}
 
       {/* Ad Banner - Desktop only */}
-      <AdBanner slotId={AD_SLOTS.headerBanner} hideOnMobile={true} className="bg-gray-50 border-b border-gray-200" />
+      {!embeddedMode && (
+        <AdBanner slotId={AD_SLOTS.headerBanner} hideOnMobile={true} className="bg-gray-50 border-b border-gray-200" />
+      )}
 
       {/* Main Content */}
-      <div className="flex-1 flex overflow-hidden relative">
+      <div className={embeddedMode ? "relative flex flex-col" : "flex-1 flex overflow-hidden relative"}>
         {/* Mobile Filter Overlay */}
         {showMobileFilters && (
           <div
-            className="md:hidden fixed inset-0 bg-black/50 z-40"
+            className={`fixed inset-0 z-40 bg-black/50 ${embeddedMode ? '' : 'md:hidden'}`}
             onClick={() => setShowMobileFilters(false)}
           />
         )}
@@ -186,9 +192,10 @@ export default function HomePage() {
         {/* Filter Panel - Desktop sidebar, Mobile drawer */}
         <div
           className={`
-            fixed md:relative inset-y-0 left-0 z-50 md:z-auto
-            transform transition-transform duration-300 ease-in-out
-            ${showMobileFilters ? 'translate-x-0' : '-translate-x-full md:translate-x-0'}
+            ${embeddedMode
+              ? `fixed inset-x-0 bottom-0 z-50 transform transition-transform duration-300 ease-out ${showMobileFilters ? 'translate-y-0' : 'translate-y-[104%]'}`
+              : `fixed md:relative inset-y-0 left-0 z-50 md:z-auto transform transition-transform duration-300 ease-in-out ${showMobileFilters ? 'translate-x-0' : '-translate-x-full md:translate-x-0'}`
+            }
           `}
         >
           <FilterPanel
@@ -199,12 +206,20 @@ export default function HomePage() {
             totalCountries={countries.length}
             filteredCount={filteredCountries.length}
             onClose={() => setShowMobileFilters(false)}
+            containerClassName={
+              embeddedMode
+                ? "w-full max-h-[72vh] overflow-y-auto rounded-t-[28px] border border-slate-200 bg-white shadow-[0_-20px_60px_rgba(15,23,42,0.18)]"
+                : undefined
+            }
           />
         </div>
 
         {/* Map Area */}
-        <div className="flex-1 relative bg-gray-50">
-          <div ref={mapContainerRef} className="w-full h-full">
+        <div className={embeddedMode ? "relative bg-slate-50" : "flex-1 relative bg-gray-50"}>
+          <div
+            ref={mapContainerRef}
+            className={embeddedMode ? "w-full min-h-[72svh]" : "w-full h-full"}
+          >
             <WorldMap
               countries={countries}
               filteredCountries={filteredCountries}
@@ -216,7 +231,7 @@ export default function HomePage() {
           {/* Mobile Filter Toggle Button */}
           <button
             onClick={() => setShowMobileFilters(true)}
-            className="md:hidden fixed bottom-4 left-4 z-30 bg-blue-600 text-white p-3 rounded-full shadow-lg hover:bg-blue-700 transition-colors"
+            className={`fixed z-30 bg-blue-600 text-white p-3 rounded-full shadow-lg hover:bg-blue-700 transition-colors ${embeddedMode ? 'bottom-5 left-5' : 'md:hidden bottom-4 left-4'}`}
           >
             <SlidersHorizontal className="w-6 h-6" />
           </button>

@@ -24,6 +24,12 @@ service cloud.firestore {
       allow write: if false;
     }
 
+    // Truthle rewarded retry attempts (iOS extra run)
+    match /users/{userId}/truthle_retries/{date} {
+      // Users can read/write their own retry attempts
+      allow read, write: if request.auth != null && request.auth.uid == userId;
+    }
+
     // User wallets (coin balances from offer completions)
     match /users/{userId}/wallet/{document=**} {
       // Users can read their own wallet
@@ -36,6 +42,17 @@ service cloud.firestore {
     // Offertoro postbacks (for duplicate detection)
     // Only cloud functions can read/write (via Admin SDK)
     match /offertoro_postbacks/{document=**} {
+      allow read, write: if false;
+    }
+
+    // Rewarded retry entitlements (granted by cloud functions)
+    match /truthle_retry_entitlements/{document=**} {
+      allow read: if request.auth != null && resource.data.userId == request.auth.uid;
+      allow write: if false;
+    }
+
+    // Ad reward events for idempotency
+    match /ad_reward_events/{document=**} {
       allow read, write: if false;
     }
 
