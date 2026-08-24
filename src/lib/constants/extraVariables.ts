@@ -13,6 +13,7 @@ export const EXTRA_VARIABLES: Record<string, VariableConfig> = {
     colorScheme: 'interpolateReds',
     format: (v) => v !== null ? `${(v as number).toFixed(1)}%` : 'N/A',
     higherIsBetter: false,
+    leadWithHigh: true,
   },
   'freedom.cannabisLegal': {
     id: 'freedom.cannabisLegal',
@@ -90,6 +91,7 @@ export const EXTRA_VARIABLES: Record<string, VariableConfig> = {
     colorScheme: 'interpolateOranges',
     format: (v) => v !== null ? `${(v as number).toFixed(1)}%` : 'N/A',
     higherIsBetter: false,
+    leadWithHigh: true,
   },
   'sex.marriageAge': {
     id: 'sex.marriageAge',
