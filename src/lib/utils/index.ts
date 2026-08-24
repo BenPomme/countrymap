@@ -6,9 +6,12 @@ export function cn(...inputs: ClassValue[]) {
 }
 
 export function getNestedValue(obj: Record<string, unknown>, path: string): unknown {
-  return path.split('.').reduce((current, key) => {
+  const value = path.split('.').reduce((current, key) => {
     return current && typeof current === 'object' ? (current as Record<string, unknown>)[key] : undefined
   }, obj as unknown)
+  // Encode boolean legality fields as 0/1 so numeric choropleths and rankings work
+  if (typeof value === 'boolean') return value ? 1 : 0
+  return value
 }
 
 export function formatNumber(value: number | null, decimals = 0): string {
