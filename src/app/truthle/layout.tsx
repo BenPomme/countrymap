@@ -24,18 +24,18 @@ export const metadata: Metadata = {
     siteName: 'The World Truth',
     images: [
       {
-        url: 'https://theworldtruth.com/truthle.png',
-        width: 512,
-        height: 512,
+        url: 'https://theworldtruth.com/og/truthle.png',
+        width: 1200,
+        height: 630,
         alt: 'Truthle - Daily World Facts Quiz',
       },
     ],
   },
   twitter: {
-    card: 'summary',
+    card: 'summary_large_image',
     title: 'Truthle - Daily World Facts Quiz',
     description: 'Can you beat today\'s 10 questions? Same quiz for everyone, one chance per day!',
-    images: ['https://theworldtruth.com/truthle.png'],
+    images: ['https://theworldtruth.com/og/truthle.png'],
   },
   alternates: {
     canonical: 'https://theworldtruth.com/truthle/',
