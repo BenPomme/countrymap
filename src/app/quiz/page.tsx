@@ -6,7 +6,7 @@ import { Globe, Trophy, Share2, RotateCcw, ArrowRight, Check, X, Zap, Clock, Hom
 import CoinBalance from '@/components/truthle/CoinBalance'
 import type { Country } from '@/types/country'
 import { generateQuizQuestions, calculateScore, type QuizQuestion } from '@/lib/quiz/questionGenerator'
-import countriesData from '../../../data/countries.json'
+import { countries } from '@/lib/data/loadCountries'
 import { VisualShare } from '@/components/share'
 import { postBridgeMessage } from '@/lib/bridge/webBridge'
 import { useEmbeddedAppMode } from '@/lib/useEmbeddedAppMode'
@@ -28,7 +28,6 @@ export default function QuizPage() {
   const resultsRef = useRef<HTMLDivElement>(null)
   const embeddedMode = useEmbeddedAppMode()
 
-  const countries = countriesData as Country[]
 
   const startGame = useCallback(() => {
     const newQuestions = generateQuizQuestions(countries, 20)
@@ -309,7 +308,7 @@ export default function QuizPage() {
               <VisualShare
                 targetRef={resultsRef}
                 title={`Quiz Results - Grade ${grade}`}
-                description={`I scored ${score}% (Grade: ${grade}) on The Truth Quiz! ${correctAnswers}/${questions.length} correct answers, max streak: ${maxStreak}. Can you beat my score?`}
+                description={`I scored ${score}% (Grade: ${grade}) on The Truth Quiz! ${correctAnswers}/{questions.length} correct answers, max streak: ${maxStreak}. Can you beat my score?`}
                 className="w-full px-6 py-3 bg-gradient-to-r from-blue-500 to-purple-600 text-white font-semibold rounded-lg hover:opacity-90 transition-all justify-center"
               />
               <button
