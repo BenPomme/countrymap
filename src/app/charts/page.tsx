@@ -18,7 +18,7 @@ import {
 import type { Country, ColorVariable } from '@/types/country'
 import { Globe, ArrowLeft, Menu, HelpCircle, Sparkles } from 'lucide-react'
 import CoinBalance from '@/components/truthle/CoinBalance'
-import countriesData from '../../../data/countries.json'
+import { countries } from '@/lib/data/loadCountries'
 import { VARIABLES, VARIABLE_CATEGORIES } from '@/lib/constants/variables'
 import { AdBanner } from '@/components/ads'
 import { AD_SLOTS } from '@/lib/constants/ads'
@@ -81,7 +81,6 @@ function ChartsLoading() {
 
 // Main charts component that uses useSearchParams
 function ChartsContent() {
-  const countries = countriesData as Country[]
   const router = useRouter()
   const searchParams = useSearchParams()
 
