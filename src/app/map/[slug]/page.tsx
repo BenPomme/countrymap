@@ -10,6 +10,7 @@ import {
 } from '@/lib/seo/catalog'
 import { countrySlug } from '@/lib/seo/slugs'
 import StatMap from './StatMap'
+import EmbedSnippet from './EmbedSnippet'
 import type { ColorVariable } from '@/types/country'
 
 export function generateStaticParams() {
@@ -101,6 +102,8 @@ export default function StatPage({ params }: { params: { slug: string } }) {
         <p className="text-lg md:text-xl text-gray-800 mb-8">{answer}</p>
 
         <StatMap countries={countries} colorVariable={entry.id} />
+
+        <EmbedSnippet slug={entry.slug} />
 
         <section className="mt-10 bg-white rounded-2xl shadow-sm p-6">
           <h2 className="text-2xl font-bold text-gray-900 mb-2">{config.name} by country</h2>

@@ -9,7 +9,7 @@ import {
 } from 'react-simple-maps'
 import { scaleLinear, scaleOrdinal } from 'd3-scale'
 import type { Country, ColorVariable } from '@/types/country'
-import { getNestedValue } from '@/lib/utils'
+import { cn, getNestedValue } from '@/lib/utils'
 import { VARIABLES, MAJOR_RELIGIONS } from '@/lib/constants/variables'
 import { useEmbeddedAppMode } from '@/lib/useEmbeddedAppMode'
 import MapTooltip from './MapTooltip'
@@ -71,6 +71,7 @@ interface WorldMapProps {
   filteredCountries: Country[]
   colorVariable: ColorVariable
   onCountryClick?: (country: Country) => void
+  className?: string
 }
 
 export default function WorldMap({
@@ -78,6 +79,7 @@ export default function WorldMap({
   filteredCountries,
   colorVariable,
   onCountryClick,
+  className,
 }: WorldMapProps) {
   const embeddedMode = useEmbeddedAppMode()
   const [tooltipContent, setTooltipContent] = useState<Country | null>(null)
@@ -173,7 +175,13 @@ export default function WorldMap({
   )
 
   return (
-    <div className={`relative w-full ${embeddedMode ? 'h-[72svh] min-h-[560px]' : 'h-full min-h-[500px]'}`}>
+    <div
+      className={cn(
+        'relative w-full',
+        embeddedMode ? 'h-[72svh] min-h-[560px]' : 'h-full min-h-[500px]',
+        className
+      )}
+    >
       <ComposableMap
         projection="geoMercator"
         projectionConfig={{
