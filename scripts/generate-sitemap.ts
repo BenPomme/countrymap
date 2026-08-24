@@ -4,6 +4,7 @@
 import * as fs from 'fs'
 import * as path from 'path'
 import { VARIABLES } from '../src/lib/constants/variables'
+import '../src/lib/constants/overlayVariables'
 import { variableSlug, countrySlug } from '../src/lib/seo/slugs'
 import { mergeOverlay } from '../src/lib/data/mergeOverlay'
 

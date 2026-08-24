@@ -1,5 +1,5 @@
 import type { VariableConfig, ColorVariable } from '@/types/country'
-import { VARIABLES } from './variables'
+import { DATA_SOURCES, VARIABLES } from './variables'
 
 /** Four overlay datasets merged onto countries.json by iso3 at load time. */
 export const OVERLAY_VARIABLES: Record<string, VariableConfig> = {
@@ -49,4 +49,28 @@ export const OVERLAY_VARIABLES: Record<string, VariableConfig> = {
   },
 }
 
+export const OVERLAY_DATA_SOURCES = {
+  sipri: {
+    name: 'SIPRI',
+    url: 'https://www.sipri.org/databases/milex',
+    description: 'Military expenditure as a share of GDP, via Our World in Data',
+  },
+  unicef: {
+    name: 'UNICEF',
+    url: 'https://data.unicef.org/topic/child-protection/child-marriage/',
+    description: 'SDG 5.3.1 child marriage: share of women 20–24 married by 18, via Our World in Data',
+  },
+  wvs_pew: {
+    name: 'World Values Survey / Pew Research Center',
+    url: 'https://ourworldindata.org/grapher/how-important-religion-is-in-your-life',
+    description: 'Share of people who say religion is very important in their life, via Our World in Data',
+  },
+  passport_index: {
+    name: 'Arton Capital Passport Index',
+    url: 'https://github.com/imorte/passport-index-data',
+    description: 'Visa-free and visa-on-arrival destination counts by passport',
+  },
+}
+
 Object.assign(VARIABLES, OVERLAY_VARIABLES)
+Object.assign(DATA_SOURCES, OVERLAY_DATA_SOURCES)
