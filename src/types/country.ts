@@ -1,6 +1,7 @@
 export interface ReligionData {
   major: string
   breakdown: Record<string, number>
+  importance: number | null // % saying religion is "very important" in their life
 }
 
 export interface DemocracyData {
@@ -33,6 +34,7 @@ export interface ConflictData {
   hasActiveConflict: boolean
   peaceIndex: number | null // 1-5 scale (1 = most peaceful)
   conflictDeaths: number | null
+  militarySpendingGdp: number | null // military expenditure as % of GDP
 }
 
 // Health & Body
@@ -78,6 +80,7 @@ export interface SexData {
   polyamoryRate: number | null // % in open relationships
   topPornCategory: string | null // most popular porn category
   consanguinityRate: number | null // % of marriages between relatives (cousin marriage)
+  childMarriageRate: number | null // % of women 20-24 married by age 18
 }
 
 // Demographics
@@ -152,6 +155,7 @@ export interface FreedomData {
   cannabisLegal: boolean | null // is cannabis legal recreationally
   gamblingLegal: boolean | null // is gambling legal
   cryptoAdoption: number | null // % using cryptocurrency
+  passportPower: number | null // visa-free + visa-on-arrival destination count
 }
 
 // Economy & Wealth
@@ -287,10 +291,12 @@ export type ColorVariable =
   | 'poverty.hdi'
   | 'gender.wblIndex'
   | 'conflict.peaceIndex'
+  | 'conflict.militarySpendingGdp'
   | 'crime.safetyIndex'
   | 'crime.homicideRate'
   | 'crime.gunOwnership'
   | 'religion.major'
+  | 'religion.importance'
   // Health
   | 'health.lifeExpectancy'
   | 'health.maleHeight'
@@ -305,6 +311,7 @@ export type ColorVariable =
   | 'health.sleepDuration'
   | 'health.diabetesRate'
   | 'health.airPollution'
+  | 'health.smokingRate'
   // Sex
   | 'sex.sexualPartners'
   | 'sex.ageFirstSex'
@@ -314,6 +321,11 @@ export type ColorVariable =
   | 'sex.onlyfansCreators'
   | 'sex.pornConsumption'
   | 'sex.consanguinityRate'
+  | 'sex.prostitutionLegal'
+  | 'sex.polyamoryRate'
+  | 'sex.marriageAge'
+  | 'sex.teenPregnancy'
+  | 'sex.childMarriageRate'
   // Demographics
   | 'demographics.ethnicDiversity'
   | 'demographics.medianAge'
@@ -350,6 +362,10 @@ export type ColorVariable =
   | 'freedom.corruptionIndex'
   | 'freedom.pressFreedom'
   | 'freedom.cryptoAdoption'
+  | 'freedom.cannabisLegal'
+  | 'freedom.gamblingLegal'
+  | 'freedom.drugPolicyScore'
+  | 'freedom.passportPower'
   // Economy
   | 'economy.billionairesPerCapita'
   | 'economy.millionairesPerCapita'
