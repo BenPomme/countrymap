@@ -1,9 +1,10 @@
 /**
- * Generate sitemap.xml with all country pages
+ * Generate sitemap.xml with all country + statistic pages
  */
-
 import * as fs from 'fs'
 import * as path from 'path'
+import { VARIABLES } from '../src/lib/constants/variables'
+import { variableSlug, countrySlug } from '../src/lib/seo/slugs'
 
 interface Country {
   name: string
@@ -27,12 +28,18 @@ const staticPages = [
 ]
 
 const countryPages = countriesData.map((country) => ({
-  loc: `/country/${country.name.toLowerCase().replace(/\s+/g, '-')}/`,
+  loc: `/country/${countrySlug(country.name)}/`,
   changefreq: 'monthly',
   priority: '0.7',
 }))
 
-const allPages = [...staticPages, ...countryPages]
+const statPages = Object.values(VARIABLES).map((config) => ({
+  loc: `/map/${variableSlug(config.name)}/`,
+  changefreq: 'weekly',
+  priority: '0.9',
+}))
+
+const allPages = [...staticPages, ...statPages, ...countryPages]
 
 const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
@@ -51,6 +58,7 @@ ${allPages
 
 fs.writeFileSync(path.join(__dirname, '../public/sitemap.xml'), sitemap)
 
-console.log(`✅ Sitemap generated with ${allPages.length} URLs`)
+console.log(`Sitemap generated with ${allPages.length} URLs`)
 console.log(`   - ${staticPages.length} static pages`)
+console.log(`   - ${statPages.length} statistic pages`)
 console.log(`   - ${countryPages.length} country pages`)

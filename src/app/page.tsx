@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useMemo, useRef } from 'react'
+import { useState, useMemo, useRef, useEffect } from 'react'
 import dynamic from 'next/dynamic'
 import Link from 'next/link'
 import type { Country, CountryFilters, ColorVariable } from '@/types/country'
@@ -14,6 +14,7 @@ import { AdBanner, AdSidebar } from '@/components/ads'
 import { AD_SLOTS } from '@/lib/constants/ads'
 import { VisualShare } from '@/components/share'
 import { useEmbeddedAppMode } from '@/lib/useEmbeddedAppMode'
+import { getVariableById, getVariableBySlug } from '@/lib/seo/catalog'
 
 // Dynamic import for map to avoid SSR issues
 const WorldMap = dynamic(() => import('@/components/maps/WorldMap'), {
@@ -29,6 +30,12 @@ export default function HomePage() {
   const [filters, setFilters] = useState<CountryFilters>({})
   const [colorVariable, setColorVariable] = useState<ColorVariable>(DEFAULT_VARIABLE)
   const [selectedCountry, setSelectedCountry] = useState<Country | null>(null)
+  useEffect(() => {
+    const raw = new URLSearchParams(window.location.search).get('var')
+    if (!raw) return
+    const entry = getVariableById(raw) || getVariableBySlug(raw)
+    if (entry) setColorVariable(entry.id)
+  }, [])
   const [showDataSources, setShowDataSources] = useState(false)
   const [showMobileMenu, setShowMobileMenu] = useState(false)
   const [showMobileFilters, setShowMobileFilters] = useState(false)

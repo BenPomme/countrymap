@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "npx tsx scripts/compute-correlations.ts && next build",
+    "build": "npm install --no-save d3-geo@^3.1.1 @resvg/resvg-js@^2.6.2 && npx tsx scripts/compute-correlations.ts && npx tsx scripts/generate-og-maps.ts && npx tsx scripts/generate-sitemap.ts && next build",
     "start": "next start",
     "lint": "next lint",
     "fetch-data": "npx tsx scripts/fetch-all-data.ts",

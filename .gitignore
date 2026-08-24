@@ -34,3 +34,7 @@ Thumbs.db
 *.swp
 *.swo
 extensions/
+
+# Generated choropleth OG images (created at build)
+public/og/map/*.png
+.write-test

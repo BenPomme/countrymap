@@ -1,12 +1,8 @@
 import type { Metadata } from 'next'
-import countriesData from '@/../../data/countries.json'
-import type { Country } from '@/types/country'
+import { allCountrySlugs, findCountryBySlug } from '@/lib/seo/catalog'
 
-// Generate static params for all countries
 export async function generateStaticParams() {
-  return (countriesData as Country[]).map((country) => ({
-    slug: country.name.toLowerCase().replace(/\s+/g, '-'),
-  }))
+  return allCountrySlugs().map((slug) => ({ slug }))
 }
 
 // Generate metadata for each country
@@ -16,9 +12,7 @@ export async function generateMetadata({
   params: { slug: string }
 }): Promise<Metadata> {
   const slug = params.slug
-  const country = (countriesData as Country[]).find(
-    (c) => c.name.toLowerCase().replace(/\s+/g, '-') === slug.toLowerCase()
-  )
+  const country = findCountryBySlug(slug)
 
   if (!country) {
     return {

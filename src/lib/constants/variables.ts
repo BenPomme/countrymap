@@ -1084,7 +1084,7 @@ export const VARIABLES: Record<ColorVariable, VariableConfig> = {
   },
 }
 
-export const DEFAULT_VARIABLE: ColorVariable = 'democracy.score'
+export const DEFAULT_VARIABLE: ColorVariable = 'lifestyle.metalBandsPerCapita'
 
 export const DATA_SOURCES = {
   cia_factbook: {
