@@ -13,12 +13,14 @@ import { VARIABLES } from '../src/lib/constants/variables'
 import { variableSlug } from '../src/lib/seo/slugs'
 import { getNestedValue } from '../src/lib/utils'
 import type { ColorVariable } from '../src/types/country'
+import { mergeOverlay } from '../src/lib/data/mergeOverlay'
 
 const WIDTH = 1200
 const HEIGHT = 630
 const outDir = path.join(__dirname, '../public/og/map')
-const countries = JSON.parse(
-  fs.readFileSync(path.join(__dirname, '../data/countries.json'), 'utf8')
+const countries = mergeOverlay(
+  JSON.parse(fs.readFileSync(path.join(__dirname, '../data/countries.json'), 'utf8')) as { iso3: string }[],
+  JSON.parse(fs.readFileSync(path.join(__dirname, '../data/stat-overlay.json'), 'utf8')) as Record<string, unknown>
 ) as Record<string, unknown>[]
 const topo = JSON.parse(
   fs.readFileSync(path.join(__dirname, '../public/geo/world-110m.json'), 'utf8')
