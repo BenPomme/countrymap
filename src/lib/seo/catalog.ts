@@ -1,4 +1,5 @@
 import { VARIABLES } from '@/lib/constants/variables'
+import '@/lib/constants/extraVariables'
 import { getNestedValue } from '@/lib/utils'
 import { countrySlug, variableSlug } from '@/lib/seo/slugs'
 import type { Country, ColorVariable } from '@/types/country'
