@@ -1,4 +1,5 @@
-import type { Country } from '@/types/country'
+import '../constants/extraVariables'
+import type { Country } from '../../types/country'
 import countriesData from '../../../data/countries.json'
 import overlayData from '../../../data/stat-overlay.json'
 import { mergeOverlay } from './mergeOverlay'
