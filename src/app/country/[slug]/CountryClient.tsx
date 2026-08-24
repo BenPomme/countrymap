@@ -3,7 +3,7 @@
 import { useRef } from 'react'
 import Link from 'next/link'
 import { ArrowLeft, Trophy, TrendingDown, Share2, Globe, BarChart3 } from 'lucide-react'
-import countriesData from '@/../../data/countries.json'
+import { countries } from '@/lib/data/loadCountries'
 import { VARIABLES } from '@/lib/constants/variables'
 import { findCountryBySlug } from '@/lib/seo/catalog'
 import { variableSlug, countrySlug } from '@/lib/seo/slugs'
@@ -25,7 +25,7 @@ interface RankedStat {
 
 // Get all countries with value for a variable
 function getCountryRankings(variableId: string): { country: Country; value: number }[] {
-  return (countriesData as Country[])
+  return countries
     .map(country => ({
       country,
       value: getNestedValue(country as unknown as Record<string, unknown>, variableId) as number

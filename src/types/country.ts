@@ -1,6 +1,7 @@
 export interface ReligionData {
   major: string
   breakdown: Record<string, number>
+  importance: number | null // % saying religion is "very important" in their life
 }
 
 export interface DemocracyData {
@@ -33,6 +34,7 @@ export interface ConflictData {
   hasActiveConflict: boolean
   peaceIndex: number | null // 1-5 scale (1 = most peaceful)
   conflictDeaths: number | null
+  militarySpendingGdp: number | null // military expenditure as % of GDP
 }
 
 // Health & Body
@@ -78,6 +80,7 @@ export interface SexData {
   polyamoryRate: number | null // % in open relationships
   topPornCategory: string | null // most popular porn category
   consanguinityRate: number | null // % of marriages between relatives (cousin marriage)
+  childMarriageRate: number | null // % of women 20-24 married by age 18
 }
 
 // Demographics
@@ -152,6 +155,7 @@ export interface FreedomData {
   cannabisLegal: boolean | null // is cannabis legal recreationally
   gamblingLegal: boolean | null // is gambling legal
   cryptoAdoption: number | null // % using cryptocurrency
+  passportPower: number | null // visa-free + visa-on-arrival destination count
 }
 
 // Economy & Wealth
@@ -281,109 +285,7 @@ export interface CountryFilters {
   iqMax?: number
 }
 
-export type ColorVariable =
-  | 'democracy.score'
-  | 'poverty.gdpPerCapita'
-  | 'poverty.hdi'
-  | 'gender.wblIndex'
-  | 'conflict.peaceIndex'
-  | 'crime.safetyIndex'
-  | 'crime.homicideRate'
-  | 'crime.gunOwnership'
-  | 'religion.major'
-  // Health
-  | 'health.lifeExpectancy'
-  | 'health.maleHeight'
-  | 'health.obesityRate'
-  | 'health.penisSize'
-  | 'health.breastSize'
-  | 'health.fertilityRate'
-  | 'health.alcoholConsumption'
-  | 'health.suicideRate'
-  | 'health.hivPrevalence'
-  | 'health.plasticSurgeryRate'
-  | 'health.sleepDuration'
-  | 'health.diabetesRate'
-  | 'health.airPollution'
-  // Sex
-  | 'sex.sexualPartners'
-  | 'sex.ageFirstSex'
-  | 'sex.divorceRate'
-  | 'sex.lgbtAcceptance'
-  | 'sex.datingAppUsage'
-  | 'sex.onlyfansCreators'
-  | 'sex.pornConsumption'
-  | 'sex.consanguinityRate'
-  // Demographics
-  | 'demographics.ethnicDiversity'
-  | 'demographics.medianAge'
-  | 'demographics.urbanPopulation'
-  | 'demographics.twinBirthRate'
-  | 'demographics.immigrationRate'
-  | 'demographics.illegalImmigrationRate'
-  | 'demographics.netMigrationRate'
-  | 'demographics.refugeesHosted'
-  // Education
-  | 'education.avgIQ'
-  | 'education.literacyRate'
-  | 'education.pisaMath'
-  | 'education.nobelPrizesPerCapita'
-  | 'education.chessGrandmasters'
-  | 'education.englishProficiency'
-  // Lifestyle
-  | 'lifestyle.happinessIndex'
-  | 'lifestyle.workHoursWeek'
-  | 'lifestyle.internetPenetration'
-  | 'lifestyle.coffeeConsumption'
-  | 'lifestyle.screenTime'
-  | 'lifestyle.videoGamePlayers'
-  | 'lifestyle.tattooRate'
-  | 'lifestyle.pizzaConsumption'
-  | 'lifestyle.chocolateConsumption'
-  | 'lifestyle.teaConsumption'
-  | 'lifestyle.beerConsumption'
-  | 'lifestyle.wineConsumption'
-  | 'lifestyle.metalBandsPerCapita'
-  | 'lifestyle.vegetarianRate'
-  | 'lifestyle.leftHandedRate'
-  // Freedom
-  | 'freedom.corruptionIndex'
-  | 'freedom.pressFreedom'
-  | 'freedom.cryptoAdoption'
-  // Economy
-  | 'economy.billionairesPerCapita'
-  | 'economy.millionairesPerCapita'
-  | 'economy.startupUnicorns'
-  | 'economy.touristArrivals'
-  | 'economy.mcdonaldsPerCapita'
-  | 'economy.starbucksPerCapita'
-  | 'economy.evAdoption'
-  | 'economy.renewableEnergy'
-  | 'economy.debtToGdp'
-  | 'economy.gdpGrowth'
-  | 'economy.inflation'
-  | 'economy.corporateTax'
-  | 'economy.incomeTax'
-  | 'economy.vatRate'
-  | 'economy.unemploymentRate'
-  | 'economy.youthUnemployment'
-  | 'economy.fdiInflows'
-  | 'economy.tradeBalance'
-  | 'economy.exportsGdp'
-  | 'economy.currentAccount'
-  | 'economy.interestRate'
-  | 'economy.giniIndex'
-  | 'economy.economicFreedom'
-  | 'economy.bigMacIndex'
-  // Transport
-  | 'transport.carOwnership'
-  | 'transport.bicycleUsage'
-  | 'transport.averageCommute'
-  | 'transport.trafficIndex'
-  // Environment
-  | 'environment.co2PerCapita'
-  | 'environment.recyclingRate'
-  | 'environment.forestCoverage'
+export type ColorVariable = string
 
 export interface VariableConfig {
   id: ColorVariable

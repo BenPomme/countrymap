@@ -9,7 +9,7 @@ import FilterPanel from '@/components/filters/FilterPanel'
 import { DEFAULT_VARIABLE, VARIABLES } from '@/lib/constants/variables'
 import { BarChart2, Globe, Info, X, Menu, SlidersHorizontal, HelpCircle, Share2, Sparkles, Calendar } from 'lucide-react'
 import CoinBalance from '@/components/truthle/CoinBalance'
-import countriesData from '../../data/countries.json'
+import { countries } from '@/lib/data/loadCountries'
 import { AdBanner, AdSidebar } from '@/components/ads'
 import { AD_SLOTS } from '@/lib/constants/ads'
 import { VisualShare } from '@/components/share'
@@ -42,7 +42,6 @@ export default function HomePage() {
   const mapContainerRef = useRef<HTMLDivElement>(null)
   const embeddedMode = useEmbeddedAppMode()
 
-  const countries = countriesData as Country[]
   const currentVariable = VARIABLES[colorVariable]
 
   const filteredCountries = useMemo(

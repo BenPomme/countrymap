@@ -6,7 +6,7 @@ import { Globe, Trophy, Share2, RotateCcw, ArrowRight, Check, X, Zap, Clock, Hom
 import CoinBalance from '@/components/truthle/CoinBalance'
 import type { Country } from '@/types/country'
 import { generateQuizQuestions, calculateScore, type QuizQuestion } from '@/lib/quiz/questionGenerator'
-import countriesData from '../../../data/countries.json'
+import { countries } from '@/lib/data/loadCountries'
 import { VisualShare } from '@/components/share'
 import { postBridgeMessage } from '@/lib/bridge/webBridge'
 import { useEmbeddedAppMode } from '@/lib/useEmbeddedAppMode'
@@ -28,8 +28,6 @@ export default function QuizPage() {
   const resultsRef = useRef<HTMLDivElement>(null)
   const embeddedMode = useEmbeddedAppMode()
 
-  const countries = countriesData as Country[]
-
   const startGame = useCallback(() => {
     const newQuestions = generateQuizQuestions(countries, 20)
     setQuestions(newQuestions)
@@ -42,7 +40,7 @@ export default function QuizPage() {
     setTimeLeft(15)
     setAnswers([])
     setGameState('playing')
-  }, [countries])
+  }, [])
 
   // Timer effect
   useEffect(() => {

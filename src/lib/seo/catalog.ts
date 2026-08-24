@@ -1,11 +1,12 @@
 import { VARIABLES } from '@/lib/constants/variables'
+import '@/lib/constants/extraVariables'
 import { getNestedValue } from '@/lib/utils'
 import { countrySlug, variableSlug } from '@/lib/seo/slugs'
 import type { Country, ColorVariable } from '@/types/country'
-import countriesData from '../../../data/countries.json'
 import correlationsData from '../../../data/correlations.json'
+import { countries } from '@/lib/data/loadCountries'
 
-export const countries = countriesData as Country[]
+export { countries }
 
 export type VariableEntry = {
   id: ColorVariable
