@@ -38,6 +38,7 @@ const statPages = Object.values(VARIABLES).map((config) => ({
   changefreq: 'weekly',
   priority: '0.9',
 }))
+// /embed/{slug}/ widgets are intentionally omitted (noindex iframe copies).
 
 const allPages = [...staticPages, ...statPages, ...countryPages]
 
