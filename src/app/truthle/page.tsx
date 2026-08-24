@@ -7,11 +7,8 @@ import CoinBalance from '@/components/truthle/CoinBalance'
 import AccountButton from '@/components/truthle/AccountButton'
 import { AdBanner } from '@/components/ads'
 import { AD_SLOTS } from '@/lib/constants/ads'
-import countriesData from '../../../data/countries.json'
+import { countries } from '@/lib/data/loadCountries'
 import { useEmbeddedAppMode } from '@/lib/useEmbeddedAppMode'
-
-// Import countries at build time (same as main page)
-const countries = countriesData as Country[]
 
 export default function TruthlePage() {
   const embeddedMode = useEmbeddedAppMode()
