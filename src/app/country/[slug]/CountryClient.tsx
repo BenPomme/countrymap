@@ -68,7 +68,7 @@ function getAllCountryStats(country: Country): RankedStat[] {
     if (!rankData) continue
 
     const categoryIcons: Record<string, string> = {
-      governance: '🏭',
+      governance: '🏛️',
       economy: '💰',
       health: '🏥',
       sex: '❤️',
