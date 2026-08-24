@@ -4,15 +4,17 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "npx tsx scripts/compute-correlations.ts && next build",
+    "build": "npx tsx scripts/compute-correlations.ts && npx tsx scripts/generate-og-maps.ts && npx tsx scripts/generate-sitemap.ts && next build",
     "start": "next start",
     "lint": "next lint",
     "fetch-data": "npx tsx scripts/fetch-all-data.ts",
     "compute-correlations": "npx tsx scripts/compute-correlations.ts"
   },
   "dependencies": {
+    "@resvg/resvg-js": "^2.6.2",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.0",
+    "d3-geo": "^3.1.1",
     "d3-scale": "^4.0.2",
     "d3-scale-chromatic": "^3.1.0",
     "firebase": "^12.7.0",
