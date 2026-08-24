@@ -5,6 +5,7 @@ import * as fs from 'fs'
 import * as path from 'path'
 import { VARIABLES } from '../src/lib/constants/variables'
 import { variableSlug, countrySlug } from '../src/lib/seo/slugs'
+import { mergeOverlay } from '../src/lib/data/mergeOverlay'
 
 interface Country {
   name: string
@@ -12,8 +13,9 @@ interface Country {
   iso2: string
 }
 
-const countriesData: Country[] = JSON.parse(
-  fs.readFileSync(path.join(__dirname, '../data/countries.json'), 'utf8')
+const countriesData: Country[] = mergeOverlay(
+  JSON.parse(fs.readFileSync(path.join(__dirname, '../data/countries.json'), 'utf8')) as Country[],
+  JSON.parse(fs.readFileSync(path.join(__dirname, '../data/stat-overlay.json'), 'utf8')) as Record<string, unknown>
 )
 
 const today = new Date().toISOString().split('T')[0]
