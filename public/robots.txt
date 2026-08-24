@@ -11,6 +11,9 @@ Allow: /quiz/
 Disallow: /_next/
 Disallow: /api/
 
+# Embed widgets are iframe-only (noindex); index /map/{slug}/ instead
+Disallow: /embed/
+
 # Sitemap location
 Sitemap: https://theworldtruth.com/sitemap.xml
 
