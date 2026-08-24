@@ -3,7 +3,8 @@
 import { useState, useEffect, useCallback } from 'react'
 import type { Country } from '@/types/country'
 import { generateDailyQuestions, getTodayDateString, getTruthleDay, TruthleQuestion } from '@/lib/truthle/generator'
-import { calculateScore, estimatePercentile, getGrade, generateShareText, TruthleScore } from '@/lib/truthle/scoring'
+import { calculateScore, estimatePercentile, getGrade, TruthleScore } from '@/lib/truthle/scoring'
+import ShareResultsButton from '@/components/truthle/ShareResultsButton'
 import {
   hasPlayedToday,
   saveAttempt,
@@ -13,7 +14,6 @@ import {
   addCoins,
   getCoins,
   updateAchievementStats,
-  recordShare,
   getCloudRetryStatus,
   consumeCloudRetry,
 } from '@/lib/truthle/storage'
@@ -55,10 +55,14 @@ export default function TruthleGame({ countries }: TruthleGameProps) {
   const [score, setScore] = useState<TruthleScore | null>(null)
   const [previousAttempt, setPreviousAttempt] = useState<{ score: number; results: boolean[]; streak: number } | null>(null)
   const [streak, setStreak] = useState(0)
-  const [copied, setCopied] = useState(false)
   const [coinsEarned, setCoinsEarned] = useState<{ total: number; breakdown: CoinBreakdown } | null>(null)
   const [coinBalance, setCoinBalance] = useState(0)
   const [showBadgeUnlock, setShowBadgeUnlock] = useState<string | null>(null)
+  const handleFirstShare = () => {
+    setShowBadgeUnlock('Social Butterfly')
+    setTimeout(() => setShowBadgeUnlock(null), 3000)
+  }
+
   const [playedToday, setPlayedToday] = useState(false)
   const [hasRetryAvailable, setHasRetryAvailable] = useState(false)
   const [retryRequesting, setRetryRequesting] = useState(false)
@@ -117,12 +121,10 @@ export default function TruthleGame({ countries }: TruthleGameProps) {
     return false
   }, [refreshRetryStatus])
 
-  // Initialize game
   useEffect(() => {
     let cancelled = false
 
     async function init() {
-      // Get coin balance
       setCoinBalance(getCoins())
 
       try {
@@ -134,7 +136,6 @@ export default function TruthleGame({ countries }: TruthleGameProps) {
         console.error('Failed to ensure auth for Truthle bridge:', error)
       }
 
-      // Check if already played
       const { played, attempt } = await hasPlayedToday()
       if (cancelled) return
 
@@ -155,11 +156,9 @@ export default function TruthleGame({ countries }: TruthleGameProps) {
         return
       }
 
-      // Generate questions
       const dailyQuestions = generateDailyQuestions(countries)
       setQuestions(dailyQuestions)
 
-      // Get current streak for display
       const localState = getLocalState()
       setStreak(localState.streak)
 
@@ -173,7 +172,6 @@ export default function TruthleGame({ countries }: TruthleGameProps) {
     }
   }, [countries, embeddedMode, refreshRetryStatus])
 
-  // Listen for native iOS bridge responses
   useEffect(() => {
     if (!embeddedMode) return
 
@@ -225,7 +223,6 @@ export default function TruthleGame({ countries }: TruthleGameProps) {
     })
   }, [gameState, isRetryRun, score])
 
-  // Start the game
   const startGame = useCallback(async () => {
     if (playedToday && hasRetryAvailable && !isRetryRun) {
       const consumed = await consumeCloudRetry()
@@ -282,7 +279,6 @@ export default function TruthleGame({ countries }: TruthleGameProps) {
     })
   }, [embeddedMode, retryRequesting, truthleDay])
 
-  // Handle answer selection
   const handleAnswer = useCallback((answerIndex: number) => {
     if (gameState !== 'playing') return
 
@@ -296,7 +292,6 @@ export default function TruthleGame({ countries }: TruthleGameProps) {
     setGameState('answered')
   }, [gameState, questionStartTime, questions, currentIndex])
 
-  // Move to next question
   const nextQuestion = useCallback(async () => {
     if (currentIndex < questions.length - 1) {
       setCurrentIndex(prev => prev + 1)
@@ -304,10 +299,8 @@ export default function TruthleGame({ countries }: TruthleGameProps) {
       setGameState('playing')
       setQuestionStartTime(Date.now())
     } else {
-      // Game finished
       setGameState('finished')
 
-      // Calculate score
       const localState = getLocalState()
       const newStreak = localState.lastPlayedDate
         ? (new Date(getTodayDateString()).getTime() - new Date(localState.lastPlayedDate).getTime()) / (1000 * 60 * 60 * 24) === 1
@@ -315,7 +308,6 @@ export default function TruthleGame({ countries }: TruthleGameProps) {
           : localState.streak
         : 1
 
-      // Use actual results
       const finalResults = [...results]
       const finalTimes = [...times]
       const calculatedScore = calculateScore(finalResults, finalTimes, newStreak)
@@ -324,7 +316,6 @@ export default function TruthleGame({ countries }: TruthleGameProps) {
       setStreak(newStreak)
 
       if (!isRetryRun) {
-        // Calculate coins earned only on the primary daily run
         const fastAnswers = finalTimes.filter(t => t < 3).length
         const isPerfect = finalResults.every(r => r)
         const isFirstPlay = localState.gamesPlayed === 0
@@ -335,19 +326,16 @@ export default function TruthleGame({ countries }: TruthleGameProps) {
           newStreak,
           isPerfect,
           isFirstPlay,
-          false // didShare - tracked separately
+          false
         )
 
         setCoinsEarned(earnedCoins)
 
-        // Add coins to balance
         const newBalance = addCoins(earnedCoins.total)
         setCoinBalance(newBalance)
 
-        // Update achievement stats
         updateAchievementStats(isPerfect, fastAnswers)
 
-        // Save primary attempt
         await saveAttempt(calculatedScore.totalScore, finalResults, finalTimes)
       } else {
         setCoinsEarned({ total: 0, breakdown: EMPTY_COIN_BREAKDOWN })
@@ -356,46 +344,6 @@ export default function TruthleGame({ countries }: TruthleGameProps) {
     }
   }, [currentIndex, questions.length, results, times, isRetryRun])
 
-  // Share results
-  const shareResults = useCallback(async () => {
-    const shareText = generateShareText(
-      score?.totalScore || previousAttempt?.score || 0,
-      score ? results : (previousAttempt?.results || []),
-      score?.streak || previousAttempt?.streak || 0,
-      truthleDay
-    )
-
-    try {
-      // Record the share
-      const { isFirstShare } = recordShare()
-      if (isFirstShare) {
-        setShowBadgeUnlock('Social Butterfly')
-        setTimeout(() => setShowBadgeUnlock(null), 3000)
-      }
-
-      if (navigator.share) {
-        await navigator.share({
-          title: `Truthle #${truthleDay}`,
-          text: shareText,
-        })
-      } else {
-        await navigator.clipboard.writeText(shareText)
-        setCopied(true)
-        setTimeout(() => setCopied(false), 2000)
-      }
-    } catch (e) {
-      // Fallback to clipboard
-      try {
-        await navigator.clipboard.writeText(shareText)
-        setCopied(true)
-        setTimeout(() => setCopied(false), 2000)
-      } catch {
-        console.error('Failed to share:', e)
-      }
-    }
-  }, [score, results, previousAttempt, truthleDay])
-
-  // Calculate time until next Truthle
   const getTimeUntilNext = () => {
     const now = new Date()
     const tomorrow = new Date(Date.UTC(
@@ -422,7 +370,6 @@ export default function TruthleGame({ countries }: TruthleGameProps) {
     return () => clearInterval(timer)
   }, [])
 
-  // Loading state
   if (gameState === 'loading') {
     return (
       <div className="flex flex-col items-center justify-center min-h-[400px]">
@@ -432,14 +379,12 @@ export default function TruthleGame({ countries }: TruthleGameProps) {
     )
   }
 
-  // Ready state - show start screen
   if (gameState === 'ready') {
     const stats = getStats()
     const nextMilestone = getNextStreakMilestone(stats.currentStreak)
 
     return (
       <div className="flex flex-col items-center justify-center min-h-[500px] text-center px-4">
-        {/* Coin balance header */}
         {embeddedMode ? (
           <Link
             href="/truthle/shop"
@@ -461,13 +406,7 @@ export default function TruthleGame({ countries }: TruthleGameProps) {
           </div>
         )}
 
-        <Image
-          src="/truthle.png"
-          alt="Truthle"
-          width={120}
-          height={120}
-          className="mb-4"
-        />
+        <Image src="/truthle.png" alt="Truthle" width={120} height={120} className="mb-4" />
         <h1 className="text-3xl font-bold text-gray-900 mb-2">Truthle</h1>
         <p className="text-gray-600 mb-1">Daily World Facts Quiz</p>
         <p className="text-sm text-gray-500 mb-2">#{truthleDay} • 10 Questions</p>
@@ -492,7 +431,6 @@ export default function TruthleGame({ countries }: TruthleGameProps) {
           </div>
         )}
 
-        {/* Next milestone preview */}
         {nextMilestone && stats.gamesPlayed > 0 && !isRetryRun && (
           <div className="bg-gradient-to-r from-amber-50 to-orange-50 border border-amber-200 rounded-lg px-4 py-2 mb-4">
             <p className="text-sm text-amber-700">
@@ -516,7 +454,6 @@ export default function TruthleGame({ countries }: TruthleGameProps) {
     )
   }
 
-  // Already played state
   if (gameState === 'already_played' && previousAttempt) {
     const percentile = estimatePercentile(previousAttempt.score)
     const correctCount = previousAttempt.results.filter(r => r).length
@@ -524,7 +461,6 @@ export default function TruthleGame({ countries }: TruthleGameProps) {
 
     return (
       <div className="flex flex-col items-center justify-center min-h-[500px] text-center px-4 relative">
-        {/* Coin balance header */}
         {embeddedMode ? (
           <Link
             href="/truthle/shop"
@@ -546,13 +482,7 @@ export default function TruthleGame({ countries }: TruthleGameProps) {
           </div>
         )}
 
-        <Image
-          src="/truthle.png"
-          alt="Truthle"
-          width={80}
-          height={80}
-          className="mb-4"
-        />
+        <Image src="/truthle.png" alt="Truthle" width={80} height={80} className="mb-4" />
         <h2 className="text-xl font-semibold text-gray-700 mb-2">You&apos;ve already played today!</h2>
         <p className="text-sm text-gray-500 mb-4">Truthle #{truthleDay}</p>
 
@@ -577,12 +507,14 @@ export default function TruthleGame({ countries }: TruthleGameProps) {
         )}
 
         <div className="flex gap-3 mb-4">
-          <button
-            onClick={shareResults}
-            className="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-6 rounded-lg transition-colors"
-          >
-            {copied ? '✓ Copied!' : 'Share Results'}
-          </button>
+          <ShareResultsButton
+            score={previousAttempt.score}
+            results={previousAttempt.results}
+            streak={previousAttempt.streak}
+            truthleDay={truthleDay}
+            onFirstShare={handleFirstShare}
+            className="bg-blue-500 hover:bg-blue-600 disabled:bg-blue-300 text-white font-semibold py-2 px-6 rounded-lg transition-colors"
+          />
           <Link
             href="/truthle/shop"
             className="bg-amber-500 hover:bg-amber-600 text-white font-semibold py-2 px-6 rounded-lg transition-colors"
@@ -615,7 +547,6 @@ export default function TruthleGame({ countries }: TruthleGameProps) {
           <p className="text-2xl font-mono font-bold text-gray-700">{countdown}</p>
         </div>
 
-        {/* Ad placement */}
         <div className="mt-6">
           <AdSidebar slotId={AD_SLOTS.truthleResults} size="square" />
         </div>
@@ -623,13 +554,11 @@ export default function TruthleGame({ countries }: TruthleGameProps) {
     )
   }
 
-  // Playing or answered state
   if (gameState === 'playing' || gameState === 'answered') {
     const currentQuestion = questions[currentIndex]
 
     return (
       <div className="max-w-lg mx-auto px-4">
-        {/* Progress bar */}
         <div className="flex gap-1 mb-6">
           {questions.map((_, i) => (
             <div
@@ -647,7 +576,6 @@ export default function TruthleGame({ countries }: TruthleGameProps) {
           ))}
         </div>
 
-        {/* Question header */}
         <div className="flex justify-between items-center mb-4">
           <span className="text-sm text-gray-500">
             Question {currentIndex + 1}/{questions.length}
@@ -657,12 +585,10 @@ export default function TruthleGame({ countries }: TruthleGameProps) {
           </span>
         </div>
 
-        {/* Question */}
         <h2 className="text-xl font-semibold text-gray-900 mb-6 text-center">
           {currentQuestion.question}
         </h2>
 
-        {/* Options */}
         <div className="space-y-3 mb-6">
           {currentQuestion.options.map((option, i) => {
             let buttonClass = 'w-full py-3 px-4 rounded-lg border-2 transition-all text-left font-medium '
@@ -692,14 +618,12 @@ export default function TruthleGame({ countries }: TruthleGameProps) {
           })}
         </div>
 
-        {/* Explanation (when answered) */}
         {gameState === 'answered' && (
           <div className="bg-gray-50 rounded-lg p-4 mb-4">
             <p className="text-sm text-gray-700">{currentQuestion.explanation}</p>
           </div>
         )}
 
-        {/* Next button */}
         {gameState === 'answered' && (
           <button
             onClick={nextQuestion}
@@ -712,7 +636,6 @@ export default function TruthleGame({ countries }: TruthleGameProps) {
     )
   }
 
-  // Finished state
   if (gameState === 'finished' && score) {
     const percentile = estimatePercentile(score.totalScore)
     const grade = getGrade(score.correctCount, score.totalQuestions)
@@ -720,13 +643,7 @@ export default function TruthleGame({ countries }: TruthleGameProps) {
 
     return (
       <div className="flex flex-col items-center justify-center min-h-[500px] text-center px-4">
-        <Image
-          src="/truthle.png"
-          alt="Truthle"
-          width={80}
-          height={80}
-          className="mb-4"
-        />
+        <Image src="/truthle.png" alt="Truthle" width={80} height={80} className="mb-4" />
 
         <div className="text-6xl mb-2">{grade.emoji}</div>
         <h2 className="text-xl font-semibold text-gray-700 mb-1">{grade.message}</h2>
@@ -737,7 +654,6 @@ export default function TruthleGame({ countries }: TruthleGameProps) {
         </div>
         <div className="text-emerald-600 font-medium text-lg mb-4">Top {percentile}%</div>
 
-        {/* Results grid */}
         <div className="flex gap-1 mb-4">
           {results.map((r, i) => (
             <div
@@ -747,7 +663,6 @@ export default function TruthleGame({ countries }: TruthleGameProps) {
           ))}
         </div>
 
-        {/* Stats */}
         <div className="flex gap-6 mb-6 text-center">
           <div>
             <div className="text-xl font-bold text-gray-800">{score.correctCount}/10</div>
@@ -771,7 +686,14 @@ export default function TruthleGame({ countries }: TruthleGameProps) {
           </div>
         )}
 
-        {/* Coins earned */}
+        <ShareResultsButton
+          score={score.totalScore}
+          results={results}
+          streak={streak}
+          truthleDay={truthleDay}
+          onFirstShare={handleFirstShare}
+        />
+
         {coinsEarned && coinsEarned.total > 0 && (
           <div className="bg-gradient-to-r from-amber-50 to-yellow-50 border border-amber-200 rounded-lg p-4 mb-6 w-full max-w-xs">
             <div className="flex items-center justify-center gap-2 mb-3">
@@ -830,7 +752,6 @@ export default function TruthleGame({ countries }: TruthleGameProps) {
           </div>
         )}
 
-        {/* Score breakdown */}
         <div className="bg-gray-50 rounded-lg p-4 mb-6 text-sm text-left w-full max-w-xs">
           <div className="flex justify-between mb-1">
             <span className="text-gray-600">Base score</span>
@@ -848,14 +769,6 @@ export default function TruthleGame({ countries }: TruthleGameProps) {
           )}
         </div>
 
-        <button
-          onClick={shareResults}
-          className="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-3 px-8 rounded-lg transition-colors shadow-lg mb-4"
-        >
-          {copied ? '✓ Copied!' : 'Share Results'}
-        </button>
-
-        {/* Badge unlock notification */}
         {showBadgeUnlock && (
           <div className="fixed top-4 left-1/2 transform -translate-x-1/2 bg-gradient-to-r from-purple-500 to-pink-500 text-white px-6 py-3 rounded-full shadow-lg animate-bounce z-50">
             <span className="text-xl mr-2">🦋</span>
@@ -868,7 +781,6 @@ export default function TruthleGame({ countries }: TruthleGameProps) {
           <p className="text-2xl font-mono font-bold text-gray-700">{countdown}</p>
         </div>
 
-        {/* Ad placement */}
         <div className="mt-6">
           <AdSidebar slotId={AD_SLOTS.truthleResults} size="square" />
         </div>
