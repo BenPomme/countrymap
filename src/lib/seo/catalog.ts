@@ -62,6 +62,10 @@ export type RankedRow = {
   formatted: string
 }
 
+export function ranksHighFirst(config: { higherIsBetter: boolean; leadWithHigh?: boolean }): boolean {
+  return config.leadWithHigh === true || config.higherIsBetter
+}
+
 export function rankCountries(variableId: ColorVariable): RankedRow[] {
   const config = VARIABLES[variableId]
   const rows: RankedRow[] = []
@@ -78,7 +82,8 @@ export function rankCountries(variableId: ColorVariable): RankedRow[] {
     }
   }
   if (config.type === 'numeric') {
-    rows.sort((a, b) => (config.higherIsBetter ? b.value - a.value : a.value - b.value))
+    const highFirst = ranksHighFirst(config)
+    rows.sort((a, b) => (highFirst ? b.value - a.value : a.value - b.value))
   } else {
     rows.sort((a, b) => a.country.name.localeCompare(b.country.name))
   }

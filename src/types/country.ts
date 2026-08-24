@@ -298,4 +298,6 @@ export interface VariableConfig {
   colorScheme: string
   format: (value: number | string | null) => string
   higherIsBetter: boolean
+  /** When true, SEO ranking and H1 lead with the high extreme even if higherIsBetter is false. Choropleth colors still use higherIsBetter. */
+  leadWithHigh?: boolean
 }

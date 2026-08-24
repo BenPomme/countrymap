@@ -5,6 +5,7 @@ import {
   countries,
   getVariableBySlug,
   rankCountries,
+  ranksHighFirst,
   relatedVariableSlugs,
   variableEntries,
 } from '@/lib/seo/catalog'
@@ -37,7 +38,7 @@ export default function StatPage({ params }: { params: { slug: string } }) {
   const ranked = rankCountries(entry.id)
   const leader = ranked[0]
   const related = relatedVariableSlugs(entry.id, 5)
-  const higher = config.higherIsBetter !== false
+  const higher = ranksHighFirst(config)
   const question = `Which country has the ${higher ? 'highest' : 'lowest'} ${config.name.toLowerCase()}?`
   const answer = leader
     ? `${leader.country.name} ranks #1 for ${config.name.toLowerCase()} at ${leader.formatted}, among ${ranked.length} countries on The World Truth Map.`

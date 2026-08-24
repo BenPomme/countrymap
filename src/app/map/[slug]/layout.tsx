@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 import { VARIABLES } from '@/lib/constants/variables'
-import { getVariableBySlug, variableEntries, rankCountries, topCountry } from '@/lib/seo/catalog'
+import { getVariableBySlug, variableEntries, rankCountries, ranksHighFirst, topCountry } from '@/lib/seo/catalog'
 
 export const dynamicParams = false
 
@@ -21,7 +21,8 @@ export async function generateMetadata({
   const config = VARIABLES[entry.id]
   const leader = topCountry(entry.id)
   const ranked = rankCountries(entry.id)
-  const question = `Which country has the ${config.higherIsBetter ? 'highest' : 'lowest'} ${config.name.toLowerCase()}?`
+  const higher = ranksHighFirst(config)
+  const question = `Which country has the ${higher ? 'highest' : 'lowest'} ${config.name.toLowerCase()}?`
   const answer = leader
     ? `${leader.country.name} ranks #1 for ${config.name.toLowerCase()} at ${leader.formatted}, among ${ranked.length} countries.`
     : `Compare ${config.name.toLowerCase()} across countries on The World Truth Map.`
@@ -33,7 +34,7 @@ export async function generateMetadata({
     description: answer,
     keywords: [
       `${config.name} by country`,
-      `which country has the ${config.higherIsBetter ? 'highest' : 'lowest'} ${config.name}`,
+      `which country has the ${higher ? 'highest' : 'lowest'} ${config.name}`,
       `${config.name} map`,
       `${config.name} ranking`,
       'world statistics',
