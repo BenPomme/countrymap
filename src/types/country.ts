@@ -305,6 +305,7 @@ export type ColorVariable =
   | 'health.sleepDuration'
   | 'health.diabetesRate'
   | 'health.airPollution'
+  | 'health.smokingRate'
   // Sex
   | 'sex.sexualPartners'
   | 'sex.ageFirstSex'
@@ -314,6 +315,10 @@ export type ColorVariable =
   | 'sex.onlyfansCreators'
   | 'sex.pornConsumption'
   | 'sex.consanguinityRate'
+  | 'sex.prostitutionLegal'
+  | 'sex.polyamoryRate'
+  | 'sex.marriageAge'
+  | 'sex.teenPregnancy'
   // Demographics
   | 'demographics.ethnicDiversity'
   | 'demographics.medianAge'
@@ -350,6 +355,9 @@ export type ColorVariable =
   | 'freedom.corruptionIndex'
   | 'freedom.pressFreedom'
   | 'freedom.cryptoAdoption'
+  | 'freedom.cannabisLegal'
+  | 'freedom.gamblingLegal'
+  | 'freedom.drugPolicyScore'
   // Economy
   | 'economy.billionairesPerCapita'
   | 'economy.millionairesPerCapita'
