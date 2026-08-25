@@ -607,7 +607,7 @@ export default function RewardShop() {
             <span className="text-lg">💯</span>
             <div>
               <p className="font-medium text-amber-900">Perfect Score</p>
-              <p className="text-amber-700">+50 coins for 10/10</p>
+              <p className="text-amber-700">+50 coins for 5/5</p>
             </div>
           </div>
           <div className="flex items-start gap-3">

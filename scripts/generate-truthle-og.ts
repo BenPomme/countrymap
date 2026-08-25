@@ -35,7 +35,7 @@ const svg = `<?xml version="1.0" encoding="UTF-8"?>
   ${logoImage}
   <text x="600" y="300" text-anchor="middle" font-size="64" font-weight="800" fill="#111827" font-family="Liberation Sans, DejaVu Sans, Nimbus Sans, sans-serif">Truthle</text>
   <text x="600" y="352" text-anchor="middle" font-size="28" font-weight="600" fill="#4b5563" font-family="Liberation Sans, DejaVu Sans, Nimbus Sans, sans-serif">Daily World Facts Quiz</text>
-  <text x="600" y="400" text-anchor="middle" font-size="22" font-weight="500" fill="#6b7280" font-family="Liberation Sans, DejaVu Sans, Nimbus Sans, sans-serif">10 questions · same for everyone · one attempt per day</text>
+  <text x="600" y="400" text-anchor="middle" font-size="22" font-weight="500" fill="#6b7280" font-family="Liberation Sans, DejaVu Sans, Nimbus Sans, sans-serif">5 questions · same for everyone · one attempt per day</text>
   <rect x="430" y="430" width="340" height="56" rx="12" fill="#10b981"/>
   <text x="600" y="467" text-anchor="middle" font-size="22" font-weight="700" fill="#ffffff" font-family="Liberation Sans, DejaVu Sans, Nimbus Sans, sans-serif">Play Today&apos;s Truthle</text>
   <text x="600" y="560" text-anchor="middle" font-size="22" font-weight="600" fill="#10b981" font-family="Liberation Sans, DejaVu Sans, Nimbus Sans, sans-serif">theworldtruth.com/truthle</text>

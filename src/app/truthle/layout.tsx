@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
   title: 'Truthle - Daily World Facts Quiz | Test Your Global Knowledge',
-  description: 'Play Truthle, the daily world facts quiz! 10 questions about countries, statistics, and global data. Same questions for everyone, one chance per day. Earn coins, unlock badges, and compete with friends!',
+  description: 'Play Truthle, the daily world facts quiz! 5 quick questions about countries, statistics, and global data. Same questions for everyone, one chance per day. Earn coins, unlock badges, and share with friends!',
   keywords: [
     'truthle',
     'daily quiz',
@@ -19,7 +19,7 @@ export const metadata: Metadata = {
   ],
   openGraph: {
     title: 'Truthle - Daily World Facts Quiz',
-    description: 'Can you ace today\'s 10 world facts questions? Play Truthle - same questions for everyone, one attempt per day!',
+    description: 'Can you ace today\'s 5 world facts questions? Play Truthle - same questions for everyone, one attempt per day!',
     url: 'https://theworldtruth.com/truthle/',
     siteName: 'The World Truth',
     images: [
@@ -34,7 +34,7 @@ export const metadata: Metadata = {
   twitter: {
     card: 'summary_large_image',
     title: 'Truthle - Daily World Facts Quiz',
-    description: 'Can you beat today\'s 10 questions? Same quiz for everyone, one chance per day!',
+    description: 'Can you beat today\'s 5 questions? Same quiz for everyone, one chance per day!',
     images: ['https://theworldtruth.com/og/truthle.png'],
   },
   alternates: {

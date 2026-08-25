@@ -210,7 +210,7 @@ function generateAchievements(): Achievement[] {
 
   // Perfect Games
   const perfectMilestones = [
-    { count: 1, name: 'Perfect 10', icon: '💯', rarity: 'rare' as const, reward: 100 },
+    { count: 1, name: 'Perfect 5', icon: '💯', rarity: 'rare' as const, reward: 100 },
     { count: 3, name: 'Triple Perfect', icon: '🎯', rarity: 'rare' as const, reward: 300 },
     { count: 5, name: 'High Five', icon: '🖐️', rarity: 'epic' as const, reward: 500 },
     { count: 10, name: 'Perfect Ten Times', icon: '🔥', rarity: 'epic' as const, reward: 1000 },
@@ -223,7 +223,7 @@ function generateAchievements(): Achievement[] {
     achievements.push({
       id: `perfect_${m.count}`,
       name: m.name,
-      description: `Get ${m.count} perfect score${m.count > 1 ? 's' : ''} (10/10)`,
+      description: `Get ${m.count} perfect score${m.count > 1 ? 's' : ''} (5/5)`,
       icon: m.icon,
       category: 'accuracy',
       rarity: m.rarity,

@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useCallback } from 'react'
 import type { Country } from '@/types/country'
-import { generateDailyQuestions, getTodayDateString, getTruthleDay, TruthleQuestion } from '@/lib/truthle/generator'
+import { generateDailyQuestions, getTodayDateString, getTruthleDay, TRUTHLE_QUESTIONS_PER_DAY, TruthleQuestion } from '@/lib/truthle/generator'
 import { calculateScore, estimatePercentile, getGrade, TruthleScore } from '@/lib/truthle/scoring'
 import ShareResultsButton from '@/components/truthle/ShareResultsButton'
 import {
@@ -409,7 +409,7 @@ export default function TruthleGame({ countries }: TruthleGameProps) {
         <Image src="/truthle.png" alt="Truthle" width={120} height={120} className="mb-4" />
         <h1 className="text-3xl font-bold text-gray-900 mb-2">Truthle</h1>
         <p className="text-gray-600 mb-1">Daily World Facts Quiz</p>
-        <p className="text-sm text-gray-500 mb-2">#{truthleDay} • 10 Questions</p>
+        <p className="text-sm text-gray-500 mb-2">#{truthleDay} • {TRUTHLE_QUESTIONS_PER_DAY} Questions</p>
         {isRetryRun && (
           <p className="text-sm text-blue-600 font-medium mb-4">Retry run active (ad reward)</p>
         )}
@@ -448,7 +448,7 @@ export default function TruthleGame({ countries }: TruthleGameProps) {
         </button>
 
         <p className="text-xs text-gray-400 mt-6">
-          Same questions for everyone • One attempt per day
+          5 questions · Same for everyone · One attempt per day
         </p>
       </div>
     )
@@ -457,7 +457,7 @@ export default function TruthleGame({ countries }: TruthleGameProps) {
   if (gameState === 'already_played' && previousAttempt) {
     const percentile = estimatePercentile(previousAttempt.score)
     const correctCount = previousAttempt.results.filter(r => r).length
-    const grade = getGrade(correctCount, 10)
+    const grade = getGrade(correctCount, previousAttempt.results.length || TRUTHLE_QUESTIONS_PER_DAY)
 
     return (
       <div className="flex flex-col items-center justify-center min-h-[500px] text-center px-4 relative">
@@ -501,7 +501,7 @@ export default function TruthleGame({ countries }: TruthleGameProps) {
           ))}
         </div>
 
-        <p className="text-gray-600 mb-2">{correctCount}/10 correct</p>
+        <p className="text-gray-600 mb-2">{correctCount}/{previousAttempt.results.length || TRUTHLE_QUESTIONS_PER_DAY} correct</p>
         {previousAttempt.streak > 1 && (
           <p className="text-orange-500 font-medium mb-4">🔥 {previousAttempt.streak} day streak</p>
         )}
@@ -619,9 +619,18 @@ export default function TruthleGame({ countries }: TruthleGameProps) {
         </div>
 
         {gameState === 'answered' && (
-          <div className="bg-gray-50 rounded-lg p-4 mb-4">
+          <div className="bg-gray-50 rounded-lg p-4 mb-3">
             <p className="text-sm text-gray-700">{currentQuestion.explanation}</p>
           </div>
+        )}
+
+        {/* No backend miss-rate stats yet — factual explainer above; clear share nudge instead. */}
+        {gameState === 'answered' && (
+          <p className="text-sm text-center text-blue-600 mb-4">
+            {selectedAnswer !== currentQuestion.correctAnswer
+              ? 'Tough one — finish the 5 and Share your score. Friends play the same quiz today.'
+              : 'Nice! Finish the 5 and Share — same quiz for everyone today.'}
+          </p>
         )}
 
         {gameState === 'answered' && (
@@ -665,7 +674,7 @@ export default function TruthleGame({ countries }: TruthleGameProps) {
 
         <div className="flex gap-6 mb-6 text-center">
           <div>
-            <div className="text-xl font-bold text-gray-800">{score.correctCount}/10</div>
+            <div className="text-xl font-bold text-gray-800">{score.correctCount}/{score.totalQuestions}</div>
             <div className="text-xs text-gray-500">Correct</div>
           </div>
           <div>

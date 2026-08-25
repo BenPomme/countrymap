@@ -58,21 +58,21 @@ export function calculateScore(
   }
 }
 
-// Estimate percentile based on score (will be refined with real data later)
+// Estimate percentile based on score (tuned for 5-question daily; refine with real data later)
 export function estimatePercentile(score: number): number {
-  // These thresholds will be adjusted based on real player data
-  if (score >= 1400) return 1
-  if (score >= 1300) return 3
-  if (score >= 1200) return 5
-  if (score >= 1100) return 10
-  if (score >= 1000) return 15
-  if (score >= 900) return 25
-  if (score >= 800) return 35
-  if (score >= 700) return 50
-  if (score >= 600) return 65
-  if (score >= 500) return 75
-  if (score >= 400) return 85
-  if (score >= 300) return 92
+  // Max ~5×100 base + ~5×50 speed (+ streak). Thresholds ~half of the old 10Q curve.
+  if (score >= 700) return 1
+  if (score >= 650) return 3
+  if (score >= 600) return 5
+  if (score >= 550) return 10
+  if (score >= 500) return 15
+  if (score >= 450) return 25
+  if (score >= 400) return 35
+  if (score >= 350) return 50
+  if (score >= 300) return 65
+  if (score >= 250) return 75
+  if (score >= 200) return 85
+  if (score >= 150) return 92
   return 98
 }
 
@@ -98,21 +98,17 @@ export function generateShareText(
   const percentile = estimatePercentile(score)
   const correctCount = results.filter(r => r).length
 
-  // Generate emoji grid (2 rows of 5)
-  const emojiGrid = results
-    .map(r => r ? '🟩' : '🟥')
-    .join('')
-  const row1 = emojiGrid.slice(0, 5)
-  const row2 = emojiGrid.slice(5, 10)
+  // One row of emoji squares (5 daily questions)
+  const emojiRow = results.map(r => (r ? '🟩' : '🟥')).join('')
+  const total = results.length || 5
 
   const lines = [
     `Truthle #${truthleDay} 🌍`,
     '',
     `Score: ${score.toLocaleString()} ⭐ Top ${percentile}%`,
-    row1,
-    row2,
+    emojiRow,
     '',
-    `${correctCount}/10`,
+    `${correctCount}/${total}`,
     streak > 1 ? `🔥 ${streak} day streak` : '',
     '',
     'theworldtruth.com/truthle'

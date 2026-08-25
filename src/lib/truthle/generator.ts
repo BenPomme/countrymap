@@ -3,6 +3,8 @@ import { VARIABLES, VARIABLE_CATEGORIES } from '@/lib/constants/variables'
 import { getNestedValue } from '@/lib/utils'
 import correlationsData from '../../../data/correlations.json'
 import { generateCorrelationQuestions, type Correlation, type CorrelationQuestion } from './correlationQuestions'
+import { TRUTHLE_QUESTIONS_PER_DAY } from './questionCount'
+export { TRUTHLE_QUESTIONS_PER_DAY }
 
 export interface TruthleQuestion {
   id: string
@@ -278,7 +280,11 @@ function convertCorrelationQuestion(cq: CorrelationQuestion): TruthleQuestion {
   }
 }
 
-export function generateDailyQuestions(countries: Country[], dateStr?: string, count: number = 10): TruthleQuestion[] {
+export function generateDailyQuestions(
+  countries: Country[],
+  dateStr?: string,
+  count: number = TRUTHLE_QUESTIONS_PER_DAY
+): TruthleQuestion[] {
   const date = dateStr || getTodayDateString()
   const seed = dateToSeed(date)
   const rng = seededRandom(seed)
@@ -286,15 +292,15 @@ export function generateDailyQuestions(countries: Country[], dateStr?: string, c
   const questions: TruthleQuestion[] = []
   const usedVariables = new Set<string>()
 
-  // Generate 2-3 correlation questions first
-  const correlationCount = 2 + Math.floor(rng() * 2) // 2 or 3
+  // Scale correlation mix to quiz length (1 for 5Q; 2–3 for longer)
+  const correlationCount = count <= 5 ? 1 : 2 + Math.floor(rng() * 2)
   const correlations = (correlationsData as { correlations: Correlation[] }).correlations
   const correlationQuestions = generateCorrelationQuestions(correlations, rng, correlationCount)
     .map(convertCorrelationQuestion)
 
   // Determine positions for correlation questions (spread throughout the game)
   const correlationPositions = new Set<number>()
-  const positionOptions = [2, 4, 6, 8] // Middle positions
+  const positionOptions = count <= 5 ? [1, 2, 3] : [2, 4, 6, 8]
   const shuffledPositions = shuffleWithRng(positionOptions, rng)
   for (let i = 0; i < correlationQuestions.length && i < shuffledPositions.length; i++) {
     correlationPositions.add(shuffledPositions[i])

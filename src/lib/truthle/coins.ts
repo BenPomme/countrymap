@@ -7,7 +7,7 @@
 export const COIN_REWARDS = {
   // Gameplay rewards
   dailyPlay: 10,           // Just for playing
-  perfectScore: 50,        // All 10 correct
+  perfectScore: 50,        // All 5 correct
   correctAnswer: 5,        // Per correct answer
   speedBonus: 2,           // Per fast answer (<3s)
 
