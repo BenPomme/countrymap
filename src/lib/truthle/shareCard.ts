@@ -121,9 +121,9 @@ export async function generateShareCardBlob(input: ShareCardInput): Promise<Blob
   ctx.font = font(700, 36)
   ctx.fillText(`Top ${percentile}%`, cx, y + 208)
 
-  const squares = 10
-  const size = 74
-  const gap = 14
+  const squares = Math.max(results.length, 5)
+  const size = squares <= 5 ? 92 : 74
+  const gap = squares <= 5 ? 18 : 14
   const gridWidth = squares * size + (squares - 1) * gap
   const startX = (SHARE_CARD_WIDTH - gridWidth) / 2
   const gridY = y + 236
@@ -136,7 +136,8 @@ export async function generateShareCardBlob(input: ShareCardInput): Promise<Blob
   ctx.fillStyle = '#374151'
   ctx.font = font(600, 28)
   const streakLabel = streak > 0 ? `   ·   ${streak}-day streak` : ''
-  ctx.fillText(`${correctCount}/10 correct${streakLabel}`, cx, gridY + size + 56)
+  const total = results.length || squares
+  ctx.fillText(`${correctCount}/${total} correct${streakLabel}`, cx, gridY + size + 56)
 
   ctx.fillStyle = '#10b981'
   ctx.font = font(600, 24)
