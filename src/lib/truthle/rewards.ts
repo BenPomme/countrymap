@@ -30,9 +30,9 @@ export const BADGES: VirtualReward[] = [
     unlockCondition: 'play_1_game',
   },
   {
-    id: 'badge_perfect_10',
-    name: 'Perfect 10',
-    description: 'Get all 10 questions correct',
+    id: 'badge_perfect_10', // legacy id — unlock is still perfect_score
+    name: 'Perfect 5',
+    description: 'Get all 5 daily questions correct',
     category: 'badge',
     price: 0,
     icon: '💯',
