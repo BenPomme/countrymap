@@ -237,6 +237,12 @@ export default function TruthleGame({ countries }: TruthleGameProps) {
   }, [gameState, isRetryRun, score])
 
   const startGame = useCallback(async () => {
+    // already_played init never loads questions — without this, Play Extra Attempt
+    // sets gameState to playing with questions=[] and crashes on currentQuestion.*.
+    const nextQuestions =
+      questions.length > 0 ? questions : generateDailyQuestions(countries)
+    setQuestions(nextQuestions)
+
     if (playedToday && hasRetryAvailable && !isRetryRun) {
       const consumed = await consumeCloudRetry()
       if (!consumed.success) {
@@ -273,7 +279,7 @@ export default function TruthleGame({ countries }: TruthleGameProps) {
     setCoinsEarned(null)
     setGameState('playing')
     setQuestionStartTime(Date.now())
-  }, [hasRetryAvailable, isRetryRun, playedToday])
+  }, [countries, hasRetryAvailable, isRetryRun, playedToday, questions])
 
   const [checkoutLoading, setCheckoutLoading] = useState(false)
   const buyExtraAttempt = useCallback(async () => {
@@ -607,6 +613,13 @@ export default function TruthleGame({ countries }: TruthleGameProps) {
 
   if (gameState === 'playing' || gameState === 'answered') {
     const currentQuestion = questions[currentIndex]
+    if (!currentQuestion) {
+      return (
+        <div className="flex items-center justify-center min-h-[300px] text-gray-500">
+          Loading questions...
+        </div>
+      )
+    }
 
     return (
       <div className="max-w-lg mx-auto px-4">
