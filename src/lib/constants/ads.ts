@@ -41,7 +41,11 @@ export const AD_SLOTS = {
 
   // Truthle page ads
   truthleBanner: '3829065727',      // Reuse header banner slot
-  truthleResults: '1374933403',     // Square ad on results screen
+  // Dedicated Truthle / True-or-False results unit (sits under the Extra Attempt pay card).
+  // Set NEXT_PUBLIC_AD_SLOT_TRUTHLE_RESULTS to the new AdSense unit ID once created
+  // (AdSense > Ads > By ad unit > Display "truthle-results"). Until then falls back to
+  // the live 300x250 square unit so results keep earning.
+  truthleResults: process.env.NEXT_PUBLIC_AD_SLOT_TRUTHLE_RESULTS || '1374933403',
 
   // SEO map / country pages (aliases reusing existing slot IDs)
   mapPageBanner: '3829065727',      // = headerBanner
