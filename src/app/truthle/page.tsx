@@ -43,6 +43,11 @@ export default function TruthlePage() {
 
       {/* Main content */}
       <main className={`max-w-4xl mx-auto ${embeddedMode ? 'py-4' : 'py-8'}`}>
+        <div className="max-w-lg mx-auto px-4 mb-4">
+          <Link href="/true-false" className="block text-center py-2.5 rounded-xl bg-sky-50 border border-sky-200 text-sky-800 font-semibold hover:bg-sky-100">
+            ✅❌ New: True or False: World — 5 daily claims →
+          </Link>
+        </div>
         <TruthleGame countries={countries} />
       </main>
 
