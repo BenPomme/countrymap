@@ -108,6 +108,7 @@ const TRUTHLE_VARIABLES = [
   'democracy.score',
   'freedom.corruptionIndex',
   'freedom.pressFreedom',
+  'conflict.peaceIndex',
   'crime.safetyIndex',
   'crime.homicideRate',
   'crime.gunOwnership',
@@ -119,6 +120,15 @@ const TRUTHLE_VARIABLES = [
   'environment.co2PerCapita',
   'environment.recyclingRate',
   'environment.forestCoverage',
+]
+
+// Politics bias: most days lead with 3–4 politics/governance questions
+const POLITICS_VARIABLES = [
+  'freedom.pressFreedom',
+  'freedom.corruptionIndex',
+  'democracy.score',
+  'conflict.peaceIndex',
+  'economy.economicFreedom',
 ]
 
 function shuffleWithRng<T>(array: T[], rng: () => number): T[] {
@@ -311,7 +321,13 @@ export function generateDailyQuestions(
   const regularQuestions: TruthleQuestion[] = []
 
   // Shuffle variables for this day
-  const shuffledVariables = shuffleWithRng([...TRUTHLE_VARIABLES], rng)
+  // Politics-first: date-seeded pick of 3–4 politics vars at the front, rest after
+  // (later politics vars still serve as fallbacks if a front one fails to generate)
+  const politicsTarget = Math.min(regularQuestionCount, rng() < 0.5 ? 3 : 4)
+  const shuffledPolitics = shuffleWithRng(POLITICS_VARIABLES.filter((v) => v in VARIABLES), rng)
+  const frontPolitics = shuffledPolitics.slice(0, politicsTarget)
+  const rest = shuffleWithRng(TRUTHLE_VARIABLES.filter((v) => !frontPolitics.includes(v)), rng)
+  const shuffledVariables = [...frontPolitics, ...rest]
 
   const questionGenerators = [
     generateHighestQuestion,
@@ -345,6 +361,10 @@ export function generateDailyQuestions(
 
     varIndex++
   }
+
+  const mixedRegular = shuffleWithRng(regularQuestions, rng)
+  regularQuestions.length = 0
+  regularQuestions.push(...mixedRegular)
 
   // Interleave questions - place correlation questions at designated positions
   let regularIndex = 0
