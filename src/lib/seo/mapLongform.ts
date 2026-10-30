@@ -222,6 +222,73 @@ export const MAP_LONGFORM: Record<string, MapLongform> = {
       }
     ]
   },
+  "gdp-per-capita-ppp": {
+    "title": "GDP per Capita (PPP) by Country 2026: Map & Ranking (IMF)",
+    "ogTitle": "Which Country Has the Highest GDP per Capita (PPP) in 2026?",
+    "description": "Singapore leads GDP per capita (PPP) at Int$176,927 (IMF WEO Oct 2026); the US is Int$95,212. Map of 157 countries, plus how PPP differs from nominal.",
+    "h1": "Which Country Has the Highest GDP per Capita (PPP) in 2026?",
+    "links": [
+      {
+        "href": "/map/gdp-per-capita/",
+        "label": "GDP per Capita (nominal) map"
+      },
+      {
+        "href": "/map/happiness-index/",
+        "label": "Happiness Index map"
+      },
+      {
+        "href": "/truthle/",
+        "label": "Play Truthle"
+      }
+    ],
+    "intro": "Singapore has the highest GDP per capita (PPP) in 2026 at Int$176,927, according to the IMF World Economic Outlook (WEO, October 2026). The United States ranks #10 of 157 mapped countries at Int$95,212. PPP (purchasing power parity) adjusts GDP for the cost of living and is expressed in international dollars; on the nominal measure, Luxembourg leads at US$155,733 (see the GDP per Capita nominal map at /map/gdp-per-capita/).",
+    "sections": [
+      {
+        "h2": "GDP per Capita (PPP) top 10 in 2026",
+        "paragraphs": [
+          "Ranked by IMF WEO October 2026 estimates in international dollars:"
+        ],
+        "bullets": [
+          "Singapore: Int$176,927",
+          "Luxembourg: Int$156,638",
+          "Ireland: Int$149,642",
+          "Norway: Int$116,169",
+          "Switzerland: Int$106,944",
+          "Qatar: Int$103,804",
+          "Taiwan: Int$103,743",
+          "Guyana: Int$98,912",
+          "Brunei: Int$98,028",
+          "United States: Int$95,212"
+        ]
+      },
+      {
+        "h2": "How PPP differs from nominal GDP per capita",
+        "paragraphs": [
+          "Nominal GDP per capita converts output to US dollars at market exchange rates. PPP GDP per capita uses purchasing power parities so a dollar buys the same basket everywhere, which better reflects living standards. Switzerland is #3 nominally but #5 on PPP because of high prices; India rises from US$2,750 nominal to Int$12,998 PPP. The United States is the reference economy, so its nominal and PPP figures are identical at US$95,212."
+        ]
+      },
+      {
+        "h2": "Lowest GDP per capita (PPP)",
+        "paragraphs": [
+          "Burundi is last at Int$1,036, followed near the bottom by Yemen (Int$1,571), South Sudan (Int$1,582), Mozambique (Int$1,721) and Malawi (Int$1,819)."
+        ]
+      }
+    ],
+    "faqs": [
+      {
+        "q": "Which country has the highest GDP per capita (PPP) in 2026?",
+        "a": "Singapore, at Int$176,927 (IMF WEO October 2026), followed by Luxembourg (Int$156,638) and Ireland (Int$149,642). Microstates such as Monaco and Liechtenstein are not in our country set."
+      },
+      {
+        "q": "Where does the United States rank on GDP per capita (PPP)?",
+        "a": "The United States ranks #10 of 157 mapped countries at Int$95,212."
+      },
+      {
+        "q": "What is the difference between GDP per capita (PPP) and nominal?",
+        "a": "Nominal uses market exchange rates; PPP adjusts for price levels and is expressed in international dollars. On nominal GDP per capita, Luxembourg leads at US$155,733."
+      }
+    ]
+  },
   "gdp-per-capita": {
     "title": "GDP per Capita by Country 2026: Nominal and PPP Map (IMF)",
     "ogTitle": "Richest Countries per Capita 2026: IMF GDP Map, Nominal vs PPP",

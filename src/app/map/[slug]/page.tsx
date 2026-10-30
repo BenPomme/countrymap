@@ -263,7 +263,7 @@ export default function StatPage({ params }: { params: { slug: string } }) {
       </main>
 
       <div className="md:hidden fixed bottom-0 inset-x-0 z-40 bg-white/95 backdrop-blur border-t border-gray-200 px-3 py-2 flex gap-2 text-sm">
-        <a href="#deal-quiz" className="flex-1 text-center rounded-lg bg-amber-500 text-white font-medium py-2">🎯 Play deal quiz</a>
+        <a href="#deal-quiz" className="flex-1 text-center rounded-lg bg-amber-500 text-white font-medium py-2">🎯 {entry.slug === 'gdp-per-capita-ppp' ? 'Play the GDP (PPP) quiz' : entry.slug === 'happiness-index' ? 'Play the happiness quiz' : 'Play deal quiz'}</a>
         <Link href="/truthle" className="flex-1 text-center rounded-lg border border-gray-300 text-gray-800 font-medium py-2">Play Truthle</Link>
       </div>
     </div>
