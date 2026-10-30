@@ -21,6 +21,7 @@ import {
 import { calculateCoinsEarned, isStreakMilestone, getNextStreakMilestone, CoinBreakdown } from '@/lib/truthle/coins'
 import { AdSidebar } from '@/components/ads'
 import { AD_SLOTS } from '@/lib/constants/ads'
+import DailyUnlockCard from '@/components/affiliate/DailyUnlockCard'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useEmbeddedAppMode } from '@/lib/useEmbeddedAppMode'
@@ -47,6 +48,10 @@ const EMPTY_COIN_BREAKDOWN: CoinBreakdown = {
 export default function TruthleGame({ countries }: TruthleGameProps) {
   const embeddedMode = useEmbeddedAppMode()
   const [gameState, setGameState] = useState<GameState>('loading')
+  // Lets page-level chrome (e.g. True/False promo) hide itself during play.
+  useEffect(() => {
+    if (typeof window !== 'undefined') window.dispatchEvent(new CustomEvent('truthle:state', { detail: gameState }))
+  }, [gameState])
   const [questions, setQuestions] = useState<TruthleQuestion[]>([])
   const [currentIndex, setCurrentIndex] = useState(0)
   const [results, setResults] = useState<boolean[]>([])
@@ -403,11 +408,27 @@ export default function TruthleGame({ countries }: TruthleGameProps) {
     return () => clearInterval(timer)
   }, [])
 
+  const payCta = (
+    <>
+      <button
+        onClick={hasRetryAvailable ? startGame : buyExtraAttempt}
+        disabled={checkoutLoading}
+        className="w-full whitespace-nowrap bg-emerald-600 hover:bg-emerald-700 disabled:bg-emerald-300 text-white text-lg font-bold py-3 px-4 rounded-lg shadow transition-colors"
+      >
+        {hasRetryAvailable ? '▶ Play Your Extra Attempt' : checkoutLoading ? 'Opening secure checkout…' : 'Extra Attempt — €0.99'}
+      </button>
+      {!hasRetryAvailable && (
+        <p className="text-xs text-gray-600 mt-2">One extra full run. Your first score stays on the leaderboard. Secure payment via Stripe.</p>
+      )}
+      {retryMessage && <p className="text-sm text-rose-700 mt-2">{retryMessage}</p>}
+    </>
+  )
+
   if (gameState === 'loading') {
     return (
       <div className="flex flex-col items-center justify-center min-h-[400px]">
         <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-emerald-500"></div>
-        <p className="mt-4 text-gray-600">Loading today&apos;s Truthle...</p>
+        <p className="mt-4 text-gray-600">Loading today's Truthle...</p>
       </div>
     )
   }
@@ -427,17 +448,7 @@ export default function TruthleGame({ countries }: TruthleGameProps) {
             <span className="font-bold">{coinBalance.toLocaleString()}</span>
             <span className="text-sm font-medium text-amber-700">Shop</span>
           </Link>
-        ) : (
-          <div className="absolute top-4 right-4 flex items-center gap-2 bg-amber-100 px-3 py-1.5 rounded-full">
-            <span className="text-lg">🪙</span>
-            <span className="font-bold text-amber-700">{coinBalance.toLocaleString()}</span>
-            <Link href="/truthle/shop" className="text-amber-600 hover:text-amber-800 ml-1">
-              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
-              </svg>
-            </Link>
-          </div>
-        )}
+        ) : null}
 
         <Image src="/truthle.png" alt="Truthle" width={120} height={120} className="mb-4" />
         <h1 className="text-3xl font-bold text-gray-900 mb-2">Truthle</h1>
@@ -503,45 +514,11 @@ export default function TruthleGame({ countries }: TruthleGameProps) {
             <span className="font-bold">{coinBalance.toLocaleString()}</span>
             <span className="text-sm font-medium text-amber-700">Shop</span>
           </Link>
-        ) : (
-          <div className="absolute top-4 right-4 flex items-center gap-2 bg-amber-100 px-3 py-1.5 rounded-full">
-            <span className="text-lg">🪙</span>
-            <span className="font-bold text-amber-700">{coinBalance.toLocaleString()}</span>
-            <Link href="/truthle/shop" className="text-amber-600 hover:text-amber-800 ml-1">
-              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
-              </svg>
-            </Link>
-          </div>
-        )}
+        ) : null}
 
         <Image src="/truthle.png" alt="Truthle" width={80} height={80} className="mb-4" />
-        <h2 className="text-xl font-semibold text-gray-700 mb-2">You&apos;ve already played today!</h2>
+        <h2 className="text-xl font-semibold text-gray-700 mb-2">You've already played today!</h2>
         <p className="text-sm text-gray-500 mb-4">Truthle #{truthleDay}</p>
-
-        {!embeddedMode && (
-          <div className="mb-5 w-full max-w-sm rounded-xl border-2 border-emerald-400 bg-emerald-50 p-4 shadow-sm">
-            <p className="text-sm font-semibold text-emerald-900 mb-2">Not happy with your score? Get one more run today.</p>
-            <button
-              onClick={hasRetryAvailable ? startGame : buyExtraAttempt}
-              disabled={checkoutLoading}
-              className="w-full bg-emerald-600 hover:bg-emerald-700 disabled:bg-emerald-300 text-white text-lg font-bold py-3 px-4 rounded-lg shadow transition-colors"
-            >
-              {hasRetryAvailable
-                ? '▶ Play Your Extra Attempt'
-                : checkoutLoading
-                ? 'Opening secure checkout...'
-                : '🔁 Play Again Now – €0.99'}
-            </button>
-            {!hasRetryAvailable && (
-              <p className="text-xs text-gray-600 mt-2">One extra full run. Your first score stays on the leaderboard. Secure payment via Stripe.</p>
-            )}
-            {retryMessage && (
-              <p className="text-sm text-emerald-700 mt-2">{retryMessage}</p>
-            )}
-          </div>
-        )}
-
 
         <div className="text-6xl mb-2">{grade.emoji}</div>
         <div className="text-4xl font-bold text-gray-900 mb-1">
@@ -563,6 +540,12 @@ export default function TruthleGame({ countries }: TruthleGameProps) {
           <p className="text-orange-500 font-medium mb-4">🔥 {previousAttempt.streak} day streak</p>
         )}
 
+        {!embeddedMode && (
+          <div className="mb-4 w-full max-w-sm">
+            <DailyUnlockCard game="truthle" date={getTodayDateString()} perfect={correctCount === (previousAttempt.results.length || TRUTHLE_QUESTIONS_PER_DAY)} cta={payCta} />
+          </div>
+        )}
+
         <div className="flex gap-3 mb-4">
           <ShareResultsButton
             score={previousAttempt.score}
@@ -572,12 +555,6 @@ export default function TruthleGame({ countries }: TruthleGameProps) {
             onFirstShare={handleFirstShare}
             className="bg-blue-600 hover:bg-blue-700 disabled:bg-blue-300 text-white text-base font-bold py-3 px-8 rounded-lg shadow transition-colors"
           />
-          <Link
-            href="/truthle/shop"
-            className="bg-amber-500 hover:bg-amber-600 text-white font-semibold py-2 px-6 rounded-lg transition-colors"
-          >
-            Shop
-          </Link>
         </div>
 
         {embeddedMode && (
@@ -759,6 +736,12 @@ export default function TruthleGame({ countries }: TruthleGameProps) {
           </div>
         )}
 
+        {!embeddedMode && (
+          <div className="mb-4 w-full max-w-sm">
+            <DailyUnlockCard game="truthle" date={getTodayDateString()} perfect={score.correctCount === score.totalQuestions} cta={isRetryRun ? undefined : payCta} />
+          </div>
+        )}
+
         <ShareResultsButton
           score={score.totalScore}
           results={results}
@@ -767,22 +750,7 @@ export default function TruthleGame({ countries }: TruthleGameProps) {
           onFirstShare={handleFirstShare}
         />
 
-        {!embeddedMode && !isRetryRun && (
-          <div className="mt-4 mb-6 w-full max-w-xs">
-            <button
-              onClick={hasRetryAvailable ? startGame : buyExtraAttempt}
-              disabled={checkoutLoading}
-              className="w-full bg-emerald-600 hover:bg-emerald-700 disabled:bg-emerald-300 text-white font-bold py-3 px-4 rounded-lg shadow transition-colors"
-            >
-              {hasRetryAvailable
-                ? '▶ Play Your Extra Attempt'
-                : checkoutLoading
-                ? 'Opening secure checkout...'
-                : '🔁 Beat your score – play again (€0.99)'}
-            </button>
-            {retryMessage && <p className="text-sm text-emerald-700 mt-2">{retryMessage}</p>}
-          </div>
-        )}
+        <div className="mb-6" />
 
         {coinsEarned && coinsEarned.total > 0 && (
           <div className="bg-gradient-to-r from-amber-50 to-yellow-50 border border-amber-200 rounded-lg p-4 mb-6 w-full max-w-xs">
@@ -835,9 +803,9 @@ export default function TruthleGame({ countries }: TruthleGameProps) {
             </div>
             <Link
               href="/truthle/shop"
-              className="mt-3 block w-full bg-amber-500 hover:bg-amber-600 text-white font-medium py-2 rounded-lg transition-colors text-center"
+              className="mt-3 block w-full text-amber-700 hover:underline text-sm text-center"
             >
-              Visit Shop
+              Coin shop →
             </Link>
           </div>
         )}
