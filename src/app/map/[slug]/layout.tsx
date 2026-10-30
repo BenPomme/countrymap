@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import { VARIABLES } from '@/lib/constants/variables'
+import { mapLongform } from '@/lib/seo/mapLongform'
 import { getVariableBySlug, variableEntries, rankCountries, ranksHighFirst, topCountry } from '@/lib/seo/catalog'
 
 export const dynamicParams = false
@@ -27,11 +28,15 @@ export async function generateMetadata({
     ? `${leader.country.name} ranks #1 for ${config.name.toLowerCase()} at ${leader.formatted}, among ${ranked.length} countries.`
     : `Compare ${config.name.toLowerCase()} across countries on The World Truth Map.`
 
+  const lf = mapLongform(entry.slug)
+  const title = lf?.title ?? `${question} ${config.name} by Country`
+  const ogTitle = lf?.ogTitle ?? question
+  const desc = lf?.description ?? answer
   const og = `https://theworldtruth.com/og/map/${entry.slug}.png`
 
   return {
-    title: `${question} ${config.name} by Country`,
-    description: answer,
+    title,
+    description: desc,
     keywords: [
       `${config.name} by country`,
       `which country has the ${higher ? 'highest' : 'lowest'} ${config.name}`,
@@ -41,8 +46,8 @@ export async function generateMetadata({
     ],
     alternates: { canonical: `https://theworldtruth.com/map/${entry.slug}/` },
     openGraph: {
-      title: question,
-      description: answer,
+      title: ogTitle,
+      description: desc,
       url: `https://theworldtruth.com/map/${entry.slug}/`,
       siteName: 'The World Truth Map',
       type: 'article',
@@ -50,8 +55,8 @@ export async function generateMetadata({
     },
     twitter: {
       card: 'summary_large_image',
-      title: question,
-      description: answer,
+      title: ogTitle,
+      description: desc,
       images: [og],
     },
   }

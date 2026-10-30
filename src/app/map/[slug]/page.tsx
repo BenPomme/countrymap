@@ -19,6 +19,7 @@ import DealQuiz from '@/components/affiliate/DealQuiz'
 import type { ColorVariable } from '@/types/country'
 import { claimsForVariable } from '@/lib/seo/claims'
 import { sourceNote } from '@/lib/seo/sourceNotes'
+import { mapLongform } from '@/lib/seo/mapLongform'
 
 export function generateStaticParams() {
   return variableEntries.map((entry) => ({ slug: entry.slug }))
@@ -51,7 +52,8 @@ export default function StatPage({ params }: { params: { slug: string } }) {
     : `Compare ${config.name.toLowerCase()} across countries.`
 
   const note = sourceNote(entry.id)
-  const faqs = [
+  const lf = mapLongform(entry.slug)
+  const baseFaqs = [
     {
       q: question,
       a: answer,
@@ -66,6 +68,7 @@ export default function StatPage({ params }: { params: { slug: string } }) {
       a: `${ranked.length} of ${countries.length} countries on this map have a value for ${config.name.toLowerCase()}.`,
     },
   ]
+  const faqs = lf ? [...lf.faqs, baseFaqs[1]] : baseFaqs
 
   const jsonLd = {
     '@context': 'https://schema.org',
@@ -107,8 +110,8 @@ export default function StatPage({ params }: { params: { slug: string } }) {
 
       <main className="max-w-5xl mx-auto px-4 py-6 pb-20 md:pb-6">
         <p className="text-sm text-blue-700 font-medium mb-3">{config.category}</p>
-        <h1 className="text-3xl md:text-5xl font-bold text-gray-900 mb-4">{question}</h1>
-        <p className="text-lg md:text-xl text-gray-800 mb-4">{answer}</p>
+        <h1 className="text-3xl md:text-5xl font-bold text-gray-900 mb-4">{lf?.h1 ?? question}</h1>
+        <p className="text-lg md:text-xl text-gray-800 mb-4">{lf?.intro ?? answer}</p>
 
         <DealQuiz slug={entry.slug} category={config.category} name={config.name} />
 
@@ -121,6 +124,13 @@ export default function StatPage({ params }: { params: { slug: string } }) {
         <section className="mt-10 bg-white rounded-2xl shadow-sm p-6">
           <h2 className="text-2xl font-bold text-gray-900 mb-2">{config.name} by country</h2>
           <p className="text-gray-700 mb-3">{sourceBlurb(entry.id)}</p>
+          {(entry.slug === 'gdp-per-capita' || entry.slug === 'gdp-per-capita-ppp') && (
+            <p className="mb-3 text-sm">
+              View:{' '}
+              <Link href="/map/gdp-per-capita/" className={entry.slug === 'gdp-per-capita' ? 'font-semibold text-gray-900' : 'text-blue-700 underline'}>Nominal (US$)</Link>{' · '}
+              <Link href="/map/gdp-per-capita-ppp/" className={entry.slug === 'gdp-per-capita-ppp' ? 'font-semibold text-gray-900' : 'text-blue-700 underline'}>PPP (Int$)</Link>
+            </p>
+          )}
           {note && (
             <div className="mb-6 rounded-xl bg-amber-50 border border-amber-200 p-4 text-sm text-gray-800">
               <p><strong>Source:</strong>{' '}<a href={note.url} rel="nofollow noopener" target="_blank" className="text-blue-700 underline">{note.source}</a></p>
@@ -181,6 +191,26 @@ export default function StatPage({ params }: { params: { slug: string } }) {
             </details>
           )}
         </section>
+
+        {lf && (
+          <article className="mt-10 bg-white rounded-2xl shadow-sm p-6 text-gray-800">
+            {lf.sections.map((sec) => (
+              <section key={sec.h2} className="mb-6">
+                <h2 className="text-2xl font-bold text-gray-900 mb-2">{sec.h2}</h2>
+                {sec.paragraphs.map((para) => <p key={para} className="mb-3 leading-relaxed">{para}</p>)}
+                {sec.bullets && (
+                  <ul className="list-disc pl-5 space-y-1 mb-3">{sec.bullets.map((b) => <li key={b}>{b}</li>)}</ul>
+                )}
+              </section>
+            ))}
+            <p className="text-sm">
+              Explore more:{' '}
+              {lf.links.map((l, i) => (
+                <span key={l.href}>{i > 0 && ' · '}<Link href={l.href} className="text-blue-700 underline">{l.label}</Link></span>
+              ))}
+            </p>
+          </article>
+        )}
 
         <div className="mt-6 flex justify-center">
           <AdSidebar slotId={AD_SLOTS.mapPageSquare} size="square" />
