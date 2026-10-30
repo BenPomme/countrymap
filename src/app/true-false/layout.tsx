@@ -8,9 +8,9 @@ export const metadata: Metadata = {
     description: '5 claims about the world. True or false? Same for everyone, new every day.',
     url: 'https://theworldtruth.com/true-false/',
     siteName: 'The World Truth',
-    images: [{ url: 'https://theworldtruth.com/og/truthle.png', width: 1200, height: 630 }],
+    images: [{ url: 'https://theworldtruth.com/og/true-false.png', width: 1200, height: 630 }],
   },
-  twitter: { card: 'summary_large_image', title: 'True or False: World', images: ['https://theworldtruth.com/og/truthle.png'] },
+  twitter: { card: 'summary_large_image', title: 'True or False: World', images: ['https://theworldtruth.com/og/true-false.png'] },
   alternates: { canonical: 'https://theworldtruth.com/true-false/' },
 }
 
