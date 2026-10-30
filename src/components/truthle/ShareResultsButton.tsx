@@ -34,6 +34,7 @@ export default function ShareResultsButton({
   const [copied, setCopied] = useState(false)
   const [sharing, setSharing] = useState(false)
   const [promo, setPromo] = useState<SharePromo | null>(null)
+  const [promoError, setPromoError] = useState(false)
 
   useEffect(() => {
     preloadShareCardLogo()
@@ -41,7 +42,8 @@ export default function ShareResultsButton({
   }, [])
 
   const afterShare = useCallback(() => {
-    mintSharePromo().then((p) => { if (p) setPromo(p) })
+    setPromoError(false)
+    mintSharePromo().then((p) => { if (p) setPromo(p); else setPromoError(true) })
   }, [])
 
   const shareResults = useCallback(async () => {
@@ -128,8 +130,10 @@ export default function ShareResultsButton({
   return (
     <>
       <button onClick={shareResults} disabled={sharing} className={className}>
-        {sharing ? 'Sharing...' : copied ? '\u2713 Copied!' : 'Share Results'}
+        {sharing ? 'Sharing...' : copied ? '\u2713 Copied!' : 'Share results'}
       </button>
+      {!promo && !promoError && <p className="-mt-4 mb-4 text-xs text-gray-500">Share to get a free Extra Attempt code for a friend</p>}
+      {promoError && !promo && <p className="-mt-4 mb-4 text-xs text-rose-600">Couldn't create your friend code — tap Share again to retry.</p>}
       {promo && <SharePromoCard promo={promo} />}
     </>
   )

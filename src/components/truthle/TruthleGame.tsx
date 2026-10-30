@@ -740,6 +740,14 @@ function TruthleGameInner({ countries }: TruthleGameProps) {
           )}
         </div>
 
+        <ShareResultsButton
+          score={score.totalScore}
+          results={results}
+          streak={streak}
+          truthleDay={truthleDay}
+          onFirstShare={handleFirstShare}
+        />
+
         {isRetryRun && (
           <div className="bg-blue-50 border border-blue-200 rounded-lg px-4 py-2 mb-4 text-sm text-blue-700">
             This was your rewarded retry run.
@@ -752,13 +760,6 @@ function TruthleGameInner({ countries }: TruthleGameProps) {
           </div>
         )}
 
-        <ShareResultsButton
-          score={score.totalScore}
-          results={results}
-          streak={streak}
-          truthleDay={truthleDay}
-          onFirstShare={handleFirstShare}
-        />
 
         <div className="mb-6" />
 

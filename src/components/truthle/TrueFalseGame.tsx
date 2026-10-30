@@ -100,8 +100,9 @@ function TrueFalseGameInner({ countries }: { countries: Country[] }) {
   const shareText = `True or False: World #${day}\n${grid} ${score}/5\nhttps://theworldtruth.com/true-false/`
   const [copied, setCopied] = useState(false)
   const [promo, setPromo] = useState<SharePromo | null>(null)
+  const [promoError, setPromoError] = useState(false)
   useEffect(() => { setPromo(getStoredSharePromo()) }, [])
-  const afterShare = useCallback(() => { mintSharePromo().then((p) => { if (p) setPromo(p) }) }, [])
+  const afterShare = useCallback(() => { setPromoError(false); mintSharePromo().then((p) => { if (p) setPromo(p); else setPromoError(true) }) }, [])
   const share = useCallback(async () => {
     try {
       if (navigator.share) { await navigator.share({ text: shareText }); afterShare(); return }
@@ -175,6 +176,12 @@ function TrueFalseGameInner({ countries }: { countries: Country[] }) {
           <div className="bg-white rounded-xl shadow-sm p-2"><div className="text-xl font-bold">{stats.played}</div>Played</div>
         </div>
       )}
+      <button onClick={share} className="mt-4 w-full py-3 rounded-2xl bg-sky-600 text-white font-semibold shadow">
+        {copied ? 'Copied!' : 'Share result'}
+      </button>
+      {!promo && !promoError && <p className="mt-1 text-xs text-gray-500">Share to get a free Extra Attempt code for a friend</p>}
+      {promoError && !promo && <p className="mt-1 text-xs text-rose-600">Couldn't create your friend code — tap Share again to retry.</p>}
+      {promo && <SharePromoCard promo={promo} />}
       {isExtra && <p className="text-xs text-gray-500 mt-2">Extra attempt — your streak counts your first run of the day.</p>}
       <div className="mt-5">
         <DailyUnlockCard game="true-false" date={today} perfect={score === claims.length && claims.length > 0} cta={(
@@ -193,10 +200,6 @@ function TrueFalseGameInner({ countries }: { countries: Country[] }) {
           </>
         )} />
       </div>
-      <button onClick={share} className="mt-4 w-full py-3 rounded-2xl bg-white border border-sky-300 text-sky-700 font-semibold">
-        {copied ? 'Copied!' : 'Share result'}
-      </button>
-      {promo && <SharePromoCard promo={promo} />}
 
       <div className="my-6">
         <AdUnit slotId={AD_SLOTS.truthleResults} format="rectangle" />
