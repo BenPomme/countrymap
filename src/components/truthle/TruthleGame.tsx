@@ -15,6 +15,7 @@ import {
   getCoins,
   updateAchievementStats,
   getCloudRetryStatus,
+  createRetryCheckout,
   consumeCloudRetry,
 } from '@/lib/truthle/storage'
 import { calculateCoinsEarned, isStreakMilestone, getNextStreakMilestone, CoinBreakdown } from '@/lib/truthle/coins'
@@ -87,12 +88,11 @@ export default function TruthleGame({ countries }: TruthleGameProps) {
   }, [authenticatedUserId, hasRetryAvailable, truthleDay])
 
   const refreshRetryStatus = useCallback(async () => {
-    if (!embeddedMode) return false
-
     const status = await getCloudRetryStatus()
     const canRetry = status.canConsume
 
     setHasRetryAvailable(canRetry)
+    if (!embeddedMode) return canRetry
 
     postBridgeMessage({
       type: 'retry_status_changed',
@@ -148,8 +148,21 @@ export default function TruthleGame({ countries }: TruthleGameProps) {
         setStreak(attempt.streak)
         setPlayedToday(true)
 
-        if (embeddedMode) {
-          await refreshRetryStatus()
+        await refreshRetryStatus()
+        if (typeof window !== 'undefined') {
+          const checkout = new URLSearchParams(window.location.search).get('checkout')
+          if (checkout === 'success') {
+            setRetryMessage('Payment received. Unlocking your extra attempt...')
+            let ok = false
+            for (let i = 0; i < 8 && !ok && !cancelled; i += 1) {
+              ok = await refreshRetryStatus()
+              if (!ok) await new Promise((r) => window.setTimeout(r, 2000))
+            }
+            setRetryMessage(ok ? 'Extra attempt unlocked. Good luck!' : 'Payment received; unlocking is taking longer than usual. Refresh in a minute.')
+          } else if (checkout === 'cancel') {
+            setRetryMessage('Checkout cancelled. No charge was made.')
+          }
+          if (checkout) window.history.replaceState(null, '', window.location.pathname)
         }
 
         setGameState('already_played')
@@ -261,6 +274,20 @@ export default function TruthleGame({ countries }: TruthleGameProps) {
     setGameState('playing')
     setQuestionStartTime(Date.now())
   }, [hasRetryAvailable, isRetryRun, playedToday])
+
+  const [checkoutLoading, setCheckoutLoading] = useState(false)
+  const buyExtraAttempt = useCallback(async () => {
+    if (checkoutLoading) return
+    setCheckoutLoading(true)
+    setRetryMessage(null)
+    const { url, error } = await createRetryCheckout(1)
+    if (url) {
+      window.location.href = url
+      return
+    }
+    setCheckoutLoading(false)
+    setRetryMessage(error ? `Checkout unavailable: ${error}` : 'Checkout unavailable right now.')
+  }, [checkoutLoading])
 
   const requestRewardedRetry = useCallback(() => {
     if (!embeddedMode || retryRequesting) return
@@ -522,6 +549,28 @@ export default function TruthleGame({ countries }: TruthleGameProps) {
             Shop
           </Link>
         </div>
+
+        {!embeddedMode && (
+          <div className="mb-4 w-full max-w-sm">
+            <button
+              onClick={hasRetryAvailable ? startGame : buyExtraAttempt}
+              disabled={checkoutLoading}
+              className="w-full bg-emerald-600 hover:bg-emerald-700 disabled:bg-emerald-300 text-white font-semibold py-2.5 px-4 rounded-lg transition-colors"
+            >
+              {hasRetryAvailable
+                ? 'Play Your Extra Attempt'
+                : checkoutLoading
+                ? 'Opening secure checkout...'
+                : 'Try Again Today – €0.99'}
+            </button>
+            {!hasRetryAvailable && (
+              <p className="text-xs text-gray-500 mt-1">One extra full run. Your first score stays on the leaderboard. Paid via Stripe.</p>
+            )}
+            {retryMessage && (
+              <p className="text-sm text-emerald-700 mt-2">{retryMessage}</p>
+            )}
+          </div>
+        )}
 
         {embeddedMode && (
           <div className="mb-4 w-full max-w-sm">

@@ -16,6 +16,7 @@ export interface TruthleRetryStatus {
   granted: boolean
   consumed: boolean
   canConsume: boolean
+  paidCredits?: number
   source: 'backend' | 'none'
 }
 
@@ -623,6 +624,19 @@ export async function consumeCloudRetry(): Promise<{ success: boolean; remaining
   } catch (error) {
     console.error('Error consuming retry entitlement:', error)
     return { success: false, remainingRetries: 0 }
+  }
+}
+
+// Starts Stripe Checkout for a paid extra attempt. Returns the hosted checkout URL.
+export async function createRetryCheckout(quantity = 1): Promise<{ url: string | null; error?: string }> {
+  try {
+    await ensureAnonymousAuth()
+    const callable = httpsCallable<{ quantity: number }, { url: string }>(functionsClient, 'createTruthleRetryCheckout')
+    const response = await callable({ quantity })
+    return { url: response.data.url }
+  } catch (error) {
+    console.error('Error creating checkout:', error)
+    return { url: null, error: (error as Error)?.message || 'Checkout unavailable' }
   }
 }
 
