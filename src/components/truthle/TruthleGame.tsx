@@ -513,6 +513,30 @@ export default function TruthleGame({ countries }: TruthleGameProps) {
         <h2 className="text-xl font-semibold text-gray-700 mb-2">You&apos;ve already played today!</h2>
         <p className="text-sm text-gray-500 mb-4">Truthle #{truthleDay}</p>
 
+        {!embeddedMode && (
+          <div className="mb-5 w-full max-w-sm rounded-xl border-2 border-emerald-400 bg-emerald-50 p-4 shadow-sm">
+            <p className="text-sm font-semibold text-emerald-900 mb-2">Not happy with your score? Get one more run today.</p>
+            <button
+              onClick={hasRetryAvailable ? startGame : buyExtraAttempt}
+              disabled={checkoutLoading}
+              className="w-full bg-emerald-600 hover:bg-emerald-700 disabled:bg-emerald-300 text-white text-lg font-bold py-3 px-4 rounded-lg shadow transition-colors"
+            >
+              {hasRetryAvailable
+                ? '▶ Play Your Extra Attempt'
+                : checkoutLoading
+                ? 'Opening secure checkout...'
+                : '🔁 Play Again Now – €0.99'}
+            </button>
+            {!hasRetryAvailable && (
+              <p className="text-xs text-gray-600 mt-2">One extra full run. Your first score stays on the leaderboard. Secure payment via Stripe.</p>
+            )}
+            {retryMessage && (
+              <p className="text-sm text-emerald-700 mt-2">{retryMessage}</p>
+            )}
+          </div>
+        )}
+
+
         <div className="text-6xl mb-2">{grade.emoji}</div>
         <div className="text-4xl font-bold text-gray-900 mb-1">
           {previousAttempt.score.toLocaleString()}
@@ -540,7 +564,7 @@ export default function TruthleGame({ countries }: TruthleGameProps) {
             streak={previousAttempt.streak}
             truthleDay={truthleDay}
             onFirstShare={handleFirstShare}
-            className="bg-blue-500 hover:bg-blue-600 disabled:bg-blue-300 text-white font-semibold py-2 px-6 rounded-lg transition-colors"
+            className="bg-blue-600 hover:bg-blue-700 disabled:bg-blue-300 text-white text-base font-bold py-3 px-8 rounded-lg shadow transition-colors"
           />
           <Link
             href="/truthle/shop"
@@ -549,28 +573,6 @@ export default function TruthleGame({ countries }: TruthleGameProps) {
             Shop
           </Link>
         </div>
-
-        {!embeddedMode && (
-          <div className="mb-4 w-full max-w-sm">
-            <button
-              onClick={hasRetryAvailable ? startGame : buyExtraAttempt}
-              disabled={checkoutLoading}
-              className="w-full bg-emerald-600 hover:bg-emerald-700 disabled:bg-emerald-300 text-white font-semibold py-2.5 px-4 rounded-lg transition-colors"
-            >
-              {hasRetryAvailable
-                ? 'Play Your Extra Attempt'
-                : checkoutLoading
-                ? 'Opening secure checkout...'
-                : 'Try Again Today – €0.99'}
-            </button>
-            {!hasRetryAvailable && (
-              <p className="text-xs text-gray-500 mt-1">One extra full run. Your first score stays on the leaderboard. Paid via Stripe.</p>
-            )}
-            {retryMessage && (
-              <p className="text-sm text-emerald-700 mt-2">{retryMessage}</p>
-            )}
-          </div>
-        )}
 
         {embeddedMode && (
           <div className="mb-4 w-full max-w-sm">
@@ -751,6 +753,23 @@ export default function TruthleGame({ countries }: TruthleGameProps) {
           truthleDay={truthleDay}
           onFirstShare={handleFirstShare}
         />
+
+        {!embeddedMode && !isRetryRun && (
+          <div className="mt-4 mb-6 w-full max-w-xs">
+            <button
+              onClick={hasRetryAvailable ? startGame : buyExtraAttempt}
+              disabled={checkoutLoading}
+              className="w-full bg-emerald-600 hover:bg-emerald-700 disabled:bg-emerald-300 text-white font-bold py-3 px-4 rounded-lg shadow transition-colors"
+            >
+              {hasRetryAvailable
+                ? '▶ Play Your Extra Attempt'
+                : checkoutLoading
+                ? 'Opening secure checkout...'
+                : '🔁 Beat your score – play again (€0.99)'}
+            </button>
+            {retryMessage && <p className="text-sm text-emerald-700 mt-2">{retryMessage}</p>}
+          </div>
+        )}
 
         {coinsEarned && coinsEarned.total > 0 && (
           <div className="bg-gradient-to-r from-amber-50 to-yellow-50 border border-amber-200 rounded-lg p-4 mb-6 w-full max-w-xs">

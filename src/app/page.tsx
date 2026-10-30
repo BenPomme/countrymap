@@ -180,6 +180,17 @@ export default function HomePage() {
       </header>
       )}
 
+      {/* Primary actions - visible on all screens */}
+      {!embeddedMode && (
+        <div className="bg-gradient-to-r from-blue-50 to-emerald-50 border-b border-gray-200 px-3 md:px-6 py-2 flex items-center gap-2 overflow-x-auto whitespace-nowrap text-sm">
+          <span className="hidden md:inline text-gray-600 font-medium mr-1">Start here:</span>
+          <Link href="/truthle" className="px-3 py-1.5 rounded-full bg-emerald-600 text-white font-semibold shadow-sm hover:bg-emerald-700">🎯 Play today&apos;s Truthle</Link>
+          <Link href="/map/press-freedom" className="px-3 py-1.5 rounded-full bg-white border border-blue-300 text-blue-700 font-medium hover:bg-blue-50">🔥 Press freedom map</Link>
+          <Link href="/map/passport-power" className="px-3 py-1.5 rounded-full bg-white border border-blue-300 text-blue-700 font-medium hover:bg-blue-50">🛂 Passport power</Link>
+          <Link href="/quiz" className="px-3 py-1.5 rounded-full bg-white border border-gray-300 text-gray-700 font-medium hover:bg-gray-50">❓ Country quiz</Link>
+        </div>
+      )}
+
       {/* Ad Banner - Desktop only */}
       {!embeddedMode && (
         <AdBanner slotId={AD_SLOTS.headerBanner} hideOnMobile={true} className="bg-gray-50 border-b border-gray-200" />

@@ -12,6 +12,7 @@ import type { Country } from '@/types/country'
 import VisualShare from '@/components/share/VisualShare'
 import { AdBanner, AdSidebar } from '@/components/ads'
 import { AD_SLOTS } from '@/lib/constants/ads'
+import ContextualOffers from '@/components/affiliate/ContextualOffers'
 
 interface RankedStat {
   variableId: string
@@ -163,6 +164,10 @@ export default function CountryClient({ slug }: { slug: string }) {
       {/* Main Content */}
       <main className="max-w-6xl mx-auto px-4 py-8">
         <AdBanner slotId={AD_SLOTS.countryPageBanner} className="mb-6" />
+        <div className="mb-6 flex flex-col md:flex-row md:items-start gap-3">
+          <Link href="/truthle" className="shrink-0 inline-flex items-center justify-center px-4 py-2 rounded-lg bg-emerald-600 text-white font-semibold shadow-sm hover:bg-emerald-700">🎯 Test yourself: play today&apos;s Truthle</Link>
+          <div className="flex-1"><ContextualOffers slug={slug} category="travel" name={country.name} /></div>
+        </div>
         {/* Country Header Card */}
         <div ref={shareRef} className="bg-white rounded-2xl shadow-lg p-8 mb-8">
           <div className="flex items-center gap-6 mb-6">
