@@ -15,13 +15,37 @@ export interface SourceNote {
 
 export const SOURCE_NOTES: Partial<Record<ColorVariable, SourceNote>> = {
   'freedom.pressFreedom': {
-    source: 'Reporters Without Borders (RSF) World Press Freedom Index',
-    url: 'https://rsf.org/en/index',
-    vintage: 'Pre-2026 RSF scores, rounded to whole points (not yet reconciled with the RSF 2026 index)',
+    source: 'Reporters Without Borders (RSF) World Press Freedom Index 2026',
+    url: 'https://rsf.org/en/index?year=2026',
+    vintage: 'RSF 2026 index (global scores, two decimals)',
     notes: [
-      'Scores are 0–100, higher = more press freedom. RSF publishes a new index every May; our figures have not yet been updated to the 2026 edition, so individual scores and ranks may differ from rsf.org.',
-      'Ties are shown in the order of our dataset; RSF ranks with decimal scores.',
+      'Scores are 0–100, higher = more press freedom. RSF ranks 180 countries and territories; our map covers 164 of them.',
+      'Not shown because they are outside our 164-country set: Liechtenstein, Fiji, Seychelles, Cabo Verde, North Macedonia, Tonga, OECS, Samoa, Belize, Malta, Comoros, Northern Cyprus, Kosovo, Maldives, Hong Kong and Palestine.',
     ],
+  },
+  'lifestyle.happinessIndex': {
+    source: 'World Happiness Report 2026 (Gallup World Poll life evaluations)',
+    url: 'https://worldhappiness.report/ed/2026/',
+    vintage: 'WHR 2026: 3-year average life evaluation, 2023–2025 (0–10)',
+    notes: [
+      'WHR 2026 ranks 147 countries; 140 are in our map set (Kosovo, Belize, Malta, North Macedonia, Hong Kong, Palestine and Comoros are outside it).',
+      'Countries not ranked in WHR 2026 show no value.',
+    ],
+  },
+  'poverty.gdpPerCapita': {
+    source: 'IMF World Economic Outlook, October 2026 (DataMapper NGDPDPC)',
+    url: 'https://www.imf.org/external/datamapper/NGDPDPC@WEO',
+    vintage: 'IMF WEO October 2026, 2026 estimates, current US dollars (nominal)',
+    notes: [
+      'Nominal GDP per capita at market exchange rates, not PPP. For purchasing-power-adjusted figures see the GDP per Capita (PPP) map.',
+      'Countries without a 2026 IMF estimate show no value.',
+    ],
+  },
+  'poverty.gdpPerCapitaPPP': {
+    source: 'IMF World Economic Outlook, October 2026 (DataMapper PPPPC)',
+    url: 'https://www.imf.org/external/datamapper/PPPPC@WEO',
+    vintage: 'IMF WEO October 2026, 2026 estimates, current international dollars (PPP)',
+    notes: ['Countries without a 2026 IMF estimate show no value.'],
   },
   'economy.mcdonaldsPerCapita': {
     source: "McDonald's corporate restaurant counts and country franchise reports, divided by UN population",

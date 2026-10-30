@@ -29,7 +29,8 @@
     "poverty": {
       "povertyRate": null,
       "gdpPerCapita": null,
-      "hdi": 0.400284141302109
+      "hdi": 0.400284141302109,
+      "gdpPerCapitaPPP": null
     },
     "gender": {
       "wblIndex": 31.875,
@@ -162,7 +163,7 @@
       "scientistsPerCapita": 56
     },
     "lifestyle": {
-      "happinessIndex": null,
+      "happinessIndex": 1.446,
       "workHoursWeek": null,
       "vacationDays": 20,
       "internetPenetration": null,
@@ -190,7 +191,7 @@
       "cannabisLegal": false,
       "gamblingLegal": false,
       "corruptionIndex": 20,
-      "pressFreedom": 26,
+      "pressFreedom": 19.51,
       "cryptoAdoption": 2.8
     },
     "economy": {
@@ -274,8 +275,9 @@
     },
     "poverty": {
       "povertyRate": null,
-      "gdpPerCapita": 23488,
-      "hdi": 0.634250938892365
+      "gdpPerCapita": 13968,
+      "hdi": 0.634250938892365,
+      "gdpPerCapitaPPP": 28819
     },
     "gender": {
       "wblIndex": 91.25,
@@ -392,7 +394,7 @@
       "englishProficiency": null
     },
     "lifestyle": {
-      "happinessIndex": null,
+      "happinessIndex": 5.662,
       "workHoursWeek": null,
       "vacationDays": 20,
       "internetPenetration": null,
@@ -420,7 +422,7 @@
       "cannabisLegal": false,
       "gamblingLegal": true,
       "corruptionIndex": 36,
-      "pressFreedom": 58,
+      "pressFreedom": 56.52,
       "cryptoAdoption": 4.2
     },
     "economy": {
@@ -503,8 +505,9 @@
     },
     "poverty": {
       "povertyRate": null,
-      "gdpPerCapita": 17553,
-      "hdi": 0.534556448459625
+      "gdpPerCapita": 6910,
+      "hdi": 0.534556448459625,
+      "gdpPerCapitaPPP": 19719
     },
     "gender": {
       "wblIndex": 57.5,
@@ -641,7 +644,7 @@
       "englishProficiency": null
     },
     "lifestyle": {
-      "happinessIndex": 5.39,
+      "happinessIndex": 5.714,
       "workHoursWeek": 40,
       "vacationDays": 30,
       "internetPenetration": 71,
@@ -669,7 +672,7 @@
       "cannabisLegal": false,
       "gamblingLegal": false,
       "corruptionIndex": 33,
-      "pressFreedom": 32,
+      "pressFreedom": 37.38,
       "cryptoAdoption": 2.1
     },
     "economy": {
@@ -749,8 +752,9 @@
     },
     "poverty": {
       "povertyRate": null,
-      "gdpPerCapita": 74939,
-      "hdi": null
+      "gdpPerCapita": 53988,
+      "hdi": null,
+      "gdpPerCapitaPPP": 76288
     },
     "gender": {
       "wblIndex": null,
@@ -887,7 +891,7 @@
     },
     "freedom": {
       "corruptionIndex": 65,
-      "pressFreedom": 78,
+      "pressFreedom": 63.91,
       "drugPolicyScore": null,
       "cannabisLegal": null,
       "gamblingLegal": null,
@@ -970,8 +974,9 @@
     },
     "poverty": {
       "povertyRate": null,
-      "gdpPerCapita": 8348,
-      "hdi": 0.362405389547348
+      "gdpPerCapita": 3876,
+      "hdi": 0.362405389547348,
+      "gdpPerCapitaPPP": 10713
     },
     "gender": {
       "wblIndex": 79.375,
@@ -1104,7 +1109,7 @@
       "englishProficiency": null
     },
     "lifestyle": {
-      "happinessIndex": 4.47,
+      "happinessIndex": null,
       "workHoursWeek": 44,
       "vacationDays": 22,
       "internetPenetration": 36,
@@ -1132,7 +1137,7 @@
       "cannabisLegal": false,
       "gamblingLegal": true,
       "corruptionIndex": 23,
-      "pressFreedom": 38,
+      "pressFreedom": 48.82,
       "cryptoAdoption": 3.8
     },
     "economy": {
@@ -1216,8 +1221,9 @@
     },
     "poverty": {
       "povertyRate": 1,
-      "gdpPerCapita": 30176,
-      "hdi": 0.602144718170166
+      "gdpPerCapita": 16021,
+      "hdi": 0.602144718170166,
+      "gdpPerCapitaPPP": 32899
     },
     "gender": {
       "wblIndex": 79.375,
@@ -1349,7 +1355,7 @@
       "scientistsPerCapita": 1234
     },
     "lifestyle": {
-      "happinessIndex": 6.02,
+      "happinessIndex": 6.43,
       "workHoursWeek": 37,
       "vacationDays": 14,
       "internetPenetration": 87.2,
@@ -1377,7 +1383,7 @@
       "cannabisLegal": false,
       "gamblingLegal": true,
       "corruptionIndex": 38,
-      "pressFreedom": 63,
+      "pressFreedom": 52.44,
       "cryptoAdoption": 12.8
     },
     "economy": {
@@ -1460,8 +1466,9 @@
     },
     "poverty": {
       "povertyRate": null,
-      "gdpPerCapita": 22823,
-      "hdi": 0.578998804092407
+      "gdpPerCapita": 10662,
+      "hdi": 0.578998804092407,
+      "gdpPerCapitaPPP": 26916
     },
     "gender": {
       "wblIndex": 90.625,
@@ -1578,7 +1585,7 @@
       "englishProficiency": null
     },
     "lifestyle": {
-      "happinessIndex": null,
+      "happinessIndex": 5.584,
       "workHoursWeek": null,
       "vacationDays": 20,
       "internetPenetration": null,
@@ -1606,7 +1613,7 @@
       "cannabisLegal": false,
       "gamblingLegal": true,
       "corruptionIndex": 46,
-      "pressFreedom": 55,
+      "pressFreedom": 67.02,
       "cryptoAdoption": 5.2
     },
     "economy": {
@@ -1690,8 +1697,9 @@
     },
     "poverty": {
       "povertyRate": null,
-      "gdpPerCapita": 71193,
-      "hdi": 0.770239531993866
+      "gdpPerCapita": 75172,
+      "hdi": 0.770239531993866,
+      "gdpPerCapitaPPP": 75039
     },
     "gender": {
       "wblIndex": 96.875,
@@ -1827,7 +1835,7 @@
       "englishProficiency": null
     },
     "lifestyle": {
-      "happinessIndex": 7.06,
+      "happinessIndex": 6.916,
       "workHoursWeek": 38,
       "vacationDays": 20,
       "internetPenetration": 96.2,
@@ -1855,7 +1863,7 @@
       "cannabisLegal": false,
       "gamblingLegal": true,
       "corruptionIndex": 75,
-      "pressFreedom": 73,
+      "pressFreedom": 74.58,
       "cryptoAdoption": 17.8
     },
     "economy": {
@@ -1940,8 +1948,9 @@
     },
     "poverty": {
       "povertyRate": null,
-      "gdpPerCapita": 71618,
-      "hdi": 0.746739745140076
+      "gdpPerCapita": 67020,
+      "hdi": 0.746739745140076,
+      "gdpPerCapitaPPP": 78828
     },
     "gender": {
       "wblIndex": 96.875,
@@ -2073,7 +2082,7 @@
       "scientistsPerCapita": 5315
     },
     "lifestyle": {
-      "happinessIndex": 7.21,
+      "happinessIndex": 6.845,
       "workHoursWeek": 36.5,
       "vacationDays": 25,
       "internetPenetration": 93,
@@ -2101,7 +2110,7 @@
       "cannabisLegal": false,
       "gamblingLegal": true,
       "corruptionIndex": 71,
-      "pressFreedom": 79,
+      "pressFreedom": 79.43,
       "cryptoAdoption": 11.2
     },
     "economy": {
@@ -2184,8 +2193,9 @@
     },
     "poverty": {
       "povertyRate": null,
-      "gdpPerCapita": 25089,
-      "hdi": 0.577767550945282
+      "gdpPerCapita": 8497,
+      "hdi": 0.577767550945282,
+      "gdpPerCapitaPPP": 26786
     },
     "gender": {
       "wblIndex": 85,
@@ -2301,7 +2311,7 @@
       "englishProficiency": null
     },
     "lifestyle": {
-      "happinessIndex": null,
+      "happinessIndex": 4.993,
       "workHoursWeek": null,
       "vacationDays": 21,
       "internetPenetration": null,
@@ -2329,7 +2339,7 @@
       "cannabisLegal": false,
       "gamblingLegal": false,
       "corruptionIndex": 23,
-      "pressFreedom": 22,
+      "pressFreedom": 23.95,
       "cryptoAdoption": 3.8
     },
     "economy": {
@@ -2413,8 +2423,9 @@
     },
     "poverty": {
       "povertyRate": null,
-      "gdpPerCapita": 67211,
-      "hdi": 0.652472019195557
+      "gdpPerCapita": 28147,
+      "hdi": 0.652472019195557,
+      "gdpPerCapitaPPP": 63736
     },
     "gender": {
       "wblIndex": 68.125,
@@ -2530,7 +2541,7 @@
       "englishProficiency": null
     },
     "lifestyle": {
-      "happinessIndex": null,
+      "happinessIndex": 6.254,
       "workHoursWeek": null,
       "vacationDays": 22,
       "internetPenetration": null,
@@ -2558,7 +2569,7 @@
       "cannabisLegal": false,
       "gamblingLegal": false,
       "corruptionIndex": 42,
-      "pressFreedom": 28,
+      "pressFreedom": 24.84,
       "cryptoAdoption": 8.4
     },
     "economy": {
@@ -2642,8 +2653,9 @@
     },
     "poverty": {
       "povertyRate": null,
-      "gdpPerCapita": 9647,
-      "hdi": 0.46403643488884
+      "gdpPerCapita": 2886,
+      "hdi": 0.46403643488884,
+      "gdpPerCapitaPPP": 10884
     },
     "gender": {
       "wblIndex": 49.375,
@@ -2759,7 +2771,7 @@
       "scientistsPerCapita": 89
     },
     "lifestyle": {
-      "happinessIndex": null,
+      "happinessIndex": 4.319,
       "workHoursWeek": null,
       "vacationDays": 10,
       "internetPenetration": null,
@@ -2787,7 +2799,7 @@
       "cannabisLegal": false,
       "gamblingLegal": false,
       "corruptionIndex": 24,
-      "pressFreedom": 36,
+      "pressFreedom": 33.05,
       "cryptoAdoption": 3.2
     },
     "economy": {
@@ -2871,8 +2883,9 @@
     },
     "poverty": {
       "povertyRate": null,
-      "gdpPerCapita": 33006,
-      "hdi": 0.700078189373016
+      "gdpPerCapita": 11963,
+      "hdi": 0.700078189373016,
+      "gdpPerCapitaPPP": 36025
     },
     "gender": {
       "wblIndex": 75.625,
@@ -3016,7 +3029,7 @@
       "cannabisLegal": false,
       "gamblingLegal": true,
       "corruptionIndex": 39,
-      "pressFreedom": 22,
+      "pressFreedom": 27.72,
       "cryptoAdoption": 6.8
     },
     "economy": {
@@ -3101,8 +3114,9 @@
     },
     "poverty": {
       "povertyRate": null,
-      "gdpPerCapita": 72126,
-      "hdi": 0.76041966676712
+      "gdpPerCapita": 64774,
+      "hdi": 0.76041966676712,
+      "gdpPerCapitaPPP": 78906
     },
     "gender": {
       "wblIndex": 100,
@@ -3230,7 +3244,7 @@
       "scientistsPerCapita": 5123
     },
     "lifestyle": {
-      "happinessIndex": 6.81,
+      "happinessIndex": 6.926,
       "workHoursWeek": 37.5,
       "vacationDays": 20,
       "internetPenetration": 94,
@@ -3258,7 +3272,7 @@
       "cannabisLegal": false,
       "gamblingLegal": true,
       "corruptionIndex": 73,
-      "pressFreedom": 81,
+      "pressFreedom": 81.17,
       "cryptoAdoption": 9.8
     },
     "economy": {
@@ -3343,8 +3357,9 @@
     },
     "poverty": {
       "povertyRate": null,
-      "gdpPerCapita": 4435,
-      "hdi": 0.400290727615356
+      "gdpPerCapita": 1799,
+      "hdi": 0.400290727615356,
+      "gdpPerCapitaPPP": 5181
     },
     "gender": {
       "wblIndex": 83.75,
@@ -3477,7 +3492,7 @@
       "englishProficiency": null
     },
     "lifestyle": {
-      "happinessIndex": 4.88,
+      "happinessIndex": 4.393,
       "workHoursWeek": 45,
       "vacationDays": 24,
       "internetPenetration": 28,
@@ -3505,7 +3520,7 @@
       "cannabisLegal": false,
       "gamblingLegal": true,
       "corruptionIndex": 42,
-      "pressFreedom": 62,
+      "pressFreedom": 47.39,
       "cryptoAdoption": 4.8
     },
     "economy": {
@@ -3589,8 +3604,9 @@
     },
     "poverty": {
       "povertyRate": null,
-      "gdpPerCapita": null,
-      "hdi": 0.475297033786774
+      "gdpPerCapita": 4933,
+      "hdi": 0.475297033786774,
+      "gdpPerCapitaPPP": 20335
     },
     "gender": {
       "wblIndex": 75,
@@ -3735,7 +3751,7 @@
       "cannabisLegal": false,
       "gamblingLegal": false,
       "corruptionIndex": 68,
-      "pressFreedom": 55,
+      "pressFreedom": 33.5,
       "cryptoAdoption": 2.4
     },
     "economy": {
@@ -3819,8 +3835,9 @@
     },
     "poverty": {
       "povertyRate": null,
-      "gdpPerCapita": 11190,
-      "hdi": null
+      "gdpPerCapita": 4223,
+      "hdi": null,
+      "gdpPerCapitaPPP": 12736
     },
     "gender": {
       "wblIndex": 88.75,
@@ -3937,7 +3954,7 @@
       "englishProficiency": null
     },
     "lifestyle": {
-      "happinessIndex": null,
+      "happinessIndex": 5.835,
       "workHoursWeek": null,
       "vacationDays": 15,
       "internetPenetration": null,
@@ -3965,7 +3982,7 @@
       "cannabisLegal": false,
       "gamblingLegal": true,
       "corruptionIndex": 29,
-      "pressFreedom": 54,
+      "pressFreedom": 54.25,
       "cryptoAdoption": 3.8
     },
     "economy": {
@@ -4049,8 +4066,9 @@
     },
     "poverty": {
       "povertyRate": null,
-      "gdpPerCapita": 21971,
-      "hdi": 0.57968407869339
+      "gdpPerCapita": 10845,
+      "hdi": 0.57968407869339,
+      "gdpPerCapitaPPP": 24355
     },
     "gender": {
       "wblIndex": 85,
@@ -4167,7 +4185,7 @@
       "englishProficiency": null
     },
     "lifestyle": {
-      "happinessIndex": null,
+      "happinessIndex": 6.381,
       "workHoursWeek": null,
       "vacationDays": 20,
       "internetPenetration": null,
@@ -4195,7 +4213,7 @@
       "cannabisLegal": false,
       "gamblingLegal": true,
       "corruptionIndex": 35,
-      "pressFreedom": 52,
+      "pressFreedom": 54.29,
       "cryptoAdoption": 4.8
     },
     "economy": {
@@ -4279,8 +4297,9 @@
     },
     "poverty": {
       "povertyRate": null,
-      "gdpPerCapita": 20538,
-      "hdi": 0.414028495550156
+      "gdpPerCapita": 8563,
+      "hdi": 0.414028495550156,
+      "gdpPerCapitaPPP": 22135
     },
     "gender": {
       "wblIndex": 63.75,
@@ -4416,7 +4435,7 @@
       "englishProficiency": null
     },
     "lifestyle": {
-      "happinessIndex": 3.43,
+      "happinessIndex": 3.464,
       "workHoursWeek": 45,
       "vacationDays": 15,
       "internetPenetration": 72,
@@ -4444,7 +4463,7 @@
       "cannabisLegal": false,
       "gamblingLegal": true,
       "corruptionIndex": 55,
-      "pressFreedom": 58,
+      "pressFreedom": 62.89,
       "cryptoAdoption": 3.2
     },
     "economy": {
@@ -4528,8 +4547,9 @@
     },
     "poverty": {
       "povertyRate": null,
-      "gdpPerCapita": 22333,
-      "hdi": 0.551497936248779
+      "gdpPerCapita": 12397,
+      "hdi": 0.551497936248779,
+      "gdpPerCapitaPPP": 24594
     },
     "gender": {
       "wblIndex": 85,
@@ -4665,7 +4685,7 @@
       "scientistsPerCapita": 887
     },
     "lifestyle": {
-      "happinessIndex": 6.33,
+      "happinessIndex": 6.634,
       "workHoursWeek": 41,
       "vacationDays": 30,
       "internetPenetration": 81.3,
@@ -4693,7 +4713,7 @@
       "cannabisLegal": false,
       "gamblingLegal": false,
       "corruptionIndex": 36,
-      "pressFreedom": 52,
+      "pressFreedom": 66.37,
       "cryptoAdoption": 14.8
     },
     "economy": {
@@ -4778,8 +4798,9 @@
     },
     "poverty": {
       "povertyRate": null,
-      "gdpPerCapita": 90007,
-      "hdi": 0.626391351222992
+      "gdpPerCapita": 40613,
+      "hdi": 0.626391351222992,
+      "gdpPerCapitaPPP": 98028
     },
     "gender": {
       "wblIndex": 53.125,
@@ -4924,7 +4945,7 @@
       "cannabisLegal": false,
       "gamblingLegal": false,
       "corruptionIndex": 55,
-      "pressFreedom": 38,
+      "pressFreedom": 52.58,
       "cryptoAdoption": 6.8
     },
     "economy": {
@@ -5009,8 +5030,9 @@
     },
     "poverty": {
       "povertyRate": null,
-      "gdpPerCapita": 41086,
-      "hdi": 0.613898158073425
+      "gdpPerCapita": 23000,
+      "hdi": 0.613898158073425,
+      "gdpPerCapitaPPP": 44603
     },
     "gender": {
       "wblIndex": 90.625,
@@ -5126,7 +5148,7 @@
       "scientistsPerCapita": 2134
     },
     "lifestyle": {
-      "happinessIndex": null,
+      "happinessIndex": 5.703,
       "workHoursWeek": null,
       "vacationDays": 20,
       "internetPenetration": null,
@@ -5154,7 +5176,7 @@
       "cannabisLegal": false,
       "gamblingLegal": true,
       "corruptionIndex": 45,
-      "pressFreedom": 64,
+      "pressFreedom": 60.28,
       "cryptoAdoption": 7.8
     },
     "economy": {
@@ -5239,8 +5261,9 @@
     },
     "poverty": {
       "povertyRate": null,
-      "gdpPerCapita": 2896,
-      "hdi": 0.383691936731339
+      "gdpPerCapita": 1316,
+      "hdi": 0.383691936731339,
+      "gdpPerCapitaPPP": 3241
     },
     "gender": {
       "wblIndex": 82.5,
@@ -5373,7 +5396,7 @@
       "englishProficiency": null
     },
     "lifestyle": {
-      "happinessIndex": 4.83,
+      "happinessIndex": 4.455,
       "workHoursWeek": 46,
       "vacationDays": 22,
       "internetPenetration": 21,
@@ -5401,7 +5424,7 @@
       "cannabisLegal": false,
       "gamblingLegal": false,
       "corruptionIndex": 42,
-      "pressFreedom": 58,
+      "pressFreedom": 48.52,
       "cryptoAdoption": 3.2
     },
     "economy": {
@@ -5485,8 +5508,9 @@
     },
     "poverty": {
       "povertyRate": null,
-      "gdpPerCapita": 950,
-      "hdi": 0.386170625686646
+      "gdpPerCapita": 510,
+      "hdi": 0.386170625686646,
+      "gdpPerCapitaPPP": 1036
     },
     "gender": {
       "wblIndex": 76.25,
@@ -5619,7 +5643,7 @@
       "englishProficiency": null
     },
     "lifestyle": {
-      "happinessIndex": 3.78,
+      "happinessIndex": null,
       "workHoursWeek": 44,
       "vacationDays": 15,
       "internetPenetration": 5.8,
@@ -5647,7 +5671,7 @@
       "cannabisLegal": false,
       "gamblingLegal": false,
       "corruptionIndex": 20,
-      "pressFreedom": 28,
+      "pressFreedom": 46.14,
       "cryptoAdoption": 1.8
     },
     "economy": {
@@ -5731,8 +5755,9 @@
     },
     "poverty": {
       "povertyRate": null,
-      "gdpPerCapita": 7970,
-      "hdi": 0.491589874029159
+      "gdpPerCapita": 3001,
+      "hdi": 0.491589874029159,
+      "gdpPerCapitaPPP": 8870
     },
     "gender": {
       "wblIndex": 81.25,
@@ -5849,7 +5874,7 @@
       "englishProficiency": null
     },
     "lifestyle": {
-      "happinessIndex": null,
+      "happinessIndex": 4.462,
       "workHoursWeek": null,
       "vacationDays": 18,
       "internetPenetration": null,
@@ -5877,7 +5902,7 @@
       "cannabisLegal": false,
       "gamblingLegal": true,
       "corruptionIndex": 22,
-      "pressFreedom": 32,
+      "pressFreedom": 33.28,
       "cryptoAdoption": 4.8
     },
     "economy": {
@@ -5962,8 +5987,9 @@
     },
     "poverty": {
       "povertyRate": null,
-      "gdpPerCapita": 5591,
-      "hdi": 0.397401511669159
+      "gdpPerCapita": 2115,
+      "hdi": 0.397401511669159,
+      "gdpPerCapitaPPP": 6034
     },
     "gender": {
       "wblIndex": 60,
@@ -6096,7 +6122,7 @@
       "englishProficiency": null
     },
     "lifestyle": {
-      "happinessIndex": 5.27,
+      "happinessIndex": 5.083,
       "workHoursWeek": 45,
       "vacationDays": 18,
       "internetPenetration": 45,
@@ -6124,7 +6150,7 @@
       "cannabisLegal": false,
       "gamblingLegal": true,
       "corruptionIndex": 26,
-      "pressFreedom": 32,
+      "pressFreedom": 40.88,
       "cryptoAdoption": 5.8
     },
     "economy": {
@@ -6209,8 +6235,9 @@
     },
     "poverty": {
       "povertyRate": null,
-      "gdpPerCapita": 65463,
-      "hdi": 0.797520101070404
+      "gdpPerCapita": 60105,
+      "hdi": 0.797520101070404,
+      "gdpPerCapitaPPP": 70374
     },
     "gender": {
       "wblIndex": 100,
@@ -6346,7 +6373,7 @@
       "englishProficiency": null
     },
     "lifestyle": {
-      "happinessIndex": 6.96,
+      "happinessIndex": 6.741,
       "workHoursWeek": 37,
       "vacationDays": 10,
       "internetPenetration": 97,
@@ -6374,7 +6401,7 @@
       "cannabisLegal": true,
       "gamblingLegal": true,
       "corruptionIndex": 76,
-      "pressFreedom": 83,
+      "pressFreedom": 78.76,
       "cryptoAdoption": 16.2
     },
     "economy": {
@@ -6458,8 +6485,9 @@
     },
     "poverty": {
       "povertyRate": null,
-      "gdpPerCapita": 1264,
-      "hdi": 0.291631907224655
+      "gdpPerCapita": 891,
+      "hdi": 0.291631907224655,
+      "gdpPerCapitaPPP": 2170
     },
     "gender": {
       "wblIndex": 77.5,
@@ -6592,7 +6620,7 @@
       "englishProficiency": null
     },
     "lifestyle": {
-      "happinessIndex": 3.62,
+      "happinessIndex": null,
       "workHoursWeek": 46,
       "vacationDays": 12,
       "internetPenetration": 11,
@@ -6620,7 +6648,7 @@
       "cannabisLegal": false,
       "gamblingLegal": false,
       "corruptionIndex": 24,
-      "pressFreedom": 42,
+      "pressFreedom": 56.73,
       "cryptoAdoption": 2.8
     },
     "economy": {
@@ -6705,8 +6733,9 @@
     },
     "poverty": {
       "povertyRate": null,
-      "gdpPerCapita": 2962,
-      "hdi": 0.299782782793045
+      "gdpPerCapita": 1295,
+      "hdi": 0.299782782793045,
+      "gdpPerCapitaPPP": 3433
     },
     "gender": {
       "wblIndex": 66.25,
@@ -6839,7 +6868,7 @@
       "englishProficiency": null
     },
     "lifestyle": {
-      "happinessIndex": 4.25,
+      "happinessIndex": 4.385,
       "workHoursWeek": 46,
       "vacationDays": 15,
       "internetPenetration": 13,
@@ -6867,7 +6896,7 @@
       "cannabisLegal": false,
       "gamblingLegal": false,
       "corruptionIndex": 19,
-      "pressFreedom": 32,
+      "pressFreedom": 53.9,
       "cryptoAdoption": 1.8
     },
     "economy": {
@@ -6951,8 +6980,9 @@
     },
     "poverty": {
       "povertyRate": null,
-      "gdpPerCapita": 34637,
-      "hdi": 0.651604175567627
+      "gdpPerCapita": 19961,
+      "hdi": 0.651604175567627,
+      "gdpPerCapitaPPP": 37008
     },
     "gender": {
       "wblIndex": 80,
@@ -7068,7 +7098,7 @@
       "scientistsPerCapita": 512
     },
     "lifestyle": {
-      "happinessIndex": null,
+      "happinessIndex": 6.302,
       "workHoursWeek": null,
       "vacationDays": 15,
       "internetPenetration": null,
@@ -7096,7 +7126,7 @@
       "cannabisLegal": false,
       "gamblingLegal": true,
       "corruptionIndex": 66,
-      "pressFreedom": 70,
+      "pressFreedom": 60.84,
       "cryptoAdoption": 9.8
     },
     "economy": {
@@ -7182,8 +7212,9 @@
     },
     "poverty": {
       "povertyRate": null,
-      "gdpPerCapita": 27105,
-      "hdi": 0.65310263633728
+      "gdpPerCapita": 15371,
+      "hdi": 0.65310263633728,
+      "gdpPerCapitaPPP": 31786
     },
     "gender": {
       "wblIndex": 78.125,
@@ -7319,7 +7350,7 @@
       "scientistsPerCapita": 1407
     },
     "lifestyle": {
-      "happinessIndex": 5.59,
+      "happinessIndex": 6.074,
       "workHoursWeek": 46,
       "vacationDays": 5,
       "internetPenetration": 73,
@@ -7347,7 +7378,7 @@
       "cannabisLegal": false,
       "gamblingLegal": false,
       "corruptionIndex": 42,
-      "pressFreedom": 18,
+      "pressFreedom": 13.85,
       "cryptoAdoption": 4.2
     },
     "economy": {
@@ -7431,8 +7462,9 @@
     },
     "poverty": {
       "povertyRate": null,
-      "gdpPerCapita": 21495,
-      "hdi": 0.60433030128479
+      "gdpPerCapita": 10726,
+      "hdi": 0.60433030128479,
+      "gdpPerCapitaPPP": 23634
     },
     "gender": {
       "wblIndex": 84.375,
@@ -7560,7 +7592,7 @@
       "scientistsPerCapita": 234
     },
     "lifestyle": {
-      "happinessIndex": 5.63,
+      "happinessIndex": 6.04,
       "workHoursWeek": 44,
       "vacationDays": 15,
       "internetPenetration": 73,
@@ -7588,7 +7620,7 @@
       "cannabisLegal": false,
       "gamblingLegal": true,
       "corruptionIndex": 40,
-      "pressFreedom": 48,
+      "pressFreedom": 51.66,
       "cryptoAdoption": 10.8
     },
     "economy": {
@@ -7672,8 +7704,9 @@
     },
     "poverty": {
       "povertyRate": null,
-      "gdpPerCapita": 1710,
-      "hdi": 0.366369277238846
+      "gdpPerCapita": 1111,
+      "hdi": 0.366369277238846,
+      "gdpPerCapitaPPP": 2138
     },
     "gender": {
       "wblIndex": 78.75,
@@ -7806,7 +7839,7 @@
       "englishProficiency": null
     },
     "lifestyle": {
-      "happinessIndex": 4.42,
+      "happinessIndex": 3.761,
       "workHoursWeek": 45,
       "vacationDays": 12,
       "internetPenetration": 23,
@@ -7834,7 +7867,7 @@
       "cannabisLegal": false,
       "gamblingLegal": false,
       "corruptionIndex": 20,
-      "pressFreedom": 34,
+      "pressFreedom": 42.16,
       "cryptoAdoption": 3.8
     },
     "economy": {
@@ -7919,8 +7952,9 @@
     },
     "poverty": {
       "povertyRate": null,
-      "gdpPerCapita": 7026,
-      "hdi": 0.41926571726799
+      "gdpPerCapita": 2867,
+      "hdi": 0.41926571726799,
+      "gdpPerCapitaPPP": 6820
     },
     "gender": {
       "wblIndex": 58.125,
@@ -8053,7 +8087,7 @@
       "englishProficiency": null
     },
     "lifestyle": {
-      "happinessIndex": 5.34,
+      "happinessIndex": 4.456,
       "workHoursWeek": 44,
       "vacationDays": 26,
       "internetPenetration": 21,
@@ -8081,7 +8115,7 @@
       "cannabisLegal": false,
       "gamblingLegal": true,
       "corruptionIndex": 21,
-      "pressFreedom": 28,
+      "pressFreedom": 61.21,
       "cryptoAdoption": 3.2
     },
     "economy": {
@@ -8165,8 +8199,9 @@
     },
     "poverty": {
       "povertyRate": 1.3,
-      "gdpPerCapita": 30063,
-      "hdi": 0.628635048866272
+      "gdpPerCapita": 21282,
+      "hdi": 0.628635048866272,
+      "gdpPerCapitaPPP": 34214
     },
     "gender": {
       "wblIndex": 91.875,
@@ -8282,7 +8317,7 @@
       "scientistsPerCapita": 378
     },
     "lifestyle": {
-      "happinessIndex": null,
+      "happinessIndex": 7.439,
       "workHoursWeek": null,
       "vacationDays": 10,
       "internetPenetration": null,
@@ -8310,7 +8345,7 @@
       "cannabisLegal": false,
       "gamblingLegal": true,
       "corruptionIndex": 55,
-      "pressFreedom": 82,
+      "pressFreedom": 72.35,
       "cryptoAdoption": 7.8
     },
     "economy": {
@@ -8395,8 +8430,9 @@
     },
     "poverty": {
       "povertyRate": null,
-      "gdpPerCapita": 7653,
-      "hdi": 0.379889339208603
+      "gdpPerCapita": 3264,
+      "hdi": 0.379889339208603,
+      "gdpPerCapitaPPP": 8694
     },
     "gender": {
       "wblIndex": 95,
@@ -8529,7 +8565,7 @@
       "englishProficiency": null
     },
     "lifestyle": {
-      "happinessIndex": 5.27,
+      "happinessIndex": 5.148,
       "workHoursWeek": 45,
       "vacationDays": 22,
       "internetPenetration": 45,
@@ -8557,7 +8593,7 @@
       "cannabisLegal": false,
       "gamblingLegal": true,
       "corruptionIndex": 40,
-      "pressFreedom": 55,
+      "pressFreedom": 66.27,
       "cryptoAdoption": 5.2
     },
     "economy": {
@@ -8641,8 +8677,9 @@
     },
     "poverty": {
       "povertyRate": null,
-      "gdpPerCapita": 48575,
-      "hdi": 0.709693968296051
+      "gdpPerCapita": 29860,
+      "hdi": 0.709693968296051,
+      "gdpPerCapitaPPP": 54512
     },
     "gender": {
       "wblIndex": 93.75,
@@ -8758,7 +8795,7 @@
       "scientistsPerCapita": 2134
     },
     "lifestyle": {
-      "happinessIndex": null,
+      "happinessIndex": 6.009,
       "workHoursWeek": null,
       "vacationDays": 20,
       "internetPenetration": null,
@@ -8786,7 +8823,7 @@
       "cannabisLegal": false,
       "gamblingLegal": true,
       "corruptionIndex": 50,
-      "pressFreedom": 68,
+      "pressFreedom": 66.31,
       "cryptoAdoption": 6.8
     },
     "economy": {
@@ -8872,7 +8909,8 @@
     "poverty": {
       "povertyRate": null,
       "gdpPerCapita": null,
-      "hdi": null
+      "hdi": null,
+      "gdpPerCapitaPPP": null
     },
     "gender": {
       "wblIndex": null,
@@ -9017,7 +9055,7 @@
       "cannabisLegal": false,
       "gamblingLegal": false,
       "corruptionIndex": 42,
-      "pressFreedom": 18,
+      "pressFreedom": 29.22,
       "cryptoAdoption": 2.8
     },
     "economy": {
@@ -9101,8 +9139,9 @@
     },
     "poverty": {
       "povertyRate": null,
-      "gdpPerCapita": 61240,
-      "hdi": 0.755520224571228
+      "gdpPerCapita": 44477,
+      "hdi": 0.755520224571228,
+      "gdpPerCapitaPPP": 68256
     },
     "gender": {
       "wblIndex": 96.875,
@@ -9218,7 +9257,7 @@
       "englishProficiency": null
     },
     "lifestyle": {
-      "happinessIndex": null,
+      "happinessIndex": 6.126,
       "workHoursWeek": null,
       "vacationDays": 20,
       "internetPenetration": null,
@@ -9246,7 +9285,7 @@
       "cannabisLegal": false,
       "gamblingLegal": true,
       "corruptionIndex": 53,
-      "pressFreedom": 72,
+      "pressFreedom": 56.91,
       "cryptoAdoption": 8.8
     },
     "economy": {
@@ -9330,8 +9369,9 @@
     },
     "poverty": {
       "povertyRate": null,
-      "gdpPerCapita": 56806,
-      "hdi": 0.752257406711578
+      "gdpPerCapita": 39614,
+      "hdi": 0.752257406711578,
+      "gdpPerCapitaPPP": 64071
     },
     "gender": {
       "wblIndex": 93.75,
@@ -9447,7 +9487,7 @@
       "englishProficiency": null
     },
     "lifestyle": {
-      "happinessIndex": null,
+      "happinessIndex": 6.821,
       "workHoursWeek": null,
       "vacationDays": 20,
       "internetPenetration": null,
@@ -9475,7 +9515,7 @@
       "cannabisLegal": false,
       "gamblingLegal": true,
       "corruptionIndex": 57,
-      "pressFreedom": 76,
+      "pressFreedom": 83.01,
       "cryptoAdoption": 8.2
     },
     "economy": {
@@ -9560,8 +9600,9 @@
     },
     "poverty": {
       "povertyRate": null,
-      "gdpPerCapita": 79514,
-      "hdi": 0.755094826221466
+      "gdpPerCapita": 82714,
+      "hdi": 0.755094826221466,
+      "gdpPerCapitaPPP": 92876
     },
     "gender": {
       "wblIndex": 100,
@@ -9697,7 +9738,7 @@
       "scientistsPerCapita": 7854
     },
     "lifestyle": {
-      "happinessIndex": 7.58,
+      "happinessIndex": 7.539,
       "workHoursWeek": 33,
       "vacationDays": 25,
       "internetPenetration": 98,
@@ -9725,7 +9766,7 @@
       "cannabisLegal": false,
       "gamblingLegal": true,
       "corruptionIndex": 90,
-      "pressFreedom": 92,
+      "pressFreedom": 88.47,
       "cryptoAdoption": 9.8
     },
     "economy": {
@@ -9809,8 +9850,9 @@
     },
     "poverty": {
       "povertyRate": null,
-      "gdpPerCapita": 7776,
-      "hdi": null
+      "gdpPerCapita": 4556,
+      "hdi": null,
+      "gdpPerCapitaPPP": 10062
     },
     "gender": {
       "wblIndex": 71.25,
@@ -9943,7 +9985,7 @@
       "englishProficiency": null
     },
     "lifestyle": {
-      "happinessIndex": 4.61,
+      "happinessIndex": null,
       "workHoursWeek": 45,
       "vacationDays": 15,
       "internetPenetration": 69,
@@ -9971,7 +10013,7 @@
       "cannabisLegal": false,
       "gamblingLegal": false,
       "corruptionIndex": 30,
-      "pressFreedom": 28,
+      "pressFreedom": 25.04,
       "cryptoAdoption": 2.8
     },
     "economy": {
@@ -10055,8 +10097,9 @@
     },
     "poverty": {
       "povertyRate": 0.8,
-      "gdpPerCapita": 27541,
-      "hdi": 0.502766907215118
+      "gdpPerCapita": 13245,
+      "hdi": 0.502766907215118,
+      "gdpPerCapitaPPP": 32597
     },
     "gender": {
       "wblIndex": 86.25,
@@ -10173,7 +10216,7 @@
       "englishProficiency": null
     },
     "lifestyle": {
-      "happinessIndex": null,
+      "happinessIndex": 6.093,
       "workHoursWeek": null,
       "vacationDays": 14,
       "internetPenetration": null,
@@ -10201,7 +10244,7 @@
       "cannabisLegal": false,
       "gamblingLegal": true,
       "corruptionIndex": 32,
-      "pressFreedom": 62,
+      "pressFreedom": 69.73,
       "cryptoAdoption": 6.8
     },
     "economy": {
@@ -10285,8 +10328,9 @@
     },
     "poverty": {
       "povertyRate": 7.3,
-      "gdpPerCapita": 15840,
-      "hdi": 0.594254851341248
+      "gdpPerCapita": 7575,
+      "hdi": 0.594254851341248,
+      "gdpPerCapitaPPP": 17831
     },
     "gender": {
       "wblIndex": 89.375,
@@ -10403,7 +10447,7 @@
       "scientistsPerCapita": 267
     },
     "lifestyle": {
-      "happinessIndex": null,
+      "happinessIndex": 6.144,
       "workHoursWeek": null,
       "vacationDays": 15,
       "internetPenetration": null,
@@ -10431,7 +10475,7 @@
       "cannabisLegal": false,
       "gamblingLegal": true,
       "corruptionIndex": 36,
-      "pressFreedom": 55,
+      "pressFreedom": 44.37,
       "cryptoAdoption": 6.2
     },
     "economy": {
@@ -10514,8 +10558,9 @@
     },
     "poverty": {
       "povertyRate": null,
-      "gdpPerCapita": 19094,
-      "hdi": 0.494374662637711
+      "gdpPerCapita": 4024,
+      "hdi": 0.494374662637711,
+      "gdpPerCapitaPPP": 23624
     },
     "gender": {
       "wblIndex": 50.625,
@@ -10647,7 +10692,7 @@
       "scientistsPerCapita": 678
     },
     "lifestyle": {
-      "happinessIndex": null,
+      "happinessIndex": 3.862,
       "workHoursWeek": null,
       "vacationDays": 21,
       "internetPenetration": null,
@@ -10675,7 +10720,7 @@
       "cannabisLegal": false,
       "gamblingLegal": false,
       "corruptionIndex": 35,
-      "pressFreedom": 22,
+      "pressFreedom": 24.92,
       "cryptoAdoption": 5.8
     },
     "economy": {
@@ -10759,8 +10804,9 @@
     },
     "poverty": {
       "povertyRate": null,
-      "gdpPerCapita": 13264,
-      "hdi": 0.546176612377167
+      "gdpPerCapita": 6124,
+      "hdi": 0.546176612377167,
+      "gdpPerCapitaPPP": 15077
     },
     "gender": {
       "wblIndex": 88.75,
@@ -10876,7 +10922,7 @@
       "englishProficiency": null
     },
     "lifestyle": {
-      "happinessIndex": null,
+      "happinessIndex": 6.578,
       "workHoursWeek": null,
       "vacationDays": 15,
       "internetPenetration": null,
@@ -10904,7 +10950,7 @@
       "cannabisLegal": false,
       "gamblingLegal": true,
       "corruptionIndex": 31,
-      "pressFreedom": 52,
+      "pressFreedom": 38.88,
       "cryptoAdoption": 24.8
     },
     "economy": {
@@ -10988,8 +11034,9 @@
     },
     "poverty": {
       "povertyRate": null,
-      "gdpPerCapita": 17567,
-      "hdi": null
+      "gdpPerCapita": 8484,
+      "hdi": null,
+      "gdpPerCapitaPPP": 18880
     },
     "gender": {
       "wblIndex": 58.125,
@@ -11134,7 +11181,7 @@
       "cannabisLegal": false,
       "gamblingLegal": false,
       "corruptionIndex": 17,
-      "pressFreedom": 18,
+      "pressFreedom": 52.79,
       "cryptoAdoption": 2.8
     },
     "economy": {
@@ -11219,7 +11266,8 @@
     "poverty": {
       "povertyRate": null,
       "gdpPerCapita": null,
-      "hdi": null
+      "hdi": null,
+      "gdpPerCapitaPPP": null
     },
     "gender": {
       "wblIndex": 69.375,
@@ -11352,7 +11400,7 @@
       "englishProficiency": null
     },
     "lifestyle": {
-      "happinessIndex": 4.94,
+      "happinessIndex": null,
       "workHoursWeek": 46,
       "vacationDays": 14,
       "internetPenetration": 7,
@@ -11380,7 +11428,7 @@
       "cannabisLegal": false,
       "gamblingLegal": false,
       "corruptionIndex": 22,
-      "pressFreedom": 12,
+      "pressFreedom": 10.24,
       "cryptoAdoption": 1.2
     },
     "economy": {
@@ -11464,8 +11512,9 @@
     },
     "poverty": {
       "povertyRate": null,
-      "gdpPerCapita": 49334,
-      "hdi": 0.77720320224762
+      "gdpPerCapita": 37310,
+      "hdi": 0.77720320224762,
+      "gdpPerCapitaPPP": 53660
     },
     "gender": {
       "wblIndex": 97.5,
@@ -11585,7 +11634,7 @@
       "scientistsPerCapita": 3421
     },
     "lifestyle": {
-      "happinessIndex": null,
+      "happinessIndex": 6.41,
       "workHoursWeek": null,
       "vacationDays": 20,
       "internetPenetration": null,
@@ -11613,7 +11662,7 @@
       "cannabisLegal": false,
       "gamblingLegal": true,
       "corruptionIndex": 76,
-      "pressFreedom": 85,
+      "pressFreedom": 88.54,
       "cryptoAdoption": 12.8
     },
     "economy": {
@@ -11697,8 +11746,9 @@
     },
     "poverty": {
       "povertyRate": null,
-      "gdpPerCapita": 11784,
-      "hdi": 0.37250080704689
+      "gdpPerCapita": 4775,
+      "hdi": 0.37250080704689,
+      "gdpPerCapitaPPP": 13394
     },
     "gender": {
       "wblIndex": 46.25,
@@ -11831,7 +11881,7 @@
       "englishProficiency": null
     },
     "lifestyle": {
-      "happinessIndex": 4.2,
+      "happinessIndex": 3.909,
       "workHoursWeek": 45,
       "vacationDays": 12,
       "internetPenetration": 59,
@@ -11859,7 +11909,7 @@
       "cannabisLegal": false,
       "gamblingLegal": true,
       "corruptionIndex": 29,
-      "pressFreedom": 28,
+      "pressFreedom": 51.94,
       "cryptoAdoption": 3.2
     },
     "economy": {
@@ -11944,8 +11994,9 @@
     },
     "poverty": {
       "povertyRate": null,
-      "gdpPerCapita": 3278,
-      "hdi": 0.382784843444824
+      "gdpPerCapita": 1131,
+      "hdi": 0.382784843444824,
+      "gdpPerCapitaPPP": 4996
     },
     "gender": {
       "wblIndex": 80,
@@ -12081,7 +12132,7 @@
       "englishProficiency": null
     },
     "lifestyle": {
-      "happinessIndex": 4.09,
+      "happinessIndex": 3.985,
       "workHoursWeek": 46,
       "vacationDays": 14,
       "internetPenetration": 25,
@@ -12109,7 +12160,7 @@
       "cannabisLegal": false,
       "gamblingLegal": false,
       "corruptionIndex": 37,
-      "pressFreedom": 34,
+      "pressFreedom": 34.66,
       "cryptoAdoption": 4.8
     },
     "economy": {
@@ -12193,8 +12244,9 @@
     },
     "poverty": {
       "povertyRate": null,
-      "gdpPerCapita": 64091,
-      "hdi": 0.796001017093658
+      "gdpPerCapita": 60156,
+      "hdi": 0.796001017093658,
+      "gdpPerCapitaPPP": 70254
     },
     "gender": {
       "wblIndex": 97.5,
@@ -12330,7 +12382,7 @@
       "scientistsPerCapita": 6989
     },
     "lifestyle": {
-      "happinessIndex": 7.74,
+      "happinessIndex": 7.764,
       "workHoursWeek": 36.5,
       "vacationDays": 25,
       "internetPenetration": 97,
@@ -12358,7 +12410,7 @@
       "cannabisLegal": false,
       "gamblingLegal": true,
       "corruptionIndex": 87,
-      "pressFreedom": 88,
+      "pressFreedom": 86.22,
       "cryptoAdoption": 10.8
     },
     "economy": {
@@ -12443,8 +12495,9 @@
     },
     "poverty": {
       "povertyRate": null,
-      "gdpPerCapita": 61322,
-      "hdi": 0.762737214565277
+      "gdpPerCapita": 51448,
+      "hdi": 0.762737214565277,
+      "gdpPerCapitaPPP": 68852
     },
     "gender": {
       "wblIndex": 100,
@@ -12580,7 +12633,7 @@
       "scientistsPerCapita": 4521
     },
     "lifestyle": {
-      "happinessIndex": 6.66,
+      "happinessIndex": 6.586,
       "workHoursWeek": 36.3,
       "vacationDays": 25,
       "internetPenetration": 92,
@@ -12608,7 +12661,7 @@
       "cannabisLegal": false,
       "gamblingLegal": true,
       "corruptionIndex": 72,
-      "pressFreedom": 78,
+      "pressFreedom": 76.68,
       "cryptoAdoption": 9.2
     },
     "economy": {
@@ -12693,8 +12746,9 @@
     },
     "poverty": {
       "povertyRate": null,
-      "gdpPerCapita": 21510,
-      "hdi": 0.457612454891205
+      "gdpPerCapita": 11034,
+      "hdi": 0.457612454891205,
+      "gdpPerCapitaPPP": 26224
     },
     "gender": {
       "wblIndex": 95,
@@ -12827,7 +12881,7 @@
       "englishProficiency": null
     },
     "lifestyle": {
-      "happinessIndex": 4.85,
+      "happinessIndex": 5.167,
       "workHoursWeek": 43,
       "vacationDays": 30,
       "internetPenetration": 72,
@@ -12855,7 +12909,7 @@
       "cannabisLegal": false,
       "gamblingLegal": true,
       "corruptionIndex": 29,
-      "pressFreedom": 42,
+      "pressFreedom": 70.57,
       "cryptoAdoption": 3.8
     },
     "economy": {
@@ -12939,8 +12993,9 @@
     },
     "poverty": {
       "povertyRate": null,
-      "gdpPerCapita": 3445,
-      "hdi": 0.421570628881455
+      "gdpPerCapita": 1030,
+      "hdi": 0.421570628881455,
+      "gdpPerCapitaPPP": 3887
     },
     "gender": {
       "wblIndex": 69.375,
@@ -13073,7 +13128,7 @@
       "englishProficiency": null
     },
     "lifestyle": {
-      "happinessIndex": 4.65,
+      "happinessIndex": 4.306,
       "workHoursWeek": 45,
       "vacationDays": 21,
       "internetPenetration": 37,
@@ -13101,7 +13156,7 @@
       "cannabisLegal": false,
       "gamblingLegal": true,
       "corruptionIndex": 34,
-      "pressFreedom": 52,
+      "pressFreedom": 69.42,
       "cryptoAdoption": 3.2
     },
     "economy": {
@@ -13185,8 +13240,9 @@
     },
     "poverty": {
       "povertyRate": 4.2,
-      "gdpPerCapita": 28418,
-      "hdi": 0.568925797939301
+      "gdpPerCapita": 11234,
+      "hdi": 0.568925797939301,
+      "gdpPerCapitaPPP": 32661
     },
     "gender": {
       "wblIndex": 88.125,
@@ -13303,7 +13359,7 @@
       "englishProficiency": null
     },
     "lifestyle": {
-      "happinessIndex": null,
+      "happinessIndex": 5.517,
       "workHoursWeek": null,
       "vacationDays": 24,
       "internetPenetration": null,
@@ -13331,7 +13387,7 @@
       "cannabisLegal": false,
       "gamblingLegal": true,
       "corruptionIndex": 56,
-      "pressFreedom": 62,
+      "pressFreedom": 40.77,
       "cryptoAdoption": 6.8
     },
     "economy": {
@@ -13416,8 +13472,9 @@
     },
     "poverty": {
       "povertyRate": null,
-      "gdpPerCapita": 72300,
-      "hdi": 0.751162469387054
+      "gdpPerCapita": 65699,
+      "hdi": 0.751162469387054,
+      "gdpPerCapitaPPP": 78664
     },
     "gender": {
       "wblIndex": 100,
@@ -13553,7 +13610,7 @@
       "scientistsPerCapita": 5212
     },
     "lifestyle": {
-      "happinessIndex": 6.72,
+      "happinessIndex": 6.882,
       "workHoursWeek": 34.2,
       "vacationDays": 20,
       "internetPenetration": 93,
@@ -13581,7 +13638,7 @@
       "cannabisLegal": true,
       "gamblingLegal": true,
       "corruptionIndex": 78,
-      "pressFreedom": 83,
+      "pressFreedom": 82.17,
       "cryptoAdoption": 11.8
     },
     "economy": {
@@ -13666,8 +13723,9 @@
     },
     "poverty": {
       "povertyRate": null,
-      "gdpPerCapita": 8027,
-      "hdi": 0.450056403875351
+      "gdpPerCapita": 3604,
+      "hdi": 0.450056403875351,
+      "gdpPerCapitaPPP": 9242
     },
     "gender": {
       "wblIndex": 75,
@@ -13803,7 +13861,7 @@
       "englishProficiency": null
     },
     "lifestyle": {
-      "happinessIndex": 4.96,
+      "happinessIndex": 4.554,
       "workHoursWeek": 46,
       "vacationDays": 15,
       "internetPenetration": 68,
@@ -13831,7 +13889,7 @@
       "cannabisLegal": false,
       "gamblingLegal": true,
       "corruptionIndex": 43,
-      "pressFreedom": 68,
+      "pressFreedom": 72.2,
       "cryptoAdoption": 8.8
     },
     "economy": {
@@ -13916,8 +13974,9 @@
     },
     "poverty": {
       "povertyRate": null,
-      "gdpPerCapita": 44074,
-      "hdi": 0.690006494522095
+      "gdpPerCapita": 29413,
+      "hdi": 0.690006494522095,
+      "gdpPerCapitaPPP": 47365
     },
     "gender": {
       "wblIndex": 100,
@@ -14033,7 +14092,7 @@
       "scientistsPerCapita": 2789
     },
     "lifestyle": {
-      "happinessIndex": null,
+      "happinessIndex": 5.697,
       "workHoursWeek": null,
       "vacationDays": 20,
       "internetPenetration": null,
@@ -14061,7 +14120,7 @@
       "cannabisLegal": false,
       "gamblingLegal": true,
       "corruptionIndex": 49,
-      "pressFreedom": 58,
+      "pressFreedom": 55.05,
       "cryptoAdoption": 6.8
     },
     "economy": {
@@ -14145,8 +14204,9 @@
     },
     "poverty": {
       "povertyRate": null,
-      "gdpPerCapita": 14369,
-      "hdi": 0.461270093917847
+      "gdpPerCapita": 6980,
+      "hdi": 0.461270093917847,
+      "gdpPerCapitaPPP": 16102
     },
     "gender": {
       "wblIndex": 73.75,
@@ -14262,7 +14322,7 @@
       "englishProficiency": null
     },
     "lifestyle": {
-      "happinessIndex": null,
+      "happinessIndex": 6.533,
       "workHoursWeek": null,
       "vacationDays": 15,
       "internetPenetration": null,
@@ -14290,7 +14350,7 @@
       "cannabisLegal": false,
       "gamblingLegal": true,
       "corruptionIndex": 24,
-      "pressFreedom": 42,
+      "pressFreedom": 43.21,
       "cryptoAdoption": 5.8
     },
     "economy": {
@@ -14375,8 +14435,9 @@
     },
     "poverty": {
       "povertyRate": null,
-      "gdpPerCapita": 4579,
-      "hdi": 0.37094247341156
+      "gdpPerCapita": 2797,
+      "hdi": 0.37094247341156,
+      "gdpPerCapitaPPP": 8011
     },
     "gender": {
       "wblIndex": 73.75,
@@ -14509,7 +14570,7 @@
       "englishProficiency": null
     },
     "lifestyle": {
-      "happinessIndex": 4.26,
+      "happinessIndex": 4.609,
       "workHoursWeek": 46,
       "vacationDays": 22,
       "internetPenetration": 35,
@@ -14537,7 +14598,7 @@
       "cannabisLegal": false,
       "gamblingLegal": false,
       "corruptionIndex": 26,
-      "pressFreedom": 38,
+      "pressFreedom": 48.45,
       "cryptoAdoption": 3.2
     },
     "economy": {
@@ -14622,8 +14683,9 @@
     },
     "poverty": {
       "povertyRate": null,
-      "gdpPerCapita": 3053,
-      "hdi": null
+      "gdpPerCapita": 1429,
+      "hdi": null,
+      "gdpPerCapitaPPP": 3513
     },
     "gender": {
       "wblIndex": 51.875,
@@ -14756,7 +14818,7 @@
       "englishProficiency": null
     },
     "lifestyle": {
-      "happinessIndex": 4.38,
+      "happinessIndex": null,
       "workHoursWeek": 45,
       "vacationDays": 22,
       "internetPenetration": 30,
@@ -14784,7 +14846,7 @@
       "cannabisLegal": false,
       "gamblingLegal": false,
       "corruptionIndex": 21,
-      "pressFreedom": 48,
+      "pressFreedom": 51.99,
       "cryptoAdoption": 2.2
     },
     "economy": {
@@ -14869,8 +14931,9 @@
     },
     "poverty": {
       "povertyRate": null,
-      "gdpPerCapita": 79906,
-      "hdi": 0.495226472616196
+      "gdpPerCapita": 38572,
+      "hdi": 0.495226472616196,
+      "gdpPerCapitaPPP": 98912
     },
     "gender": {
       "wblIndex": 86.875,
@@ -15015,7 +15078,7 @@
       "cannabisLegal": false,
       "gamblingLegal": true,
       "corruptionIndex": 40,
-      "pressFreedom": 62,
+      "pressFreedom": 59.58,
       "cryptoAdoption": 4.8
     },
     "economy": {
@@ -15100,8 +15163,9 @@
     },
     "poverty": {
       "povertyRate": null,
-      "gdpPerCapita": 3183,
-      "hdi": 0.446564912796021
+      "gdpPerCapita": 3095,
+      "hdi": 0.446564912796021,
+      "gdpPerCapitaPPP": 3006
     },
     "gender": {
       "wblIndex": 61.25,
@@ -15246,7 +15310,7 @@
       "cannabisLegal": false,
       "gamblingLegal": true,
       "corruptionIndex": 17,
-      "pressFreedom": 32,
+      "pressFreedom": 50.32,
       "cryptoAdoption": 3.8
     },
     "economy": {
@@ -15330,8 +15394,9 @@
     },
     "poverty": {
       "povertyRate": 15.7,
-      "gdpPerCapita": 7486,
-      "hdi": 0.481023132801056
+      "gdpPerCapita": 3663,
+      "hdi": 0.481023132801056,
+      "gdpPerCapitaPPP": 8269
     },
     "gender": {
       "wblIndex": 75,
@@ -15447,7 +15512,7 @@
       "englishProficiency": null
     },
     "lifestyle": {
-      "happinessIndex": null,
+      "happinessIndex": 6.096,
       "workHoursWeek": null,
       "vacationDays": 10,
       "internetPenetration": null,
@@ -15475,7 +15540,7 @@
       "cannabisLegal": false,
       "gamblingLegal": true,
       "corruptionIndex": 23,
-      "pressFreedom": 38,
+      "pressFreedom": 41.02,
       "cryptoAdoption": 5.2
     },
     "economy": {
@@ -15559,8 +15624,9 @@
     },
     "poverty": {
       "povertyRate": null,
-      "gdpPerCapita": 47636,
-      "hdi": 0.683087289333344
+      "gdpPerCapita": 27884,
+      "hdi": 0.683087289333344,
+      "gdpPerCapitaPPP": 51028
     },
     "gender": {
       "wblIndex": 93.75,
@@ -15676,7 +15742,7 @@
       "scientistsPerCapita": 2845
     },
     "lifestyle": {
-      "happinessIndex": null,
+      "happinessIndex": 5.937,
       "workHoursWeek": null,
       "vacationDays": 20,
       "internetPenetration": null,
@@ -15704,7 +15770,7 @@
       "cannabisLegal": false,
       "gamblingLegal": true,
       "corruptionIndex": 42,
-      "pressFreedom": 52,
+      "pressFreedom": 59.85,
       "cryptoAdoption": 7.2
     },
     "economy": {
@@ -15788,8 +15854,9 @@
     },
     "poverty": {
       "povertyRate": null,
-      "gdpPerCapita": 78259,
-      "hdi": 0.745281875133514
+      "gdpPerCapita": 107464,
+      "hdi": 0.745281875133514,
+      "gdpPerCapitaPPP": 83002
     },
     "gender": {
       "wblIndex": 100,
@@ -15925,7 +15992,7 @@
       "englishProficiency": null
     },
     "lifestyle": {
-      "happinessIndex": 7.53,
+      "happinessIndex": 7.54,
       "workHoursWeek": 36,
       "vacationDays": 24,
       "internetPenetration": 99,
@@ -15953,7 +16020,7 @@
       "cannabisLegal": false,
       "gamblingLegal": true,
       "corruptionIndex": 83,
-      "pressFreedom": 88,
+      "pressFreedom": 82.77,
       "cryptoAdoption": 8.8
     },
     "economy": {
@@ -16038,8 +16105,9 @@
     },
     "poverty": {
       "povertyRate": null,
-      "gdpPerCapita": 11159,
-      "hdi": 0.493510901927948
+      "gdpPerCapita": 2750,
+      "hdi": 0.493510901927948,
+      "gdpPerCapitaPPP": 12998
     },
     "gender": {
       "wblIndex": 74.375,
@@ -16175,7 +16243,7 @@
       "scientistsPerCapita": 256
     },
     "lifestyle": {
-      "happinessIndex": 3.78,
+      "happinessIndex": 4.536,
       "workHoursWeek": 47,
       "vacationDays": 12,
       "internetPenetration": 50,
@@ -16203,7 +16271,7 @@
       "cannabisLegal": false,
       "gamblingLegal": false,
       "corruptionIndex": 39,
-      "pressFreedom": 41,
+      "pressFreedom": 31.96,
       "cryptoAdoption": 7.2
     },
     "economy": {
@@ -16288,8 +16356,9 @@
     },
     "poverty": {
       "povertyRate": 5.4,
-      "gdpPerCapita": 16448,
-      "hdi": 0.540038466453552
+      "gdpPerCapita": 5153,
+      "hdi": 0.540038466453552,
+      "gdpPerCapitaPPP": 19091
     },
     "gender": {
       "wblIndex": 70.625,
@@ -16425,7 +16494,7 @@
       "scientistsPerCapita": 234
     },
     "lifestyle": {
-      "happinessIndex": 5.24,
+      "happinessIndex": 5.617,
       "workHoursWeek": 43,
       "vacationDays": 12,
       "internetPenetration": 77,
@@ -16453,7 +16522,7 @@
       "cannabisLegal": false,
       "gamblingLegal": false,
       "corruptionIndex": 34,
-      "pressFreedom": 52,
+      "pressFreedom": 43.02,
       "cryptoAdoption": 8.8
     },
     "economy": {
@@ -16536,8 +16605,9 @@
     },
     "poverty": {
       "povertyRate": null,
-      "gdpPerCapita": 18442,
-      "hdi": 0.593404471874237
+      "gdpPerCapita": 3548,
+      "hdi": 0.593404471874237,
+      "gdpPerCapitaPPP": 20159
     },
     "gender": {
       "wblIndex": 31.25,
@@ -16674,7 +16744,7 @@
       "scientistsPerCapita": 1678
     },
     "lifestyle": {
-      "happinessIndex": 4.69,
+      "happinessIndex": 5.151,
       "workHoursWeek": 44,
       "vacationDays": 26,
       "internetPenetration": 84,
@@ -16702,7 +16772,7 @@
       "cannabisLegal": false,
       "gamblingLegal": false,
       "corruptionIndex": 24,
-      "pressFreedom": 18,
+      "pressFreedom": 17.45,
       "cryptoAdoption": 6.8
     },
     "economy": {
@@ -16786,8 +16856,9 @@
     },
     "poverty": {
       "povertyRate": null,
-      "gdpPerCapita": 14464,
-      "hdi": 0.407643288373947
+      "gdpPerCapita": 5258,
+      "hdi": 0.407643288373947,
+      "gdpPerCapitaPPP": 13007
     },
     "gender": {
       "wblIndex": 48.125,
@@ -16904,7 +16975,7 @@
       "scientistsPerCapita": 456
     },
     "lifestyle": {
-      "happinessIndex": null,
+      "happinessIndex": 5.212,
       "workHoursWeek": null,
       "vacationDays": 20,
       "internetPenetration": null,
@@ -16932,7 +17003,7 @@
       "cannabisLegal": false,
       "gamblingLegal": false,
       "corruptionIndex": 23,
-      "pressFreedom": 32,
+      "pressFreedom": 28.85,
       "cryptoAdoption": 4.2
     },
     "economy": {
@@ -17016,8 +17087,9 @@
     },
     "poverty": {
       "povertyRate": null,
-      "gdpPerCapita": 131175,
-      "hdi": 0.792599022388458
+      "gdpPerCapita": 127837,
+      "hdi": 0.792599022388458,
+      "gdpPerCapitaPPP": 149642
     },
     "gender": {
       "wblIndex": 100,
@@ -17133,7 +17205,7 @@
       "englishProficiency": null
     },
     "lifestyle": {
-      "happinessIndex": null,
+      "happinessIndex": 6.928,
       "workHoursWeek": null,
       "vacationDays": 20,
       "internetPenetration": null,
@@ -17161,7 +17233,7 @@
       "cannabisLegal": false,
       "gamblingLegal": true,
       "corruptionIndex": 77,
-      "pressFreedom": 82,
+      "pressFreedom": 85.93,
       "cryptoAdoption": 11.8
     },
     "economy": {
@@ -17246,8 +17318,9 @@
     },
     "poverty": {
       "povertyRate": null,
-      "gdpPerCapita": 55691,
-      "hdi": 0.733995318412781
+      "gdpPerCapita": 72441,
+      "hdi": 0.733995318412781,
+      "gdpPerCapitaPPP": 60100
     },
     "gender": {
       "wblIndex": 80.625,
@@ -17383,7 +17456,7 @@
       "englishProficiency": null
     },
     "lifestyle": {
-      "happinessIndex": 7.47,
+      "happinessIndex": 7.187,
       "workHoursWeek": 40,
       "vacationDays": 9,
       "internetPenetration": 90,
@@ -17411,7 +17484,7 @@
       "cannabisLegal": false,
       "gamblingLegal": true,
       "corruptionIndex": 62,
-      "pressFreedom": 62,
+      "pressFreedom": 46.46,
       "cryptoAdoption": 12.8
     },
     "economy": {
@@ -17496,8 +17569,9 @@
     },
     "poverty": {
       "povertyRate": null,
-      "gdpPerCapita": 60847,
-      "hdi": 0.727819681167603
+      "gdpPerCapita": 45886,
+      "hdi": 0.727819681167603,
+      "gdpPerCapitaPPP": 66221
     },
     "gender": {
       "wblIndex": 97.5,
@@ -17633,7 +17707,7 @@
       "scientistsPerCapita": 2345
     },
     "lifestyle": {
-      "happinessIndex": 6.32,
+      "happinessIndex": 6.574,
       "workHoursWeek": 37,
       "vacationDays": 20,
       "internetPenetration": 85,
@@ -17661,7 +17735,7 @@
       "cannabisLegal": false,
       "gamblingLegal": true,
       "corruptionIndex": 56,
-      "pressFreedom": 68,
+      "pressFreedom": 65.16,
       "cryptoAdoption": 8.2
     },
     "economy": {
@@ -17745,8 +17819,9 @@
     },
     "poverty": {
       "povertyRate": null,
-      "gdpPerCapita": 11662,
-      "hdi": 0.534977912902832
+      "gdpPerCapita": 8674,
+      "hdi": 0.534977912902832,
+      "gdpPerCapitaPPP": 14148
     },
     "gender": {
       "wblIndex": 74.375,
@@ -17863,7 +17938,7 @@
       "englishProficiency": null
     },
     "lifestyle": {
-      "happinessIndex": null,
+      "happinessIndex": 6.305,
       "workHoursWeek": null,
       "vacationDays": 10,
       "internetPenetration": null,
@@ -17891,7 +17966,7 @@
       "cannabisLegal": false,
       "gamblingLegal": true,
       "corruptionIndex": 44,
-      "pressFreedom": 78,
+      "pressFreedom": 75.87,
       "cryptoAdoption": 6.8
     },
     "economy": {
@@ -17977,8 +18052,9 @@
     },
     "poverty": {
       "povertyRate": null,
-      "gdpPerCapita": 51685,
-      "hdi": 0.804714262485504
+      "gdpPerCapita": 35400,
+      "hdi": 0.804714262485504,
+      "gdpPerCapitaPPP": 59712
     },
     "gender": {
       "wblIndex": 78.75,
@@ -18142,7 +18218,7 @@
       "cannabisLegal": false,
       "gamblingLegal": true,
       "corruptionIndex": 73,
-      "pressFreedom": 68,
+      "pressFreedom": 62.9,
       "cryptoAdoption": 8.8
     },
     "economy": {
@@ -18226,8 +18302,9 @@
     },
     "poverty": {
       "povertyRate": null,
-      "gdpPerCapita": 10821,
-      "hdi": 0.553174376487732
+      "gdpPerCapita": 5598,
+      "hdi": 0.553174376487732,
+      "gdpPerCapitaPPP": 13328
     },
     "gender": {
       "wblIndex": 59.375,
@@ -18343,7 +18420,7 @@
       "scientistsPerCapita": 1567
     },
     "lifestyle": {
-      "happinessIndex": null,
+      "happinessIndex": 4.478,
       "workHoursWeek": null,
       "vacationDays": 14,
       "internetPenetration": null,
@@ -18371,7 +18448,7 @@
       "cannabisLegal": false,
       "gamblingLegal": false,
       "corruptionIndex": 47,
-      "pressFreedom": 48,
+      "pressFreedom": 39.33,
       "cryptoAdoption": 5.8
     },
     "economy": {
@@ -18456,8 +18533,9 @@
     },
     "poverty": {
       "povertyRate": null,
-      "gdpPerCapita": 40813,
-      "hdi": 0.628506422042847
+      "gdpPerCapita": 19311,
+      "hdi": 0.628506422042847,
+      "gdpPerCapitaPPP": 48351
     },
     "gender": {
       "wblIndex": 75.625,
@@ -18573,7 +18651,7 @@
       "englishProficiency": null
     },
     "lifestyle": {
-      "happinessIndex": null,
+      "happinessIndex": 6.633,
       "workHoursWeek": null,
       "vacationDays": 24,
       "internetPenetration": null,
@@ -18601,7 +18679,7 @@
       "cannabisLegal": false,
       "gamblingLegal": true,
       "corruptionIndex": 39,
-      "pressFreedom": 28,
+      "pressFreedom": 34.41,
       "cryptoAdoption": 6.8
     },
     "economy": {
@@ -18686,8 +18764,9 @@
     },
     "poverty": {
       "povertyRate": null,
-      "gdpPerCapita": 6619,
-      "hdi": 0.546752512454987
+      "gdpPerCapita": 2785,
+      "hdi": 0.546752512454987,
+      "gdpPerCapitaPPP": 8036
     },
     "gender": {
       "wblIndex": 83.75,
@@ -18823,7 +18902,7 @@
       "scientistsPerCapita": 234
     },
     "lifestyle": {
-      "happinessIndex": 4.58,
+      "happinessIndex": 4.674,
       "workHoursWeek": 46,
       "vacationDays": 21,
       "internetPenetration": 40,
@@ -18851,7 +18930,7 @@
       "cannabisLegal": false,
       "gamblingLegal": true,
       "corruptionIndex": 31,
-      "pressFreedom": 52,
+      "pressFreedom": 50.51,
       "cryptoAdoption": 12.8
     },
     "economy": {
@@ -18938,7 +19017,8 @@
     "poverty": {
       "povertyRate": null,
       "gdpPerCapita": null,
-      "hdi": null
+      "hdi": null,
+      "gdpPerCapitaPPP": null
     },
     "gender": {
       "wblIndex": null,
@@ -19083,7 +19163,7 @@
       "cannabisLegal": false,
       "gamblingLegal": false,
       "corruptionIndex": 17,
-      "pressFreedom": 8,
+      "pressFreedom": 12.67,
       "cryptoAdoption": 0.8
     },
     "economy": {
@@ -19168,8 +19248,9 @@
     },
     "poverty": {
       "povertyRate": null,
-      "gdpPerCapita": null,
-      "hdi": 0.798776268959045
+      "gdpPerCapita": 43512,
+      "hdi": 0.798776268959045,
+      "gdpPerCapitaPPP": 70251
     },
     "gender": {
       "wblIndex": 88.125,
@@ -19305,7 +19386,7 @@
       "scientistsPerCapita": 7980
     },
     "lifestyle": {
-      "happinessIndex": 5.95,
+      "happinessIndex": 6.04,
       "workHoursWeek": 40,
       "vacationDays": 15,
       "internetPenetration": 98,
@@ -19333,7 +19414,7 @@
       "cannabisLegal": false,
       "gamblingLegal": true,
       "corruptionIndex": 63,
-      "pressFreedom": 72,
+      "pressFreedom": 69.12,
       "cryptoAdoption": 14.8
     },
     "economy": {
@@ -19417,8 +19498,9 @@
     },
     "poverty": {
       "povertyRate": null,
-      "gdpPerCapita": 51636,
-      "hdi": 0.562588036060333
+      "gdpPerCapita": 28928,
+      "hdi": 0.562588036060333,
+      "gdpPerCapitaPPP": 46552
     },
     "gender": {
       "wblIndex": 38.125,
@@ -19534,7 +19616,7 @@
       "englishProficiency": null
     },
     "lifestyle": {
-      "happinessIndex": null,
+      "happinessIndex": 6.543,
       "workHoursWeek": null,
       "vacationDays": 30,
       "internetPenetration": null,
@@ -19562,7 +19644,7 @@
       "cannabisLegal": false,
       "gamblingLegal": false,
       "corruptionIndex": 46,
-      "pressFreedom": 52,
+      "pressFreedom": 40.44,
       "cryptoAdoption": 8.2
     },
     "economy": {
@@ -19646,8 +19728,9 @@
     },
     "poverty": {
       "povertyRate": null,
-      "gdpPerCapita": 8009,
-      "hdi": 0.596617102622986
+      "gdpPerCapita": 3620,
+      "hdi": 0.596617102622986,
+      "gdpPerCapitaPPP": 10342
     },
     "gender": {
       "wblIndex": 76.875,
@@ -19764,7 +19847,7 @@
       "englishProficiency": null
     },
     "lifestyle": {
-      "happinessIndex": null,
+      "happinessIndex": 6.049,
       "workHoursWeek": null,
       "vacationDays": 28,
       "internetPenetration": null,
@@ -19792,7 +19875,7 @@
       "cannabisLegal": false,
       "gamblingLegal": true,
       "corruptionIndex": 26,
-      "pressFreedom": 48,
+      "pressFreedom": 35.06,
       "cryptoAdoption": 4.8
     },
     "economy": {
@@ -19877,8 +19960,9 @@
     },
     "poverty": {
       "povertyRate": null,
-      "gdpPerCapita": 9788,
-      "hdi": 0.456665337085724
+      "gdpPerCapita": 2331,
+      "hdi": 0.456665337085724,
+      "gdpPerCapitaPPP": 12054
     },
     "gender": {
       "wblIndex": 85.625,
@@ -19995,7 +20079,7 @@
       "englishProficiency": null
     },
     "lifestyle": {
-      "happinessIndex": null,
+      "happinessIndex": 5.515,
       "workHoursWeek": null,
       "vacationDays": 15,
       "internetPenetration": null,
@@ -20023,7 +20107,7 @@
       "cannabisLegal": false,
       "gamblingLegal": false,
       "corruptionIndex": 28,
-      "pressFreedom": 22,
+      "pressFreedom": 32.54,
       "cryptoAdoption": 3.8
     },
     "economy": {
@@ -20107,8 +20191,9 @@
     },
     "poverty": {
       "povertyRate": null,
-      "gdpPerCapita": 43867,
-      "hdi": 0.70658141374588
+      "gdpPerCapita": 28630,
+      "hdi": 0.70658141374588,
+      "gdpPerCapitaPPP": 46063
     },
     "gender": {
       "wblIndex": 100,
@@ -20224,7 +20309,7 @@
       "englishProficiency": null
     },
     "lifestyle": {
-      "happinessIndex": null,
+      "happinessIndex": 6.365,
       "workHoursWeek": null,
       "vacationDays": 20,
       "internetPenetration": null,
@@ -20252,7 +20337,7 @@
       "cannabisLegal": false,
       "gamblingLegal": true,
       "corruptionIndex": 60,
-      "pressFreedom": 78,
+      "pressFreedom": 81.0,
       "cryptoAdoption": 7.8
     },
     "economy": {
@@ -20337,7 +20422,8 @@
     "poverty": {
       "povertyRate": null,
       "gdpPerCapita": null,
-      "hdi": 0.515125513076782
+      "hdi": 0.515125513076782,
+      "gdpPerCapitaPPP": null
     },
     "gender": {
       "wblIndex": 58.75,
@@ -20453,7 +20539,7 @@
       "englishProficiency": null
     },
     "lifestyle": {
-      "happinessIndex": null,
+      "happinessIndex": 3.723,
       "workHoursWeek": null,
       "vacationDays": 15,
       "internetPenetration": null,
@@ -20481,7 +20567,7 @@
       "cannabisLegal": false,
       "gamblingLegal": false,
       "corruptionIndex": 24,
-      "pressFreedom": 52,
+      "pressFreedom": 46.49,
       "cryptoAdoption": 8.8
     },
     "economy": {
@@ -20566,8 +20652,9 @@
     },
     "poverty": {
       "povertyRate": null,
-      "gdpPerCapita": 2998,
-      "hdi": 0.400392591953278
+      "gdpPerCapita": 1298,
+      "hdi": 0.400392591953278,
+      "gdpPerCapitaPPP": 3325
     },
     "gender": {
       "wblIndex": 80.625,
@@ -20700,7 +20787,7 @@
       "englishProficiency": null
     },
     "lifestyle": {
-      "happinessIndex": 3.51,
+      "happinessIndex": 4.375,
       "workHoursWeek": 45,
       "vacationDays": 12,
       "internetPenetration": 48,
@@ -20728,7 +20815,7 @@
       "cannabisLegal": false,
       "gamblingLegal": true,
       "corruptionIndex": 41,
-      "pressFreedom": 58,
+      "pressFreedom": 54.37,
       "cryptoAdoption": 2.8
     },
     "economy": {
@@ -20813,8 +20900,9 @@
     },
     "poverty": {
       "povertyRate": null,
-      "gdpPerCapita": 1885,
-      "hdi": 0.319014221429825
+      "gdpPerCapita": 976,
+      "hdi": 0.319014221429825,
+      "gdpPerCapitaPPP": 2113
     },
     "gender": {
       "wblIndex": 81.25,
@@ -20947,7 +21035,7 @@
       "englishProficiency": null
     },
     "lifestyle": {
-      "happinessIndex": 4.16,
+      "happinessIndex": 4.28,
       "workHoursWeek": 46,
       "vacationDays": 10,
       "internetPenetration": 30,
@@ -20975,7 +21063,7 @@
       "cannabisLegal": false,
       "gamblingLegal": true,
       "corruptionIndex": 25,
-      "pressFreedom": 52,
+      "pressFreedom": 64.54,
       "cryptoAdoption": 3.2
     },
     "economy": {
@@ -21059,8 +21147,9 @@
     },
     "poverty": {
       "povertyRate": null,
-      "gdpPerCapita": 13954,
-      "hdi": null
+      "gdpPerCapita": 7557,
+      "hdi": null,
+      "gdpPerCapitaPPP": 18224
     },
     "gender": {
       "wblIndex": 50,
@@ -21193,7 +21282,7 @@
       "englishProficiency": null
     },
     "lifestyle": {
-      "happinessIndex": 5.52,
+      "happinessIndex": 5.731,
       "workHoursWeek": 42,
       "vacationDays": 30,
       "internetPenetration": 84,
@@ -21221,7 +21310,7 @@
       "cannabisLegal": false,
       "gamblingLegal": false,
       "corruptionIndex": 18,
-      "pressFreedom": 18,
+      "pressFreedom": 40.34,
       "cryptoAdoption": 3.8
     },
     "economy": {
@@ -21305,8 +21394,9 @@
     },
     "poverty": {
       "povertyRate": null,
-      "gdpPerCapita": 54414,
-      "hdi": 0.70604795217514
+      "gdpPerCapita": 36135,
+      "hdi": 0.70604795217514,
+      "gdpPerCapitaPPP": 61229
     },
     "gender": {
       "wblIndex": 93.75,
@@ -21422,7 +21512,7 @@
       "scientistsPerCapita": 2789
     },
     "lifestyle": {
-      "happinessIndex": null,
+      "happinessIndex": 6.704,
       "workHoursWeek": null,
       "vacationDays": 20,
       "internetPenetration": null,
@@ -21450,7 +21540,7 @@
       "cannabisLegal": false,
       "gamblingLegal": true,
       "corruptionIndex": 61,
-      "pressFreedom": 78,
+      "pressFreedom": 81.34,
       "cryptoAdoption": 8.8
     },
     "economy": {
@@ -21535,8 +21625,9 @@
     },
     "poverty": {
       "povertyRate": null,
-      "gdpPerCapita": 150772,
-      "hdi": 0.686146140098572
+      "gdpPerCapita": 155733,
+      "hdi": 0.686146140098572,
+      "gdpPerCapitaPPP": 156638
     },
     "gender": {
       "wblIndex": 100,
@@ -21652,7 +21743,7 @@
       "englishProficiency": null
     },
     "lifestyle": {
-      "happinessIndex": null,
+      "happinessIndex": 7.063,
       "workHoursWeek": null,
       "vacationDays": 25,
       "internetPenetration": null,
@@ -21680,7 +21771,7 @@
       "cannabisLegal": false,
       "gamblingLegal": true,
       "corruptionIndex": 78,
-      "pressFreedom": 82,
+      "pressFreedom": 84.14,
       "cryptoAdoption": 12.8
     },
     "economy": {
@@ -21766,8 +21857,9 @@
     },
     "poverty": {
       "povertyRate": null,
-      "gdpPerCapita": 1884,
-      "hdi": 0.391991019248962
+      "gdpPerCapita": 649,
+      "hdi": 0.391991019248962,
+      "gdpPerCapitaPPP": 2124
     },
     "gender": {
       "wblIndex": 69.375,
@@ -21900,7 +21992,7 @@
       "englishProficiency": null
     },
     "lifestyle": {
-      "happinessIndex": 4.33,
+      "happinessIndex": 4.174,
       "workHoursWeek": 44,
       "vacationDays": 20,
       "internetPenetration": 22,
@@ -21928,7 +22020,7 @@
       "cannabisLegal": false,
       "gamblingLegal": true,
       "corruptionIndex": 26,
-      "pressFreedom": 48,
+      "pressFreedom": 50.95,
       "cryptoAdoption": 3.2
     },
     "economy": {
@@ -22013,8 +22105,9 @@
     },
     "poverty": {
       "povertyRate": null,
-      "gdpPerCapita": 1859,
-      "hdi": 0.413240641355515
+      "gdpPerCapita": 740,
+      "hdi": 0.413240641355515,
+      "gdpPerCapitaPPP": 1819
     },
     "gender": {
       "wblIndex": 80,
@@ -22147,7 +22240,7 @@
       "englishProficiency": null
     },
     "lifestyle": {
-      "happinessIndex": 3.7,
+      "happinessIndex": 3.284,
       "workHoursWeek": 46,
       "vacationDays": 18,
       "internetPenetration": 18,
@@ -22175,7 +22268,7 @@
       "cannabisLegal": false,
       "gamblingLegal": true,
       "corruptionIndex": 34,
-      "pressFreedom": 55,
+      "pressFreedom": 60.96,
       "cryptoAdoption": 2.8
     },
     "economy": {
@@ -22261,8 +22354,9 @@
     },
     "poverty": {
       "povertyRate": null,
-      "gdpPerCapita": 38729,
-      "hdi": 0.610976159572601
+      "gdpPerCapita": 15981,
+      "hdi": 0.610976159572601,
+      "gdpPerCapitaPPP": 47453
     },
     "gender": {
       "wblIndex": 60.625,
@@ -22378,7 +22472,7 @@
       "scientistsPerCapita": 2134
     },
     "lifestyle": {
-      "happinessIndex": null,
+      "happinessIndex": 6.005,
       "workHoursWeek": null,
       "vacationDays": 8,
       "internetPenetration": null,
@@ -22406,7 +22500,7 @@
       "cannabisLegal": false,
       "gamblingLegal": true,
       "corruptionIndex": 50,
-      "pressFreedom": 42,
+      "pressFreedom": 52.73,
       "cryptoAdoption": 8.8
     },
     "economy": {
@@ -22491,8 +22585,9 @@
     },
     "poverty": {
       "povertyRate": null,
-      "gdpPerCapita": 3309,
-      "hdi": 0.318269580602646
+      "gdpPerCapita": 1343,
+      "hdi": 0.318269580602646,
+      "gdpPerCapitaPPP": 3684
     },
     "gender": {
       "wblIndex": 63.75,
@@ -22625,7 +22720,7 @@
       "englishProficiency": null
     },
     "lifestyle": {
-      "happinessIndex": 4.2,
+      "happinessIndex": 4.588,
       "workHoursWeek": 46,
       "vacationDays": 27,
       "internetPenetration": 34,
@@ -22653,7 +22748,7 @@
       "cannabisLegal": false,
       "gamblingLegal": false,
       "corruptionIndex": 28,
-      "pressFreedom": 38,
+      "pressFreedom": 45.63,
       "cryptoAdoption": 3.2
     },
     "economy": {
@@ -22736,8 +22831,9 @@
     },
     "poverty": {
       "povertyRate": null,
-      "gdpPerCapita": 7271,
-      "hdi": 0.381546080112457
+      "gdpPerCapita": 3015,
+      "hdi": 0.381546080112457,
+      "gdpPerCapitaPPP": 9227
     },
     "gender": {
       "wblIndex": 48.125,
@@ -22869,7 +22965,7 @@
       "englishProficiency": null
     },
     "lifestyle": {
-      "happinessIndex": 4.72,
+      "happinessIndex": 4.473,
       "workHoursWeek": 45,
       "vacationDays": null,
       "internetPenetration": 59,
@@ -22897,7 +22993,7 @@
       "cannabisLegal": false,
       "gamblingLegal": false,
       "corruptionIndex": 30,
-      "pressFreedom": 42,
+      "pressFreedom": 63.36,
       "cryptoAdoption": 2.8
     },
     "economy": {
@@ -22982,8 +23078,9 @@
     },
     "poverty": {
       "povertyRate": null,
-      "gdpPerCapita": 31051,
-      "hdi": 0.62185925245285
+      "gdpPerCapita": 13671,
+      "hdi": 0.62185925245285,
+      "gdpPerCapitaPPP": 35434
     },
     "gender": {
       "wblIndex": 89.375,
@@ -23120,7 +23217,7 @@
       "englishProficiency": null
     },
     "lifestyle": {
-      "happinessIndex": 6.05,
+      "happinessIndex": 5.939,
       "workHoursWeek": 40,
       "vacationDays": 22,
       "internetPenetration": 79,
@@ -23148,7 +23245,7 @@
       "cannabisLegal": false,
       "gamblingLegal": true,
       "corruptionIndex": 50,
-      "pressFreedom": 68,
+      "pressFreedom": 70.92,
       "cryptoAdoption": 6.8
     },
     "economy": {
@@ -23232,8 +23329,9 @@
     },
     "poverty": {
       "povertyRate": null,
-      "gdpPerCapita": 25688,
-      "hdi": 0.612949848175049
+      "gdpPerCapita": 16191,
+      "hdi": 0.612949848175049,
+      "gdpPerCapitaPPP": 26743
     },
     "gender": {
       "wblIndex": 88.75,
@@ -23369,7 +23467,7 @@
       "scientistsPerCapita": 345
     },
     "lifestyle": {
-      "happinessIndex": 6.32,
+      "happinessIndex": 6.972,
       "workHoursWeek": 45,
       "vacationDays": 6,
       "internetPenetration": 76,
@@ -23397,7 +23495,7 @@
       "cannabisLegal": false,
       "gamblingLegal": true,
       "corruptionIndex": 31,
-      "pressFreedom": 38,
+      "pressFreedom": 45.23,
       "cryptoAdoption": 8.8
     },
     "economy": {
@@ -23481,8 +23579,9 @@
     },
     "poverty": {
       "povertyRate": null,
-      "gdpPerCapita": 18717,
-      "hdi": 0.584153532981873
+      "gdpPerCapita": 9497,
+      "hdi": 0.584153532981873,
+      "gdpPerCapitaPPP": 21182
     },
     "gender": {
       "wblIndex": 90.625,
@@ -23598,7 +23697,7 @@
       "englishProficiency": null
     },
     "lifestyle": {
-      "happinessIndex": null,
+      "happinessIndex": 5.851,
       "workHoursWeek": null,
       "vacationDays": 28,
       "internetPenetration": null,
@@ -23626,7 +23725,7 @@
       "cannabisLegal": false,
       "gamblingLegal": true,
       "corruptionIndex": 42,
-      "pressFreedom": 58,
+      "pressFreedom": 74.77,
       "cryptoAdoption": 5.8
     },
     "economy": {
@@ -23712,8 +23811,9 @@
     },
     "poverty": {
       "povertyRate": null,
-      "gdpPerCapita": 19098,
-      "hdi": 0.614397525787354
+      "gdpPerCapita": 8570,
+      "hdi": 0.614397525787354,
+      "gdpPerCapitaPPP": 22428
     },
     "gender": {
       "wblIndex": 90.625,
@@ -23830,7 +23930,7 @@
       "englishProficiency": null
     },
     "lifestyle": {
-      "happinessIndex": null,
+      "happinessIndex": 5.936,
       "workHoursWeek": null,
       "vacationDays": 15,
       "internetPenetration": null,
@@ -23858,7 +23958,7 @@
       "cannabisLegal": false,
       "gamblingLegal": true,
       "corruptionIndex": 35,
-      "pressFreedom": 62,
+      "pressFreedom": 55.79,
       "cryptoAdoption": 5.2
     },
     "economy": {
@@ -23943,8 +24043,9 @@
     },
     "poverty": {
       "povertyRate": null,
-      "gdpPerCapita": 33380,
-      "hdi": 0.633181810379028
+      "gdpPerCapita": 16211,
+      "hdi": 0.633181810379028,
+      "gdpPerCapitaPPP": 36564
     },
     "gender": {
       "wblIndex": 85,
@@ -24061,7 +24162,7 @@
       "englishProficiency": null
     },
     "lifestyle": {
-      "happinessIndex": null,
+      "happinessIndex": 6.139,
       "workHoursWeek": null,
       "vacationDays": 20,
       "internetPenetration": null,
@@ -24089,7 +24190,7 @@
       "cannabisLegal": false,
       "gamblingLegal": true,
       "corruptionIndex": 45,
-      "pressFreedom": 55,
+      "pressFreedom": 71.8,
       "cryptoAdoption": 5.8
     },
     "economy": {
@@ -24172,8 +24273,9 @@
     },
     "poverty": {
       "povertyRate": null,
-      "gdpPerCapita": 10305,
-      "hdi": 0.504116356372833
+      "gdpPerCapita": 5141,
+      "hdi": 0.504116356372833,
+      "gdpPerCapitaPPP": 12425
     },
     "gender": {
       "wblIndex": 75.625,
@@ -24309,7 +24411,7 @@
       "englishProficiency": null
     },
     "lifestyle": {
-      "happinessIndex": 4.97,
+      "happinessIndex": 4.646,
       "workHoursWeek": 44,
       "vacationDays": 18,
       "internetPenetration": 88,
@@ -24337,7 +24439,7 @@
       "cannabisLegal": false,
       "gamblingLegal": false,
       "corruptionIndex": 38,
-      "pressFreedom": 38,
+      "pressFreedom": 50.55,
       "cryptoAdoption": 5.8
     },
     "economy": {
@@ -24423,8 +24525,9 @@
     },
     "poverty": {
       "povertyRate": null,
-      "gdpPerCapita": 1700,
-      "hdi": 0.362116664648056
+      "gdpPerCapita": 673,
+      "hdi": 0.362116664648056,
+      "gdpPerCapitaPPP": 1721
     },
     "gender": {
       "wblIndex": 82.5,
@@ -24557,7 +24660,7 @@
       "englishProficiency": null
     },
     "lifestyle": {
-      "happinessIndex": 4.46,
+      "happinessIndex": 5.336,
       "workHoursWeek": 46,
       "vacationDays": 24,
       "internetPenetration": 21,
@@ -24585,7 +24688,7 @@
       "cannabisLegal": false,
       "gamblingLegal": true,
       "corruptionIndex": 26,
-      "pressFreedom": 42,
+      "pressFreedom": 52.27,
       "cryptoAdoption": 3.8
     },
     "economy": {
@@ -24670,8 +24773,9 @@
     },
     "poverty": {
       "povertyRate": null,
-      "gdpPerCapita": 5997,
-      "hdi": 0.477652013301849
+      "gdpPerCapita": 1507,
+      "hdi": 0.477652013301849,
+      "gdpPerCapitaPPP": 5283
     },
     "gender": {
       "wblIndex": 58.75,
@@ -24788,7 +24892,7 @@
       "englishProficiency": null
     },
     "lifestyle": {
-      "happinessIndex": null,
+      "happinessIndex": 4.287,
       "workHoursWeek": null,
       "vacationDays": 10,
       "internetPenetration": null,
@@ -24816,7 +24920,7 @@
       "cannabisLegal": false,
       "gamblingLegal": false,
       "corruptionIndex": 23,
-      "pressFreedom": 12,
+      "pressFreedom": 26.38,
       "cryptoAdoption": 4.8
     },
     "economy": {
@@ -24900,8 +25004,9 @@
     },
     "poverty": {
       "povertyRate": null,
-      "gdpPerCapita": 11687,
-      "hdi": 0.446437537670136
+      "gdpPerCapita": 5742,
+      "hdi": 0.446437537670136,
+      "gdpPerCapitaPPP": 12513
     },
     "gender": {
       "wblIndex": 80,
@@ -25037,7 +25142,7 @@
       "englishProficiency": null
     },
     "lifestyle": {
-      "happinessIndex": 4.57,
+      "happinessIndex": 4.781,
       "workHoursWeek": 45,
       "vacationDays": 24,
       "internetPenetration": 53,
@@ -25065,7 +25170,7 @@
       "cannabisLegal": false,
       "gamblingLegal": true,
       "corruptionIndex": 49,
-      "pressFreedom": 72,
+      "pressFreedom": 76.97,
       "cryptoAdoption": 4.2
     },
     "economy": {
@@ -25151,8 +25256,9 @@
     },
     "poverty": {
       "povertyRate": null,
-      "gdpPerCapita": 5737,
-      "hdi": 0.504601776599884
+      "gdpPerCapita": 1540,
+      "hdi": 0.504601776599884,
+      "gdpPerCapitaPPP": 6615
     },
     "gender": {
       "wblIndex": 80.625,
@@ -25269,7 +25375,7 @@
       "englishProficiency": null
     },
     "lifestyle": {
-      "happinessIndex": null,
+      "happinessIndex": 5.147,
       "workHoursWeek": null,
       "vacationDays": 13,
       "internetPenetration": null,
@@ -25297,7 +25403,7 @@
       "cannabisLegal": false,
       "gamblingLegal": false,
       "corruptionIndex": 35,
-      "pressFreedom": 52,
+      "pressFreedom": 54.8,
       "cryptoAdoption": 4.8
     },
     "economy": {
@@ -25382,8 +25488,9 @@
     },
     "poverty": {
       "povertyRate": null,
-      "gdpPerCapita": 84218,
-      "hdi": 0.789915025234222
+      "gdpPerCapita": 78535,
+      "hdi": 0.789915025234222,
+      "gdpPerCapitaPPP": 88202
     },
     "gender": {
       "wblIndex": 100,
@@ -25519,7 +25626,7 @@
       "scientistsPerCapita": 5456
     },
     "lifestyle": {
-      "happinessIndex": 7.46,
+      "happinessIndex": 7.223,
       "workHoursWeek": 30.3,
       "vacationDays": 20,
       "internetPenetration": 98,
@@ -25547,7 +25654,7 @@
       "cannabisLegal": false,
       "gamblingLegal": true,
       "corruptionIndex": 79,
-      "pressFreedom": 82,
+      "pressFreedom": 88.92,
       "cryptoAdoption": 14.8
     },
     "economy": {
@@ -25633,8 +25740,9 @@
     },
     "poverty": {
       "povertyRate": null,
-      "gdpPerCapita": 55094,
-      "hdi": 0.775932431221008
+      "gdpPerCapita": 51043,
+      "hdi": 0.775932431221008,
+      "gdpPerCapitaPPP": 58563
     },
     "gender": {
       "wblIndex": 97.5,
@@ -25750,7 +25858,7 @@
       "englishProficiency": null
     },
     "lifestyle": {
-      "happinessIndex": null,
+      "happinessIndex": 6.995,
       "workHoursWeek": null,
       "vacationDays": 20,
       "internetPenetration": null,
@@ -25778,7 +25886,7 @@
       "cannabisLegal": false,
       "gamblingLegal": true,
       "corruptionIndex": 85,
-      "pressFreedom": 88,
+      "pressFreedom": 77.38,
       "cryptoAdoption": 12.8
     },
     "economy": {
@@ -25862,8 +25970,9 @@
     },
     "poverty": {
       "povertyRate": null,
-      "gdpPerCapita": 8709,
-      "hdi": 0.508098244667053
+      "gdpPerCapita": 3732,
+      "hdi": 0.508098244667053,
+      "gdpPerCapitaPPP": 10256
     },
     "gender": {
       "wblIndex": 86.25,
@@ -25979,7 +26088,7 @@
       "englishProficiency": null
     },
     "lifestyle": {
-      "happinessIndex": null,
+      "happinessIndex": 6.301,
       "workHoursWeek": null,
       "vacationDays": 15,
       "internetPenetration": null,
@@ -26007,7 +26116,7 @@
       "cannabisLegal": false,
       "gamblingLegal": true,
       "corruptionIndex": 17,
-      "pressFreedom": 22,
+      "pressFreedom": 24.98,
       "cryptoAdoption": 4.2
     },
     "economy": {
@@ -26091,8 +26200,9 @@
     },
     "poverty": {
       "povertyRate": null,
-      "gdpPerCapita": 2015,
-      "hdi": 0.31568518280983
+      "gdpPerCapita": 774,
+      "hdi": 0.31568518280983,
+      "gdpPerCapitaPPP": 2211
     },
     "gender": {
       "wblIndex": 53.75,
@@ -26225,7 +26335,7 @@
       "englishProficiency": null
     },
     "lifestyle": {
-      "happinessIndex": 4.21,
+      "happinessIndex": 4.94,
       "workHoursWeek": 46,
       "vacationDays": 12,
       "internetPenetration": 14,
@@ -26253,7 +26363,7 @@
       "cannabisLegal": false,
       "gamblingLegal": false,
       "corruptionIndex": 32,
-      "pressFreedom": 52,
+      "pressFreedom": 46.02,
       "cryptoAdoption": 2.8
     },
     "economy": {
@@ -26337,8 +26447,9 @@
     },
     "poverty": {
       "povertyRate": null,
-      "gdpPerCapita": 6440,
-      "hdi": 0.360609829425812
+      "gdpPerCapita": 1594,
+      "hdi": 0.360609829425812,
+      "gdpPerCapitaPPP": 10051
     },
     "gender": {
       "wblIndex": 66.25,
@@ -26474,7 +26585,7 @@
       "scientistsPerCapita": 123
     },
     "lifestyle": {
-      "happinessIndex": 4.55,
+      "happinessIndex": 4.788,
       "workHoursWeek": 52,
       "vacationDays": 6,
       "internetPenetration": 55.4,
@@ -26502,7 +26613,7 @@
       "cannabisLegal": false,
       "gamblingLegal": true,
       "corruptionIndex": 25,
-      "pressFreedom": 42,
+      "pressFreedom": 48.11,
       "cryptoAdoption": 22.8
     },
     "economy": {
@@ -26587,8 +26698,9 @@
     },
     "poverty": {
       "povertyRate": null,
-      "gdpPerCapita": 101032,
-      "hdi": 0.771051168441772
+      "gdpPerCapita": 115188,
+      "hdi": 0.771051168441772,
+      "gdpPerCapitaPPP": 116169
     },
     "gender": {
       "wblIndex": 96.875,
@@ -26724,7 +26836,7 @@
       "scientistsPerCapita": 5932
     },
     "lifestyle": {
-      "happinessIndex": 7.38,
+      "happinessIndex": 7.242,
       "workHoursWeek": 33.8,
       "vacationDays": 25,
       "internetPenetration": 98,
@@ -26752,7 +26864,7 @@
       "cannabisLegal": false,
       "gamblingLegal": true,
       "corruptionIndex": 84,
-      "pressFreedom": 92,
+      "pressFreedom": 92.72,
       "cryptoAdoption": 10.8
     },
     "economy": {
@@ -26837,8 +26949,9 @@
     },
     "poverty": {
       "povertyRate": null,
-      "gdpPerCapita": 41664,
-      "hdi": 0.608116269111633
+      "gdpPerCapita": 22425,
+      "hdi": 0.608116269111633,
+      "gdpPerCapitaPPP": 46196
     },
     "gender": {
       "wblIndex": 46.25,
@@ -26954,7 +27067,7 @@
       "englishProficiency": null
     },
     "lifestyle": {
-      "happinessIndex": null,
+      "happinessIndex": 6.197,
       "workHoursWeek": null,
       "vacationDays": 30,
       "internetPenetration": null,
@@ -26982,7 +27095,7 @@
       "cannabisLegal": false,
       "gamblingLegal": false,
       "corruptionIndex": 52,
-      "pressFreedom": 38,
+      "pressFreedom": 43.67,
       "cryptoAdoption": 6.8
     },
     "economy": {
@@ -27067,8 +27180,9 @@
     },
     "poverty": {
       "povertyRate": null,
-      "gdpPerCapita": 6287,
-      "hdi": 0.406070023775101
+      "gdpPerCapita": 1836,
+      "hdi": 0.406070023775101,
+      "gdpPerCapitaPPP": 7371
     },
     "gender": {
       "wblIndex": 58.75,
@@ -27204,7 +27318,7 @@
       "scientistsPerCapita": 198
     },
     "lifestyle": {
-      "happinessIndex": 4.66,
+      "happinessIndex": 4.868,
       "workHoursWeek": 45,
       "vacationDays": 14,
       "internetPenetration": 36,
@@ -27232,7 +27346,7 @@
       "cannabisLegal": false,
       "gamblingLegal": false,
       "corruptionIndex": 29,
-      "pressFreedom": 32,
+      "pressFreedom": 32.61,
       "cryptoAdoption": 6.2
     },
     "economy": {
@@ -27316,8 +27430,9 @@
     },
     "poverty": {
       "povertyRate": 3.1,
-      "gdpPerCapita": 41405,
-      "hdi": 0.501601994037628
+      "gdpPerCapita": 20877,
+      "hdi": 0.501601994037628,
+      "gdpPerCapitaPPP": 47129
     },
     "gender": {
       "wblIndex": 79.375,
@@ -27433,7 +27548,7 @@
       "englishProficiency": null
     },
     "lifestyle": {
-      "happinessIndex": null,
+      "happinessIndex": 6.547,
       "workHoursWeek": null,
       "vacationDays": 30,
       "internetPenetration": null,
@@ -27461,7 +27576,7 @@
       "cannabisLegal": false,
       "gamblingLegal": true,
       "corruptionIndex": 36,
-      "pressFreedom": 62,
+      "pressFreedom": 62.14,
       "cryptoAdoption": 7.8
     },
     "economy": {
@@ -27545,8 +27660,9 @@
     },
     "poverty": {
       "povertyRate": null,
-      "gdpPerCapita": 4889,
-      "hdi": 0.429185003042221
+      "gdpPerCapita": 3418,
+      "hdi": 0.429185003042221,
+      "gdpPerCapitaPPP": 4923
     },
     "gender": {
       "wblIndex": 60,
@@ -27691,7 +27807,7 @@
       "cannabisLegal": false,
       "gamblingLegal": true,
       "corruptionIndex": 28,
-      "pressFreedom": 58,
+      "pressFreedom": 60.11,
       "cryptoAdoption": 3.8
     },
     "economy": {
@@ -27775,8 +27891,9 @@
     },
     "poverty": {
       "povertyRate": 2.1,
-      "gdpPerCapita": 18524,
-      "hdi": 0.528180062770844
+      "gdpPerCapita": 9907,
+      "hdi": 0.528180062770844,
+      "gdpPerCapitaPPP": 23662
     },
     "gender": {
       "wblIndex": 94.375,
@@ -27893,7 +28010,7 @@
       "englishProficiency": null
     },
     "lifestyle": {
-      "happinessIndex": null,
+      "happinessIndex": 6.198,
       "workHoursWeek": null,
       "vacationDays": 12,
       "internetPenetration": null,
@@ -27921,7 +28038,7 @@
       "cannabisLegal": false,
       "gamblingLegal": true,
       "corruptionIndex": 28,
-      "pressFreedom": 52,
+      "pressFreedom": 54.67,
       "cryptoAdoption": 5.2
     },
     "economy": {
@@ -28005,8 +28122,9 @@
     },
     "poverty": {
       "povertyRate": 5.1,
-      "gdpPerCapita": 17802,
-      "hdi": 0.6051926612854
+      "gdpPerCapita": 11498,
+      "hdi": 0.6051926612854,
+      "gdpPerCapitaPPP": 20238
     },
     "gender": {
       "wblIndex": 95,
@@ -28122,7 +28240,7 @@
       "scientistsPerCapita": 345
     },
     "lifestyle": {
-      "happinessIndex": null,
+      "happinessIndex": 5.974,
       "workHoursWeek": null,
       "vacationDays": 30,
       "internetPenetration": null,
@@ -28150,7 +28268,7 @@
       "cannabisLegal": false,
       "gamblingLegal": true,
       "corruptionIndex": 36,
-      "pressFreedom": 55,
+      "pressFreedom": 37.86,
       "cryptoAdoption": 7.8
     },
     "economy": {
@@ -28234,8 +28352,9 @@
     },
     "poverty": {
       "povertyRate": null,
-      "gdpPerCapita": 11794,
-      "hdi": 0.51596212387085
+      "gdpPerCapita": 4360,
+      "hdi": 0.51596212387085,
+      "gdpPerCapitaPPP": 13642
     },
     "gender": {
       "wblIndex": 78.75,
@@ -28359,7 +28478,7 @@
       "scientistsPerCapita": 312
     },
     "lifestyle": {
-      "happinessIndex": null,
+      "happinessIndex": 6.206,
       "workHoursWeek": null,
       "vacationDays": 5,
       "internetPenetration": null,
@@ -28387,7 +28506,7 @@
       "cannabisLegal": false,
       "gamblingLegal": true,
       "corruptionIndex": 34,
-      "pressFreedom": 42,
+      "pressFreedom": 46.79,
       "cryptoAdoption": 13.8
     },
     "economy": {
@@ -28471,8 +28590,9 @@
     },
     "poverty": {
       "povertyRate": null,
-      "gdpPerCapita": 50378,
-      "hdi": 0.753088593482971
+      "gdpPerCapita": 31186,
+      "hdi": 0.753088593482971,
+      "gdpPerCapitaPPP": 60051
     },
     "gender": {
       "wblIndex": 93.75,
@@ -28608,7 +28728,7 @@
       "scientistsPerCapita": 2456
     },
     "lifestyle": {
-      "happinessIndex": 6.26,
+      "happinessIndex": 6.768,
       "workHoursWeek": 40.4,
       "vacationDays": 20,
       "internetPenetration": 90,
@@ -28636,7 +28756,7 @@
       "cannabisLegal": false,
       "gamblingLegal": true,
       "corruptionIndex": 54,
-      "pressFreedom": 58,
+      "pressFreedom": 75.52,
       "cryptoAdoption": 7.2
     },
     "economy": {
@@ -28720,8 +28840,9 @@
     },
     "poverty": {
       "povertyRate": null,
-      "gdpPerCapita": 50617,
-      "hdi": 0.768949568271637
+      "gdpPerCapita": 34815,
+      "hdi": 0.768949568271637,
+      "gdpPerCapitaPPP": 52980
     },
     "gender": {
       "wblIndex": 100,
@@ -28837,7 +28958,7 @@
       "scientistsPerCapita": 4512
     },
     "lifestyle": {
-      "happinessIndex": null,
+      "happinessIndex": 6.029,
       "workHoursWeek": null,
       "vacationDays": 22,
       "internetPenetration": null,
@@ -28865,7 +28986,7 @@
       "cannabisLegal": false,
       "gamblingLegal": true,
       "corruptionIndex": 61,
-      "pressFreedom": 82,
+      "pressFreedom": 83.71,
       "cryptoAdoption": 8.8
     },
     "economy": {
@@ -28950,8 +29071,9 @@
     },
     "poverty": {
       "povertyRate": null,
-      "gdpPerCapita": 126110,
-      "hdi": 0.637771606445313
+      "gdpPerCapita": 63634,
+      "hdi": 0.637771606445313,
+      "gdpPerCapitaPPP": 103804
     },
     "gender": {
       "wblIndex": 35.625,
@@ -29095,7 +29217,7 @@
       "cannabisLegal": false,
       "gamblingLegal": false,
       "corruptionIndex": 58,
-      "pressFreedom": 42,
+      "pressFreedom": 59.79,
       "cryptoAdoption": 8.8
     },
     "economy": {
@@ -29180,8 +29302,9 @@
     },
     "poverty": {
       "povertyRate": null,
-      "gdpPerCapita": 48712,
-      "hdi": 0.584187865257263
+      "gdpPerCapita": 24741,
+      "hdi": 0.584187865257263,
+      "gdpPerCapitaPPP": 49628
     },
     "gender": {
       "wblIndex": 90.625,
@@ -29297,7 +29420,7 @@
       "scientistsPerCapita": 1234
     },
     "lifestyle": {
-      "happinessIndex": null,
+      "happinessIndex": 6.629,
       "workHoursWeek": null,
       "vacationDays": 21,
       "internetPenetration": null,
@@ -29325,7 +29448,7 @@
       "cannabisLegal": false,
       "gamblingLegal": true,
       "corruptionIndex": 46,
-      "pressFreedom": 62,
+      "pressFreedom": 67.71,
       "cryptoAdoption": 7.8
     },
     "economy": {
@@ -29410,8 +29533,9 @@
     },
     "poverty": {
       "povertyRate": null,
-      "gdpPerCapita": 47405,
-      "hdi": 0.681419610977173
+      "gdpPerCapita": 19953,
+      "hdi": 0.681419610977173,
+      "gdpPerCapitaPPP": 52602
     },
     "gender": {
       "wblIndex": 73.125,
@@ -29547,7 +29671,7 @@
       "scientistsPerCapita": 3012
     },
     "lifestyle": {
-      "happinessIndex": 5.66,
+      "happinessIndex": 5.834,
       "workHoursWeek": 40,
       "vacationDays": 28,
       "internetPenetration": 85,
@@ -29575,7 +29699,7 @@
       "cannabisLegal": false,
       "gamblingLegal": false,
       "corruptionIndex": 26,
-      "pressFreedom": 18,
+      "pressFreedom": 23.15,
       "cryptoAdoption": 8.8
     },
     "economy": {
@@ -29660,8 +29784,9 @@
     },
     "poverty": {
       "povertyRate": null,
-      "gdpPerCapita": 3711,
-      "hdi": 0.379552751779556
+      "gdpPerCapita": 1290,
+      "hdi": 0.379552751779556,
+      "gdpPerCapitaPPP": 4652
     },
     "gender": {
       "wblIndex": 91.875,
@@ -29798,7 +29923,7 @@
       "englishProficiency": null
     },
     "lifestyle": {
-      "happinessIndex": 3.8,
+      "happinessIndex": null,
       "workHoursWeek": 46,
       "vacationDays": 20,
       "internetPenetration": 32,
@@ -29826,7 +29951,7 @@
       "cannabisLegal": false,
       "gamblingLegal": false,
       "corruptionIndex": 53,
-      "pressFreedom": 32,
+      "pressFreedom": 39.58,
       "cryptoAdoption": 4.2
     },
     "economy": {
@@ -29910,8 +30035,9 @@
     },
     "poverty": {
       "povertyRate": null,
-      "gdpPerCapita": 71243,
-      "hdi": 0.576390504837036
+      "gdpPerCapita": 36577,
+      "hdi": 0.576390504837036,
+      "gdpPerCapitaPPP": 74295
     },
     "gender": {
       "wblIndex": 71.25,
@@ -30047,7 +30173,7 @@
       "scientistsPerCapita": 1456
     },
     "lifestyle": {
-      "happinessIndex": 6.52,
+      "happinessIndex": 6.817,
       "workHoursWeek": 42,
       "vacationDays": 21,
       "internetPenetration": 99,
@@ -30075,7 +30201,7 @@
       "cannabisLegal": false,
       "gamblingLegal": false,
       "corruptionIndex": 52,
-      "pressFreedom": 22,
+      "pressFreedom": 19.11,
       "cryptoAdoption": 8.2
     },
     "economy": {
@@ -30159,8 +30285,9 @@
     },
     "poverty": {
       "povertyRate": null,
-      "gdpPerCapita": 5110,
-      "hdi": 0.420110791921616
+      "gdpPerCapita": null,
+      "hdi": 0.420110791921616,
+      "gdpPerCapitaPPP": null
     },
     "gender": {
       "wblIndex": 72.5,
@@ -30297,7 +30424,7 @@
       "englishProficiency": null
     },
     "lifestyle": {
-      "happinessIndex": 5,
+      "happinessIndex": 4.787,
       "workHoursWeek": 45,
       "vacationDays": 24,
       "internetPenetration": 58,
@@ -30325,7 +30452,7 @@
       "cannabisLegal": false,
       "gamblingLegal": true,
       "corruptionIndex": 43,
-      "pressFreedom": 62,
+      "pressFreedom": 58.11,
       "cryptoAdoption": 5.8
     },
     "economy": {
@@ -30410,8 +30537,9 @@
     },
     "poverty": {
       "povertyRate": null,
-      "gdpPerCapita": 31867,
-      "hdi": 0.676606357097626
+      "gdpPerCapita": 17126,
+      "hdi": 0.676606357097626,
+      "gdpPerCapitaPPP": 35186
     },
     "gender": {
       "wblIndex": 93.75,
@@ -30527,7 +30655,7 @@
       "englishProficiency": null
     },
     "lifestyle": {
-      "happinessIndex": null,
+      "happinessIndex": 6.691,
       "workHoursWeek": null,
       "vacationDays": 20,
       "internetPenetration": null,
@@ -30555,7 +30683,7 @@
       "cannabisLegal": false,
       "gamblingLegal": true,
       "corruptionIndex": 46,
-      "pressFreedom": 52,
+      "pressFreedom": 50.79,
       "cryptoAdoption": 6.8
     },
     "economy": {
@@ -30639,8 +30767,9 @@
     },
     "poverty": {
       "povertyRate": null,
-      "gdpPerCapita": 3516,
-      "hdi": 0.36270210146904
+      "gdpPerCapita": 946,
+      "hdi": 0.36270210146904,
+      "gdpPerCapitaPPP": 3933
     },
     "gender": {
       "wblIndex": 92.5,
@@ -30773,7 +30902,7 @@
       "englishProficiency": null
     },
     "lifestyle": {
-      "happinessIndex": 3.24,
+      "happinessIndex": 3.251,
       "workHoursWeek": 46,
       "vacationDays": 15,
       "internetPenetration": 17,
@@ -30801,7 +30930,7 @@
       "cannabisLegal": false,
       "gamblingLegal": true,
       "corruptionIndex": 34,
-      "pressFreedom": 52,
+      "pressFreedom": 57.06,
       "cryptoAdoption": 3.2
     },
     "economy": {
@@ -30888,8 +31017,9 @@
     },
     "poverty": {
       "povertyRate": null,
-      "gdpPerCapita": 150689,
-      "hdi": 0.879125714302063
+      "gdpPerCapita": 109117,
+      "hdi": 0.879125714302063,
+      "gdpPerCapitaPPP": 176927
     },
     "gender": {
       "wblIndex": 82.5,
@@ -31017,7 +31147,7 @@
       "scientistsPerCapita": 7234
     },
     "lifestyle": {
-      "happinessIndex": 6.52,
+      "happinessIndex": 6.585,
       "workHoursWeek": 42,
       "vacationDays": 7,
       "internetPenetration": 96,
@@ -31045,7 +31175,7 @@
       "cannabisLegal": false,
       "gamblingLegal": true,
       "corruptionIndex": 83,
-      "pressFreedom": 52,
+      "pressFreedom": 44.57,
       "cryptoAdoption": 18.8
     },
     "economy": {
@@ -31129,8 +31259,9 @@
     },
     "poverty": {
       "povertyRate": null,
-      "gdpPerCapita": 47181,
-      "hdi": 0.664987325668335
+      "gdpPerCapita": 30884,
+      "hdi": 0.664987325668335,
+      "gdpPerCapitaPPP": 49761
     },
     "gender": {
       "wblIndex": 87.5,
@@ -31246,7 +31377,7 @@
       "scientistsPerCapita": 2543
     },
     "lifestyle": {
-      "happinessIndex": null,
+      "happinessIndex": 6.255,
       "workHoursWeek": null,
       "vacationDays": 20,
       "internetPenetration": null,
@@ -31274,7 +31405,7 @@
       "cannabisLegal": false,
       "gamblingLegal": true,
       "corruptionIndex": 54,
-      "pressFreedom": 72,
+      "pressFreedom": 72.71,
       "cryptoAdoption": 6.8
     },
     "economy": {
@@ -31359,8 +31490,9 @@
     },
     "poverty": {
       "povertyRate": null,
-      "gdpPerCapita": 56531,
-      "hdi": 0.774986982345581
+      "gdpPerCapita": 41631,
+      "hdi": 0.774986982345581,
+      "gdpPerCapitaPPP": 62255
     },
     "gender": {
       "wblIndex": 96.875,
@@ -31476,7 +31608,7 @@
       "englishProficiency": null
     },
     "lifestyle": {
-      "happinessIndex": null,
+      "happinessIndex": 6.868,
       "workHoursWeek": null,
       "vacationDays": 20,
       "internetPenetration": null,
@@ -31504,7 +31636,7 @@
       "cannabisLegal": false,
       "gamblingLegal": true,
       "corruptionIndex": 56,
-      "pressFreedom": 78,
+      "pressFreedom": 72.88,
       "cryptoAdoption": 7.8
     },
     "economy": {
@@ -31587,8 +31719,9 @@
     },
     "poverty": {
       "povertyRate": null,
-      "gdpPerCapita": 1601,
-      "hdi": null
+      "gdpPerCapita": 850,
+      "hdi": null,
+      "gdpPerCapitaPPP": 1976
     },
     "gender": {
       "wblIndex": 46.875,
@@ -31721,7 +31854,7 @@
       "englishProficiency": null
     },
     "lifestyle": {
-      "happinessIndex": 4.86,
+      "happinessIndex": 4.508,
       "workHoursWeek": 46,
       "vacationDays": 10,
       "internetPenetration": 15,
@@ -31749,7 +31882,7 @@
       "cannabisLegal": false,
       "gamblingLegal": false,
       "corruptionIndex": 11,
-      "pressFreedom": 28,
+      "pressFreedom": 43.84,
       "cryptoAdoption": 3.8
     },
     "economy": {
@@ -31835,8 +31968,9 @@
     },
     "poverty": {
       "povertyRate": null,
-      "gdpPerCapita": 15457,
-      "hdi": 0.425453394651413
+      "gdpPerCapita": 7659,
+      "hdi": 0.425453394651413,
+      "gdpPerCapitaPPP": 16841
     },
     "gender": {
       "wblIndex": 88.125,
@@ -31972,7 +32106,7 @@
       "scientistsPerCapita": 567
     },
     "lifestyle": {
-      "happinessIndex": 4.87,
+      "happinessIndex": 5.009,
       "workHoursWeek": 43,
       "vacationDays": 15,
       "internetPenetration": 72,
@@ -32000,7 +32134,7 @@
       "cannabisLegal": false,
       "gamblingLegal": true,
       "corruptionIndex": 41,
-      "pressFreedom": 68,
+      "pressFreedom": 77.95,
       "cryptoAdoption": 9.8
     },
     "economy": {
@@ -32085,8 +32219,9 @@
     },
     "poverty": {
       "povertyRate": null,
-      "gdpPerCapita": null,
-      "hdi": 0.306520849466324
+      "gdpPerCapita": 642,
+      "hdi": 0.306520849466324,
+      "gdpPerCapitaPPP": 1582
     },
     "gender": {
       "wblIndex": 67.5,
@@ -32218,7 +32353,7 @@
       "englishProficiency": null
     },
     "lifestyle": {
-      "happinessIndex": 2.82,
+      "happinessIndex": null,
       "workHoursWeek": 46,
       "vacationDays": null,
       "internetPenetration": 8,
@@ -32246,7 +32381,7 @@
       "cannabisLegal": false,
       "gamblingLegal": false,
       "corruptionIndex": 13,
-      "pressFreedom": 18,
+      "pressFreedom": 46.16,
       "cryptoAdoption": 2.2
     },
     "economy": {
@@ -32331,8 +32466,9 @@
     },
     "poverty": {
       "povertyRate": null,
-      "gdpPerCapita": 56926,
-      "hdi": 0.728255033493042
+      "gdpPerCapita": 41756,
+      "hdi": 0.728255033493042,
+      "gdpPerCapitaPPP": 60106
     },
     "gender": {
       "wblIndex": 100,
@@ -32468,7 +32604,7 @@
       "scientistsPerCapita": 3234
     },
     "lifestyle": {
-      "happinessIndex": 6.32,
+      "happinessIndex": 6.54,
       "workHoursWeek": 37.8,
       "vacationDays": 22,
       "internetPenetration": 93.2,
@@ -32496,7 +32632,7 @@
       "cannabisLegal": false,
       "gamblingLegal": true,
       "corruptionIndex": 60,
-      "pressFreedom": 72,
+      "pressFreedom": 75.42,
       "cryptoAdoption": 9.8
     },
     "economy": {
@@ -32582,8 +32718,9 @@
     },
     "poverty": {
       "povertyRate": null,
-      "gdpPerCapita": 15633,
-      "hdi": 0.598324298858643
+      "gdpPerCapita": 5062,
+      "hdi": 0.598324298858643,
+      "gdpPerCapitaPPP": 18246
     },
     "gender": {
       "wblIndex": 65.625,
@@ -32699,7 +32836,7 @@
       "englishProficiency": null
     },
     "lifestyle": {
-      "happinessIndex": null,
+      "happinessIndex": 4.013,
       "workHoursWeek": null,
       "vacationDays": 14,
       "internetPenetration": null,
@@ -32727,7 +32864,7 @@
       "cannabisLegal": false,
       "gamblingLegal": false,
       "corruptionIndex": 34,
-      "pressFreedom": 42,
+      "pressFreedom": 40.77,
       "cryptoAdoption": 5.8
     },
     "economy": {
@@ -32812,8 +32949,9 @@
     },
     "poverty": {
       "povertyRate": null,
-      "gdpPerCapita": 2127,
-      "hdi": 0.377445191144943
+      "gdpPerCapita": 597,
+      "hdi": 0.377445191144943,
+      "gdpPerCapitaPPP": 2576
     },
     "gender": {
       "wblIndex": 32.5,
@@ -32945,7 +33083,7 @@
       "englishProficiency": null
     },
     "lifestyle": {
-      "happinessIndex": 4.52,
+      "happinessIndex": null,
       "workHoursWeek": 45,
       "vacationDays": 15,
       "internetPenetration": 31,
@@ -32973,7 +33111,7 @@
       "cannabisLegal": false,
       "gamblingLegal": false,
       "corruptionIndex": 22,
-      "pressFreedom": 22,
+      "pressFreedom": 29.02,
       "cryptoAdoption": 4.8
     },
     "economy": {
@@ -33059,8 +33197,9 @@
     },
     "poverty": {
       "povertyRate": null,
-      "gdpPerCapita": 22067,
-      "hdi": null
+      "gdpPerCapita": 8965,
+      "hdi": null,
+      "gdpPerCapitaPPP": 23697
     },
     "gender": {
       "wblIndex": 76.875,
@@ -33204,7 +33343,7 @@
       "cannabisLegal": false,
       "gamblingLegal": true,
       "corruptionIndex": 38,
-      "pressFreedom": 62,
+      "pressFreedom": 73.2,
       "cryptoAdoption": 4.2
     },
     "economy": {
@@ -33289,8 +33428,9 @@
     },
     "poverty": {
       "povertyRate": null,
-      "gdpPerCapita": 71030,
-      "hdi": 0.79535710811615
+      "gdpPerCapita": 69244,
+      "hdi": 0.79535710811615,
+      "gdpPerCapitaPPP": 78476
     },
     "gender": {
       "wblIndex": 100,
@@ -33426,7 +33566,7 @@
       "scientistsPerCapita": 7234
     },
     "lifestyle": {
-      "happinessIndex": 7.36,
+      "happinessIndex": 7.255,
       "workHoursWeek": 31,
       "vacationDays": 25,
       "internetPenetration": 98,
@@ -33454,7 +33594,7 @@
       "cannabisLegal": false,
       "gamblingLegal": true,
       "corruptionIndex": 82,
-      "pressFreedom": 88,
+      "pressFreedom": 87.61,
       "cryptoAdoption": 11.2
     },
     "economy": {
@@ -33539,8 +33679,9 @@
     },
     "poverty": {
       "povertyRate": null,
-      "gdpPerCapita": 93819,
-      "hdi": 0.756115138530731
+      "gdpPerCapita": 124478,
+      "hdi": 0.756115138530731,
+      "gdpPerCapitaPPP": 106944
     },
     "gender": {
       "wblIndex": 88.125,
@@ -33676,7 +33817,7 @@
       "englishProficiency": null
     },
     "lifestyle": {
-      "happinessIndex": 7.24,
+      "happinessIndex": 7.018,
       "workHoursWeek": 34.5,
       "vacationDays": 20,
       "internetPenetration": 96,
@@ -33704,7 +33845,7 @@
       "cannabisLegal": true,
       "gamblingLegal": true,
       "corruptionIndex": 82,
-      "pressFreedom": 82,
+      "pressFreedom": 84.83,
       "cryptoAdoption": 18.8
     },
     "economy": {
@@ -33789,7 +33930,8 @@
     "poverty": {
       "povertyRate": null,
       "gdpPerCapita": null,
-      "hdi": null
+      "hdi": null,
+      "gdpPerCapitaPPP": null
     },
     "gender": {
       "wblIndex": 40,
@@ -33934,7 +34076,7 @@
       "cannabisLegal": false,
       "gamblingLegal": false,
       "corruptionIndex": 13,
-      "pressFreedom": 12,
+      "pressFreedom": 39.44,
       "cryptoAdoption": 2.8
     },
     "economy": {
@@ -34020,8 +34162,9 @@
     },
     "poverty": {
       "povertyRate": null,
-      "gdpPerCapita": null,
-      "hdi": null
+      "gdpPerCapita": 43951,
+      "hdi": null,
+      "gdpPerCapitaPPP": 103743
     },
     "gender": {
       "wblIndex": null,
@@ -34137,7 +34280,7 @@
       "scientistsPerCapita": 6234
     },
     "lifestyle": {
-      "happinessIndex": null,
+      "happinessIndex": 6.714,
       "workHoursWeek": null,
       "vacationDays": 7,
       "internetPenetration": null,
@@ -34165,7 +34308,7 @@
       "cannabisLegal": false,
       "gamblingLegal": true,
       "corruptionIndex": 67,
-      "pressFreedom": 78,
+      "pressFreedom": 75.44,
       "cryptoAdoption": 12.8
     },
     "economy": {
@@ -34249,8 +34392,9 @@
     },
     "poverty": {
       "povertyRate": 6.1,
-      "gdpPerCapita": 5406,
-      "hdi": 0.504116356372833
+      "gdpPerCapita": 2005,
+      "hdi": 0.504116356372833,
+      "gdpPerCapitaPPP": 6727
     },
     "gender": {
       "wblIndex": 78.75,
@@ -34367,7 +34511,7 @@
       "englishProficiency": null
     },
     "lifestyle": {
-      "happinessIndex": null,
+      "happinessIndex": 5.591,
       "workHoursWeek": null,
       "vacationDays": 24,
       "internetPenetration": null,
@@ -34395,7 +34539,7 @@
       "cannabisLegal": false,
       "gamblingLegal": false,
       "corruptionIndex": 20,
-      "pressFreedom": 18,
+      "pressFreedom": 32.22,
       "cryptoAdoption": 3.2
     },
     "economy": {
@@ -34480,8 +34624,9 @@
     },
     "poverty": {
       "povertyRate": null,
-      "gdpPerCapita": 4221,
-      "hdi": 0.389834702014923
+      "gdpPerCapita": 1325,
+      "hdi": 0.389834702014923,
+      "gdpPerCapitaPPP": 4447
     },
     "gender": {
       "wblIndex": 81.25,
@@ -34618,7 +34763,7 @@
       "englishProficiency": null
     },
     "lifestyle": {
-      "happinessIndex": 3.7,
+      "happinessIndex": 3.902,
       "workHoursWeek": 46,
       "vacationDays": 28,
       "internetPenetration": 32,
@@ -34646,7 +34791,7 @@
       "cannabisLegal": false,
       "gamblingLegal": true,
       "corruptionIndex": 40,
-      "pressFreedom": 42,
+      "pressFreedom": 46.22,
       "cryptoAdoption": 6.8
     },
     "economy": {
@@ -34731,8 +34876,9 @@
     },
     "poverty": {
       "povertyRate": null,
-      "gdpPerCapita": 24708,
-      "hdi": 0.609310984611511
+      "gdpPerCapita": 8372,
+      "hdi": 0.609310984611511,
+      "gdpPerCapitaPPP": 27724
     },
     "gender": {
       "wblIndex": 78.125,
@@ -34852,7 +34998,7 @@
       "scientistsPerCapita": 987
     },
     "lifestyle": {
-      "happinessIndex": null,
+      "happinessIndex": 6.296,
       "workHoursWeek": null,
       "vacationDays": 6,
       "internetPenetration": null,
@@ -34880,7 +35026,7 @@
       "cannabisLegal": true,
       "gamblingLegal": false,
       "corruptionIndex": 35,
-      "pressFreedom": 42,
+      "pressFreedom": 53.97,
       "cryptoAdoption": 14.8
     },
     "economy": {
@@ -34964,8 +35110,9 @@
     },
     "poverty": {
       "povertyRate": null,
-      "gdpPerCapita": 4758,
-      "hdi": 0.454314529895783
+      "gdpPerCapita": 1520,
+      "hdi": 0.454314529895783,
+      "gdpPerCapitaPPP": 5288
     },
     "gender": {
       "wblIndex": 86.25,
@@ -35110,7 +35257,7 @@
       "cannabisLegal": false,
       "gamblingLegal": false,
       "corruptionIndex": 42,
-      "pressFreedom": 62,
+      "pressFreedom": 75.29,
       "cryptoAdoption": 2.8
     },
     "economy": {
@@ -35196,8 +35343,9 @@
     },
     "poverty": {
       "povertyRate": null,
-      "gdpPerCapita": 3239,
-      "hdi": 0.431868046522141
+      "gdpPerCapita": 1480,
+      "hdi": 0.431868046522141,
+      "gdpPerCapitaPPP": 4275
     },
     "gender": {
       "wblIndex": 97.5,
@@ -35330,7 +35478,7 @@
       "englishProficiency": null
     },
     "lifestyle": {
-      "happinessIndex": 4.11,
+      "happinessIndex": 4.277,
       "workHoursWeek": 45,
       "vacationDays": 26,
       "internetPenetration": 35,
@@ -35358,7 +35506,7 @@
       "cannabisLegal": false,
       "gamblingLegal": true,
       "corruptionIndex": 30,
-      "pressFreedom": 48,
+      "pressFreedom": 52.56,
       "cryptoAdoption": 4.2
     },
     "economy": {
@@ -35444,8 +35592,9 @@
     },
     "poverty": {
       "povertyRate": null,
-      "gdpPerCapita": 36021,
-      "hdi": 0.603487730026245
+      "gdpPerCapita": 18603,
+      "hdi": 0.603487730026245,
+      "gdpPerCapitaPPP": 36688
     },
     "gender": {
       "wblIndex": 75,
@@ -35562,7 +35711,7 @@
       "englishProficiency": null
     },
     "lifestyle": {
-      "happinessIndex": null,
+      "happinessIndex": 5.905,
       "workHoursWeek": null,
       "vacationDays": 14,
       "internetPenetration": null,
@@ -35590,7 +35739,7 @@
       "cannabisLegal": false,
       "gamblingLegal": true,
       "corruptionIndex": 42,
-      "pressFreedom": 68,
+      "pressFreedom": 74.7,
       "cryptoAdoption": 6.8
     },
     "economy": {
@@ -35674,8 +35823,9 @@
     },
     "poverty": {
       "povertyRate": null,
-      "gdpPerCapita": 14451,
-      "hdi": 0.516809940338135
+      "gdpPerCapita": 5053,
+      "hdi": 0.516809940338135,
+      "gdpPerCapitaPPP": 16022
     },
     "gender": {
       "wblIndex": 64.375,
@@ -35812,7 +35962,7 @@
       "englishProficiency": null
     },
     "lifestyle": {
-      "happinessIndex": 4.59,
+      "happinessIndex": 4.798,
       "workHoursWeek": 42,
       "vacationDays": 12,
       "internetPenetration": 78,
@@ -35840,7 +35990,7 @@
       "cannabisLegal": false,
       "gamblingLegal": false,
       "corruptionIndex": 40,
-      "pressFreedom": 52,
+      "pressFreedom": 40.43,
       "cryptoAdoption": 5.2
     },
     "economy": {
@@ -35924,8 +36074,9 @@
     },
     "poverty": {
       "povertyRate": null,
-      "gdpPerCapita": 43932,
-      "hdi": 0.649261832237244
+      "gdpPerCapita": 21079,
+      "hdi": 0.649261832237244,
+      "gdpPerCapitaPPP": 46679
     },
     "gender": {
       "wblIndex": 82.5,
@@ -36061,7 +36212,7 @@
       "scientistsPerCapita": 1456
     },
     "lifestyle": {
-      "happinessIndex": 4.95,
+      "happinessIndex": 5.3,
       "workHoursWeek": 46.4,
       "vacationDays": 14,
       "internetPenetration": 83,
@@ -36089,7 +36240,7 @@
       "cannabisLegal": false,
       "gamblingLegal": false,
       "corruptionIndex": 34,
-      "pressFreedom": 28,
+      "pressFreedom": 27.94,
       "cryptoAdoption": 18.8
     },
     "economy": {
@@ -36173,8 +36324,9 @@
     },
     "poverty": {
       "povertyRate": null,
-      "gdpPerCapita": 20408,
-      "hdi": null
+      "gdpPerCapita": 12291,
+      "hdi": null,
+      "gdpPerCapitaPPP": 24401
     },
     "gender": {
       "wblIndex": null,
@@ -36319,7 +36471,7 @@
       "cannabisLegal": false,
       "gamblingLegal": false,
       "corruptionIndex": 18,
-      "pressFreedom": 8,
+      "pressFreedom": 23.06,
       "cryptoAdoption": 1.8
     },
     "economy": {
@@ -36404,8 +36556,9 @@
     },
     "poverty": {
       "povertyRate": null,
-      "gdpPerCapita": 3276,
-      "hdi": 0.384176582098007
+      "gdpPerCapita": 1453,
+      "hdi": 0.384176582098007,
+      "gdpPerCapitaPPP": 4158
     },
     "gender": {
       "wblIndex": 83.75,
@@ -36542,7 +36695,7 @@
       "englishProficiency": null
     },
     "lifestyle": {
-      "happinessIndex": 4.43,
+      "happinessIndex": 4.491,
       "workHoursWeek": 46,
       "vacationDays": 21,
       "internetPenetration": 26,
@@ -36570,7 +36723,7 @@
       "cannabisLegal": false,
       "gamblingLegal": true,
       "corruptionIndex": 26,
-      "pressFreedom": 42,
+      "pressFreedom": 41.98,
       "cryptoAdoption": 8.8
     },
     "economy": {
@@ -36655,8 +36808,9 @@
     },
     "poverty": {
       "povertyRate": null,
-      "gdpPerCapita": 18550,
-      "hdi": 0.631387114524841
+      "gdpPerCapita": 7075,
+      "hdi": 0.631387114524841,
+      "gdpPerCapitaPPP": 22229
     },
     "gender": {
       "wblIndex": 85,
@@ -36780,7 +36934,7 @@
       "englishProficiency": null
     },
     "lifestyle": {
-      "happinessIndex": null,
+      "happinessIndex": 4.658,
       "workHoursWeek": null,
       "vacationDays": 24,
       "internetPenetration": null,
@@ -36808,7 +36962,7 @@
       "cannabisLegal": false,
       "gamblingLegal": true,
       "corruptionIndex": 36,
-      "pressFreedom": 55,
+      "pressFreedom": 66.1,
       "cryptoAdoption": 12.8
     },
     "economy": {
@@ -36892,8 +37046,9 @@
     },
     "poverty": {
       "povertyRate": null,
-      "gdpPerCapita": 77959,
-      "hdi": 0.673011898994446
+      "gdpPerCapita": 57109,
+      "hdi": 0.673011898994446,
+      "gdpPerCapitaPPP": 83704
     },
     "gender": {
       "wblIndex": 82.5,
@@ -37009,7 +37164,7 @@
       "scientistsPerCapita": 2234
     },
     "lifestyle": {
-      "happinessIndex": null,
+      "happinessIndex": 6.821,
       "workHoursWeek": null,
       "vacationDays": 30,
       "internetPenetration": null,
@@ -37037,7 +37192,7 @@
       "cannabisLegal": false,
       "gamblingLegal": false,
       "corruptionIndex": 68,
-      "pressFreedom": 38,
+      "pressFreedom": 30.86,
       "cryptoAdoption": 22.8
     },
     "economy": {
@@ -37122,8 +37277,9 @@
     },
     "poverty": {
       "povertyRate": null,
-      "gdpPerCapita": 60620,
-      "hdi": 0.782942950725555
+      "gdpPerCapita": 61108,
+      "hdi": 0.782942950725555,
+      "gdpPerCapitaPPP": 68476
     },
     "gender": {
       "wblIndex": 97.5,
@@ -37259,7 +37415,7 @@
       "englishProficiency": null
     },
     "lifestyle": {
-      "happinessIndex": 6.8,
+      "happinessIndex": 6.694,
       "workHoursWeek": 36.6,
       "vacationDays": 28,
       "internetPenetration": 97,
@@ -37287,7 +37443,7 @@
       "cannabisLegal": false,
       "gamblingLegal": true,
       "corruptionIndex": 71,
-      "pressFreedom": 78,
+      "pressFreedom": 79.45,
       "cryptoAdoption": 14.8
     },
     "economy": {
@@ -37373,8 +37529,9 @@
     },
     "poverty": {
       "povertyRate": null,
-      "gdpPerCapita": 85810,
-      "hdi": 0.701764345169067
+      "gdpPerCapita": 95212,
+      "hdi": 0.701764345169067,
+      "gdpPerCapitaPPP": 95212
     },
     "gender": {
       "wblIndex": 91.25,
@@ -37510,7 +37667,7 @@
       "englishProficiency": null
     },
     "lifestyle": {
-      "happinessIndex": 6.89,
+      "happinessIndex": 6.816,
       "workHoursWeek": 38.7,
       "vacationDays": 10,
       "internetPenetration": 92,
@@ -37538,7 +37695,7 @@
       "cannabisLegal": false,
       "gamblingLegal": true,
       "corruptionIndex": 69,
-      "pressFreedom": 71,
+      "pressFreedom": 62.61,
       "cryptoAdoption": 16.8
     },
     "economy": {
@@ -37622,8 +37779,9 @@
     },
     "poverty": {
       "povertyRate": 0.2,
-      "gdpPerCapita": 36418,
-      "hdi": 0.59876024723053
+      "gdpPerCapita": 27339,
+      "hdi": 0.59876024723053,
+      "gdpPerCapitaPPP": 39008
     },
     "gender": {
       "wblIndex": 88.75,
@@ -37739,7 +37897,7 @@
       "englishProficiency": null
     },
     "lifestyle": {
-      "happinessIndex": null,
+      "happinessIndex": 6.635,
       "workHoursWeek": null,
       "vacationDays": 20,
       "internetPenetration": null,
@@ -37767,7 +37925,7 @@
       "cannabisLegal": true,
       "gamblingLegal": true,
       "corruptionIndex": 74,
-      "pressFreedom": 82,
+      "pressFreedom": 68.72,
       "cryptoAdoption": 8.2
     },
     "economy": {
@@ -37851,8 +38009,9 @@
     },
     "poverty": {
       "povertyRate": 2.7,
-      "gdpPerCapita": 11879,
-      "hdi": 0.622805714607239
+      "gdpPerCapita": 4575,
+      "hdi": 0.622805714607239,
+      "gdpPerCapitaPPP": 14421
     },
     "gender": {
       "wblIndex": 82.5,
@@ -37969,7 +38128,7 @@
       "englishProficiency": null
     },
     "lifestyle": {
-      "happinessIndex": null,
+      "happinessIndex": 6.283,
       "workHoursWeek": null,
       "vacationDays": 15,
       "internetPenetration": null,
@@ -37997,7 +38156,7 @@
       "cannabisLegal": false,
       "gamblingLegal": false,
       "corruptionIndex": 31,
-      "pressFreedom": 22,
+      "pressFreedom": 34.95,
       "cryptoAdoption": 4.8
     },
     "economy": {
@@ -38081,8 +38240,9 @@
     },
     "poverty": {
       "povertyRate": null,
-      "gdpPerCapita": null,
-      "hdi": null
+      "gdpPerCapita": 4355,
+      "hdi": null,
+      "gdpPerCapitaPPP": 9902
     },
     "gender": {
       "wblIndex": 85,
@@ -38198,7 +38358,7 @@
       "englishProficiency": null
     },
     "lifestyle": {
-      "happinessIndex": null,
+      "happinessIndex": 5.756,
       "workHoursWeek": null,
       "vacationDays": 15,
       "internetPenetration": null,
@@ -38226,7 +38386,7 @@
       "cannabisLegal": false,
       "gamblingLegal": true,
       "corruptionIndex": 13,
-      "pressFreedom": 22,
+      "pressFreedom": 30.48,
       "cryptoAdoption": 12.8
     },
     "economy": {
@@ -38312,8 +38472,9 @@
     },
     "poverty": {
       "povertyRate": null,
-      "gdpPerCapita": 16386,
-      "hdi": 0.689964532852173
+      "gdpPerCapita": 5259,
+      "hdi": 0.689964532852173,
+      "gdpPerCapitaPPP": 19974
     },
     "gender": {
       "wblIndex": 88.125,
@@ -38437,7 +38598,7 @@
       "scientistsPerCapita": 678
     },
     "lifestyle": {
-      "happinessIndex": null,
+      "happinessIndex": 6.428,
       "workHoursWeek": null,
       "vacationDays": 12,
       "internetPenetration": null,
@@ -38465,7 +38626,7 @@
       "cannabisLegal": false,
       "gamblingLegal": false,
       "corruptionIndex": 41,
-      "pressFreedom": 18,
+      "pressFreedom": 21.15,
       "cryptoAdoption": 18.8
     },
     "economy": {
@@ -38548,8 +38709,9 @@
     },
     "poverty": {
       "povertyRate": null,
-      "gdpPerCapita": null,
-      "hdi": 0.372784405946732
+      "gdpPerCapita": 567,
+      "hdi": 0.372784405946732,
+      "gdpPerCapitaPPP": 1571
     },
     "gender": {
       "wblIndex": 26.875,
@@ -38666,7 +38828,7 @@
       "englishProficiency": null
     },
     "lifestyle": {
-      "happinessIndex": null,
+      "happinessIndex": 3.532,
       "workHoursWeek": null,
       "vacationDays": 15,
       "internetPenetration": null,
@@ -38694,7 +38856,7 @@
       "cannabisLegal": false,
       "gamblingLegal": false,
       "corruptionIndex": 16,
-      "pressFreedom": 18,
+      "pressFreedom": 27.89,
       "cryptoAdoption": 2.8
     },
     "economy": {
@@ -38779,8 +38941,9 @@
     },
     "poverty": {
       "povertyRate": null,
-      "gdpPerCapita": 4224,
-      "hdi": 0.396927535533905
+      "gdpPerCapita": 1882,
+      "hdi": 0.396927535533905,
+      "gdpPerCapitaPPP": 4650
     },
     "gender": {
       "wblIndex": 81.25,
@@ -38916,7 +39079,7 @@
       "englishProficiency": null
     },
     "lifestyle": {
-      "happinessIndex": 3.76,
+      "happinessIndex": 4.106,
       "workHoursWeek": 45,
       "vacationDays": 24,
       "internetPenetration": 27,
@@ -38944,7 +39107,7 @@
       "cannabisLegal": false,
       "gamblingLegal": true,
       "corruptionIndex": 33,
-      "pressFreedom": 52,
+      "pressFreedom": 58.58,
       "cryptoAdoption": 5.8
     },
     "economy": {
@@ -39029,8 +39192,9 @@
     },
     "poverty": {
       "povertyRate": null,
-      "gdpPerCapita": 3922,
-      "hdi": 0.46689310669899
+      "gdpPerCapita": 3718,
+      "hdi": 0.46689310669899,
+      "gdpPerCapitaPPP": 8499
     },
     "gender": {
       "wblIndex": 86.875,
@@ -39167,7 +39331,7 @@
       "englishProficiency": null
     },
     "lifestyle": {
-      "happinessIndex": 3.09,
+      "happinessIndex": 3.346,
       "workHoursWeek": 45,
       "vacationDays": 22,
       "internetPenetration": 35,
@@ -39195,7 +39359,7 @@
       "cannabisLegal": false,
       "gamblingLegal": true,
       "corruptionIndex": 23,
-      "pressFreedom": 28,
+      "pressFreedom": 44.37,
       "cryptoAdoption": 6.8
     },
     "economy": {

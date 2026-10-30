@@ -65,7 +65,7 @@ export const VARIABLES: Record<ColorVariable, VariableConfig> = {
     type: 'numeric',
     domain: [0, 100],
     colorScheme: 'interpolateBlues',
-    format: (v) => v !== null ? `${Math.round(v as number)}/100` : 'N/A',
+    format: (v) => v !== null ? `${(v as number).toFixed(2)}/100` : 'N/A',
     higherIsBetter: true,
   },
   'freedom.cryptoAdoption': {
@@ -84,12 +84,23 @@ export const VARIABLES: Record<ColorVariable, VariableConfig> = {
   'poverty.gdpPerCapita': {
     id: 'poverty.gdpPerCapita',
     name: 'GDP per Capita',
-    description: 'GDP per capita in USD (PPP)',
+    description: 'GDP per capita, current US dollars (nominal, IMF WEO)',
     category: 'economy',
     type: 'numeric',
     domain: [0, 100000],
     colorScheme: 'interpolateGreens',
     format: (v) => v !== null ? `$${(v as number).toLocaleString()}` : 'N/A',
+    higherIsBetter: true,
+  },
+  'poverty.gdpPerCapitaPPP': {
+    id: 'poverty.gdpPerCapitaPPP',
+    name: 'GDP per Capita (PPP)',
+    description: 'GDP per capita, current international dollars (PPP, IMF WEO)',
+    category: 'economy',
+    type: 'numeric',
+    domain: [0, 120000],
+    colorScheme: 'interpolateGreens',
+    format: (v) => v !== null ? `Int$${(v as number).toLocaleString()}` : 'N/A',
     higherIsBetter: true,
   },
   'poverty.hdi': {

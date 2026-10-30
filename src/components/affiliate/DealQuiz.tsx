@@ -38,6 +38,18 @@ const TRAVEL: Theme = {
   picks: TRAVEL_PICKS,
 }
 
+const HAPPINESS: Theme = {
+  key: 'happiness',
+  title: 'World happiness quiz',
+  questions: [
+    { q: 'Which country ranks #1 in the World Happiness Report 2026?', options: ['Denmark', 'Finland', 'Switzerland', 'Norway'], answer: 1, fact: 'Finland tops WHR 2026 with a life evaluation of 7.764.' },
+    { q: 'Whose survey data are the World Happiness Report rankings based on?', options: ['The OECD', 'The Gallup World Poll', 'The UN census', 'Eurostat'], answer: 1, fact: 'Rankings use Gallup World Poll life evaluations (3-year averages).' },
+    { q: 'On what scale do respondents rate their lives (the Cantril ladder)?', options: ['1–5', '0–10', '0–100', '1–7'], answer: 1, fact: 'The Cantril ladder runs from 0 (worst possible life) to 10 (best).' },
+    { q: 'Which Latin American country ranks in the top 5 of WHR 2026?', options: ['Mexico', 'Brazil', 'Costa Rica', 'Chile'], answer: 2, fact: 'Costa Rica is #4 in WHR 2026 (7.439).' },
+  ],
+  picks: GENERAL_PICKS,
+}
+
 const GENERAL: Theme = {
   key: 'world',
   title: 'World facts quiz',
@@ -50,9 +62,11 @@ const GENERAL: Theme = {
 }
 
 const PRESS_RE = /press|freedom|censor|internet|surveillance|privacy|democra|corruption/i
-const TRAVEL_RE = /passport|visa|touris|travel|safety|happiness|cost of living|climate/i
+const HAPPY_RE = /happiness|happy|wellbeing|life satisfaction/i
+const TRAVEL_RE = /passport|visa|touris|travel|safety|cost of living|climate/i
 
 function pickTheme(ctx: string): Theme {
+  if (HAPPY_RE.test(ctx)) return HAPPINESS
   if (PRESS_RE.test(ctx)) return PRESS
   if (TRAVEL_RE.test(ctx)) return TRAVEL
   return GENERAL
