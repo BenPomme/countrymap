@@ -32,6 +32,13 @@ jobs:
 
       - name: Build
         run: npm run build
+        # Optional monetization config. Set as repo Variables (preferred) or
+        # Secrets in Settings > Secrets and variables > Actions. Empty = feature off.
+        env:
+          NEXT_PUBLIC_AMAZON_ASSOCIATE_TAG: ${{ vars.NEXT_PUBLIC_AMAZON_ASSOCIATE_TAG || secrets.NEXT_PUBLIC_AMAZON_ASSOCIATE_TAG }}
+          NEXT_PUBLIC_AMAZON_DOMAIN: ${{ vars.NEXT_PUBLIC_AMAZON_DOMAIN || secrets.NEXT_PUBLIC_AMAZON_DOMAIN }}
+          NEXT_PUBLIC_BOOKING_AID: ${{ vars.NEXT_PUBLIC_BOOKING_AID || secrets.NEXT_PUBLIC_BOOKING_AID }}
+          NEXT_PUBLIC_VPN_AFFILIATE_URL: ${{ vars.NEXT_PUBLIC_VPN_AFFILIATE_URL || secrets.NEXT_PUBLIC_VPN_AFFILIATE_URL }}
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
