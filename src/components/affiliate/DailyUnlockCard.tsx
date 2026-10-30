@@ -34,7 +34,7 @@ export default function DailyUnlockCard({ game, date, perfect, cta }: Props) {
     return (
       <div className="w-full max-w-sm mx-auto rounded-2xl border-2 border-emerald-400 bg-emerald-50 p-4 text-left">
         <p className="font-bold text-emerald-900">🔓 Unlocked: today&apos;s exclusive code</p>
-        <p className="mt-1 text-sm text-emerald-900">{T.perfectStoreLine}</p>
+        <p className="mt-1 text-sm text-emerald-900">{T.perfectStoreLine(STORE_CODE)}</p>
         <div className="mt-3 rounded-xl bg-white border-2 border-dashed border-emerald-400 p-3 text-center">
           <p className="font-mono text-3xl font-extrabold tracking-widest text-gray-900 select-all">{STORE_CODE}</p>
           <div className="mt-2 flex gap-2 justify-center">

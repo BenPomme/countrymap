@@ -10,7 +10,7 @@ export const MONETIZE_COPY = {
     extraAttemptSuccess: "You're all set — your Extra Attempt is ready. You can play again now.", // ea-16
     truthCodeGift: (code: string) => `Share a little truth with a friend — hand them your Truth Code ${code} for a free Extra Attempt — paste it at checkout.`, // tc-13 (rewritten)
     truthCodeGiftAlt: (code: string) => `Share a Truth Code with a friend — send them ${code} for a free Extra Attempt — paste it at checkout. They can play at theworldtruth.com/truthle.`, // tc-03 (rewritten)
-    perfectStoreLine: "Perfect 5/5 — nicely done. If you'd like, TRUTHLE10 gets you 10% off at Lien & Cie whenever it suits you.", // t10-04 + 10% off
+    perfectStoreLine: (code: string) => `Perfect 5/5 — nicely done. If you'd like, ${code} gets you 10% off at Lien & Cie whenever it suits you.`, // t10-04 + 10% off
     adCaptions: [
       'Between rounds, take a breath and look closer — every puzzle on theworldtruth.com is built to make you question what you think you know.', // ad-01
       'Streak over — a good moment to see how the next question treats you.', // ad-02
@@ -28,7 +28,7 @@ export const MONETIZE_COPY = {
     extraAttemptSuccess: "C'est bon, votre tentative supplémentaire est prête. Vous pouvez rejouer quand vous voulez.", // ea-36
     truthCodeGift: (code: string) => `Partagez ce code Truthle avec un ami : ${code}. Il pourra obtenir une tentative supplémentaire gratuite (à coller au paiement) — un petit geste pour jouer ensemble sur theworldtruth.com/truthle.`, // tc-15 (rewritten)
     truthCodeGiftAlt: (code: string) => `Un petit cadeau à partager : mon code Truthle ${code} permet à un ami d'obtenir une tentative supplémentaire gratuite (à coller au paiement). Essayez-le ensemble sur theworldtruth.com/truthle.`, // tc-17 (rewritten)
-    perfectStoreLine: 'Sans-faute, 5/5 ! Et si le cœur vous en dit, le code promo TRUTHLE10 vous offre 10 % de réduction chez Lien & Cie.', // t10-12 (dup cut, 10% explicit)
+    perfectStoreLine: (code: string) => `Sans-faute, 5/5 ! Et si le cœur vous en dit, le code promo ${code} vous offre 10 % de réduction chez Lien & Cie.`, // t10-12 (dup cut, 10% explicit)
     adCaptions: [
       'Suivez les indices à votre rythme et voyez où mène votre curiosité.', // ad-15 ("par la carte" removed for game context)
     ],
