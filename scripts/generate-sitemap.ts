@@ -6,6 +6,7 @@ import * as path from 'path'
 import { VARIABLES } from '../src/lib/constants/variables'
 import '../src/lib/constants/extraVariables'
 import { variableSlug, countrySlug } from '../src/lib/seo/slugs'
+import { getAllClaims } from '../src/lib/seo/claims'
 import { mergeOverlay } from '../src/lib/data/mergeOverlay'
 
 interface Country {
@@ -44,7 +45,12 @@ const statPages = Object.values(VARIABLES).map((config) => ({
 }))
 // /embed/{slug}/ widgets are intentionally omitted (noindex iframe copies).
 
-const allPages = [...staticPages, ...statPages, ...countryPages]
+const claimPages = [
+  { loc: '/true-false/claims/', changefreq: 'weekly', priority: '0.8' },
+  ...getAllClaims().map((c) => ({ loc: `/true-false/claims/${c.slug}/`, changefreq: 'monthly', priority: '0.6' })),
+]
+
+const allPages = [...staticPages, ...statPages, ...countryPages, ...claimPages]
 
 const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
@@ -67,3 +73,4 @@ console.log(`Sitemap generated with ${allPages.length} URLs`)
 console.log(`   - ${staticPages.length} static pages`)
 console.log(`   - ${statPages.length} statistic pages`)
 console.log(`   - ${countryPages.length} country pages`)
+console.log(`   - ${claimPages.length} true/false claim pages`)
