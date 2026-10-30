@@ -21,7 +21,8 @@ export interface CrimeData {
 
 export interface PovertyData {
   povertyRate: number | null // % below $2.15/day
-  gdpPerCapita: number | null // USD
+  gdpPerCapita: number | null // nominal current USD (IMF NGDPDPC)
+  gdpPerCapitaPPP?: number | null // current international $ PPP (IMF PPPPC)
   hdi: number | null // Human Development Index 0-1
 }
 
