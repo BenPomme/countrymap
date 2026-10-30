@@ -21,7 +21,7 @@ export default function AdSidebar({
   const height = size === 'square' ? 250 : 600
 
   return (
-    <div className={`flex justify-center ${className}`} style={{ minHeight: height }}>
+    <div className={`flex justify-center ${className}`} >
       <AdUnit
         slotId={slotId}
         format={size === 'square' ? 'rectangle' : 'vertical'}
@@ -29,7 +29,7 @@ export default function AdSidebar({
         style={{
           display: 'block',
           width: 300,
-          height: height,
+          maxHeight: height,
         }}
       />
     </div>
