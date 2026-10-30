@@ -34,6 +34,25 @@ const RETRY_ENTITLEMENT_LIMIT_PER_DAY = 1;
 // Set with: firebase functions:config:set admob.ssv_secret="YOUR_SECRET"
 const ADMOB_SSV_SECRET = functions.config().admob?.ssv_secret || '';
 
+// Stripe (paid Truthle retries). Never hardcode keys. Set with:
+//   firebase functions:config:set stripe.secret="sk_live_..." stripe.webhook_secret="whsec_..." stripe.price_id="price_..."
+// (process.env fallbacks STRIPE_SECRET_KEY / STRIPE_WEBHOOK_SECRET / STRIPE_PRICE_ID for emulator/tests)
+const STRIPE_CFG = functions.config().stripe || {};
+const STRIPE_SECRET_KEY = STRIPE_CFG.secret || process.env.STRIPE_SECRET_KEY || '';
+const STRIPE_WEBHOOK_SECRET = STRIPE_CFG.webhook_secret || process.env.STRIPE_WEBHOOK_SECRET || '';
+const STRIPE_PRICE_ID = STRIPE_CFG.price_id || process.env.STRIPE_PRICE_ID || '';
+const SITE_URL = STRIPE_CFG.site_url || process.env.SITE_URL || 'https://theworldtruth.com';
+const PAID_RETRIES_PER_UNIT = 1; // 1 purchased unit = 1 extra full Truthle run
+const MAX_RETRY_QUANTITY = 10;
+let stripeClient = null;
+function getStripe() {
+  if (!STRIPE_SECRET_KEY) {
+    throw new functions.https.HttpsError('failed-precondition', 'Payments are not configured yet');
+  }
+  if (!stripeClient) stripeClient = require('stripe')(STRIPE_SECRET_KEY);
+  return stripeClient;
+}
+
 /**
  * Verify Offertoro signature
  * sig = md5(user_id + oid + secret_key)
@@ -329,18 +348,12 @@ exports.getTruthleRetryStatus = functions.https.onCall(async (data, context) => 
   const entitlementRef = db.collection('truthle_retry_entitlements').doc(getRetryDocId(date, userId));
 
   try {
-    const docSnap = await entitlementRef.get();
-    if (!docSnap.exists) {
-      return {
-        date,
-        granted: false,
-        consumed: false,
-        canConsume: false,
-        source: 'none',
-      };
-    }
-
-    const entitlement = docSnap.data();
+    const [docSnap, paidSnap] = await Promise.all([
+      entitlementRef.get(),
+      db.collection('truthle_paid_retries').doc(userId).get(),
+    ]);
+    const paidCredits = paidSnap.exists ? Math.max(paidSnap.data().credits || 0, 0) : 0;
+    const entitlement = docSnap.exists ? docSnap.data() : {};
     const granted = !!entitlement.granted;
     const consumed = !!entitlement.consumed;
 
@@ -348,8 +361,9 @@ exports.getTruthleRetryStatus = functions.https.onCall(async (data, context) => 
       date,
       granted,
       consumed,
-      canConsume: granted && !consumed,
-      source: 'backend',
+      paidCredits,
+      canConsume: (granted && !consumed) || paidCredits > 0,
+      source: docSnap.exists || paidSnap.exists ? 'backend' : 'none',
     };
   } catch (error) {
     console.error('Error getting retry entitlement:', error);
@@ -371,17 +385,27 @@ exports.consumeTruthleRetry = functions.https.onCall(async (data, context) => {
 
   try {
     const result = await db.runTransaction(async (transaction) => {
+      const paidRef = db.collection('truthle_paid_retries').doc(userId);
       const snap = await transaction.get(entitlementRef);
-      if (!snap.exists) {
-        throw new functions.https.HttpsError('failed-precondition', 'No retry available');
-      }
+      const paidSnap = await transaction.get(paidRef);
+      const paidCredits = paidSnap.exists ? Math.max(paidSnap.data().credits || 0, 0) : 0;
 
-      const data = snap.data();
+      const data = snap.exists ? snap.data() : {};
       const granted = !!data.granted;
       const consumed = !!data.consumed;
 
       if (!granted || consumed) {
-        throw new functions.https.HttpsError('failed-precondition', 'Retry already consumed');
+        // Free (ad) retry not available: fall back to a purchased credit.
+        if (paidCredits > 0) {
+          transaction.set(paidRef, {
+            credits: paidCredits - 1,
+            consumedTotal: admin.firestore.FieldValue.increment(1),
+            lastConsumedAt: admin.firestore.FieldValue.serverTimestamp(),
+            updatedAt: admin.firestore.FieldValue.serverTimestamp(),
+          }, {merge: true});
+          return {success: true, source: 'paid', remainingRetries: paidCredits - 1};
+        }
+        throw new functions.https.HttpsError('failed-precondition', 'No retry available');
       }
 
       transaction.set(entitlementRef, {
@@ -390,7 +414,7 @@ exports.consumeTruthleRetry = functions.https.onCall(async (data, context) => {
         updatedAt: admin.firestore.FieldValue.serverTimestamp(),
       }, {merge: true});
 
-      return {success: true, remainingRetries: 0};
+      return {success: true, source: 'free', remainingRetries: paidCredits};
     });
 
     return result;
@@ -400,6 +424,90 @@ exports.consumeTruthleRetry = functions.https.onCall(async (data, context) => {
     }
     console.error('Error consuming retry entitlement:', error);
     throw new functions.https.HttpsError('internal', 'Failed to consume retry');
+  }
+});
+
+/**
+ * Creates a Stripe Checkout Session for paid Truthle retries.
+ * Callable from the static site; returns {url} to redirect to.
+ */
+exports.createTruthleRetryCheckout = functions.https.onCall(async (data, context) => {
+  if (!context.auth) {
+    throw new functions.https.HttpsError('unauthenticated', 'User must be authenticated');
+  }
+  if (!STRIPE_PRICE_ID) {
+    throw new functions.https.HttpsError('failed-precondition', 'Payments are not configured yet');
+  }
+  const quantity = Math.min(Math.max(parseInt(data?.quantity, 10) || 1, 1), MAX_RETRY_QUANTITY);
+  const uid = context.auth.uid;
+  const stripe = getStripe();
+  const session = await stripe.checkout.sessions.create({
+    mode: 'payment',
+    line_items: [{price: STRIPE_PRICE_ID, quantity}],
+    client_reference_id: uid,
+    metadata: {uid, product: 'truthle_retry', quantity: String(quantity)},
+    payment_intent_data: {metadata: {uid, product: 'truthle_retry'}},
+    success_url: `${SITE_URL}/truthle/?checkout=success&session_id={CHECKOUT_SESSION_ID}`,
+    cancel_url: `${SITE_URL}/truthle/?checkout=cancel`,
+  });
+  await db.collection('stripe_checkout_sessions').doc(session.id).set({
+    uid, quantity, status: 'created', createdAt: admin.firestore.FieldValue.serverTimestamp(),
+  });
+  return {url: session.url, id: session.id};
+});
+
+/**
+ * Grants paid retry credits for a completed Checkout Session. Idempotent per session id.
+ */
+async function grantPaidRetriesForSession(session, eventId) {
+  if (session.metadata?.product !== 'truthle_retry') return 'ignored';
+  if (session.payment_status !== 'paid') return 'unpaid';
+  const uid = session.client_reference_id || session.metadata?.uid;
+  if (!uid) return 'no_uid';
+  const quantity = Math.min(Math.max(parseInt(session.metadata?.quantity, 10) || 1, 1), MAX_RETRY_QUANTITY);
+  const credits = quantity * PAID_RETRIES_PER_UNIT;
+  const grantRef = db.collection('stripe_retry_grants').doc(session.id);
+  const paidRef = db.collection('truthle_paid_retries').doc(uid);
+  return db.runTransaction(async (tx) => {
+    const g = await tx.get(grantRef);
+    if (g.exists) return 'duplicate';
+    tx.set(grantRef, {
+      uid, credits, eventId, amountTotal: session.amount_total || null, currency: session.currency || null,
+      grantedAt: admin.firestore.FieldValue.serverTimestamp(),
+    });
+    tx.set(paidRef, {
+      credits: admin.firestore.FieldValue.increment(credits),
+      purchasedTotal: admin.firestore.FieldValue.increment(credits),
+      updatedAt: admin.firestore.FieldValue.serverTimestamp(),
+    }, {merge: true});
+    return 'granted';
+  });
+}
+exports._grantPaidRetriesForSession = grantPaidRetriesForSession;
+
+/**
+ * Stripe webhook. Endpoint: https://us-central1-worldtruth-f9789.cloudfunctions.net/stripeWebhook
+ * Events: checkout.session.completed, checkout.session.async_payment_succeeded
+ */
+exports.stripeWebhook = functions.https.onRequest(async (req, res) => {
+  if (req.method !== 'POST') return res.status(405).send('Method not allowed');
+  if (!STRIPE_WEBHOOK_SECRET) return res.status(503).send('Not configured');
+  let event;
+  try {
+    event = getStripe().webhooks.constructEvent(req.rawBody, req.headers['stripe-signature'], STRIPE_WEBHOOK_SECRET);
+  } catch (err) {
+    console.error('Stripe signature verification failed:', err.message);
+    return res.status(400).send('Bad signature');
+  }
+  try {
+    if (event.type === 'checkout.session.completed' || event.type === 'checkout.session.async_payment_succeeded') {
+      const result = await grantPaidRetriesForSession(event.data.object, event.id);
+      console.log('Stripe retry grant', event.id, result);
+    }
+    return res.status(200).json({received: true});
+  } catch (error) {
+    console.error('Stripe webhook error:', error);
+    return res.status(500).send('Internal error'); // Stripe retries
   }
 });
 
