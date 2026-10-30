@@ -699,3 +699,45 @@ export async function syncCloudCoins(): Promise<number> {
     return 0
   }
 }
+
+// ============================================
+// SHARE → FRIEND PROMO CODE (free Extra Attempt)
+// ============================================
+
+export interface SharePromo { code: string; expiresAt: string }
+
+function sharePromoKey(): string {
+  return `wt_share_promo_v1_${new Date().toISOString().slice(0, 10)}`
+}
+
+export function getStoredSharePromo(): SharePromo | null {
+  if (typeof window === 'undefined') return null
+  try {
+    const raw = localStorage.getItem(sharePromoKey())
+    return raw ? (JSON.parse(raw) as SharePromo) : null
+  } catch { return null }
+}
+
+let mintInFlight: Promise<SharePromo | null> | null = null
+// Mints (or returns today's existing) single-use friend code. Server enforces 1 per uid per UTC day.
+export function mintSharePromo(): Promise<SharePromo | null> {
+  const cached = getStoredSharePromo()
+  if (cached) return Promise.resolve(cached)
+  if (mintInFlight) return mintInFlight
+  mintInFlight = (async () => {
+    try {
+      await withTimeout(ensureAnonymousAuth(), 10000, 'Sign-in')
+      let deviceKey = localStorage.getItem('wt_device_key')
+      if (!deviceKey) { deviceKey = Math.random().toString(36).slice(2) + Date.now().toString(36); localStorage.setItem('wt_device_key', deviceKey) }
+      const callable = httpsCallable<{ deviceKey: string }, SharePromo>(functionsClient, 'mintTruthleSharePromo', { timeout: 20000 })
+      const res = await withTimeout(callable({ deviceKey }), 22000, 'Promo')
+      if (!res.data?.code) return null
+      localStorage.setItem(sharePromoKey(), JSON.stringify(res.data))
+      return res.data
+    } catch (e) {
+      console.error('Error minting share promo:', e)
+      return null
+    } finally { mintInFlight = null }
+  })()
+  return mintInFlight
+}
