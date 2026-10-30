@@ -445,6 +445,7 @@ exports.createTruthleRetryCheckout = functions.https.onCall(async (data, context
   const session = await stripe.checkout.sessions.create({
     mode: 'payment',
     line_items: [{price: STRIPE_PRICE_ID, quantity}],
+    allow_promotion_codes: true,
     client_reference_id: uid,
     metadata: {uid, product: 'truthle_retry', quantity: String(quantity)},
     payment_intent_data: {metadata: {uid, product: 'truthle_retry'}},
@@ -458,11 +459,94 @@ exports.createTruthleRetryCheckout = functions.https.onCall(async (data, context
 });
 
 /**
+ * Share-to-friend promo: mints a single-use Stripe Promotion Code (100% off one Extra Attempt),
+ * one per uid per UTC day. Idempotent: returns today's existing code if already minted.
+ */
+const SHARE_COUPON_ID_CFG = STRIPE_CFG.share_coupon_id || process.env.STRIPE_SHARE_COUPON_ID || '';
+let shareCouponIdCache = null;
+async function getShareCouponId(stripe) {
+  if (shareCouponIdCache) return shareCouponIdCache;
+  if (SHARE_COUPON_ID_CFG) return (shareCouponIdCache = SHARE_COUPON_ID_CFG);
+  for await (const c of stripe.coupons.list({limit: 100})) {
+    if (c.valid && c.metadata?.product === 'truthle_retry_share') return (shareCouponIdCache = c.id);
+  }
+  const price = await stripe.prices.retrieve(STRIPE_PRICE_ID);
+  const productId = typeof price.product === 'string' ? price.product : price.product.id;
+  const coupon = await stripe.coupons.create({
+    percent_off: 100, duration: 'once', name: 'Truthle Extra Attempt — share gift',
+    applies_to: {products: [productId]}, metadata: {product: 'truthle_retry_share'},
+  });
+  return (shareCouponIdCache = coupon.id);
+}
+
+exports.mintTruthleSharePromo = functions.https.onCall(async (data, context) => {
+  if (!context.auth) {
+    throw new functions.https.HttpsError('unauthenticated', 'User must be authenticated');
+  }
+  if (!STRIPE_PRICE_ID) {
+    throw new functions.https.HttpsError('failed-precondition', 'Payments are not configured yet');
+  }
+  const uid = context.auth.uid;
+  const deviceKey = typeof data?.deviceKey === 'string' ? data.deviceKey.slice(0, 64) : null;
+  const now = new Date();
+  const day = now.toISOString().slice(0, 10);
+  const endOfDay = new Date(`${day}T23:59:59Z`);
+  const ref = db.collection('truthle_share_promos').doc(`${uid}_${day}`);
+
+  // Reserve the uid/day slot in a transaction so concurrent calls can't double-mint.
+  const reserved = await db.runTransaction(async (tx) => {
+    const snap = await tx.get(ref);
+    if (snap.exists) return snap.data();
+    tx.set(ref, {uid, day, deviceKey, status: 'minting', createdAt: admin.firestore.FieldValue.serverTimestamp()});
+    return null;
+  });
+  if (reserved) {
+    if (reserved.code) return {code: reserved.code, expiresAt: reserved.expiresAt};
+    const ageMs = Date.now() - (reserved.createdAt?.toMillis?.() || 0);
+    if (ageMs < 30000) throw new functions.https.HttpsError('aborted', 'Code is being generated, try again');
+    // stale reservation (previous mint failed) — fall through and mint
+  }
+
+  try {
+    const stripe = getStripe();
+    const couponId = await getShareCouponId(stripe);
+    const alphabet = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+    let promo = null;
+    for (let i = 0; i < 4 && !promo; i++) {
+      let suffix = '';
+      const bytes = require('crypto').randomBytes(6);
+      for (const b of bytes) suffix += alphabet[b % alphabet.length];
+      try {
+        promo = await stripe.promotionCodes.create({
+          coupon: couponId, code: `WT-${suffix}`, max_redemptions: 1,
+          expires_at: Math.floor(endOfDay.getTime() / 1000),
+          metadata: {uid, day, product: 'truthle_retry_share'},
+        });
+      } catch (e) {
+        if (e?.code !== 'resource_already_exists' && !/already exists/i.test(e?.message || '')) throw e;
+      }
+    }
+    if (!promo) throw new Error('Could not allocate unique code');
+    const expiresAt = endOfDay.toISOString();
+    await ref.set({code: promo.code, promoId: promo.id, couponId, expiresAt, status: 'minted',
+      mintedAt: admin.firestore.FieldValue.serverTimestamp()}, {merge: true});
+    return {code: promo.code, expiresAt};
+  } catch (error) {
+    console.error('mintTruthleSharePromo failed:', error);
+    await ref.delete().catch(() => {});
+    throw new functions.https.HttpsError('internal', 'Could not create friend code');
+  }
+});
+
+/**
  * Grants paid retry credits for a completed Checkout Session. Idempotent per session id.
  */
 async function grantPaidRetriesForSession(session, eventId) {
   if (session.metadata?.product !== 'truthle_retry') return 'ignored';
-  if (session.payment_status !== 'paid') return 'unpaid';
+  // 100%-off promo checkouts complete with amount_total 0 and payment_status 'no_payment_required'.
+  const freeCheckout = session.payment_status === 'no_payment_required' ||
+    (session.status === 'complete' && session.amount_total === 0);
+  if (session.payment_status !== 'paid' && !freeCheckout) return 'unpaid';
   const uid = session.client_reference_id || session.metadata?.uid;
   if (!uid) return 'no_uid';
   const quantity = Math.min(Math.max(parseInt(session.metadata?.quantity, 10) || 1, 1), MAX_RETRY_QUANTITY);

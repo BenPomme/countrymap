@@ -5,7 +5,8 @@ import Link from 'next/link'
 import type { Country } from '@/types/country'
 import { generateTrueFalseClaims, loadTF, recordTF, type TFState } from '@/lib/truthle/trueFalse'
 import { getTodayDateString, getTruthleDay } from '@/lib/truthle/generator'
-import { getCloudRetryStatus, consumeCloudRetry, createRetryCheckout } from '@/lib/truthle/storage'
+import { getCloudRetryStatus, consumeCloudRetry, createRetryCheckout, mintSharePromo, getStoredSharePromo, type SharePromo } from '@/lib/truthle/storage'
+import SharePromoCard from '@/components/truthle/SharePromoCard'
 import { getVariableById } from '@/lib/seo/catalog'
 import { AdUnit } from '@/components/ads'
 import { AD_SLOTS } from '@/lib/constants/ads'
@@ -87,12 +88,15 @@ export default function TrueFalseGame({ countries }: { countries: Country[] }) {
   const grid = results.map((r) => (r ? '✅' : '❌')).join('')
   const shareText = `True or False: World #${day}\n${grid} ${score}/5\nhttps://theworldtruth.com/true-false/`
   const [copied, setCopied] = useState(false)
+  const [promo, setPromo] = useState<SharePromo | null>(null)
+  useEffect(() => { setPromo(getStoredSharePromo()) }, [])
+  const afterShare = useCallback(() => { mintSharePromo().then((p) => { if (p) setPromo(p) }) }, [])
   const share = useCallback(async () => {
     try {
-      if (navigator.share) { await navigator.share({ text: shareText }); return }
-    } catch { /* fall through to clipboard */ }
-    try { await navigator.clipboard.writeText(shareText); setCopied(true); setTimeout(() => setCopied(false), 2000) } catch {}
-  }, [shareText])
+      if (navigator.share) { await navigator.share({ text: shareText }); afterShare(); return }
+    } catch (e) { if ((e as Error)?.name === 'AbortError') return /* else fall through to clipboard */ }
+    try { await navigator.clipboard.writeText(shareText); setCopied(true); setTimeout(() => setCopied(false), 2000); afterShare() } catch {}
+  }, [shareText, afterShare])
 
   if (phase === 'intro') {
     return (
@@ -181,6 +185,7 @@ export default function TrueFalseGame({ countries }: { countries: Country[] }) {
       <button onClick={share} className="mt-4 w-full py-3 rounded-2xl bg-white border border-sky-300 text-sky-700 font-semibold">
         {copied ? 'Copied!' : 'Share result'}
       </button>
+      {promo && <SharePromoCard promo={promo} />}
 
       <div className="my-6">
         <AdUnit slotId={AD_SLOTS.truthleResults} format="rectangle" />

@@ -11,6 +11,8 @@ import {
   isShareAbortError,
   preloadShareCardLogo,
 } from '@/lib/truthle/shareCard'
+import { mintSharePromo, getStoredSharePromo, type SharePromo } from '@/lib/truthle/storage'
+import SharePromoCard from '@/components/truthle/SharePromoCard'
 
 interface ShareResultsButtonProps {
   score: number
@@ -31,9 +33,15 @@ export default function ShareResultsButton({
 }: ShareResultsButtonProps) {
   const [copied, setCopied] = useState(false)
   const [sharing, setSharing] = useState(false)
+  const [promo, setPromo] = useState<SharePromo | null>(null)
 
   useEffect(() => {
     preloadShareCardLogo()
+    setPromo(getStoredSharePromo())
+  }, [])
+
+  const afterShare = useCallback(() => {
+    mintSharePromo().then((p) => { if (p) setPromo(p) })
   }, [])
 
   const shareResults = useCallback(async () => {
@@ -71,6 +79,7 @@ export default function ShareResultsButton({
               text: shareText,
               files: [file],
             })
+            afterShare()
             return
           } catch (error) {
             if (isShareAbortError(error)) return
@@ -80,6 +89,7 @@ export default function ShareResultsButton({
         downloadBlob(cardBlob, shareCardFileName(truthleDay))
         try {
           await copyText()
+          afterShare()
         } catch {
           console.error('Failed to copy share text')
         }
@@ -92,6 +102,7 @@ export default function ShareResultsButton({
             title: `Truthle #${truthleDay}`,
             text: shareText,
           })
+          afterShare()
           return
         } catch (error) {
           if (isShareAbortError(error)) return
@@ -99,22 +110,27 @@ export default function ShareResultsButton({
       }
 
       await copyText()
+      afterShare()
     } catch (e) {
       try {
         await navigator.clipboard.writeText(shareText)
         setCopied(true)
         setTimeout(() => setCopied(false), 2000)
+        afterShare()
       } catch {
         console.error('Failed to share:', e)
       }
     } finally {
       setSharing(false)
     }
-  }, [score, results, streak, truthleDay, sharing, onFirstShare])
+  }, [score, results, streak, truthleDay, sharing, onFirstShare, afterShare])
 
   return (
-    <button onClick={shareResults} disabled={sharing} className={className}>
-      {sharing ? 'Sharing...' : copied ? '\u2713 Copied!' : 'Share Results'}
-    </button>
+    <>
+      <button onClick={shareResults} disabled={sharing} className={className}>
+        {sharing ? 'Sharing...' : copied ? '\u2713 Copied!' : 'Share Results'}
+      </button>
+      {promo && <SharePromoCard promo={promo} />}
+    </>
   )
 }
