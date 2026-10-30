@@ -27,6 +27,7 @@ const staticPages = [
   { loc: '/truthle/', changefreq: 'daily', priority: '1.0' },
   { loc: '/true-false/', changefreq: 'daily', priority: '0.9' },
   { loc: '/truthle/shop/', changefreq: 'monthly', priority: '0.7' },
+  { loc: '/truthle-vs-worldle/', changefreq: 'monthly', priority: '0.6' },
   { loc: '/charts/', changefreq: 'weekly', priority: '0.9' },
   { loc: '/discoveries/', changefreq: 'weekly', priority: '0.9' },
   { loc: '/quiz/', changefreq: 'monthly', priority: '0.8' },
