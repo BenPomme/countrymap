@@ -114,8 +114,9 @@ function TrueFalseGameInner({ countries }: { countries: Country[] }) {
     return (
       <div className="max-w-lg mx-auto px-4 text-center">
         <p className="text-xs uppercase tracking-widest text-sky-600 font-semibold">Truthle · Day {day}</p>
-        <h1 className="text-3xl sm:text-4xl font-extrabold text-gray-900 mt-1">True or False: World</h1>
-        <p className="text-gray-600 mt-3">5 claims about countries, politics & world stats. Same for everyone today. How many can you call?</p>
+        <h2 className="text-3xl sm:text-4xl font-extrabold text-gray-900 mt-1">True or False: World</h2>
+        <p className="text-gray-600 mt-3">Five claims about countries and world stats. Same set for everyone today.</p>
+        <p className="text-xs text-gray-500 mt-1">One free run. Share for a friend code, or Extra Attempt (€0.99) if you want another shot.</p>
         {stats && stats.played > 0 && (
           <p className="text-sm text-gray-500 mt-2">🔥 Streak {stats.streak} · {stats.played} played</p>
         )}

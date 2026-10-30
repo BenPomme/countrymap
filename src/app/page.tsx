@@ -189,6 +189,7 @@ export default function HomePage() {
           <Link href="/map/press-freedom" className="px-3 py-1.5 rounded-full bg-white border border-blue-300 text-blue-700 font-medium hover:bg-blue-50">🔥 Press freedom map</Link>
           <Link href="/map/passport-power" className="px-3 py-1.5 rounded-full bg-white border border-blue-300 text-blue-700 font-medium hover:bg-blue-50">🛂 Passport power</Link>
           <Link href="/quiz" className="px-3 py-1.5 rounded-full bg-white border border-gray-300 text-gray-700 font-medium hover:bg-gray-50">❓ Country quiz</Link>
+          <span className="text-xs text-gray-600 ml-1">Five questions. Same for everyone. One free attempt.</span>
         </div>
       )}
 

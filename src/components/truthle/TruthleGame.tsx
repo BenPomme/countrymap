@@ -461,8 +461,8 @@ function TruthleGameInner({ countries }: TruthleGameProps) {
         ) : null}
 
         <Image src="/truthle.png" alt="Truthle" width={120} height={120} className="mb-4" />
-        <h1 className="text-3xl font-bold text-gray-900 mb-2">Truthle</h1>
-        <p className="text-gray-600 mb-1">Daily World Facts Quiz</p>
+        <h2 className="text-3xl font-bold text-gray-900 mb-2">Truthle</h2>
+        <p className="text-gray-600 mb-1">Daily world facts. Five questions. Same for everyone. One free attempt.</p>
         <p className="text-sm text-gray-500 mb-2">#{truthleDay} • {TRUTHLE_QUESTIONS_PER_DAY} Questions</p>
         {isRetryRun && (
           <p className="text-sm text-blue-600 font-medium mb-4">Retry run active (ad reward)</p>

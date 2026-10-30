@@ -9,8 +9,8 @@ import AdSenseLoader from '@/components/ads/AdSenseLoader'
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-  title: 'The World Truth Map | Compare Countries by 90 Statistics',
-  description: 'Compare 164 countries by 90 stats: penis size, height, metal bands, beer consumption, happiness, IQ, GDP, divorce rates & more. Which country has the most metal bands? Discover 1,300+ correlations!',
+  title: 'The World Truth Map | Daily World Quizzes & Country Stats',
+  description: 'Play free daily world quizzes (Truthle, True or False) and compare 164 countries by 90 stats: penis size, height, metal bands, beer consumption, happiness, IQ, GDP, divorce rates & more. Which country has the most metal bands? Discover 1,300+ correlations!',
   keywords: [
     // Core features
     'world statistics map',
