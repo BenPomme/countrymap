@@ -37,6 +37,12 @@ const ROTATION: UnlockTheme[] = [
   { key: 'press', picks: PRESS_PICKS },
 ]
 
+/** Exclusive store code we control (Lien & Cie Shopify). Not an Amazon coupon. */
+export const STORE_CODE: string = (process.env.NEXT_PUBLIC_TRUTHLE_STORE_CODE || 'TRUTHLE10').trim().toUpperCase()
+export const STORE_URL: string = (process.env.NEXT_PUBLIC_LIEN_CIE_STORE_URL || 'https://lienetcie.com').trim()
+export const STORE_DISCLOSURE = 'Exclusive World Truth code — valid on Lien & Cie'
+export const storeCodeTeaser = (code: string = STORE_CODE) => `${code.slice(0, 2)}••••`
+
 export const AMAZON_DISCLOSURE =
   'As an Amazon Associate we earn from qualifying purchases. Prices and deals are set by Amazon and may change. No prizes or cash — just for fun.'
 
