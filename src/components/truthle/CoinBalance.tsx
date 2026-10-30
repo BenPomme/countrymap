@@ -17,6 +17,10 @@ export default function CoinBalance({ className = '', showShopLink = true, size 
   useEffect(() => {
     setMounted(true)
     setCoins(getCoins())
+    const on = () => setCoins(getCoins())
+    window.addEventListener('truthle:coins', on)
+    window.addEventListener('storage', on)
+    return () => { window.removeEventListener('truthle:coins', on); window.removeEventListener('storage', on) }
   }, [])
 
   // Don't render anything on server or before mount
