@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import { amazonSearchUrl } from '@/lib/constants/affiliates'
+import { PRESS_PICKS, TRAVEL_PICKS, GENERAL_PICKS } from '@/lib/affiliate/dailyUnlocks'
 
 interface Props {
   slug: string
@@ -22,12 +23,7 @@ const PRESS: Theme = {
     { q: 'Which tool is commonly used to reach blocked websites in censored countries?', options: ['A VPN', 'A firewall', 'A DNS cache', 'A proxy ad blocker'], answer: 0, fact: 'VPNs tunnel traffic past national blocks (check local laws).' },
     { q: 'George Orwell’s classic novel about state surveillance is…', options: ['Brave New World', 'Fahrenheit 451', 'Nineteen Eighty-Four', 'The Trial'], answer: 2, fact: 'Nineteen Eighty-Four (1949) coined “Big Brother”.' },
   ],
-  picks: [
-    { label: 'Privacy screen protectors', query: 'privacy screen protector laptop' },
-    { label: 'Webcam covers & privacy kits', query: 'webcam cover privacy' },
-    { label: 'Best books on press freedom & journalism', query: 'press freedom journalism book' },
-    { label: 'Nineteen Eighty-Four (Orwell)', query: 'nineteen eighty-four orwell' },
-  ],
+  picks: PRESS_PICKS,
 }
 
 const TRAVEL: Theme = {
@@ -39,12 +35,7 @@ const TRAVEL: Theme = {
     { q: 'How many countries are in the Schengen Area (2025)?', options: ['22', '27', '29', '35'], answer: 2, fact: 'Bulgaria and Romania fully joined in 2025, making 29.' },
     { q: 'UK plugs are Type G. Which plug type is used in most of continental Europe?', options: ['Type A', 'Type C/F', 'Type I', 'Type G'], answer: 1, fact: 'Continental Europe mostly uses Type C/F (Schuko) — pack an adapter.' },
   ],
-  picks: [
-    { label: 'RFID-blocking passport holders', query: 'rfid passport holder' },
-    { label: 'Universal travel adapters', query: 'universal travel adapter' },
-    { label: 'Carry-on cabin bags', query: 'cabin bag carry on' },
-    { label: 'Lonely Planet & travel guides', query: 'lonely planet guide' },
-  ],
+  picks: TRAVEL_PICKS,
 }
 
 const GENERAL: Theme = {
@@ -55,12 +46,7 @@ const GENERAL: Theme = {
     { q: 'Which is the most populous country (UN, 2023+)?', options: ['China', 'India', 'USA', 'Indonesia'], answer: 1, fact: 'India overtook China in 2023.' },
     { q: 'How many UN member states are there?', options: ['180', '193', '201', '210'], answer: 1, fact: 'There are 193 UN member states.' },
   ],
-  picks: [
-    { label: 'World atlases', query: 'world atlas' },
-    { label: 'Scratch-off world maps', query: 'scratch off world map' },
-    { label: 'Illuminated & smart globes', query: 'world globe illuminated' },
-    { label: 'Geography trivia board games', query: 'geography trivia game' },
-  ],
+  picks: GENERAL_PICKS,
 }
 
 const PRESS_RE = /press|freedom|censor|internet|surveillance|privacy|democra|corruption/i
@@ -87,7 +73,7 @@ export default function DealQuiz({ slug, category = '', name = '' }: Props) {
 
   return (
     <section id="deal-quiz" className="scroll-mt-4 bg-gradient-to-br from-amber-50 to-white border border-amber-200 rounded-2xl p-4 md:p-5" aria-label="Quiz">
-      <h2 className="text-lg font-semibold text-gray-900">🎯 {theme.title} — unlock today&apos;s picks</h2>
+      <h2 className="text-lg font-semibold text-gray-900">🎯 {theme.title} — unlock today's picks</h2>
       {!done ? (
         <div className="mt-3">
           <p className="text-xs text-gray-500">Question {i + 1} of {theme.questions.length} · answer all to unlock curated deals</p>
