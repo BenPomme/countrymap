@@ -6,6 +6,7 @@ import type { Country } from '@/types/country'
 import { generateTrueFalseClaims, loadTF, recordTF, type TFState } from '@/lib/truthle/trueFalse'
 import { getTodayDateString, getTruthleDay } from '@/lib/truthle/generator'
 import { getCloudRetryStatus, consumeCloudRetry, createRetryCheckout, mintSharePromo, getStoredSharePromo, type SharePromo } from '@/lib/truthle/storage'
+import CheckoutBanner from '@/components/truthle/CheckoutBanner'
 import SharePromoCard from '@/components/truthle/SharePromoCard'
 import { getVariableById } from '@/lib/seo/catalog'
 import { AdUnit } from '@/components/ads'
@@ -14,7 +15,16 @@ import DailyUnlockCard from '@/components/affiliate/DailyUnlockCard'
 
 type Phase = 'intro' | 'playing' | 'done'
 
-export default function TrueFalseGame({ countries }: { countries: Country[] }) {
+export default function TrueFalseGame(props: { countries: Country[] }) {
+  return (
+    <>
+      <CheckoutBanner />
+      <TrueFalseGameInner {...props} />
+    </>
+  )
+}
+
+function TrueFalseGameInner({ countries }: { countries: Country[] }) {
   const today = getTodayDateString()
   const day = getTruthleDay()
   const claims = useMemo(() => generateTrueFalseClaims(countries, today), [countries, today])
@@ -42,11 +52,12 @@ export default function TrueFalseGame({ countries }: { countries: Country[] }) {
 
   useEffect(() => {
     const c = new URLSearchParams(window.location.search).get('checkout')
-    if (c === 'success') setMsg('Payment received — your Extra Attempt is ready (may take a few seconds).')
+    if (c === 'success') setMsg('Extra Attempt unlocked — it may take a few seconds to appear.')
     else if (c === 'cancel') setMsg('Checkout cancelled.')
     if (c === 'success') {
-      const t = setTimeout(() => getCloudRetryStatus().then((r) => setCredits(r.canConsume ? Math.max(1, r.paidCredits || 0) : r.paidCredits || 0)).catch(() => {}), 4000)
-      return () => clearTimeout(t)
+      const sync = () => getCloudRetryStatus().then((r) => setCredits(r.canConsume ? Math.max(1, r.paidCredits || 0) : r.paidCredits || 0)).catch(() => {})
+      const ts = [1500, 4000, 8000].map((d) => setTimeout(sync, d))
+      return () => ts.forEach(clearTimeout)
     }
   }, [])
 

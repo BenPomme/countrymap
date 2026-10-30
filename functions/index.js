@@ -446,6 +446,8 @@ exports.createTruthleRetryCheckout = functions.https.onCall(async (data, context
     mode: 'payment',
     line_items: [{price: STRIPE_PRICE_ID, quantity}],
     allow_promotion_codes: true,
+    currency: 'eur',
+    adaptive_pricing: {enabled: false},
     client_reference_id: uid,
     metadata: {uid, product: 'truthle_retry', quantity: String(quantity)},
     payment_intent_data: {metadata: {uid, product: 'truthle_retry'}},

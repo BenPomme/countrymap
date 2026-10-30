@@ -24,6 +24,7 @@ import { AD_SLOTS } from '@/lib/constants/ads'
 import DailyUnlockCard from '@/components/affiliate/DailyUnlockCard'
 import Image from 'next/image'
 import Link from 'next/link'
+import CheckoutBanner from '@/components/truthle/CheckoutBanner'
 import { useEmbeddedAppMode } from '@/lib/useEmbeddedAppMode'
 import { onNativeBridgeMessage, postBridgeMessage } from '@/lib/bridge/webBridge'
 import type { IOSToWebBridgeMessage } from '@/lib/bridge/types'
@@ -45,7 +46,16 @@ const EMPTY_COIN_BREAKDOWN: CoinBreakdown = {
   shareBonus: 0,
 }
 
-export default function TruthleGame({ countries }: TruthleGameProps) {
+export default function TruthleGame(props: TruthleGameProps) {
+  return (
+    <>
+      <CheckoutBanner />
+      <TruthleGameInner {...props} />
+    </>
+  )
+}
+
+function TruthleGameInner({ countries }: TruthleGameProps) {
   const embeddedMode = useEmbeddedAppMode()
   const [gameState, setGameState] = useState<GameState>('loading')
   // Lets page-level chrome (e.g. True/False promo) hide itself during play.
@@ -163,7 +173,7 @@ export default function TruthleGame({ countries }: TruthleGameProps) {
               ok = await refreshRetryStatus()
               if (!ok) await new Promise((r) => window.setTimeout(r, 2000))
             }
-            setRetryMessage(ok ? 'Extra attempt unlocked. Good luck!' : 'Payment received; unlocking is taking longer than usual. Refresh in a minute.')
+            setRetryMessage(ok ? 'Extra Attempt unlocked. Good luck!' : 'Payment received; unlocking is taking longer than usual. Refresh in a minute.')
           } else if (checkout === 'cancel') {
             setRetryMessage('Checkout cancelled. No charge was made.')
           }
