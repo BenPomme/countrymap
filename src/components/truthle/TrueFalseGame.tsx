@@ -9,6 +9,7 @@ import { getCloudRetryStatus, consumeCloudRetry, createRetryCheckout } from '@/l
 import { getVariableById } from '@/lib/seo/catalog'
 import { AdUnit } from '@/components/ads'
 import { AD_SLOTS } from '@/lib/constants/ads'
+import DailyUnlockCard from '@/components/affiliate/DailyUnlockCard'
 
 type Phase = 'intro' | 'playing' | 'done'
 
@@ -98,12 +99,12 @@ export default function TrueFalseGame({ countries }: { countries: Country[] }) {
       <div className="max-w-lg mx-auto px-4 text-center">
         <p className="text-xs uppercase tracking-widest text-sky-600 font-semibold">Truthle · Day {day}</p>
         <h1 className="text-3xl sm:text-4xl font-extrabold text-gray-900 mt-1">True or False: World</h1>
-        <p className="text-gray-600 mt-3">5 claims about countries, politics &amp; world stats. Same for everyone today. How many can you call?</p>
+        <p className="text-gray-600 mt-3">5 claims about countries, politics & world stats. Same for everyone today. How many can you call?</p>
         {stats && stats.played > 0 && (
           <p className="text-sm text-gray-500 mt-2">🔥 Streak {stats.streak} · {stats.played} played</p>
         )}
         <button onClick={start} className="mt-6 w-full py-4 rounded-2xl bg-sky-600 text-white text-lg font-bold shadow hover:bg-sky-700 active:scale-[0.99]">
-          Play today&apos;s 5
+          Play today's 5
         </button>
         <p className="text-xs text-gray-400 mt-3">Data: our country datasets (V-Dem, Freedom House, RSF, TI, World Bank, UN & more).</p>
       </div>
@@ -131,7 +132,7 @@ export default function TrueFalseGame({ countries }: { countries: Country[] }) {
           </div>
         ) : (
           <div className={`mt-5 rounded-2xl p-5 ${correct ? 'bg-emerald-50 border border-emerald-200' : 'bg-rose-50 border border-rose-200'}`}>
-            <p className="font-bold text-lg">{correct ? '✅ Correct' : '❌ Wrong'} — it&apos;s {c.answer ? 'TRUE' : 'FALSE'}</p>
+            <p className="font-bold text-lg">{correct ? '✅ Correct' : '❌ Wrong'} — it's {c.answer ? 'TRUE' : 'FALSE'}</p>
             <p className="text-gray-700 mt-1">{c.fact}</p>
             <p className="text-xs text-gray-500 mt-2">
               {c.source && (c.sourceUrl ? <>Source: <a href={c.sourceUrl} target="_blank" rel="noopener noreferrer" className="underline">{c.source}</a></> : <>Source: {c.source}</>)}
@@ -160,26 +161,28 @@ export default function TrueFalseGame({ countries }: { countries: Country[] }) {
         </div>
       )}
       {isExtra && <p className="text-xs text-gray-500 mt-2">Extra attempt — your streak counts your first run of the day.</p>}
-      <button onClick={share} className="mt-5 w-full py-4 rounded-2xl bg-sky-600 text-white text-lg font-bold shadow">
-        {copied ? 'Copied!' : 'Share result'}
-      </button>
-
-      <div className="mt-4 bg-amber-50 border border-amber-200 rounded-2xl p-4">
-        <p className="font-semibold text-gray-900">Want another go?</p>
+      <div className="mt-5">
+        <DailyUnlockCard game="true-false" date={today} perfect={score === claims.length && claims.length > 0} cta={(
+          <>
         {credits > 0 ? (
-          <button disabled={busy} onClick={useExtra} className="mt-2 w-full py-3 rounded-xl bg-amber-500 text-white font-bold disabled:opacity-60">
+          <button disabled={busy} onClick={useExtra} className="mt-2 w-full whitespace-nowrap py-3 rounded-xl bg-amber-500 text-white font-bold disabled:opacity-60">
             Use an Extra Attempt ({credits} left)
           </button>
         ) : (
-          <button disabled={busy} onClick={buyExtra} className="mt-2 w-full py-3 rounded-xl bg-amber-500 text-white font-bold disabled:opacity-60">
-            Get an Extra Attempt — €0.99
+          <button disabled={busy} onClick={buyExtra} className="mt-2 w-full whitespace-nowrap py-3 rounded-xl bg-amber-500 text-white font-bold disabled:opacity-60">
+            Extra Attempt — €0.99
           </button>
         )}
         <p className="text-xs text-gray-500 mt-1">Same Extra Attempt as Truthle; works in either game.</p>
         {msg && <p className="text-xs text-rose-600 mt-1">{msg}</p>}
+          </>
+        )} />
       </div>
+      <button onClick={share} className="mt-4 w-full py-3 rounded-2xl bg-white border border-sky-300 text-sky-700 font-semibold">
+        {copied ? 'Copied!' : 'Share result'}
+      </button>
 
-      <div className="my-6 min-h-[250px]">
+      <div className="my-6">
         <AdUnit slotId={AD_SLOTS.truthleResults} format="rectangle" />
       </div>
 
