@@ -100,3 +100,6 @@
 .range-slider::-webkit-slider-thumb {
   @apply appearance-none w-4 h-4 bg-primary rounded-full cursor-pointer;
 }
+
+/* Collapse AdSense units that did not fill */
+ins.adsbygoogle[data-ad-status="unfilled"] { display: none !important; }
