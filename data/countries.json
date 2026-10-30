@@ -426,7 +426,7 @@
       "cryptoAdoption": 4.2
     },
     "economy": {
-      "billionairesPerCapita": null,
+      "billionairesPerCapita": 3.6,
       "millionairesPerCapita": null,
       "bitcoinATMs": null,
       "startupUnicorns": null,
@@ -676,7 +676,7 @@
       "cryptoAdoption": 2.1
     },
     "economy": {
-      "billionairesPerCapita": null,
+      "billionairesPerCapita": 0.2,
       "millionairesPerCapita": null,
       "bitcoinATMs": null,
       "startupUnicorns": null,
@@ -1387,7 +1387,7 @@
       "cryptoAdoption": 12.8
     },
     "economy": {
-      "billionairesPerCapita": 1.2,
+      "billionairesPerCapita": 1.1,
       "millionairesPerCapita": 1.5,
       "bitcoinATMs": null,
       "startupUnicorns": 1,
@@ -1395,7 +1395,7 @@
       "gamblingSpending": null,
       "lotterySpending": null,
       "touristArrivals": 170,
-      "mcdonaldsPerCapita": 8.2,
+      "mcdonaldsPerCapita": 5.0,
       "starbucksPerCapita": 3.2,
       "evAdoption": 0.5,
       "renewableEnergy": 15.8,
@@ -1617,7 +1617,7 @@
       "cryptoAdoption": 5.2
     },
     "economy": {
-      "billionairesPerCapita": null,
+      "billionairesPerCapita": 3.6,
       "millionairesPerCapita": null,
       "bitcoinATMs": null,
       "startupUnicorns": null,
@@ -1867,7 +1867,7 @@
       "cryptoAdoption": 17.8
     },
     "economy": {
-      "billionairesPerCapita": 17.5,
+      "billionairesPerCapita": 18.1,
       "millionairesPerCapita": 85.2,
       "bitcoinATMs": null,
       "startupUnicorns": 9,
@@ -1875,7 +1875,7 @@
       "gamblingSpending": null,
       "lotterySpending": null,
       "touristArrivals": 350,
-      "mcdonaldsPerCapita": 38.2,
+      "mcdonaldsPerCapita": 41.4,
       "starbucksPerCapita": 0.5,
       "evAdoption": 8.8,
       "renewableEnergy": 28.5,
@@ -2114,7 +2114,7 @@
       "cryptoAdoption": 11.2
     },
     "economy": {
-      "billionairesPerCapita": 13.5,
+      "billionairesPerCapita": 10.0,
       "millionairesPerCapita": 43,
       "bitcoinATMs": null,
       "startupUnicorns": 2,
@@ -2122,7 +2122,7 @@
       "gamblingSpending": null,
       "lotterySpending": null,
       "touristArrivals": 3400,
-      "mcdonaldsPerCapita": 24.2,
+      "mcdonaldsPerCapita": 23.6,
       "starbucksPerCapita": 7.8,
       "evAdoption": 21.5,
       "renewableEnergy": 78.5,
@@ -2351,7 +2351,7 @@
       "gamblingSpending": null,
       "lotterySpending": null,
       "touristArrivals": null,
-      "mcdonaldsPerCapita": 2.2,
+      "mcdonaldsPerCapita": 3.4,
       "starbucksPerCapita": null,
       "evAdoption": null,
       "renewableEnergy": null,
@@ -2581,7 +2581,7 @@
       "gamblingSpending": null,
       "lotterySpending": null,
       "touristArrivals": null,
-      "mcdonaldsPerCapita": 22,
+      "mcdonaldsPerCapita": 21.3,
       "starbucksPerCapita": 22.5,
       "evAdoption": null,
       "renewableEnergy": null,
@@ -3276,7 +3276,7 @@
       "cryptoAdoption": 9.8
     },
     "economy": {
-      "billionairesPerCapita": 6.5,
+      "billionairesPerCapita": 9.5,
       "millionairesPerCapita": 70,
       "bitcoinATMs": null,
       "startupUnicorns": 3,
@@ -3284,7 +3284,7 @@
       "gamblingSpending": null,
       "lotterySpending": null,
       "touristArrivals": 1000,
-      "mcdonaldsPerCapita": 14.5,
+      "mcdonaldsPerCapita": 11.0,
       "starbucksPerCapita": 4.2,
       "evAdoption": 21.8,
       "renewableEnergy": 22.5,
@@ -4717,7 +4717,7 @@
       "cryptoAdoption": 14.8
     },
     "economy": {
-      "billionairesPerCapita": 2.8,
+      "billionairesPerCapita": 3.3,
       "millionairesPerCapita": 2.5,
       "bitcoinATMs": null,
       "startupUnicorns": 18,
@@ -4725,7 +4725,7 @@
       "gamblingSpending": null,
       "lotterySpending": null,
       "touristArrivals": 35,
-      "mcdonaldsPerCapita": 4.8,
+      "mcdonaldsPerCapita": 5.7,
       "starbucksPerCapita": 2.5,
       "evAdoption": 2.8,
       "renewableEnergy": 83.5,
@@ -4957,7 +4957,7 @@
       "gamblingSpending": null,
       "lotterySpending": null,
       "touristArrivals": null,
-      "mcdonaldsPerCapita": null,
+      "mcdonaldsPerCapita": 15.6,
       "starbucksPerCapita": null,
       "evAdoption": null,
       "renewableEnergy": null,
@@ -5180,7 +5180,7 @@
       "cryptoAdoption": 7.8
     },
     "economy": {
-      "billionairesPerCapita": null,
+      "billionairesPerCapita": 2.9,
       "millionairesPerCapita": null,
       "bitcoinATMs": null,
       "startupUnicorns": null,
@@ -5188,7 +5188,7 @@
       "gamblingSpending": null,
       "lotterySpending": null,
       "touristArrivals": null,
-      "mcdonaldsPerCapita": 6.1,
+      "mcdonaldsPerCapita": 6.8,
       "starbucksPerCapita": null,
       "evAdoption": null,
       "renewableEnergy": null,
@@ -6405,7 +6405,7 @@
       "cryptoAdoption": 16.2
     },
     "economy": {
-      "billionairesPerCapita": 15.2,
+      "billionairesPerCapita": 21.0,
       "millionairesPerCapita": 60,
       "bitcoinATMs": null,
       "startupUnicorns": 22,
@@ -6413,7 +6413,7 @@
       "gamblingSpending": null,
       "lotterySpending": null,
       "touristArrivals": 600,
-      "mcdonaldsPerCapita": 38.5,
+      "mcdonaldsPerCapita": 39.0,
       "starbucksPerCapita": 45.2,
       "evAdoption": 11.2,
       "renewableEnergy": 68.5,
@@ -7130,7 +7130,7 @@
       "cryptoAdoption": 9.8
     },
     "economy": {
-      "billionairesPerCapita": 3.8,
+      "billionairesPerCapita": 3.1,
       "millionairesPerCapita": 5,
       "bitcoinATMs": null,
       "startupUnicorns": 2,
@@ -7138,7 +7138,7 @@
       "gamblingSpending": null,
       "lotterySpending": null,
       "touristArrivals": 250,
-      "mcdonaldsPerCapita": 8.5,
+      "mcdonaldsPerCapita": 6.4,
       "starbucksPerCapita": 6.8,
       "evAdoption": 2.2,
       "renewableEnergy": 38.5,
@@ -7382,7 +7382,7 @@
       "cryptoAdoption": 4.2
     },
     "economy": {
-      "billionairesPerCapita": 4.2,
+      "billionairesPerCapita": 3.8,
       "millionairesPerCapita": 8,
       "bitcoinATMs": null,
       "startupUnicorns": 157,
@@ -7390,7 +7390,7 @@
       "gamblingSpending": null,
       "lotterySpending": null,
       "touristArrivals": 45,
-      "mcdonaldsPerCapita": 4.2,
+      "mcdonaldsPerCapita": 5.5,
       "starbucksPerCapita": 4.8,
       "evAdoption": 35.2,
       "renewableEnergy": 30.5,
@@ -7624,7 +7624,7 @@
       "cryptoAdoption": 10.8
     },
     "economy": {
-      "billionairesPerCapita": 1.5,
+      "billionairesPerCapita": 0.8,
       "millionairesPerCapita": 1,
       "bitcoinATMs": null,
       "startupUnicorns": 4,
@@ -7632,7 +7632,7 @@
       "gamblingSpending": null,
       "lotterySpending": null,
       "touristArrivals": null,
-      "mcdonaldsPerCapita": 3.5,
+      "mcdonaldsPerCapita": 1.4,
       "starbucksPerCapita": 2.8,
       "evAdoption": 1.5,
       "renewableEnergy": null,
@@ -8357,7 +8357,7 @@
       "gamblingSpending": null,
       "lotterySpending": null,
       "touristArrivals": null,
-      "mcdonaldsPerCapita": 14,
+      "mcdonaldsPerCapita": 15.2,
       "starbucksPerCapita": null,
       "evAdoption": null,
       "renewableEnergy": 98.5,
@@ -8827,7 +8827,7 @@
       "cryptoAdoption": 6.8
     },
     "economy": {
-      "billionairesPerCapita": null,
+      "billionairesPerCapita": 2.6,
       "millionairesPerCapita": null,
       "bitcoinATMs": null,
       "startupUnicorns": 2,
@@ -8835,7 +8835,7 @@
       "gamblingSpending": null,
       "lotterySpending": null,
       "touristArrivals": 3500,
-      "mcdonaldsPerCapita": 11.8,
+      "mcdonaldsPerCapita": 12.6,
       "starbucksPerCapita": null,
       "evAdoption": null,
       "renewableEnergy": null,
@@ -9067,7 +9067,7 @@
       "gamblingSpending": null,
       "lotterySpending": null,
       "touristArrivals": null,
-      "mcdonaldsPerCapita": null,
+      "mcdonaldsPerCapita": 0.1,
       "starbucksPerCapita": null,
       "evAdoption": null,
       "renewableEnergy": null,
@@ -9289,7 +9289,7 @@
       "cryptoAdoption": 8.8
     },
     "economy": {
-      "billionairesPerCapita": 33.3,
+      "billionairesPerCapita": 76.9,
       "millionairesPerCapita": null,
       "bitcoinATMs": null,
       "startupUnicorns": null,
@@ -9297,7 +9297,7 @@
       "gamblingSpending": null,
       "lotterySpending": null,
       "touristArrivals": 3200,
-      "mcdonaldsPerCapita": 18.5,
+      "mcdonaldsPerCapita": 17.7,
       "starbucksPerCapita": null,
       "evAdoption": null,
       "renewableEnergy": null,
@@ -9519,7 +9519,7 @@
       "cryptoAdoption": 8.2
     },
     "economy": {
-      "billionairesPerCapita": null,
+      "billionairesPerCapita": 10.5,
       "millionairesPerCapita": 6,
       "bitcoinATMs": null,
       "startupUnicorns": 1,
@@ -9527,7 +9527,7 @@
       "gamblingSpending": null,
       "lotterySpending": null,
       "touristArrivals": null,
-      "mcdonaldsPerCapita": 11.3,
+      "mcdonaldsPerCapita": 13.3,
       "starbucksPerCapita": null,
       "evAdoption": null,
       "renewableEnergy": null,
@@ -9770,7 +9770,7 @@
       "cryptoAdoption": 9.8
     },
     "economy": {
-      "billionairesPerCapita": 15.2,
+      "billionairesPerCapita": 15.3,
       "millionairesPerCapita": 65,
       "bitcoinATMs": null,
       "startupUnicorns": 2,
@@ -9778,7 +9778,7 @@
       "gamblingSpending": null,
       "lotterySpending": null,
       "touristArrivals": 800,
-      "mcdonaldsPerCapita": 15.8,
+      "mcdonaldsPerCapita": 20.5,
       "starbucksPerCapita": 5.5,
       "evAdoption": 35.5,
       "renewableEnergy": 78.2,
@@ -10256,7 +10256,7 @@
       "gamblingSpending": null,
       "lotterySpending": null,
       "touristArrivals": null,
-      "mcdonaldsPerCapita": 2.1,
+      "mcdonaldsPerCapita": 2.2,
       "starbucksPerCapita": null,
       "evAdoption": null,
       "renewableEnergy": null,
@@ -10487,7 +10487,7 @@
       "gamblingSpending": null,
       "lotterySpending": null,
       "touristArrivals": null,
-      "mcdonaldsPerCapita": 1.8,
+      "mcdonaldsPerCapita": 2.0,
       "starbucksPerCapita": null,
       "evAdoption": null,
       "renewableEnergy": null,
@@ -10724,7 +10724,7 @@
       "cryptoAdoption": 5.8
     },
     "economy": {
-      "billionairesPerCapita": 0.6,
+      "billionairesPerCapita": 0.5,
       "millionairesPerCapita": null,
       "bitcoinATMs": null,
       "startupUnicorns": 1,
@@ -10732,7 +10732,7 @@
       "gamblingSpending": null,
       "lotterySpending": null,
       "touristArrivals": 140,
-      "mcdonaldsPerCapita": 1.2,
+      "mcdonaldsPerCapita": 1.8,
       "starbucksPerCapita": 0.8,
       "evAdoption": 0.5,
       "renewableEnergy": 12.5,
@@ -10962,7 +10962,7 @@
       "gamblingSpending": null,
       "lotterySpending": null,
       "touristArrivals": null,
-      "mcdonaldsPerCapita": 3.5,
+      "mcdonaldsPerCapita": 4.4,
       "starbucksPerCapita": null,
       "evAdoption": null,
       "renewableEnergy": null,
@@ -11666,7 +11666,7 @@
       "cryptoAdoption": 12.8
     },
     "economy": {
-      "billionairesPerCapita": null,
+      "billionairesPerCapita": 14.3,
       "millionairesPerCapita": null,
       "bitcoinATMs": null,
       "startupUnicorns": 2,
@@ -11913,7 +11913,7 @@
       "cryptoAdoption": 3.2
     },
     "economy": {
-      "billionairesPerCapita": null,
+      "billionairesPerCapita": 8.3,
       "millionairesPerCapita": null,
       "bitcoinATMs": null,
       "startupUnicorns": null,
@@ -12414,7 +12414,7 @@
       "cryptoAdoption": 10.8
     },
     "economy": {
-      "billionairesPerCapita": 7.2,
+      "billionairesPerCapita": 12.7,
       "millionairesPerCapita": null,
       "bitcoinATMs": null,
       "startupUnicorns": 4,
@@ -12422,7 +12422,7 @@
       "gamblingSpending": null,
       "lotterySpending": null,
       "touristArrivals": null,
-      "mcdonaldsPerCapita": 16.5,
+      "mcdonaldsPerCapita": 16.4,
       "starbucksPerCapita": 4.2,
       "evAdoption": 32.8,
       "renewableEnergy": 52.5,
@@ -12665,7 +12665,7 @@
       "cryptoAdoption": 9.2
     },
     "economy": {
-      "billionairesPerCapita": 9.2,
+      "billionairesPerCapita": 7.5,
       "millionairesPerCapita": 47,
       "bitcoinATMs": null,
       "startupUnicorns": 29,
@@ -12673,7 +12673,7 @@
       "gamblingSpending": null,
       "lotterySpending": null,
       "touristArrivals": 1350,
-      "mcdonaldsPerCapita": 22.5,
+      "mcdonaldsPerCapita": 24.0,
       "starbucksPerCapita": 5.5,
       "evAdoption": 21.2,
       "renewableEnergy": 25.5,
@@ -13391,7 +13391,7 @@
       "cryptoAdoption": 6.8
     },
     "economy": {
-      "billionairesPerCapita": null,
+      "billionairesPerCapita": 5.4,
       "millionairesPerCapita": null,
       "bitcoinATMs": null,
       "startupUnicorns": null,
@@ -13399,7 +13399,7 @@
       "gamblingSpending": null,
       "lotterySpending": null,
       "touristArrivals": null,
-      "mcdonaldsPerCapita": 6.2,
+      "mcdonaldsPerCapita": 7.3,
       "starbucksPerCapita": null,
       "evAdoption": null,
       "renewableEnergy": null,
@@ -13642,7 +13642,7 @@
       "cryptoAdoption": 11.8
     },
     "economy": {
-      "billionairesPerCapita": 14.5,
+      "billionairesPerCapita": 25.2,
       "millionairesPerCapita": 45,
       "bitcoinATMs": null,
       "startupUnicorns": 32,
@@ -13650,7 +13650,7 @@
       "gamblingSpending": null,
       "lotterySpending": null,
       "touristArrivals": 500,
-      "mcdonaldsPerCapita": 18.8,
+      "mcdonaldsPerCapita": 16.5,
       "starbucksPerCapita": 5.2,
       "evAdoption": 23.8,
       "renewableEnergy": 46.2,
@@ -14124,7 +14124,7 @@
       "cryptoAdoption": 6.8
     },
     "economy": {
-      "billionairesPerCapita": null,
+      "billionairesPerCapita": 15.4,
       "millionairesPerCapita": 8,
       "bitcoinATMs": null,
       "startupUnicorns": 2,
@@ -14132,7 +14132,7 @@
       "gamblingSpending": null,
       "lotterySpending": null,
       "touristArrivals": 2800,
-      "mcdonaldsPerCapita": 8.5,
+      "mcdonaldsPerCapita": 3.3,
       "starbucksPerCapita": 8.5,
       "evAdoption": 6.5,
       "renewableEnergy": 38.8,
@@ -14362,7 +14362,7 @@
       "gamblingSpending": null,
       "lotterySpending": null,
       "touristArrivals": null,
-      "mcdonaldsPerCapita": 6.1,
+      "mcdonaldsPerCapita": 6.9,
       "starbucksPerCapita": null,
       "evAdoption": null,
       "renewableEnergy": null,
@@ -15552,7 +15552,7 @@
       "gamblingSpending": null,
       "lotterySpending": null,
       "touristArrivals": null,
-      "mcdonaldsPerCapita": 1,
+      "mcdonaldsPerCapita": 1.5,
       "starbucksPerCapita": null,
       "evAdoption": null,
       "renewableEnergy": null,
@@ -15774,7 +15774,7 @@
       "cryptoAdoption": 7.2
     },
     "economy": {
-      "billionairesPerCapita": null,
+      "billionairesPerCapita": 4.1,
       "millionairesPerCapita": 4,
       "bitcoinATMs": null,
       "startupUnicorns": null,
@@ -15782,7 +15782,7 @@
       "gamblingSpending": null,
       "lotterySpending": null,
       "touristArrivals": 800,
-      "mcdonaldsPerCapita": 11.2,
+      "mcdonaldsPerCapita": 13.3,
       "starbucksPerCapita": null,
       "evAdoption": 5.2,
       "renewableEnergy": 12.5,
@@ -16024,7 +16024,7 @@
       "cryptoAdoption": 8.8
     },
     "economy": {
-      "billionairesPerCapita": 27.5,
+      "billionairesPerCapita": 26.3,
       "millionairesPerCapita": null,
       "bitcoinATMs": null,
       "startupUnicorns": null,
@@ -16275,7 +16275,7 @@
       "cryptoAdoption": 7.2
     },
     "economy": {
-      "billionairesPerCapita": 1.2,
+      "billionairesPerCapita": 1.6,
       "millionairesPerCapita": 0.8,
       "bitcoinATMs": null,
       "startupUnicorns": 69,
@@ -16283,7 +16283,7 @@
       "gamblingSpending": null,
       "lotterySpending": null,
       "touristArrivals": 12,
-      "mcdonaldsPerCapita": 0.4,
+      "mcdonaldsPerCapita": 0.5,
       "starbucksPerCapita": 0.3,
       "evAdoption": 2.2,
       "renewableEnergy": 22.5,
@@ -16534,7 +16534,7 @@
       "gamblingSpending": null,
       "lotterySpending": null,
       "touristArrivals": 75,
-      "mcdonaldsPerCapita": 1.5,
+      "mcdonaldsPerCapita": 1.1,
       "starbucksPerCapita": 3.2,
       "evAdoption": 1.5,
       "renewableEnergy": 15.2,
@@ -17015,7 +17015,7 @@
       "gamblingSpending": null,
       "lotterySpending": null,
       "touristArrivals": null,
-      "mcdonaldsPerCapita": 0,
+      "mcdonaldsPerCapita": null,
       "starbucksPerCapita": null,
       "evAdoption": null,
       "renewableEnergy": null,
@@ -17237,7 +17237,7 @@
       "cryptoAdoption": 11.8
     },
     "economy": {
-      "billionairesPerCapita": 20.8,
+      "billionairesPerCapita": 21.2,
       "millionairesPerCapita": 42,
       "bitcoinATMs": null,
       "startupUnicorns": 9,
@@ -17245,7 +17245,7 @@
       "gamblingSpending": null,
       "lotterySpending": null,
       "touristArrivals": 850,
-      "mcdonaldsPerCapita": 22.5,
+      "mcdonaldsPerCapita": 18.3,
       "starbucksPerCapita": 6.5,
       "evAdoption": 18.5,
       "renewableEnergy": 35.5,
@@ -17488,7 +17488,7 @@
       "cryptoAdoption": 12.8
     },
     "economy": {
-      "billionairesPerCapita": 27.8,
+      "billionairesPerCapita": 45.2,
       "millionairesPerCapita": 30,
       "bitcoinATMs": null,
       "startupUnicorns": 25,
@@ -17496,7 +17496,7 @@
       "gamblingSpending": null,
       "lotterySpending": null,
       "touristArrivals": 480,
-      "mcdonaldsPerCapita": 14.2,
+      "mcdonaldsPerCapita": 25.3,
       "starbucksPerCapita": 3.2,
       "evAdoption": 12.8,
       "renewableEnergy": 8.5,
@@ -17739,7 +17739,7 @@
       "cryptoAdoption": 8.2
     },
     "economy": {
-      "billionairesPerCapita": 10.5,
+      "billionairesPerCapita": 15.1,
       "millionairesPerCapita": 35,
       "bitcoinATMs": null,
       "startupUnicorns": 3,
@@ -17747,7 +17747,7 @@
       "gamblingSpending": null,
       "lotterySpending": null,
       "touristArrivals": 1100,
-      "mcdonaldsPerCapita": 10.2,
+      "mcdonaldsPerCapita": 13.6,
       "starbucksPerCapita": null,
       "evAdoption": 8.2,
       "renewableEnergy": 40.2,
@@ -18222,7 +18222,7 @@
       "cryptoAdoption": 8.8
     },
     "economy": {
-      "billionairesPerCapita": 4.5,
+      "billionairesPerCapita": 3.3,
       "millionairesPerCapita": 40,
       "bitcoinATMs": null,
       "startupUnicorns": 9,
@@ -18230,7 +18230,7 @@
       "gamblingSpending": null,
       "lotterySpending": null,
       "touristArrivals": 250,
-      "mcdonaldsPerCapita": 23.5,
+      "mcdonaldsPerCapita": 24.4,
       "starbucksPerCapita": 18.8,
       "evAdoption": 3.5,
       "renewableEnergy": 22.8,
@@ -18460,7 +18460,7 @@
       "gamblingSpending": null,
       "lotterySpending": null,
       "touristArrivals": 400,
-      "mcdonaldsPerCapita": 4.1,
+      "mcdonaldsPerCapita": 4.0,
       "starbucksPerCapita": null,
       "evAdoption": null,
       "renewableEnergy": null,
@@ -18683,7 +18683,7 @@
       "cryptoAdoption": 6.8
     },
     "economy": {
-      "billionairesPerCapita": null,
+      "billionairesPerCapita": 3.1,
       "millionairesPerCapita": null,
       "bitcoinATMs": null,
       "startupUnicorns": null,
@@ -19418,7 +19418,7 @@
       "cryptoAdoption": 14.8
     },
     "economy": {
-      "billionairesPerCapita": 9.8,
+      "billionairesPerCapita": 9.5,
       "millionairesPerCapita": 32,
       "bitcoinATMs": null,
       "startupUnicorns": 14,
@@ -19426,7 +19426,7 @@
       "gamblingSpending": null,
       "lotterySpending": null,
       "touristArrivals": 300,
-      "mcdonaldsPerCapita": 8.8,
+      "mcdonaldsPerCapita": 7.8,
       "starbucksPerCapita": 55.8,
       "evAdoption": 9.8,
       "renewableEnergy": 8.5,
@@ -19648,7 +19648,7 @@
       "cryptoAdoption": 8.2
     },
     "economy": {
-      "billionairesPerCapita": 6.5,
+      "billionairesPerCapita": null,
       "millionairesPerCapita": 25,
       "bitcoinATMs": null,
       "startupUnicorns": null,
@@ -19656,7 +19656,7 @@
       "gamblingSpending": null,
       "lotterySpending": null,
       "touristArrivals": null,
-      "mcdonaldsPerCapita": 20.2,
+      "mcdonaldsPerCapita": 20.7,
       "starbucksPerCapita": 15.8,
       "evAdoption": null,
       "renewableEnergy": null,
@@ -20349,7 +20349,7 @@
       "gamblingSpending": null,
       "lotterySpending": null,
       "touristArrivals": null,
-      "mcdonaldsPerCapita": 7.8,
+      "mcdonaldsPerCapita": 8.3,
       "starbucksPerCapita": null,
       "evAdoption": null,
       "renewableEnergy": null,
@@ -20571,7 +20571,7 @@
       "cryptoAdoption": 8.8
     },
     "economy": {
-      "billionairesPerCapita": null,
+      "billionairesPerCapita": 11.3,
       "millionairesPerCapita": null,
       "bitcoinATMs": null,
       "startupUnicorns": null,
@@ -21552,7 +21552,7 @@
       "gamblingSpending": null,
       "lotterySpending": null,
       "touristArrivals": null,
-      "mcdonaldsPerCapita": 6.1,
+      "mcdonaldsPerCapita": 6.8,
       "starbucksPerCapita": null,
       "evAdoption": null,
       "renewableEnergy": null,
@@ -21775,7 +21775,7 @@
       "cryptoAdoption": 12.8
     },
     "economy": {
-      "billionairesPerCapita": 47.1,
+      "billionairesPerCapita": 15.2,
       "millionairesPerCapita": 155,
       "bitcoinATMs": null,
       "startupUnicorns": 1,
@@ -21783,7 +21783,7 @@
       "gamblingSpending": null,
       "lotterySpending": null,
       "touristArrivals": null,
-      "mcdonaldsPerCapita": 18.2,
+      "mcdonaldsPerCapita": 16.7,
       "starbucksPerCapita": null,
       "evAdoption": null,
       "renewableEnergy": null,
@@ -22504,7 +22504,7 @@
       "cryptoAdoption": 8.8
     },
     "economy": {
-      "billionairesPerCapita": 5.8,
+      "billionairesPerCapita": 5.5,
       "millionairesPerCapita": 3.5,
       "bitcoinATMs": null,
       "startupUnicorns": 1,
@@ -22512,7 +22512,7 @@
       "gamblingSpending": null,
       "lotterySpending": null,
       "touristArrivals": 800,
-      "mcdonaldsPerCapita": 10.5,
+      "mcdonaldsPerCapita": 10.8,
       "starbucksPerCapita": 14.5,
       "evAdoption": 3.8,
       "renewableEnergy": 22.5,
@@ -23257,7 +23257,7 @@
       "gamblingSpending": null,
       "lotterySpending": null,
       "touristArrivals": null,
-      "mcdonaldsPerCapita": 12.3,
+      "mcdonaldsPerCapita": 13.8,
       "starbucksPerCapita": null,
       "evAdoption": null,
       "renewableEnergy": null,
@@ -23499,7 +23499,7 @@
       "cryptoAdoption": 8.8
     },
     "economy": {
-      "billionairesPerCapita": 1.8,
+      "billionairesPerCapita": 1.7,
       "millionairesPerCapita": 2,
       "bitcoinATMs": null,
       "startupUnicorns": 9,
@@ -23507,7 +23507,7 @@
       "gamblingSpending": null,
       "lotterySpending": null,
       "touristArrivals": 400,
-      "mcdonaldsPerCapita": 6.2,
+      "mcdonaldsPerCapita": 3.0,
       "starbucksPerCapita": 7.2,
       "evAdoption": 1.8,
       "renewableEnergy": 18.5,
@@ -23737,7 +23737,7 @@
       "gamblingSpending": null,
       "lotterySpending": null,
       "touristArrivals": null,
-      "mcdonaldsPerCapita": 4,
+      "mcdonaldsPerCapita": 4.4,
       "starbucksPerCapita": null,
       "evAdoption": null,
       "renewableEnergy": null,
@@ -24443,7 +24443,7 @@
       "cryptoAdoption": 5.8
     },
     "economy": {
-      "billionairesPerCapita": null,
+      "billionairesPerCapita": 0.8,
       "millionairesPerCapita": null,
       "bitcoinATMs": null,
       "startupUnicorns": null,
@@ -24451,7 +24451,7 @@
       "gamblingSpending": null,
       "lotterySpending": null,
       "touristArrivals": 400,
-      "mcdonaldsPerCapita": 1.9,
+      "mcdonaldsPerCapita": 2.1,
       "starbucksPerCapita": null,
       "evAdoption": null,
       "renewableEnergy": null,
@@ -25407,7 +25407,7 @@
       "cryptoAdoption": 4.8
     },
     "economy": {
-      "billionairesPerCapita": null,
+      "billionairesPerCapita": 0.7,
       "millionairesPerCapita": null,
       "bitcoinATMs": null,
       "startupUnicorns": null,
@@ -25658,7 +25658,7 @@
       "cryptoAdoption": 14.8
     },
     "economy": {
-      "billionairesPerCapita": 12.8,
+      "billionairesPerCapita": 7.3,
       "millionairesPerCapita": 75,
       "bitcoinATMs": null,
       "startupUnicorns": 9,
@@ -25666,7 +25666,7 @@
       "gamblingSpending": null,
       "lotterySpending": null,
       "touristArrivals": 1200,
-      "mcdonaldsPerCapita": 15.2,
+      "mcdonaldsPerCapita": 15.0,
       "starbucksPerCapita": 8.5,
       "evAdoption": 30.5,
       "renewableEnergy": 32.5,
@@ -25890,7 +25890,7 @@
       "cryptoAdoption": 12.8
     },
     "economy": {
-      "billionairesPerCapita": 8.2,
+      "billionairesPerCapita": 9.8,
       "millionairesPerCapita": 62,
       "bitcoinATMs": null,
       "startupUnicorns": 1,
@@ -25898,7 +25898,7 @@
       "gamblingSpending": null,
       "lotterySpending": null,
       "touristArrivals": 800,
-      "mcdonaldsPerCapita": 36.8,
+      "mcdonaldsPerCapita": 34.5,
       "starbucksPerCapita": 1.2,
       "evAdoption": 12.5,
       "renewableEnergy": 82.8,
@@ -26128,7 +26128,7 @@
       "gamblingSpending": null,
       "lotterySpending": null,
       "touristArrivals": null,
-      "mcdonaldsPerCapita": 1.1,
+      "mcdonaldsPerCapita": 1.4,
       "starbucksPerCapita": null,
       "evAdoption": null,
       "renewableEnergy": null,
@@ -26617,7 +26617,7 @@
       "cryptoAdoption": 22.8
     },
     "economy": {
-      "billionairesPerCapita": 0.5,
+      "billionairesPerCapita": 0.2,
       "millionairesPerCapita": null,
       "bitcoinATMs": null,
       "startupUnicorns": 2,
@@ -26868,7 +26868,7 @@
       "cryptoAdoption": 10.8
     },
     "economy": {
-      "billionairesPerCapita": 25.8,
+      "billionairesPerCapita": 30.9,
       "millionairesPerCapita": 46,
       "bitcoinATMs": null,
       "startupUnicorns": 5,
@@ -26876,7 +26876,7 @@
       "gamblingSpending": null,
       "lotterySpending": null,
       "touristArrivals": null,
-      "mcdonaldsPerCapita": 18.2,
+      "mcdonaldsPerCapita": 18.4,
       "starbucksPerCapita": 4.8,
       "evAdoption": 82.4,
       "renewableEnergy": 98.5,
@@ -27099,7 +27099,7 @@
       "cryptoAdoption": 6.8
     },
     "economy": {
-      "billionairesPerCapita": null,
+      "billionairesPerCapita": 4.3,
       "millionairesPerCapita": null,
       "bitcoinATMs": null,
       "startupUnicorns": null,
@@ -27107,7 +27107,7 @@
       "gamblingSpending": null,
       "lotterySpending": null,
       "touristArrivals": null,
-      "mcdonaldsPerCapita": 7.4,
+      "mcdonaldsPerCapita": 7.6,
       "starbucksPerCapita": null,
       "evAdoption": null,
       "renewableEnergy": null,
@@ -27588,7 +27588,7 @@
       "gamblingSpending": null,
       "lotterySpending": null,
       "touristArrivals": null,
-      "mcdonaldsPerCapita": 18.4,
+      "mcdonaldsPerCapita": 19.1,
       "starbucksPerCapita": null,
       "evAdoption": null,
       "renewableEnergy": null,
@@ -28050,7 +28050,7 @@
       "gamblingSpending": null,
       "lotterySpending": null,
       "touristArrivals": null,
-      "mcdonaldsPerCapita": 3.5,
+      "mcdonaldsPerCapita": 4.4,
       "starbucksPerCapita": null,
       "evAdoption": null,
       "renewableEnergy": 99.8,
@@ -28510,7 +28510,7 @@
       "cryptoAdoption": 13.8
     },
     "economy": {
-      "billionairesPerCapita": 1.5,
+      "billionairesPerCapita": 1.3,
       "millionairesPerCapita": 0.8,
       "bitcoinATMs": null,
       "startupUnicorns": 1,
@@ -28518,7 +28518,7 @@
       "gamblingSpending": null,
       "lotterySpending": null,
       "touristArrivals": 80,
-      "mcdonaldsPerCapita": 6.8,
+      "mcdonaldsPerCapita": 7.3,
       "starbucksPerCapita": 8.5,
       "evAdoption": 0.8,
       "renewableEnergy": 28.5,
@@ -28760,7 +28760,7 @@
       "cryptoAdoption": 7.2
     },
     "economy": {
-      "billionairesPerCapita": 3.8,
+      "billionairesPerCapita": 2.6,
       "millionairesPerCapita": 5,
       "bitcoinATMs": null,
       "startupUnicorns": null,
@@ -28768,7 +28768,7 @@
       "gamblingSpending": null,
       "lotterySpending": null,
       "touristArrivals": 500,
-      "mcdonaldsPerCapita": 15.8,
+      "mcdonaldsPerCapita": 16.3,
       "starbucksPerCapita": 4.8,
       "evAdoption": 4.2,
       "renewableEnergy": 18.5,
@@ -28990,7 +28990,7 @@
       "cryptoAdoption": 8.8
     },
     "economy": {
-      "billionairesPerCapita": null,
+      "billionairesPerCapita": 1.0,
       "millionairesPerCapita": 18,
       "bitcoinATMs": null,
       "startupUnicorns": 1,
@@ -28998,7 +28998,7 @@
       "gamblingSpending": null,
       "lotterySpending": null,
       "touristArrivals": 2500,
-      "mcdonaldsPerCapita": 9.8,
+      "mcdonaldsPerCapita": 21.4,
       "starbucksPerCapita": 3.5,
       "evAdoption": 20.5,
       "renewableEnergy": 72.5,
@@ -29221,7 +29221,7 @@
       "cryptoAdoption": 8.8
     },
     "economy": {
-      "billionairesPerCapita": 15.2,
+      "billionairesPerCapita": 7.4,
       "millionairesPerCapita": 40,
       "bitcoinATMs": null,
       "startupUnicorns": null,
@@ -29229,7 +29229,7 @@
       "gamblingSpending": null,
       "lotterySpending": null,
       "touristArrivals": null,
-      "mcdonaldsPerCapita": 27.8,
+      "mcdonaldsPerCapita": 28.9,
       "starbucksPerCapita": 18.5,
       "evAdoption": null,
       "renewableEnergy": null,
@@ -29452,7 +29452,7 @@
       "cryptoAdoption": 7.8
     },
     "economy": {
-      "billionairesPerCapita": null,
+      "billionairesPerCapita": 3.2,
       "millionairesPerCapita": null,
       "bitcoinATMs": null,
       "startupUnicorns": null,
@@ -29460,7 +29460,7 @@
       "gamblingSpending": null,
       "lotterySpending": null,
       "touristArrivals": null,
-      "mcdonaldsPerCapita": 4.8,
+      "mcdonaldsPerCapita": 6.0,
       "starbucksPerCapita": 3.5,
       "evAdoption": 3.8,
       "renewableEnergy": 42.5,
@@ -29703,7 +29703,7 @@
       "cryptoAdoption": 8.8
     },
     "economy": {
-      "billionairesPerCapita": 7.2,
+      "billionairesPerCapita": 10.2,
       "millionairesPerCapita": 3.6,
       "bitcoinATMs": null,
       "startupUnicorns": null,
@@ -29711,7 +29711,7 @@
       "gamblingSpending": null,
       "lotterySpending": null,
       "touristArrivals": 200,
-      "mcdonaldsPerCapita": 5.2,
+      "mcdonaldsPerCapita": null,
       "starbucksPerCapita": 1.8,
       "evAdoption": 1.2,
       "renewableEnergy": 20.5,
@@ -30205,7 +30205,7 @@
       "cryptoAdoption": 8.2
     },
     "economy": {
-      "billionairesPerCapita": 2.8,
+      "billionairesPerCapita": 4.1,
       "millionairesPerCapita": 15,
       "bitcoinATMs": null,
       "startupUnicorns": 1,
@@ -30213,7 +30213,7 @@
       "gamblingSpending": null,
       "lotterySpending": null,
       "touristArrivals": 100,
-      "mcdonaldsPerCapita": 9.8,
+      "mcdonaldsPerCapita": 12.6,
       "starbucksPerCapita": 12.5,
       "evAdoption": 1.2,
       "renewableEnergy": 0.5,
@@ -30695,7 +30695,7 @@
       "gamblingSpending": null,
       "lotterySpending": null,
       "touristArrivals": null,
-      "mcdonaldsPerCapita": 5.2,
+      "mcdonaldsPerCapita": 6.3,
       "starbucksPerCapita": null,
       "evAdoption": null,
       "renewableEnergy": null,
@@ -31179,7 +31179,7 @@
       "cryptoAdoption": 18.8
     },
     "economy": {
-      "billionairesPerCapita": 73.5,
+      "billionairesPerCapita": 100.0,
       "millionairesPerCapita": 80,
       "bitcoinATMs": null,
       "startupUnicorns": 14,
@@ -31187,7 +31187,7 @@
       "gamblingSpending": null,
       "lotterySpending": null,
       "touristArrivals": 2400,
-      "mcdonaldsPerCapita": 28.5,
+      "mcdonaldsPerCapita": 27.8,
       "starbucksPerCapita": 32.5,
       "evAdoption": 15.2,
       "renewableEnergy": 2.5,
@@ -31409,7 +31409,7 @@
       "cryptoAdoption": 6.8
     },
     "economy": {
-      "billionairesPerCapita": null,
+      "billionairesPerCapita": 3.7,
       "millionairesPerCapita": null,
       "bitcoinATMs": null,
       "startupUnicorns": null,
@@ -31417,7 +31417,7 @@
       "gamblingSpending": null,
       "lotterySpending": null,
       "touristArrivals": null,
-      "mcdonaldsPerCapita": 8,
+      "mcdonaldsPerCapita": 10.0,
       "starbucksPerCapita": null,
       "evAdoption": 4.2,
       "renewableEnergy": null,
@@ -31648,7 +31648,7 @@
       "gamblingSpending": null,
       "lotterySpending": null,
       "touristArrivals": null,
-      "mcdonaldsPerCapita": 11,
+      "mcdonaldsPerCapita": 13.8,
       "starbucksPerCapita": null,
       "evAdoption": 8.5,
       "renewableEnergy": null,
@@ -32138,7 +32138,7 @@
       "cryptoAdoption": 9.8
     },
     "economy": {
-      "billionairesPerCapita": 1.8,
+      "billionairesPerCapita": 1.2,
       "millionairesPerCapita": 4,
       "bitcoinATMs": null,
       "startupUnicorns": 1,
@@ -32146,7 +32146,7 @@
       "gamblingSpending": null,
       "lotterySpending": null,
       "touristArrivals": 200,
-      "mcdonaldsPerCapita": 4.5,
+      "mcdonaldsPerCapita": 6.8,
       "starbucksPerCapita": 2.2,
       "evAdoption": 0.8,
       "renewableEnergy": 8.5,
@@ -32636,7 +32636,7 @@
       "cryptoAdoption": 9.8
     },
     "economy": {
-      "billionairesPerCapita": 7.8,
+      "billionairesPerCapita": 7.2,
       "millionairesPerCapita": 25,
       "bitcoinATMs": null,
       "startupUnicorns": 5,
@@ -32644,7 +32644,7 @@
       "gamblingSpending": null,
       "lotterySpending": null,
       "touristArrivals": 2200,
-      "mcdonaldsPerCapita": 13.5,
+      "mcdonaldsPerCapita": 13.9,
       "starbucksPerCapita": 6.8,
       "evAdoption": 8.5,
       "renewableEnergy": 48.5,
@@ -32876,7 +32876,7 @@
       "gamblingSpending": null,
       "lotterySpending": null,
       "touristArrivals": null,
-      "mcdonaldsPerCapita": 0.5,
+      "mcdonaldsPerCapita": null,
       "starbucksPerCapita": null,
       "evAdoption": null,
       "renewableEnergy": null,
@@ -33355,7 +33355,7 @@
       "gamblingSpending": null,
       "lotterySpending": null,
       "touristArrivals": null,
-      "mcdonaldsPerCapita": null,
+      "mcdonaldsPerCapita": 3.2,
       "starbucksPerCapita": null,
       "evAdoption": null,
       "renewableEnergy": null,
@@ -33598,7 +33598,7 @@
       "cryptoAdoption": 11.2
     },
     "economy": {
-      "billionairesPerCapita": 37.5,
+      "billionairesPerCapita": 47.6,
       "millionairesPerCapita": 58,
       "bitcoinATMs": null,
       "startupUnicorns": 6,
@@ -33606,7 +33606,7 @@
       "gamblingSpending": null,
       "lotterySpending": null,
       "touristArrivals": null,
-      "mcdonaldsPerCapita": 25.5,
+      "mcdonaldsPerCapita": 19.5,
       "starbucksPerCapita": 6.2,
       "evAdoption": 38.5,
       "renewableEnergy": 75.5,
@@ -33849,7 +33849,7 @@
       "cryptoAdoption": 18.8
     },
     "economy": {
-      "billionairesPerCapita": 55.5,
+      "billionairesPerCapita": 51.1,
       "millionairesPerCapita": 145.6,
       "bitcoinATMs": null,
       "startupUnicorns": 6,
@@ -33857,7 +33857,7 @@
       "gamblingSpending": null,
       "lotterySpending": null,
       "touristArrivals": 1400,
-      "mcdonaldsPerCapita": 18.5,
+      "mcdonaldsPerCapita": 21.4,
       "starbucksPerCapita": 22.5,
       "evAdoption": 22.5,
       "renewableEnergy": 68.2,
@@ -34312,7 +34312,7 @@
       "cryptoAdoption": 12.8
     },
     "economy": {
-      "billionairesPerCapita": 18.5,
+      "billionairesPerCapita": 28.1,
       "millionairesPerCapita": 55,
       "bitcoinATMs": null,
       "startupUnicorns": null,
@@ -34320,7 +34320,7 @@
       "gamblingSpending": null,
       "lotterySpending": null,
       "touristArrivals": null,
-      "mcdonaldsPerCapita": 12.5,
+      "mcdonaldsPerCapita": 18.3,
       "starbucksPerCapita": 35.8,
       "evAdoption": 5.2,
       "renewableEnergy": null,
@@ -34795,7 +34795,7 @@
       "cryptoAdoption": 6.8
     },
     "economy": {
-      "billionairesPerCapita": null,
+      "billionairesPerCapita": 0.2,
       "millionairesPerCapita": null,
       "bitcoinATMs": null,
       "startupUnicorns": null,
@@ -35030,7 +35030,7 @@
       "cryptoAdoption": 14.8
     },
     "economy": {
-      "billionairesPerCapita": 4.5,
+      "billionairesPerCapita": 3.5,
       "millionairesPerCapita": 2,
       "bitcoinATMs": null,
       "startupUnicorns": 2,
@@ -35038,7 +35038,7 @@
       "gamblingSpending": null,
       "lotterySpending": null,
       "touristArrivals": 750,
-      "mcdonaldsPerCapita": 6.2,
+      "mcdonaldsPerCapita": 3.4,
       "starbucksPerCapita": 15.2,
       "evAdoption": 8.5,
       "renewableEnergy": 15.8,
@@ -36244,7 +36244,7 @@
       "cryptoAdoption": 18.8
     },
     "economy": {
-      "billionairesPerCapita": 3.2,
+      "billionairesPerCapita": 3.8,
       "millionairesPerCapita": 2.5,
       "bitcoinATMs": null,
       "startupUnicorns": 1,
@@ -36252,7 +36252,7 @@
       "gamblingSpending": null,
       "lotterySpending": null,
       "touristArrivals": 550,
-      "mcdonaldsPerCapita": 3.8,
+      "mcdonaldsPerCapita": 3.6,
       "starbucksPerCapita": 18.5,
       "evAdoption": 4.5,
       "renewableEnergy": 42.5,
@@ -36966,7 +36966,7 @@
       "cryptoAdoption": 12.8
     },
     "economy": {
-      "billionairesPerCapita": null,
+      "billionairesPerCapita": 1.9,
       "millionairesPerCapita": null,
       "bitcoinATMs": null,
       "startupUnicorns": null,
@@ -36974,7 +36974,7 @@
       "gamblingSpending": null,
       "lotterySpending": null,
       "touristArrivals": null,
-      "mcdonaldsPerCapita": 1.2,
+      "mcdonaldsPerCapita": 3.6,
       "starbucksPerCapita": null,
       "evAdoption": null,
       "renewableEnergy": 12.5,
@@ -37196,7 +37196,7 @@
       "cryptoAdoption": 22.8
     },
     "economy": {
-      "billionairesPerCapita": 12.5,
+      "billionairesPerCapita": 6.4,
       "millionairesPerCapita": 35,
       "bitcoinATMs": null,
       "startupUnicorns": 5,
@@ -37204,7 +37204,7 @@
       "gamblingSpending": null,
       "lotterySpending": null,
       "touristArrivals": 1500,
-      "mcdonaldsPerCapita": 22.5,
+      "mcdonaldsPerCapita": 23.6,
       "starbucksPerCapita": 28.5,
       "evAdoption": 3.5,
       "renewableEnergy": 5.2,
@@ -37447,7 +37447,7 @@
       "cryptoAdoption": 14.8
     },
     "economy": {
-      "billionairesPerCapita": 15.8,
+      "billionairesPerCapita": 8.3,
       "millionairesPerCapita": 49,
       "bitcoinATMs": null,
       "startupUnicorns": 55,
@@ -37455,7 +37455,7 @@
       "gamblingSpending": null,
       "lotterySpending": null,
       "touristArrivals": 600,
-      "mcdonaldsPerCapita": 21.2,
+      "mcdonaldsPerCapita": 22.3,
       "starbucksPerCapita": 28.5,
       "evAdoption": 22.8,
       "renewableEnergy": 42.5,
@@ -37699,7 +37699,7 @@
       "cryptoAdoption": 16.8
     },
     "economy": {
-      "billionairesPerCapita": 21.6,
+      "billionairesPerCapita": 29.5,
       "millionairesPerCapita": 84.8,
       "bitcoinATMs": null,
       "startupUnicorns": 712,
@@ -37707,7 +37707,7 @@
       "gamblingSpending": null,
       "lotterySpending": null,
       "touristArrivals": 250,
-      "mcdonaldsPerCapita": 43.2,
+      "mcdonaldsPerCapita": 40.9,
       "starbucksPerCapita": 44.5,
       "evAdoption": 9.5,
       "renewableEnergy": 22.2,
@@ -37937,7 +37937,7 @@
       "gamblingSpending": null,
       "lotterySpending": null,
       "touristArrivals": null,
-      "mcdonaldsPerCapita": 9.7,
+      "mcdonaldsPerCapita": 10.3,
       "starbucksPerCapita": null,
       "evAdoption": null,
       "renewableEnergy": null,
@@ -38390,7 +38390,7 @@
       "cryptoAdoption": 12.8
     },
     "economy": {
-      "billionairesPerCapita": null,
+      "billionairesPerCapita": 0.4,
       "millionairesPerCapita": null,
       "bitcoinATMs": null,
       "startupUnicorns": null,
@@ -38398,7 +38398,7 @@
       "gamblingSpending": null,
       "lotterySpending": null,
       "touristArrivals": null,
-      "mcdonaldsPerCapita": 2.9,
+      "mcdonaldsPerCapita": 2.8,
       "starbucksPerCapita": null,
       "evAdoption": null,
       "renewableEnergy": null,
@@ -38630,7 +38630,7 @@
       "cryptoAdoption": 18.8
     },
     "economy": {
-      "billionairesPerCapita": 0.8,
+      "billionairesPerCapita": 0.5,
       "millionairesPerCapita": 0.5,
       "bitcoinATMs": null,
       "startupUnicorns": 2,
@@ -38638,7 +38638,7 @@
       "gamblingSpending": null,
       "lotterySpending": null,
       "touristArrivals": 180,
-      "mcdonaldsPerCapita": 0.5,
+      "mcdonaldsPerCapita": 0.4,
       "starbucksPerCapita": 0.5,
       "evAdoption": 2.5,
       "renewableEnergy": 32.5,
@@ -39363,7 +39363,7 @@
       "cryptoAdoption": 6.8
     },
     "economy": {
-      "billionairesPerCapita": null,
+      "billionairesPerCapita": 0.6,
       "millionairesPerCapita": null,
       "bitcoinATMs": null,
       "startupUnicorns": null,
