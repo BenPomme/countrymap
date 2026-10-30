@@ -119,6 +119,8 @@ export function saveLocalState(state: TruthleLocalState): void {
 
   try {
     localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(state))
+    // Keep header CoinBalance pills in sync after awards/spends.
+    window.dispatchEvent(new CustomEvent('truthle:coins', { detail: state.coins }))
   } catch (e) {
     console.error('Error saving local state:', e)
   }
@@ -628,11 +630,21 @@ export async function consumeCloudRetry(): Promise<{ success: boolean; remaining
 }
 
 // Starts Stripe Checkout for a paid extra attempt. Returns the hosted checkout URL.
+function withTimeout<T>(p: Promise<T>, ms: number, label: string): Promise<T> {
+  return new Promise((resolve, reject) => {
+    const t = setTimeout(() => reject(new Error(`${label} timed out — please try again`)), ms)
+    p.then((v) => { clearTimeout(t); resolve(v) }, (e) => { clearTimeout(t); reject(e) })
+  })
+}
+
+// Starts Stripe Checkout for a paid extra attempt. Returns the hosted checkout URL.
+// Never hangs: auth + callable are bounded so the CTA always resets with an error.
 export async function createRetryCheckout(quantity = 1, returnTo: 'truthle' | 'true-false' = 'truthle'): Promise<{ url: string | null; error?: string }> {
   try {
-    await ensureAnonymousAuth()
-    const callable = httpsCallable<{ quantity: number; returnTo: string }, { url: string }>(functionsClient, 'createTruthleRetryCheckout')
-    const response = await callable({ quantity, returnTo })
+    await withTimeout(ensureAnonymousAuth(), 10000, 'Sign-in')
+    const callable = httpsCallable<{ quantity: number; returnTo: string }, { url: string }>(functionsClient, 'createTruthleRetryCheckout', { timeout: 20000 })
+    const response = await withTimeout(callable({ quantity, returnTo }), 22000, 'Checkout')
+    if (!response.data?.url) return { url: null, error: 'Checkout unavailable right now' }
     return { url: response.data.url }
   } catch (error) {
     console.error('Error creating checkout:', error)
