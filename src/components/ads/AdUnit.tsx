@@ -72,10 +72,8 @@ export default function AdUnit({
   return (
     <div
       className="w-full flex justify-center"
-      style={{
-        minHeight: reservedHeight,
-        backgroundColor: 'rgba(15, 23, 42, 0.03)',
-      }}
+      // No reserved grey box: unfilled slots collapse (see globals.css data-ad-status rule).
+      data-reserved={reservedHeight}
       aria-hidden="true"
     >
       <ins
