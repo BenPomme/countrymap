@@ -628,11 +628,11 @@ export async function consumeCloudRetry(): Promise<{ success: boolean; remaining
 }
 
 // Starts Stripe Checkout for a paid extra attempt. Returns the hosted checkout URL.
-export async function createRetryCheckout(quantity = 1): Promise<{ url: string | null; error?: string }> {
+export async function createRetryCheckout(quantity = 1, returnTo: 'truthle' | 'true-false' = 'truthle'): Promise<{ url: string | null; error?: string }> {
   try {
     await ensureAnonymousAuth()
-    const callable = httpsCallable<{ quantity: number }, { url: string }>(functionsClient, 'createTruthleRetryCheckout')
-    const response = await callable({ quantity })
+    const callable = httpsCallable<{ quantity: number; returnTo: string }, { url: string }>(functionsClient, 'createTruthleRetryCheckout')
+    const response = await callable({ quantity, returnTo })
     return { url: response.data.url }
   } catch (error) {
     console.error('Error creating checkout:', error)

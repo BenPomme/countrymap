@@ -39,6 +39,16 @@ export default function TrueFalseGame({ countries }: { countries: Country[] }) {
   const playedToday = stats?.lastDate === today
 
   useEffect(() => {
+    const c = new URLSearchParams(window.location.search).get('checkout')
+    if (c === 'success') setMsg('Payment received — your Extra Attempt is ready (may take a few seconds).')
+    else if (c === 'cancel') setMsg('Checkout cancelled.')
+    if (c === 'success') {
+      const t = setTimeout(() => getCloudRetryStatus().then((r) => setCredits(r.canConsume ? Math.max(1, r.paidCredits || 0) : r.paidCredits || 0)).catch(() => {}), 4000)
+      return () => clearTimeout(t)
+    }
+  }, [])
+
+  useEffect(() => {
     if (phase !== 'done') return
     getCloudRetryStatus().then((r) => setCredits(r.canConsume ? Math.max(1, r.paidCredits || 0) : r.paidCredits || 0)).catch(() => {})
   }, [phase])
@@ -67,7 +77,7 @@ export default function TrueFalseGame({ countries }: { countries: Country[] }) {
   }
   const buyExtra = async () => {
     setBusy(true); setMsg(null)
-    const { url, error } = await createRetryCheckout(1)
+    const { url, error } = await createRetryCheckout(1, 'true-false')
     if (url) { window.location.href = url; return }
     setBusy(false); setMsg(error || 'Checkout unavailable right now.')
   }
@@ -177,6 +187,7 @@ export default function TrueFalseGame({ countries }: { countries: Country[] }) {
         <Link href="/truthle" className="py-3 rounded-xl bg-emerald-600 text-white font-semibold">Play Truthle →</Link>
         <Link href="/map/press-freedom" className="py-3 rounded-xl bg-white border border-gray-300 font-semibold">Explore maps</Link>
       </div>
+      <Link href="/true-false/claims/" className="block mt-3 text-sm text-sky-700 font-semibold hover:underline">Browse 270+ country claims, answered →</Link>
       <p className="text-xs text-gray-400 mt-4">New claims every day at 00:00 UTC.</p>
     </div>
   )

@@ -432,6 +432,7 @@ exports.consumeTruthleRetry = functions.https.onCall(async (data, context) => {
  * Callable from the static site; returns {url} to redirect to.
  */
 exports.createTruthleRetryCheckout = functions.https.onCall(async (data, context) => {
+  const returnPath = (data && data.returnTo === 'true-false') ? '/true-false/' : '/truthle/';
   if (!context.auth) {
     throw new functions.https.HttpsError('unauthenticated', 'User must be authenticated');
   }
@@ -447,8 +448,8 @@ exports.createTruthleRetryCheckout = functions.https.onCall(async (data, context
     client_reference_id: uid,
     metadata: {uid, product: 'truthle_retry', quantity: String(quantity)},
     payment_intent_data: {metadata: {uid, product: 'truthle_retry'}},
-    success_url: `${SITE_URL}/truthle/?checkout=success&session_id={CHECKOUT_SESSION_ID}`,
-    cancel_url: `${SITE_URL}/truthle/?checkout=cancel`,
+    success_url: `${SITE_URL}${returnPath}?checkout=success&paid=1&session_id={CHECKOUT_SESSION_ID}`,
+    cancel_url: `${SITE_URL}${returnPath}?checkout=cancel`,
   });
   await db.collection('stripe_checkout_sessions').doc(session.id).set({
     uid, quantity, status: 'created', createdAt: admin.firestore.FieldValue.serverTimestamp(),

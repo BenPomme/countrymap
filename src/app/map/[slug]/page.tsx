@@ -17,6 +17,7 @@ import { AD_SLOTS } from '@/lib/constants/ads'
 import ContextualOffers from '@/components/affiliate/ContextualOffers'
 import DealQuiz from '@/components/affiliate/DealQuiz'
 import type { ColorVariable } from '@/types/country'
+import { claimsForVariable } from '@/lib/seo/claims'
 
 export function generateStaticParams() {
   return variableEntries.map((entry) => ({ slug: entry.slug }))
@@ -189,6 +190,18 @@ export default function StatPage({ params }: { params: { slug: string } }) {
           </dl>
         </section>
 
+
+        {claimsForVariable(entry.id).length > 0 && (
+          <section className="mt-10 bg-sky-50 rounded-2xl p-6">
+            <h2 className="text-xl font-bold text-gray-900 mb-3">True or False?</h2>
+            <ul className="space-y-2">
+              {claimsForVariable(entry.id).map((c) => (
+                <li key={c.slug}><Link href={`/true-false/claims/${c.slug}/`} className="text-sky-700 hover:underline">{c.text}</Link></li>
+              ))}
+            </ul>
+            <Link href="/true-false/" className="inline-block mt-3 text-sm font-semibold text-sky-700">Play today&apos;s daily True or False →</Link>
+          </section>
+        )}
 
         {related.length > 0 && (
           <section className="mt-10">
