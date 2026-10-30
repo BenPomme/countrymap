@@ -1,29 +1,28 @@
 'use client'
 
-import { useEffect } from 'react'
+import Script from 'next/script'
 import { ADSENSE_CONFIG } from '@/lib/constants/ads'
-import { isEmbeddedIOSApp } from '@/lib/appMode'
+import { useEmbeddedAppMode } from '@/lib/useEmbeddedAppMode'
 
 const ADSENSE_SCRIPT_ID = 'adsense-script'
 
+/**
+ * Loads the AdSense library once. Use next/script so it survives client
+ * navigations and is not removed on effect cleanup (which broke fills).
+ */
 export default function AdSenseLoader() {
-  useEffect(() => {
-    if (isEmbeddedIOSApp()) return
+  const embeddedMode = useEmbeddedAppMode()
 
-    if (document.getElementById(ADSENSE_SCRIPT_ID)) return
+  if (embeddedMode) {
+    return null
+  }
 
-    const script = document.createElement('script')
-    script.id = ADSENSE_SCRIPT_ID
-    script.async = true
-    script.src = `https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${ADSENSE_CONFIG.clientId}`
-    script.crossOrigin = 'anonymous'
-
-    document.head.appendChild(script)
-
-    return () => {
-      script.remove()
-    }
-  }, [])
-
-  return null
+  return (
+    <Script
+      id={ADSENSE_SCRIPT_ID}
+      src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${ADSENSE_CONFIG.clientId}`}
+      strategy="afterInteractive"
+      crossOrigin="anonymous"
+    />
+  )
 }

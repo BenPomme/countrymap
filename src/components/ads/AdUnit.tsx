@@ -31,19 +31,16 @@ export default function AdUnit({
 
   useEffect(() => {
     if (embeddedMode) return
-
-    // Don't load if no slot ID configured
     if (!slotId) return
-
-    // Don't load twice
     if (isLoaded.current) return
+    if (typeof window === 'undefined') return
 
     try {
-      // Push ad to queue
-      if (typeof window !== 'undefined' && window.adsbygoogle) {
-        window.adsbygoogle.push({})
-        isLoaded.current = true
-      }
+      // Always enqueue — script may load later and will drain the queue.
+      // Previous code only pushed when window.adsbygoogle already existed,
+      // so most page loads never requested a fill.
+      ;(window.adsbygoogle = window.adsbygoogle || []).push({})
+      isLoaded.current = true
     } catch (error) {
       console.error('AdSense error:', error)
     }
@@ -65,16 +62,32 @@ export default function AdUnit({
     )
   }
 
+  const reservedHeight =
+    typeof style?.height === 'number'
+      ? style.height
+      : typeof style?.minHeight === 'number'
+        ? style.minHeight
+        : 90
+
   return (
-    <ins
-      ref={adRef}
-      className={`adsbygoogle ${className}`}
-      style={style || { display: 'block' }}
-      data-ad-client={ADSENSE_CONFIG.clientId}
-      data-ad-slot={slotId}
-      data-ad-format={format}
-      data-full-width-responsive={responsive ? 'true' : 'false'}
-      {...(ADSENSE_CONFIG.testMode && { 'data-adtest': 'on' })}
-    />
+    <div
+      className="w-full flex justify-center"
+      style={{
+        minHeight: reservedHeight,
+        backgroundColor: 'rgba(15, 23, 42, 0.03)',
+      }}
+      aria-hidden="true"
+    >
+      <ins
+        ref={adRef}
+        className={`adsbygoogle ${className}`}
+        style={style || { display: 'block' }}
+        data-ad-client={ADSENSE_CONFIG.clientId}
+        data-ad-slot={slotId}
+        data-ad-format={format}
+        data-full-width-responsive={responsive ? 'true' : 'false'}
+        {...(ADSENSE_CONFIG.testMode && { 'data-adtest': 'on' })}
+      />
+    </div>
   )
 }

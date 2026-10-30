@@ -21,6 +21,7 @@ export default function AdBanner({
   return (
     <div
       className={`w-full flex justify-center py-2 ${hideOnMobile ? 'hidden md:flex' : ''} ${className}`}
+      style={{ minHeight: hideOnMobile ? undefined : 90 }}
     >
       <AdUnit
         slotId={slotId}
