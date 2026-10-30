@@ -15,6 +15,7 @@ import EmbedSnippet from './EmbedSnippet'
 import { AdBanner, AdSidebar } from '@/components/ads'
 import { AD_SLOTS } from '@/lib/constants/ads'
 import ContextualOffers from '@/components/affiliate/ContextualOffers'
+import DealQuiz from '@/components/affiliate/DealQuiz'
 import type { ColorVariable } from '@/types/country'
 
 export function generateStaticParams() {
@@ -159,6 +160,7 @@ export default function StatPage({ params }: { params: { slug: string } }) {
           </dl>
         </section>
 
+        <DealQuiz slug={entry.slug} category={config.category} name={config.name} />
         <ContextualOffers slug={entry.slug} category={config.category} name={config.name} />
 
         {related.length > 0 && (
