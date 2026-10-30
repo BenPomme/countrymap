@@ -1,10 +1,10 @@
 /**
- * Affiliate configuration — all values are env-driven (NEXT_PUBLIC_* are
- * inlined at build time). If a value is empty, the related offer is hidden.
+ * Affiliate configuration — values are env-driven (NEXT_PUBLIC_* are
+ * inlined at build time). Amazon defaults to the public Associates tag.
  */
-export const AMAZON_ASSOCIATE_TAG = process.env.NEXT_PUBLIC_AMAZON_ASSOCIATE_TAG || ''
-// Amazon storefront domain matching the Associates account (e.g. amazon.fr, amazon.com)
-export const AMAZON_DOMAIN = process.env.NEXT_PUBLIC_AMAZON_DOMAIN || 'amazon.fr'
+export const AMAZON_ASSOCIATE_TAG = process.env.NEXT_PUBLIC_AMAZON_ASSOCIATE_TAG || 'worldtruth-21'
+// Amazon storefront domain matching the Associates account (e.g. amazon.co.uk, amazon.com)
+export const AMAZON_DOMAIN = process.env.NEXT_PUBLIC_AMAZON_DOMAIN || 'amazon.co.uk'
 export const BOOKING_AID = process.env.NEXT_PUBLIC_BOOKING_AID || ''
 export const VPN_AFFILIATE_URL = process.env.NEXT_PUBLIC_VPN_AFFILIATE_URL || ''
 
