@@ -2,8 +2,8 @@ import Link from 'next/link'
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: 'Truthle vs Worldle, Globle, Travle & other daily geography games',
-  description: 'How Truthle and True or False: World compare with Worldle, Globle, Travle and GeoDle: what you guess, how many tries, and which to play.',
+  title: 'Truthle vs Worldle, Globle, PopBluff & other daily geography games',
+  description: 'How Truthle and True or False: World compare with Worldle, Globle, Travle, GeoDle and PopBluff: stats-backed claims vs silhouette and T/F trivia.',
   alternates: { canonical: 'https://theworldtruth.com/truthle-vs-worldle/' },
 }
 
@@ -14,6 +14,7 @@ const rows = [
   { game: 'Globle', guess: 'A mystery country on a 3D globe', format: 'Unlimited guesses, with closer/farther color hints', link: '' },
   { game: 'Travle', guess: 'A route of countries between two countries', format: 'Limited extra guesses', link: '' },
   { game: 'GeoDle and similar', guess: 'A country from geography clues', format: 'Varies by game', link: '' },
+  { game: 'PopBluff', guess: 'Whether broad daily statements are true or false', format: 'About 10 T/F statements with explanations', link: '' },
 ]
 
 export default function Page() {
@@ -21,7 +22,7 @@ export default function Page() {
     <main className="max-w-3xl mx-auto px-4 py-8 text-gray-800">
       <Link href="/" className="text-sm text-gray-600">← The World Truth</Link>
       <h1 className="text-3xl font-extrabold mt-3 text-gray-900">Truthle vs Worldle and other daily geography games</h1>
-      <p className="mt-3">Most daily geography games ask you to find a country from its shape or location. Truthle and True or False: World test something else: what you know about countries, such as their economies, health and everyday life. The two kinds of game go well together.</p>
+      <p className="mt-3">Most daily geography games ask you to find a country from its shape or location. PopBluff is closer: a daily true/false set with explanations. Truthle and True or False: World differ by grounding every claim in World Truth Map country statistics (five per day, same set worldwide). The games go well together.</p>
       <div className="overflow-x-auto mt-6">
         <table className="w-full text-sm">
           <thead><tr className="border-b text-left text-gray-500"><th className="py-2 pr-3">Game</th><th className="py-2 pr-3">What you guess</th><th className="py-2">Format</th></tr></thead>
