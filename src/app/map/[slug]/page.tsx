@@ -101,12 +101,14 @@ export default function StatPage({ params }: { params: { slug: string } }) {
         </div>
       </header>
 
-      <main className="max-w-5xl mx-auto px-4 py-10">
+      <main className="max-w-5xl mx-auto px-4 py-6 pb-20 md:pb-6">
         <p className="text-sm text-blue-700 font-medium mb-3">{config.category}</p>
         <h1 className="text-3xl md:text-5xl font-bold text-gray-900 mb-4">{question}</h1>
-        <p className="text-lg md:text-xl text-gray-800 mb-8">{answer}</p>
+        <p className="text-lg md:text-xl text-gray-800 mb-4">{answer}</p>
 
-        <AdBanner slotId={AD_SLOTS.mapPageBanner} className="mb-6" />
+        <DealQuiz slug={entry.slug} category={config.category} name={config.name} />
+
+        <AdBanner slotId={AD_SLOTS.mapPageBanner} className="my-6" />
 
         <StatMap countries={countries} colorVariable={entry.id} />
 
@@ -125,7 +127,7 @@ export default function StatPage({ params }: { params: { slug: string } }) {
                 </tr>
               </thead>
               <tbody>
-                {ranked.map((row, index) => (
+                {ranked.slice(0, 10).map((row, index) => (
                   <tr key={row.country.iso3} className="border-b border-gray-100">
                     <td className="py-2 pr-3 text-gray-500">#{index + 1}</td>
                     <td className="py-2 pr-3">
@@ -142,11 +144,38 @@ export default function StatPage({ params }: { params: { slug: string } }) {
               </tbody>
             </table>
           </div>
+          {ranked.length > 10 && (
+            <details id="full-table" className="mt-3">
+              <summary className="cursor-pointer text-blue-700 font-medium py-2">Show all {ranked.length} countries</summary>
+              <div className="overflow-x-auto">
+                <table className="w-full text-sm">
+                  <tbody>
+                {ranked.slice(10).map((row, j) => (
+                  <tr key={row.country.iso3} className="border-b border-gray-100">
+                    <td className="py-2 pr-3 text-gray-500">#{j + 11}</td>
+                    <td className="py-2 pr-3">
+                      <Link
+                        className="text-blue-700 hover:underline"
+                        href={`/country/${countrySlug(row.country.name)}/`}
+                      >
+                        {row.country.name}
+                      </Link>
+                    </td>
+                    <td className="py-2 text-right font-medium">{row.formatted}</td>
+                  </tr>
+                ))}
+                  </tbody>
+                </table>
+              </div>
+            </details>
+          )}
         </section>
 
-        <div className="mt-10 flex justify-center">
+        <div className="mt-6 flex justify-center">
           <AdSidebar slotId={AD_SLOTS.mapPageSquare} size="square" />
         </div>
+
+        <ContextualOffers slug={entry.slug} category={config.category} name={config.name} />
 
         <section className="mt-10 bg-white rounded-2xl shadow-sm p-6">
           <h2 className="text-2xl font-bold text-gray-900 mb-4">FAQ</h2>
@@ -160,8 +189,6 @@ export default function StatPage({ params }: { params: { slug: string } }) {
           </dl>
         </section>
 
-        <DealQuiz slug={entry.slug} category={config.category} name={config.name} />
-        <ContextualOffers slug={entry.slug} category={config.category} name={config.name} />
 
         {related.length > 0 && (
           <section className="mt-10">
@@ -181,6 +208,11 @@ export default function StatPage({ params }: { params: { slug: string } }) {
           </section>
         )}
       </main>
+
+      <div className="md:hidden fixed bottom-0 inset-x-0 z-40 bg-white/95 backdrop-blur border-t border-gray-200 px-3 py-2 flex gap-2 text-sm">
+        <a href="#deal-quiz" className="flex-1 text-center rounded-lg bg-amber-500 text-white font-medium py-2">🎯 Play deal quiz</a>
+        <Link href="/truthle" className="flex-1 text-center rounded-lg border border-gray-300 text-gray-800 font-medium py-2">Play Truthle</Link>
+      </div>
     </div>
   )
 }

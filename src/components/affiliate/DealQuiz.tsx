@@ -86,7 +86,7 @@ export default function DealQuiz({ slug, category = '', name = '' }: Props) {
   const next = () => { setChosen(null); setI(i + 1) }
 
   return (
-    <section className="mt-10 bg-gradient-to-br from-amber-50 to-white border border-amber-200 rounded-2xl p-6" aria-label="Quiz">
+    <section id="deal-quiz" className="scroll-mt-4 bg-gradient-to-br from-amber-50 to-white border border-amber-200 rounded-2xl p-4 md:p-5" aria-label="Quiz">
       <h2 className="text-lg font-semibold text-gray-900">🎯 {theme.title} — unlock today&apos;s picks</h2>
       {!done ? (
         <div className="mt-3">
@@ -125,7 +125,7 @@ export default function DealQuiz({ slug, category = '', name = '' }: Props) {
           <button onClick={() => { setI(0); setScore(0); setChosen(null) }} className="mt-3 text-sm text-gray-500 underline">Play again</button>
         </div>
       )}
-      <p className="mt-4 text-xs text-gray-400">As an Amazon Associate we earn from qualifying purchases. Prices and deals are set by Amazon and may change. No prizes or cash — just for fun.</p>
+      <p className="mt-3 text-[11px] text-gray-400">As an Amazon Associate we earn from qualifying purchases. Prices and deals are set by Amazon and may change. No prizes or cash — just for fun.</p>
     </section>
   )
 }
