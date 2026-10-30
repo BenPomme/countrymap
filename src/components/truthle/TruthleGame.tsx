@@ -1,5 +1,7 @@
 'use client'
 
+import { T } from '@/lib/truthle/monetizeCopy'
+
 import { useState, useEffect, useCallback } from 'react'
 import type { Country } from '@/types/country'
 import { generateDailyQuestions, getTodayDateString, getTruthleDay, TRUTHLE_QUESTIONS_PER_DAY, TruthleQuestion } from '@/lib/truthle/generator'
@@ -173,7 +175,7 @@ function TruthleGameInner({ countries }: TruthleGameProps) {
               ok = await refreshRetryStatus()
               if (!ok) await new Promise((r) => window.setTimeout(r, 2000))
             }
-            setRetryMessage(ok ? 'Extra Attempt unlocked. Good luck!' : 'Payment received; unlocking is taking longer than usual. Refresh in a minute.')
+            setRetryMessage(ok ? T.extraAttemptSuccess : 'Payment received; unlocking is taking longer than usual. Refresh in a minute.')
           } else if (checkout === 'cancel') {
             setRetryMessage('Checkout cancelled. No charge was made.')
           }
@@ -425,10 +427,10 @@ function TruthleGameInner({ countries }: TruthleGameProps) {
         disabled={checkoutLoading}
         className="w-full whitespace-nowrap bg-emerald-600 hover:bg-emerald-700 disabled:bg-emerald-300 text-white text-lg font-bold py-3 px-4 rounded-lg shadow transition-colors"
       >
-        {hasRetryAvailable ? '▶ Play Your Extra Attempt' : checkoutLoading ? 'Opening secure checkout…' : 'Extra Attempt — €0.99'}
+        {hasRetryAvailable ? '▶ Play Your Extra Attempt' : checkoutLoading ? 'Opening secure checkout…' : `${T.extraAttemptButton} — €0.99`}
       </button>
       {!hasRetryAvailable && (
-        <p className="text-xs text-gray-600 mt-2">One extra full run. Your first score stays on the leaderboard. Secure payment via Stripe.</p>
+        <p className="text-xs text-gray-600 mt-2">{T.extraAttemptBlurb} Your first score stays on the leaderboard. Secure payment via Stripe.</p>
       )}
       {retryMessage && <p className="text-sm text-rose-700 mt-2">{retryMessage}</p>}
     </>

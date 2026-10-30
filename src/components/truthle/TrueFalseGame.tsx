@@ -10,6 +10,7 @@ import CheckoutBanner from '@/components/truthle/CheckoutBanner'
 import SharePromoCard from '@/components/truthle/SharePromoCard'
 import { getVariableById } from '@/lib/seo/catalog'
 import { AdUnit } from '@/components/ads'
+import { T } from '@/lib/truthle/monetizeCopy'
 import { AD_SLOTS } from '@/lib/constants/ads'
 import DailyUnlockCard from '@/components/affiliate/DailyUnlockCard'
 
@@ -52,7 +53,7 @@ function TrueFalseGameInner({ countries }: { countries: Country[] }) {
 
   useEffect(() => {
     const c = new URLSearchParams(window.location.search).get('checkout')
-    if (c === 'success') setMsg('Extra Attempt unlocked — it may take a few seconds to appear.')
+    if (c === 'success') setMsg(`${T.extraAttemptSuccess} (It may take a few seconds to appear.)`)
     else if (c === 'cancel') setMsg('Checkout cancelled.')
     if (c === 'success') {
       const sync = () => getCloudRetryStatus().then((r) => setCredits(r.canConsume ? Math.max(1, r.paidCredits || 0) : r.paidCredits || 0)).catch(() => {})
@@ -193,16 +194,17 @@ function TrueFalseGameInner({ countries }: { countries: Country[] }) {
           </button>
         ) : (
           <button disabled={busy} onClick={buyExtra} className="mt-2 w-full whitespace-nowrap py-3 rounded-xl bg-amber-500 text-white font-bold disabled:opacity-60">
-            Extra Attempt — €0.99
+            {T.extraAttemptButton} — €0.99
           </button>
         )}
-        <p className="text-xs text-gray-500 mt-1">Same Extra Attempt as Truthle; works in either game.</p>
+        <p className="text-xs text-gray-500 mt-1">{T.extraAttemptBlurb} Works in either game.</p>
         {msg && <p className="text-xs text-rose-600 mt-1">{msg}</p>}
           </>
         )} />
       </div>
 
       <div className="my-6">
+        <p className="text-xs text-gray-500 mb-2">{T.adCaptions[0]}</p>
         <AdUnit slotId={AD_SLOTS.truthleResults} format="rectangle" />
       </div>
 
