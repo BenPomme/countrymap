@@ -1,3 +1,4 @@
+import SeoAbout from '@/components/seo/SeoAbout'
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
@@ -47,5 +48,28 @@ export default function TruthleLayout({
 }: {
   children: React.ReactNode
 }) {
-  return children
+  return (
+    <>
+      {children}
+      <SeoAbout
+        h1="Truthle: the free daily world facts quiz"
+        intro="Truthle is a free daily quiz with 5 questions about countries and world statistics. Everyone gets the same questions each day, and you get one free attempt. Questions are built from the country data on The World Truth Map."
+        steps={[
+          'Read each question about a country or world statistic.',
+          'Pick your answer. You see if you were right and the real figure right away.',
+          'Finish all 5 to get your score, streak and result squares.',
+          'Share your result. Sharing also gives you a free Extra Attempt code for a friend.',
+          'Come back tomorrow for a new set. Want another run today? Extra Attempt (€0.99) gives one more full run; your first score stays on the leaderboard.',
+        ]}
+        faqs={[
+          { q: 'What is Truthle?', a: 'Truthle is a free daily world facts quiz from The World Truth: 5 questions per day about countries and world statistics, the same for everyone.' },
+          { q: 'Is Truthle like Wordle?', a: 'It borrows the Wordle format: one puzzle per day, the same for everyone, with a shareable result grid. But Truthle is not a word game. You answer 5 questions about country statistics instead of guessing a word.' },
+          { q: 'Is Truthle the same as Trustle or Truthling?', a: 'No. Truthle (theworldtruth.com/truthle) is a separate game about world facts and country data. Trustle, Truthling and other similarly named games are unrelated products.' },
+          { q: 'How many questions are in Truthle?', a: '5 questions per day. A new set unlocks every day.' },
+          { q: 'Is Truthle free?', a: 'Yes. Every daily game is free with one attempt. An optional Extra Attempt costs €0.99, or a friend can share a free Extra Attempt code with you.' },
+          { q: 'Where does the data come from?', a: 'Questions use the country datasets behind The World Truth Map. Each map page lists its source.' },
+        ]}
+      />
+    </>
+  )
 }

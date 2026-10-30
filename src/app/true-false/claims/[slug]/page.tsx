@@ -5,6 +5,8 @@ import { getAllClaims, getClaim, claimsForVariable } from '@/lib/seo/claims'
 import { countrySlug } from '@/lib/seo/slugs'
 import { AdBanner } from '@/components/ads'
 import { AD_SLOTS } from '@/lib/constants/ads'
+import { VARIABLES } from '@/lib/constants/variables'
+import { sourceNote } from '@/lib/seo/sourceNotes'
 
 export function generateStaticParams() {
   return getAllClaims().map((c) => ({ slug: c.slug }))
@@ -14,7 +16,7 @@ export function generateMetadata({ params }: { params: { slug: string } }): Meta
   const c = getClaim(params.slug)
   if (!c) return {}
   const title = `True or False: ${c.text.replace(/\.$/, '')}?`
-  const description = `${c.answer ? 'True' : 'False'}. ${c.a.country.name}: ${c.a.formatted} vs ${c.b.country.name}: ${c.b.formatted} (${c.variableName}). Play the daily True or False: World game.`
+  const description = `${c.answer ? 'True' : 'False'}. ${c.a.country.name}: ${c.a.formatted} vs ${c.b.country.name}: ${c.b.formatted}. See the data source, then play today's free quiz.`
   const url = `https://theworldtruth.com/true-false/claims/${c.slug}/`
   return { title, description, alternates: { canonical: url }, openGraph: { title, description, url, images: ['https://theworldtruth.com/og/true-false.png'] } }
 }
@@ -24,6 +26,10 @@ export default function ClaimPage({ params }: { params: { slug: string } }) {
   if (!c) notFound()
   const verdict = c.answer ? 'TRUE' : 'FALSE'
   const explanation = `${c.a.country.name} has ${c.a.formatted} (rank #${c.rankA} of ${c.total}) and ${c.b.country.name} has ${c.b.formatted} (rank #${c.rankB} of ${c.total}) for ${c.variableName.toLowerCase()}.`
+  const note = sourceNote(c.variableId)
+  const sourceText = note
+    ? `${note.source} — ${note.vintage}.`
+    : `${VARIABLES[c.variableId]?.description || c.variableName} (The World Truth dataset; see the map page for source details).`
   const more = claimsForVariable(c.variableId, 6).filter((x) => x.slug !== c.slug)
   const faqLd = {
     '@context': 'https://schema.org',
@@ -53,6 +59,7 @@ export default function ClaimPage({ params }: { params: { slug: string } }) {
           <p className={`text-4xl font-extrabold mt-4 ${c.answer ? 'text-emerald-600' : 'text-rose-600'}`}>{verdict}</p>
           <p className="mt-3 text-gray-700">{explanation}</p>
         </details>
+        <p className="mt-4 text-sm text-gray-600"><strong>Source:</strong>{' '}{note ? <a href={note.url} rel="nofollow noopener" target="_blank" className="underline">{sourceText}</a> : sourceText}</p>
         <div className="grid grid-cols-2 gap-3 mt-6">
           {[{ r: c.a, rank: c.rankA }, { r: c.b, rank: c.rankB }].map(({ r, rank }) => (
             <Link key={r.country.iso3} href={`/country/${countrySlug(r.country.name)}/`} className="bg-white rounded-xl shadow-sm p-4 hover:shadow">
@@ -63,6 +70,9 @@ export default function ClaimPage({ params }: { params: { slug: string } }) {
         </div>
         <Link href="/true-false/" className="block mt-8 w-full py-4 rounded-2xl bg-sky-600 text-white text-lg font-bold text-center shadow">
           Play today&apos;s 5 True or False claims →
+        </Link>
+        <Link href="/truthle/" className="block mt-3 w-full py-3 rounded-2xl border-2 border-emerald-600 text-emerald-700 font-bold text-center">
+          Or play Truthle — today&apos;s 5-question world facts quiz →
         </Link>
         <AdBanner slotId={AD_SLOTS.mapPageBanner} className="my-8" />
         <p className="mt-2 text-sm">

@@ -18,6 +18,7 @@ import ContextualOffers from '@/components/affiliate/ContextualOffers'
 import DealQuiz from '@/components/affiliate/DealQuiz'
 import type { ColorVariable } from '@/types/country'
 import { claimsForVariable } from '@/lib/seo/claims'
+import { sourceNote } from '@/lib/seo/sourceNotes'
 
 export function generateStaticParams() {
   return variableEntries.map((entry) => ({ slug: entry.slug }))
@@ -49,6 +50,7 @@ export default function StatPage({ params }: { params: { slug: string } }) {
     ? `${leader.country.name} ranks #1 for ${config.name.toLowerCase()} at ${leader.formatted}, among ${ranked.length} countries on The World Truth Map.`
     : `Compare ${config.name.toLowerCase()} across countries.`
 
+  const note = sourceNote(entry.id)
   const faqs = [
     {
       q: question,
@@ -56,8 +58,9 @@ export default function StatPage({ params }: { params: { slug: string } }) {
     },
     {
       q: `How is ${config.name.toLowerCase()} measured?`,
-      a: sourceBlurb(entry.id),
+      a: note ? `${sourceBlurb(entry.id)} Source: ${note.source}. Data year: ${note.vintage}.` : sourceBlurb(entry.id),
     },
+    ...(note ? note.notes.map((n, i) => ({ q: i === 0 ? `Which places are included in the ${config.name.toLowerCase()} ranking?` : `Why might this ranking differ from other sources?`, a: n })) : []),
     {
       q: `How many countries have data for ${config.name.toLowerCase()}?`,
       a: `${ranked.length} of ${countries.length} countries on this map have a value for ${config.name.toLowerCase()}.`,
@@ -117,7 +120,14 @@ export default function StatPage({ params }: { params: { slug: string } }) {
 
         <section className="mt-10 bg-white rounded-2xl shadow-sm p-6">
           <h2 className="text-2xl font-bold text-gray-900 mb-2">{config.name} by country</h2>
-          <p className="text-gray-700 mb-6">{sourceBlurb(entry.id)}</p>
+          <p className="text-gray-700 mb-3">{sourceBlurb(entry.id)}</p>
+          {note && (
+            <div className="mb-6 rounded-xl bg-amber-50 border border-amber-200 p-4 text-sm text-gray-800">
+              <p><strong>Source:</strong>{' '}<a href={note.url} rel="nofollow noopener" target="_blank" className="text-blue-700 underline">{note.source}</a></p>
+              <p className="mt-1"><strong>Data year:</strong> {note.vintage}</p>
+              <ul className="mt-2 list-disc pl-5 space-y-1">{note.notes.map((n) => <li key={n}>{n}</li>)}</ul>
+            </div>
+          )}
           <div className="overflow-x-auto">
             <table className="w-full text-sm">
               <thead>
