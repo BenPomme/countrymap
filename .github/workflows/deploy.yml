@@ -57,3 +57,7 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
+      - uses: actions/checkout@v4
+      - name: IndexNow ping (Bing et al.)
+        continue-on-error: true
+        run: sleep 30 && bash scripts/indexnow.sh
