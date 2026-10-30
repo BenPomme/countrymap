@@ -42,6 +42,12 @@ export const AD_SLOTS = {
   // Truthle page ads
   truthleBanner: '3829065727',      // Reuse header banner slot
   truthleResults: '1374933403',     // Square ad on results screen
+
+  // SEO map / country pages (aliases reusing existing slot IDs)
+  mapPageBanner: '3829065727',      // = headerBanner
+  mapPageInFeed: '3581653716',      // = chartsInFeed
+  mapPageSquare: '8870280048',      // = countryDetail
+  countryPageBanner: '6435688394',  // = chartsBanner
 }
 
 /**

@@ -10,6 +10,8 @@ import { variableSlug, countrySlug } from '@/lib/seo/slugs'
 import { getNestedValue } from '@/lib/utils'
 import type { Country } from '@/types/country'
 import VisualShare from '@/components/share/VisualShare'
+import { AdBanner, AdSidebar } from '@/components/ads'
+import { AD_SLOTS } from '@/lib/constants/ads'
 
 interface RankedStat {
   variableId: string
@@ -160,6 +162,7 @@ export default function CountryClient({ slug }: { slug: string }) {
 
       {/* Main Content */}
       <main className="max-w-6xl mx-auto px-4 py-8">
+        <AdBanner slotId={AD_SLOTS.countryPageBanner} className="mb-6" />
         {/* Country Header Card */}
         <div ref={shareRef} className="bg-white rounded-2xl shadow-lg p-8 mb-8">
           <div className="flex items-center gap-6 mb-6">
@@ -350,6 +353,10 @@ export default function CountryClient({ slug }: { slug: string }) {
               </tbody>
             </table>
           </div>
+        </div>
+
+        <div className="mt-8 flex justify-center">
+          <AdSidebar slotId={AD_SLOTS.countryDetail} size="square" />
         </div>
 
         {/* CTA */}

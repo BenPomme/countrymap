@@ -12,6 +12,9 @@ import {
 import { countrySlug } from '@/lib/seo/slugs'
 import StatMap from './StatMap'
 import EmbedSnippet from './EmbedSnippet'
+import { AdBanner, AdSidebar } from '@/components/ads'
+import { AD_SLOTS } from '@/lib/constants/ads'
+import ContextualOffers from '@/components/affiliate/ContextualOffers'
 import type { ColorVariable } from '@/types/country'
 
 export function generateStaticParams() {
@@ -102,6 +105,8 @@ export default function StatPage({ params }: { params: { slug: string } }) {
         <h1 className="text-3xl md:text-5xl font-bold text-gray-900 mb-4">{question}</h1>
         <p className="text-lg md:text-xl text-gray-800 mb-8">{answer}</p>
 
+        <AdBanner slotId={AD_SLOTS.mapPageBanner} className="mb-6" />
+
         <StatMap countries={countries} colorVariable={entry.id} />
 
         <EmbedSnippet slug={entry.slug} />
@@ -138,6 +143,10 @@ export default function StatPage({ params }: { params: { slug: string } }) {
           </div>
         </section>
 
+        <div className="mt-10 flex justify-center">
+          <AdSidebar slotId={AD_SLOTS.mapPageSquare} size="square" />
+        </div>
+
         <section className="mt-10 bg-white rounded-2xl shadow-sm p-6">
           <h2 className="text-2xl font-bold text-gray-900 mb-4">FAQ</h2>
           <dl className="space-y-6">
@@ -149,6 +158,8 @@ export default function StatPage({ params }: { params: { slug: string } }) {
             ))}
           </dl>
         </section>
+
+        <ContextualOffers slug={entry.slug} category={config.category} name={config.name} />
 
         {related.length > 0 && (
           <section className="mt-10">
