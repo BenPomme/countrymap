@@ -37,6 +37,8 @@ function sourceBlurb(variableId: ColorVariable): string {
   return desc
 }
 
+const PLAIN_QUIZ = new Set(['mcdonald-s-per-capita', 'billionaires-per-capita'])
+
 export default function StatPage({ params }: { params: { slug: string } }) {
   const entry = getVariableBySlug(params.slug)
   if (!entry) notFound()
@@ -46,10 +48,11 @@ export default function StatPage({ params }: { params: { slug: string } }) {
   const leader = ranked[0]
   const related = relatedVariableSlugs(entry.id, 5)
   const higher = ranksHighFirst(config)
-  const question = `Which country has the ${higher ? 'highest' : 'lowest'} ${config.name.toLowerCase()}?`
+  const lname = config.name.toLowerCase().replace(/mcdonald's/g, "McDonald's")
+  const question = `Which country has the ${higher ? 'highest' : 'lowest'} ${lname}?`
   const answer = leader
-    ? `${leader.country.name} ranks #1 for ${config.name.toLowerCase()} at ${leader.formatted}, among ${ranked.length} countries on The World Truth Map.`
-    : `Compare ${config.name.toLowerCase()} across countries.`
+    ? `${leader.country.name} ranks #1 for ${lname} at ${leader.formatted}, among ${ranked.length} countries on The World Truth Map.`
+    : `Compare ${lname} across countries.`
 
   const note = sourceNote(entry.id)
   const lf = mapLongform(entry.slug)
@@ -59,13 +62,13 @@ export default function StatPage({ params }: { params: { slug: string } }) {
       a: answer,
     },
     {
-      q: `How is ${config.name.toLowerCase()} measured?`,
+      q: `How is ${lname} measured?`,
       a: note ? `${sourceBlurb(entry.id)} Source: ${note.source}. Data year: ${note.vintage}.` : sourceBlurb(entry.id),
     },
-    ...(note ? note.notes.map((n, i) => ({ q: i === 0 ? `Which places are included in the ${config.name.toLowerCase()} ranking?` : `Why might this ranking differ from other sources?`, a: n })) : []),
+    ...(note ? note.notes.map((n, i) => ({ q: i === 0 ? `Which places are included in the ${lname} ranking?` : `Why might this ranking differ from other sources?`, a: n })) : []),
     {
-      q: `How many countries have data for ${config.name.toLowerCase()}?`,
-      a: `${ranked.length} of ${countries.length} countries on this map have a value for ${config.name.toLowerCase()}.`,
+      q: `How many countries have data for ${lname}?`,
+      a: `${ranked.length} of ${countries.length} countries on this map have a value for ${lname}.`,
     },
   ]
   const faqs = lf ? [...lf.faqs, baseFaqs[1]] : baseFaqs
@@ -113,7 +116,7 @@ export default function StatPage({ params }: { params: { slug: string } }) {
         <h1 className="text-3xl md:text-5xl font-bold text-gray-900 mb-4">{lf?.h1 ?? question}</h1>
         <p className="text-lg md:text-xl text-gray-800 mb-4">{lf?.intro ?? answer}</p>
 
-        <DealQuiz slug={entry.slug} category={config.category} name={config.name} />
+        <DealQuiz slug={entry.slug} category={config.category} name={config.name} plain={PLAIN_QUIZ.has(entry.slug)} />
 
         <AdBanner slotId={AD_SLOTS.mapPageBanner} className="my-6" />
 
@@ -263,8 +266,8 @@ export default function StatPage({ params }: { params: { slug: string } }) {
       </main>
 
       <div className="md:hidden fixed bottom-0 inset-x-0 z-40 bg-white/95 backdrop-blur border-t border-gray-200 px-3 py-2 flex gap-2 text-sm">
-        <a href="#deal-quiz" className="flex-1 text-center rounded-lg bg-amber-500 text-white font-medium py-2">🎯 {entry.slug === 'gdp-per-capita-ppp' ? 'Play the GDP (PPP) quiz' : entry.slug === 'happiness-index' ? 'Play the happiness quiz' : 'Play deal quiz'}</a>
-        <Link href="/truthle" className="flex-1 text-center rounded-lg border border-gray-300 text-gray-800 font-medium py-2">Play Truthle</Link>
+        <a href="#deal-quiz" className="flex-1 text-center rounded-lg bg-amber-500 text-white font-medium py-2">🎯 {entry.slug === 'gdp-per-capita-ppp' ? 'Play the GDP (PPP) quiz' : entry.slug === 'happiness-index' ? 'Play the happiness quiz' : PLAIN_QUIZ.has(entry.slug) ? 'Quick quiz: 3 questions on this map' : 'Play deal quiz'}</a>
+        <Link href="/truthle" className="flex-1 text-center rounded-lg border border-gray-300 text-gray-800 font-medium py-2">{PLAIN_QUIZ.has(entry.slug) ? "Then play today's Truthle →" : 'Play Truthle'}</Link>
       </div>
     </div>
   )

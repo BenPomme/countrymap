@@ -1,6 +1,6 @@
 /**
  * Long-form SEO copy for selected /map/[slug]/ pages (SEO Desk batch 2).
- * Numbers: RSF 2026, WHR 2026, IMF WEO Oct 2026 — must match data/countries.json.
+ * Numbers: RSF 2026, WHR 2026, IMF WEO Oct 2026, McDonald's Restaurants by Market 2025, Forbes 2026 — must match data/countries.json.
  */
 export interface LongformSection { h2: string; paragraphs: string[]; bullets?: string[] }
 export interface MapLongform {
@@ -419,6 +419,247 @@ export const MAP_LONGFORM: Record<string, MapLongform> = {
       {
         "q": "Which country has the lowest GDP per capita in 2026?",
         "a": "Burundi has the lowest figure on both measures, at US$510 nominal and Int$1,036 PPP. Yemen, Sudan, South Sudan, Madagascar, Mozambique and Malawi also rank near the bottom of the map."
+      }
+    ]
+  },
+  "mcdonald-s-per-capita": {
+    "title": "McDonald's per Capita by Country (2025): Australia Beats the US",
+    "ogTitle": "Which Country Has the Most McDonald's per Person? (2025)",
+    "description": "Australia has the most McDonald's per person: 41.4 restaurants per 1M, just ahead of the US (40.9), Canada (39.0) and New Zealand (34.5). Map of 85 countries, 2025 counts.",
+    "h1": "Which Country Has the Most McDonald's per Person? (2025)",
+    "links": [
+      {
+        "href": "/truthle/",
+        "label": "Play today's Truthle"
+      },
+      {
+        "href": "/true-false/",
+        "label": "Daily True or False: World"
+      },
+      {
+        "href": "/map/billionaires-per-capita/",
+        "label": "Billionaires per capita map"
+      },
+      {
+        "href": "/map/gdp-per-capita/",
+        "label": "GDP per capita map"
+      },
+      {
+        "href": "/map/happiness-index/",
+        "label": "Happiness Index map"
+      }
+    ],
+    "intro": "Australia has the most McDonald's per person of any country in the dataset, with 41.4 restaurants per million people as of 31 December 2025. The United States is a very close second at 40.9 per million, a gap of just 0.5 restaurants per million. The ranking covers 85 countries and is based on McDonald's Corp restaurant counts by market divided by population.",
+    "sections": [
+      {
+        "h2": "The top of the table: Australia edges out the United States",
+        "paragraphs": [
+          "Australia's figure of 41.4 McDonald's per million people is the highest in the ranking, but the margin over the United States is narrow. At 40.9 per million, the US sits just half a restaurant per million behind. Given the size of both markets, that is a close result rather than a decisive lead.",
+          "Canada completes the top three at 39.0 per million, followed by New Zealand at 34.5. The rest of the top ten is more varied, mixing Gulf states, Asian markets and European countries. Qatar (28.9), Singapore (27.8) and Israel (25.3) all rank above Japan (24.4) and France (24.0)."
+        ],
+        "bullets": [
+          "Australia: 41.4 per million",
+          "United States: 40.9 per million",
+          "Canada: 39.0 per million",
+          "New Zealand: 34.5 per million",
+          "Qatar: 28.9 per million",
+          "Singapore: 27.8 per million",
+          "Israel: 25.3 per million",
+          "Japan: 24.4 per million",
+          "France: 24.0 per million",
+          "Austria: 23.6 per million",
+          "UAE: 23.6 per million"
+        ]
+      },
+      {
+        "h2": "How the number is calculated",
+        "paragraphs": [
+          "Each country's score is the number of McDonald's restaurants in that market on 31 December 2025, taken from McDonald's Corp's Restaurants by Market 2025 disclosure, divided by the country's population and expressed per million people. Dividing by population is what makes countries of very different sizes comparable.",
+          "The measure is a density ratio, not a count. A country with many restaurants but a large population can rank below a smaller country with fewer outlets. That is why Australia and New Zealand appear near the top while much larger markets sit further down.",
+          "Countries where McDonald's has no current presence are excluded rather than scored as zero. Russia and Belarus are not valued because McDonald's exited in 2022, along with Kazakhstan (2023), Bosnia (2022) and Sri Lanka (2024). Iceland has had no value since 2009. Territories such as Hong Kong, Macau, Puerto Rico and Guam are not shown separately, and Malta, the Bahamas, Fiji, Samoa, Monaco, Liechtenstein and Andorra are not in the dataset."
+        ]
+      },
+      {
+        "h2": "Large countries look different per person",
+        "paragraphs": [
+          "Population size changes the picture sharply. Germany, a large and mature market, sits at 16.5 per million and ranks 25th. Spain (13.9) and Italy (13.6) are lower still, reflecting later market entry and strong local food cultures rather than a lack of demand.",
+          "The biggest gaps appear in the most populous countries. Brazil records 5.7 per million, China 5.5 per million at 57th, and India just 0.5 per million at 82nd. India's figure is among the lowest in the ranking, alongside Peru (0.9), Vietnam (0.4), Pakistan (0.3) and Cuba (0.1).",
+          "The United Kingdom sits at 22.3 per million in 12th place, ahead of Portugal and Switzerland (both 21.4) and Bahrain (21.3). That places it above Germany, Spain and Italy despite a much smaller population than any of them."
+        ]
+      },
+      {
+        "h2": "Why this ranking differs from other sources",
+        "paragraphs": [
+          "Other published rankings often use different denominators, such as restaurants per 100,000 people or total outlet counts, and different dates. Some include territories as separate entries, which can lift a small market with a high concentration of outlets. This dataset excludes territories and uses a single snapshot date of 31 December 2025.",
+          "Coverage also matters. A ranking that includes only countries where McDonald's operates will produce different averages from one that treats absence as zero. Here, markets with no current presence are left without a value rather than counted as zero, so the 85 ranked countries are those with an active restaurant count.",
+          "Finally, population estimates vary between sources. Small differences in the denominator can shift close results, and the Australia versus United States gap of 0.5 per million is exactly the kind of margin that a different population base could narrow or widen."
+        ]
+      },
+      {
+        "h2": "Test yourself",
+        "paragraphs": [
+          "If you want to check how closely you were following, try today's Truthle, which turns a set of factual claims into a quick true-or-false challenge. You can also play True or False for a faster round on similar questions.",
+          "A good starting test is the headline result itself: is Australia ahead of the United States on McDonald's per person? The answer is yes, by 0.5 per million. From there, try recalling which country ranks third (Canada at 39.0) or where the United Kingdom places (12th at 22.3)."
+        ]
+      },
+      {
+        "h2": "What the ranking shows overall",
+        "paragraphs": [
+          "The pattern is not simply about wealth or global brand reach. Small, high-income markets with dense urban populations tend to score well, which helps explain Australia, New Zealand, Canada and the Gulf states. Large populations dilute the ratio even where total restaurant numbers are high.",
+          "The spread is wide: from 41.4 per million in Australia down to 0.1 in Cuba. Most of the 85 ranked countries sit well below the top ten, and several major economies appear in the middle or lower half of the table."
+        ]
+      }
+    ],
+    "faqs": [
+      {
+        "q": "Which country has the most McDonald's per person?",
+        "a": "Australia, with 41.4 restaurants per million people as of 31 December 2025."
+      },
+      {
+        "q": "How close is the United States to first place?",
+        "a": "The US is second at 40.9 per million, just 0.5 behind Australia."
+      },
+      {
+        "q": "How many countries are ranked?",
+        "a": "85 countries have a value in the dataset."
+      },
+      {
+        "q": "Where does the United Kingdom rank?",
+        "a": "The UK is 12th at 22.3 per million, ahead of Portugal and Switzerland at 21.4."
+      },
+      {
+        "q": "Why are some countries not included?",
+        "a": "Russia and Belarus exited in 2022, Kazakhstan in 2023, Bosnia in 2022 and Sri Lanka in 2024, and Iceland has had no value since 2009. Territories and several small states are not in the dataset."
+      },
+      {
+        "q": "Which country has the lowest figure?",
+        "a": "Cuba, at 0.1 per million, followed by Pakistan (0.3) and Vietnam (0.4)."
+      }
+    ]
+  },
+  "billionaires-per-capita": {
+    "title": "Billionaires per Capita by Country (Forbes 2026): Singapore #1",
+    "ogTitle": "Which Country Has the Most Billionaires per Capita? (Forbes 2026)",
+    "description": "Singapore leads with 100.0 billionaires per 10M people (Forbes 2026), ahead of Cyprus 76.9, Switzerland 51.1, Sweden 47.6 and Israel 45.2. The US has the most in total: 989.",
+    "h1": "Which Country Has the Most Billionaires per Capita? (Forbes 2026)",
+    "links": [
+      {
+        "href": "/truthle/",
+        "label": "Play today's Truthle"
+      },
+      {
+        "href": "/true-false/",
+        "label": "Daily True or False: World"
+      },
+      {
+        "href": "/map/mcdonald-s-per-capita/",
+        "label": "McDonald's per capita map"
+      },
+      {
+        "href": "/map/gdp-per-capita/",
+        "label": "GDP per capita map"
+      },
+      {
+        "href": "/map/gdp-per-capita-ppp/",
+        "label": "GDP per capita (PPP) map"
+      },
+      {
+        "href": "/map/happiness-index/",
+        "label": "Happiness Index map"
+      }
+    ],
+    "intro": "Singapore has the most billionaires per capita of any country in the dataset, with 100.0 billionaires per 10 million people. That figure comes from 55 Singapore-citizen billionaires in the Forbes World's Billionaires 2026 list divided by a population of 5,500,000. Cyprus is second at 76.9 and Switzerland third at 51.1, while the United States ranks seventh at 29.5 despite having by far the largest billionaire count in absolute terms.",
+    "sections": [
+      {
+        "h2": "The top 10 countries for billionaires per capita",
+        "paragraphs": [
+          "The ranking covers 70 countries, using billionaire citizenship from the Forbes World's Billionaires 2026 list (3,428 billionaires, net worth as of 1 March 2026) divided by our population figures and scaled to 10 million people. The top of the table is dominated by small, wealthy financial centres and advanced economies rather than the largest countries.",
+          "Singapore leads at 100.0, well clear of the field. The rest of the top 10 is tightly bunched between roughly 25 and 77 per 10 million."
+        ],
+        "bullets": [
+          "Singapore: 100.0",
+          "Cyprus: 76.9",
+          "Switzerland: 51.1",
+          "Sweden: 47.6",
+          "Israel: 45.2",
+          "Norway: 30.9",
+          "United States: 29.5 (#7)",
+          "Taiwan: 28.1",
+          "Iceland: 26.3",
+          "Germany: 25.2 (#10)"
+        ]
+      },
+      {
+        "h2": "How the per-capita number is calculated",
+        "paragraphs": [
+          "Each country's value is the number of billionaires who hold that citizenship, divided by the country's population, then multiplied by 10,000,000. For Singapore the arithmetic is 55 billionaires divided by 5,500,000 people, multiplied by 10,000,000, which gives 100.0.",
+          "The map's colour scale runs from 0 to 100, so Singapore sits at the very top of the colour range. That is a computed result, not a colour clamp: the value reaches 100.0 because of the underlying division, and the scale happens to end there. If you prefer a per-million figure, divide any map value by 10. Singapore's 100.0 per 10 million is therefore 10.0 per million.",
+          "Citizenship is the organising principle throughout. Billionaires are counted against the country whose citizenship they hold, not where they live or where their company is based."
+        ]
+      },
+      {
+        "h2": "Big countries in absolute and per-capita terms",
+        "paragraphs": [
+          "The largest billionaire populations by citizenship are the United States (989), China (539), India (229), Germany (212) and Russia (147). Per capita, that picture changes sharply. The United States still performs strongly at 29.5 per 10 million, ranking seventh. Germany is tenth at 25.2. Russia falls to 10.2.",
+          "The most populous countries sit much further down. China is 39th at 3.8 per 10 million, Brazil is at 3.3 and Japan at 3.3, and India is 55th at 1.6. The United Kingdom ranks 28th at 8.3, France is at 7.5 and Spain at 7.2. Australia (18.1), Canada (21.0), Ireland (21.2) and Italy (15.1) sit in between.",
+          "At the bottom of the table, Vietnam records 0.5 per 10 million, Venezuela 0.4, and Algeria, Nigeria and Tanzania each 0.2. A large economy or a large population does not by itself produce a high per-capita rate."
+        ]
+      },
+      {
+        "h2": "Why this ranking differs from other sources",
+        "paragraphs": [
+          "Per-capita billionaire rankings are sensitive to two inputs: the billionaire count and the population denominator. Small changes in either can move a country several places, and that is especially true at the top of the table.",
+          "Singapore is the clearest example. Other sources that use a higher population figure for Singapore will report a lower per-capita rate than the 100.0 shown here. The 100.0 is specific to our 5,500,000 population input and the 55-citizen billionaire count from the 2026 Forbes list.",
+          "Coverage also matters. Hong Kong's 71 billionaires are listed separately by Forbes and are not folded into China, and Hong Kong is not on our 164-country map. Several very small states and territories, including Monaco, Liechtenstein, Barbados, Belize and Guernsey, are not in the dataset at all. Their absence means the ranking describes the 70 countries included, not every jurisdiction in the world."
+        ]
+      },
+      {
+        "h2": "What the pattern shows",
+        "paragraphs": [
+          "High per-capita rates tend to appear in three types of place: small advanced economies with concentrated financial and technology sectors, such as Singapore, Cyprus, Switzerland and Iceland; Nordic and similarly sized economies with strong export industries, such as Sweden and Norway; and large economies with deep capital markets, of which the United States is the standout.",
+          "The measure rewards concentration. A country with a modest number of billionaires and a small population can outrank a much larger economy. Singapore's 55 billionaires would place it far down an absolute list, but against 5.5 million people the rate is the highest in the dataset.",
+          "It is also worth remembering what the number does not measure. It says nothing about inequality, median wealth or living standards. It is a simple ratio of billionaire citizens to population, and should be read as exactly that."
+        ]
+      },
+      {
+        "h2": "Test yourself",
+        "paragraphs": [
+          "If you want to check whether the pattern has stuck, try a quick quiz. Today's Truthle presents a fresh question each day, and True or False challenges you to judge statements quickly. Both are good ways to test recall of the figures on this page.",
+          "Try a few yourself before you play. Which country ranks second at 76.9 per 10 million? Where does the United States sit, and what is its value? Which large country ranks 55th at 1.6? If you can answer those without looking, you have the shape of the table."
+        ],
+        "bullets": [
+          "Second place at 76.9: Cyprus",
+          "United States: seventh at 29.5",
+          "India: 55th at 1.6",
+          "China: 39th at 3.8",
+          "Lowest in the dataset: 0.2 (Algeria, Nigeria, Tanzania)"
+        ]
+      }
+    ],
+    "faqs": [
+      {
+        "q": "Which country has the most billionaires per capita?",
+        "a": "Singapore, with 100.0 billionaires per 10 million people. That is 55 billionaires divided by a population of 5,500,000, multiplied by 10,000,000."
+      },
+      {
+        "q": "How many billionaires per million people does Singapore have?",
+        "a": "10.0 per million. The map value is expressed per 10 million, so divide 100.0 by 10 to get the per-million rate."
+      },
+      {
+        "q": "Where does the United States rank?",
+        "a": "Seventh, at 29.5 per 10 million. The US has the largest absolute number of billionaires by citizenship at 989, but its large population lowers the per-capita rate."
+      },
+      {
+        "q": "Why do other sources show a lower figure for Singapore?",
+        "a": "Per-capita rates depend on the population used. Sources using a higher Singapore population than our 5,500,000 will calculate a lower rate from the same billionaire count."
+      },
+      {
+        "q": "Is Hong Kong included in China's total?",
+        "a": "No. Forbes lists Hong Kong's 71 billionaires separately, and Hong Kong is not on our 164-country map, so those billionaires are not folded into China."
+      },
+      {
+        "q": "Which countries are not in the dataset?",
+        "a": "Monaco, Liechtenstein, Barbados, Belize and Guernsey are not included, among others. The ranking covers 70 countries, so very small states and territories may be absent."
       }
     ]
   }

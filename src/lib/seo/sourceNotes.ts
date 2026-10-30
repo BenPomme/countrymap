@@ -62,7 +62,9 @@ export const SOURCE_NOTES: Partial<Record<ColorVariable, SourceNote>> = {
     url: 'https://www.forbes.com/sites/samellefson/2026/03/11/the-countries-with-the-most-billionaires/',
     vintage: 'Forbes World’s Billionaires 2026 (net worths as of March 1, 2026; 3,428 billionaires)',
     notes: [
-      'Hong Kong (71 billionaires) is not a separate entry: our map covers sovereign countries only. Forbes lists Hong Kong separately from mainland China, so they are not added to China.',
+      'Score = (Forbes 2026 billionaire count ÷ our dataset population) × 10,000,000. Singapore’s 100.0 is computed, not a colour-scale cap: 55 billionaires ÷ 5,500,000 people × 10M = 100.0. The colour scale runs 0–100, so it sits at the top colour. Sources that use a higher Singapore population get a lower per-capita figure.',
+      'Per million = divide the map value by 10 (Singapore: 10.0 per million).',
+      'Hong Kong’s 71 Forbes billionaires are listed separately by Forbes and are not folded into China’s 539. Hong Kong is not one of the 164 countries on our map, so it has no value here.',
       'Monaco, Liechtenstein, Barbados, Belize and Guernsey have Forbes billionaires but are not in our country dataset, so they do not appear in the table.',
       'Only countries with at least one Forbes billionaire have a value.',
     ],

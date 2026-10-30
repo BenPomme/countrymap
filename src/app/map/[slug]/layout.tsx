@@ -23,10 +23,11 @@ export async function generateMetadata({
   const leader = topCountry(entry.id)
   const ranked = rankCountries(entry.id)
   const higher = ranksHighFirst(config)
-  const question = `Which country has the ${higher ? 'highest' : 'lowest'} ${config.name.toLowerCase()}?`
+  const lname = config.name.toLowerCase().replace(/mcdonald's/g, "McDonald's")
+  const question = `Which country has the ${higher ? 'highest' : 'lowest'} ${lname}?`
   const answer = leader
-    ? `${leader.country.name} ranks #1 for ${config.name.toLowerCase()} at ${leader.formatted}, among ${ranked.length} countries.`
-    : `Compare ${config.name.toLowerCase()} across countries on The World Truth Map.`
+    ? `${leader.country.name} ranks #1 for ${lname} at ${leader.formatted}, among ${ranked.length} countries.`
+    : `Compare ${lname} across countries on The World Truth Map.`
 
   const lf = mapLongform(entry.slug)
   const title = lf?.title ?? `${question} ${config.name} by Country`
