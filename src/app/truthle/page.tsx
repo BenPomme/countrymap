@@ -1,6 +1,7 @@
 'use client'
 
 import Link from 'next/link'
+import { useEffect, useState } from 'react'
 import type { Country } from '@/types/country'
 import TruthleGame from '@/components/truthle/TruthleGame'
 import CoinBalance from '@/components/truthle/CoinBalance'
@@ -38,16 +39,12 @@ export default function TruthlePage() {
 
       {/* Ad Banner */}
       {!embeddedMode && (
-        <AdBanner slotId={AD_SLOTS.truthleBanner} hideOnMobile={true} className="bg-gray-50 border-b border-gray-100" />
+        <AdBanner slotId={AD_SLOTS.truthleBanner} hideOnMobile={false} className="bg-gray-50 border-b border-gray-100" />
       )}
 
       {/* Main content */}
       <main className={`max-w-4xl mx-auto ${embeddedMode ? 'py-4' : 'py-8'}`}>
-        <div className="max-w-lg mx-auto px-4 mb-4">
-          <Link href="/true-false" className="block text-center py-2.5 rounded-xl bg-sky-50 border border-sky-200 text-sky-800 font-semibold hover:bg-sky-100">
-            ✅❌ New: True or False: World — 5 daily claims →
-          </Link>
-        </div>
+        <TrueFalsePromo />
         <TruthleGame countries={countries} />
       </main>
 
@@ -68,6 +65,26 @@ export default function TruthlePage() {
         </p>
       </footer>
       )}
+    </div>
+  )
+}
+
+function TrueFalsePromo() {
+  const [hidden, setHidden] = useState(false)
+  useEffect(() => {
+    const on = (e: Event) => {
+      const st = (e as CustomEvent<string>).detail
+      setHidden(st === 'playing' || st === 'answered')
+    }
+    window.addEventListener('truthle:state', on)
+    return () => window.removeEventListener('truthle:state', on)
+  }, [])
+  if (hidden) return null
+  return (
+    <div className="max-w-lg mx-auto px-4 mb-4">
+      <Link href="/true-false" className="block text-center py-2.5 rounded-xl bg-sky-50 border border-sky-200 text-sky-800 font-semibold hover:bg-sky-100">
+        ✅❌ New: True or False: World — 5 daily claims →
+      </Link>
     </div>
   )
 }
