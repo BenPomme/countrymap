@@ -1,5 +1,6 @@
 import SeoAbout from '@/components/seo/SeoAbout'
 import type { Metadata } from 'next'
+import { MONETIZE_COPY } from '@/lib/truthle/monetizeCopy'
 
 export const metadata: Metadata = {
   title: 'Truthle - Daily World Facts Quiz | Test Your Global Knowledge',
@@ -67,6 +68,7 @@ export default function TruthleLayout({
           { q: 'Is Truthle the same as Trustle or Truthling?', a: 'No. Truthle (theworldtruth.com/truthle) is a separate game about world facts and country data. Trustle, Truthling and other similarly named games are unrelated products.' },
           { q: 'How many questions are in Truthle?', a: '5 questions per day. A new set unlocks every day.' },
           { q: 'Is Truthle free?', a: 'Yes. Every daily game is free with one attempt. An optional Extra Attempt costs €0.99, or a friend can share a free Extra Attempt code with you.' },
+          ...MONETIZE_COPY.en.faq,
           { q: 'Where does the data come from?', a: 'Questions use the country datasets behind The World Truth Map. Each map page lists its source.' },
         ]}
       />

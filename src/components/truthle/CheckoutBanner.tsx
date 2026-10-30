@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react'
 import { createPortal } from 'react-dom'
+import { T } from '@/lib/truthle/monetizeCopy'
 
 /**
  * Shows a prominent fixed banner immediately on mount when the URL has ?checkout=success|cancel
@@ -35,7 +36,7 @@ export default function CheckoutBanner({ onSuccess }: { onSuccess?: () => void }
   return createPortal(
     <div role="status" aria-live="polite" className="fixed top-4 left-1/2 -translate-x-1/2 z-[1000] px-4 w-full max-w-md">
       <div className={`flex items-center justify-between gap-3 rounded-xl shadow-lg px-4 py-3 text-white font-semibold ${ok ? 'bg-emerald-600' : 'bg-gray-700'}`}>
-        <span>{ok ? '✅ Extra Attempt unlocked' : 'Checkout cancelled — no charge was made.'}</span>
+        <span>{ok ? `✅ ${T.extraAttemptSuccess}` : 'Checkout cancelled — no charge was made.'}</span>
         <button type="button" aria-label="Dismiss" onClick={() => setKind(null)} className="text-white/80 hover:text-white">✕</button>
       </div>
     </div>,
