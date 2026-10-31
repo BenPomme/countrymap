@@ -25,7 +25,7 @@ export default function SharePromoCard({ promo }: { promo: SharePromo }) {
       <button onClick={share} className="mt-2 ml-2 text-xs font-semibold py-1 px-3 rounded-lg border border-emerald-600 text-emerald-700">
         Share with a friend
       </button>
-      <p className="mt-1 text-[11px] text-emerald-800/70">Single use · expires end of today (UTC) · paste at checkout</p>
+      <p className="mt-1 text-[11px] text-emerald-800/70">Free Extra Attempt for a friend · Single use · ends today (UTC)</p>
     </div>
   )
 }

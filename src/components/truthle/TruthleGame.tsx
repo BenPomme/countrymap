@@ -7,6 +7,7 @@ import type { Country } from '@/types/country'
 import { generateDailyQuestions, getTodayDateString, getTruthleDay, TRUTHLE_QUESTIONS_PER_DAY, TruthleQuestion } from '@/lib/truthle/generator'
 import { calculateScore, estimatePercentile, getGrade, TruthleScore } from '@/lib/truthle/scoring'
 import ShareResultsButton from '@/components/truthle/ShareResultsButton'
+import RewardsTeaser from '@/components/truthle/RewardsTeaser'
 import {
   hasPlayedToday,
   saveAttempt,
@@ -496,6 +497,7 @@ function TruthleGameInner({ countries }: TruthleGameProps) {
           </div>
         )}
 
+        {!embeddedMode && <RewardsTeaser />}
         <button
           onClick={startGame}
           className="bg-emerald-500 hover:bg-emerald-600 text-white font-semibold py-3 px-8 rounded-lg text-lg transition-colors shadow-lg hover:shadow-xl"
@@ -552,13 +554,7 @@ function TruthleGameInner({ countries }: TruthleGameProps) {
           <p className="text-orange-500 font-medium mb-4">🔥 {previousAttempt.streak} day streak</p>
         )}
 
-        {!embeddedMode && (
-          <div className="mb-4 w-full max-w-sm">
-            <DailyUnlockCard game="truthle" date={getTodayDateString()} perfect={correctCount === (previousAttempt.results.length || TRUTHLE_QUESTIONS_PER_DAY)} cta={payCta} />
-          </div>
-        )}
-
-        <div className="flex gap-3 mb-4">
+        <div className="flex flex-col items-center mb-4">
           <ShareResultsButton
             score={previousAttempt.score}
             results={previousAttempt.results}
@@ -568,6 +564,12 @@ function TruthleGameInner({ countries }: TruthleGameProps) {
             className="bg-blue-600 hover:bg-blue-700 disabled:bg-blue-300 text-white text-base font-bold py-3 px-8 rounded-lg shadow transition-colors"
           />
         </div>
+
+        {!embeddedMode && (
+          <div className="mb-4 w-full max-w-sm">
+            <DailyUnlockCard game="truthle" date={getTodayDateString()} perfect={correctCount === (previousAttempt.results.length || TRUTHLE_QUESTIONS_PER_DAY)} cta={payCta} />
+          </div>
+        )}
 
         {embeddedMode && (
           <div className="mb-4 w-full max-w-sm">

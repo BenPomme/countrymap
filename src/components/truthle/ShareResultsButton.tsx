@@ -13,6 +13,7 @@ import {
 } from '@/lib/truthle/shareCard'
 import { mintSharePromo, getStoredSharePromo, type SharePromo } from '@/lib/truthle/storage'
 import SharePromoCard from '@/components/truthle/SharePromoCard'
+import { T } from '@/lib/truthle/monetizeCopy'
 
 interface ShareResultsButtonProps {
   score: number
@@ -29,7 +30,7 @@ export default function ShareResultsButton({
   streak,
   truthleDay,
   onFirstShare,
-  className = 'bg-blue-500 hover:bg-blue-600 disabled:bg-blue-300 text-white font-semibold py-3 px-8 rounded-lg transition-colors shadow-lg mb-6',
+  className: _className = 'bg-blue-500 hover:bg-blue-600 disabled:bg-blue-300 text-white font-semibold py-3 px-8 rounded-lg transition-colors shadow-lg mb-6',
 }: ShareResultsButtonProps) {
   const [copied, setCopied] = useState(false)
   const [sharing, setSharing] = useState(false)
@@ -38,7 +39,9 @@ export default function ShareResultsButton({
 
   useEffect(() => {
     preloadShareCardLogo()
-    setPromo(getStoredSharePromo())
+    const stored = getStoredSharePromo()
+    if (stored) setPromo(stored)
+    else mintSharePromo().then((p) => { if (p) setPromo(p); else setPromoError(true) })
   }, [])
 
   const afterShare = useCallback(() => {
@@ -127,14 +130,38 @@ export default function ShareResultsButton({
     }
   }, [score, results, streak, truthleDay, sharing, onFirstShare, afterShare])
 
+  const [linkCopied, setLinkCopied] = useState(false)
+  const withCode = (t: string) => (promo ? `${T.truthCodeGift(promo.code)}\n\n${t}` : t)
+  const shareWhatsApp = useCallback(() => {
+    const text = withCode(generateShareText(score, results, streak, truthleDay))
+    const { isFirstShare } = recordShare()
+    if (isFirstShare) onFirstShare?.()
+    window.open(`https://wa.me/?text=${encodeURIComponent(text)}`, '_blank', 'noopener,noreferrer')
+    afterShare()
+  }, [score, results, streak, truthleDay, onFirstShare, afterShare, promo])
+  const copyLink = useCallback(async () => {
+    try {
+      await navigator.clipboard.writeText(withCode(generateShareText(score, results, streak, truthleDay)))
+      setLinkCopied(true); setTimeout(() => setLinkCopied(false), 2000)
+      const { isFirstShare } = recordShare()
+      if (isFirstShare) onFirstShare?.()
+      afterShare()
+    } catch { /* ignore */ }
+  }, [score, results, streak, truthleDay, onFirstShare, afterShare, promo])
+
   return (
     <>
-      <button onClick={shareResults} disabled={sharing} className={className}>
-        {sharing ? 'Sharing...' : copied ? '\u2713 Copied!' : 'Share results'}
-      </button>
-      {!promo && !promoError && <p className="-mt-4 mb-4 text-xs text-gray-500">Share to get a free Extra Attempt code for a friend</p>}
-      {promoError && !promo && <p className="-mt-4 mb-4 text-xs text-rose-600">Couldn't create your friend code — tap Share again to retry.</p>}
+      <p className="mb-1 text-sm font-semibold text-gray-800">Send a friend a free Extra Attempt</p>
       {promo && <SharePromoCard promo={promo} />}
+      {promoError && !promo && <p className="mb-2 text-xs text-rose-600">Couldn't create your friend code — share anyway, then tap again to retry.</p>}
+      <div className="mb-2 flex w-full max-w-sm flex-col gap-2">
+        <button onClick={shareWhatsApp} className="w-full text-base font-bold py-3 px-6 rounded-lg bg-green-600 hover:bg-green-700 text-white shadow">WhatsApp</button>
+        <button onClick={copyLink} className="w-full text-base font-semibold py-3 px-6 rounded-lg border-2 border-blue-600 text-blue-700 hover:bg-blue-50">{linkCopied ? '\u2713 Copied' : 'Copy link & code'}</button>
+      </div>
+      {linkCopied && <p className="mb-2 text-xs text-emerald-700">Link copied. Send it so a friend gets a free Extra Attempt.</p>}
+      <button onClick={shareResults} disabled={sharing} className="mb-4 text-xs text-gray-500 underline">
+        {sharing ? 'Sharing...' : copied ? '\u2713 Copied!' : 'Share score only'}
+      </button>
     </>
   )
 }
