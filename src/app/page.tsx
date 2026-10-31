@@ -195,7 +195,7 @@ export default function HomePage() {
 
       {/* Ad Banner - Desktop only */}
       {!embeddedMode && (
-        <AdBanner slotId={AD_SLOTS.headerBanner} hideOnMobile={true} className="bg-gray-50 border-b border-gray-200" />
+        <AdBanner slotId={AD_SLOTS.headerBanner} hideOnMobile={false} className="bg-gray-50 border-b border-gray-200" />
       )}
 
       {/* Main Content */}

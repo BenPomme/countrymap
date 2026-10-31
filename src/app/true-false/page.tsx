@@ -4,6 +4,8 @@ import Link from 'next/link'
 import TrueFalseGame from '@/components/truthle/TrueFalseGame'
 import { countries } from '@/lib/data/loadCountries'
 import { useEmbeddedAppMode } from '@/lib/useEmbeddedAppMode'
+import { AdBanner } from '@/components/ads'
+import { AD_SLOTS } from '@/lib/constants/ads'
 
 export default function TrueFalsePage() {
   const embedded = useEmbeddedAppMode()
@@ -20,6 +22,7 @@ export default function TrueFalsePage() {
           </div>
         </header>
       )}
+      {!embedded && <AdBanner slotId={AD_SLOTS.truthleBanner} className="bg-gray-50 border-b border-gray-100" />}
       <main className="max-w-4xl mx-auto py-6">
         <TrueFalseGame countries={countries} />
       </main>

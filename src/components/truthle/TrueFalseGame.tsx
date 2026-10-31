@@ -8,6 +8,7 @@ import { getTodayDateString, getTruthleDay } from '@/lib/truthle/generator'
 import { getCloudRetryStatus, consumeCloudRetry, createRetryCheckout, mintSharePromo, getStoredSharePromo, type SharePromo } from '@/lib/truthle/storage'
 import CheckoutBanner from '@/components/truthle/CheckoutBanner'
 import SharePromoCard from '@/components/truthle/SharePromoCard'
+import RewardsTeaser from '@/components/truthle/RewardsTeaser'
 import { getVariableById } from '@/lib/seo/catalog'
 import { AdUnit } from '@/components/ads'
 import { T } from '@/lib/truthle/monetizeCopy'
@@ -103,6 +104,11 @@ function TrueFalseGameInner({ countries }: { countries: Country[] }) {
   const [promo, setPromo] = useState<SharePromo | null>(null)
   const [promoError, setPromoError] = useState(false)
   useEffect(() => { setPromo(getStoredSharePromo()) }, [])
+  useEffect(() => {
+    if (phase !== 'done' || promo) return
+    mintSharePromo().then((p) => { if (p) setPromo(p); else setPromoError(true) })
+  }, [phase, promo])
+  const [linkCopied, setLinkCopied] = useState(false)
   const afterShare = useCallback(() => { setPromoError(false); mintSharePromo().then((p) => { if (p) setPromo(p); else setPromoError(true) }) }, [])
   const share = useCallback(async () => {
     try {
@@ -110,6 +116,9 @@ function TrueFalseGameInner({ countries }: { countries: Country[] }) {
     } catch (e) { if ((e as Error)?.name === 'AbortError') return /* else fall through to clipboard */ }
     try { await navigator.clipboard.writeText(shareText); setCopied(true); setTimeout(() => setCopied(false), 2000); afterShare() } catch {}
   }, [shareText, afterShare])
+  const fullText = promo ? `${T.truthCodeGift(promo.code)}\n\n${shareText}` : shareText
+  const shareWhatsApp = () => { window.open(`https://wa.me/?text=${encodeURIComponent(fullText)}`, '_blank', 'noopener,noreferrer'); afterShare() }
+  const copyLink = async () => { try { await navigator.clipboard.writeText(fullText); setLinkCopied(true); setTimeout(() => setLinkCopied(false), 2000); afterShare() } catch {} }
 
   if (phase === 'intro') {
     return (
@@ -121,7 +130,8 @@ function TrueFalseGameInner({ countries }: { countries: Country[] }) {
         {stats && stats.played > 0 && (
           <p className="text-sm text-gray-500 mt-2">🔥 Streak {stats.streak} · {stats.played} played</p>
         )}
-        <button onClick={start} className="mt-6 w-full py-4 rounded-2xl bg-sky-600 text-white text-lg font-bold shadow hover:bg-sky-700 active:scale-[0.99]">
+        <RewardsTeaser className="mt-5" />
+        <button onClick={start} className="mt-2 w-full py-4 rounded-2xl bg-sky-600 text-white text-lg font-bold shadow hover:bg-sky-700 active:scale-[0.99]">
           Play today's 5
         </button>
         <p className="text-xs text-gray-400 mt-3">Data: our country datasets (V-Dem, Freedom House, RSF, TI, World Bank, UN & more).</p>
@@ -178,12 +188,15 @@ function TrueFalseGameInner({ countries }: { countries: Country[] }) {
           <div className="bg-white rounded-xl shadow-sm p-2"><div className="text-xl font-bold">{stats.played}</div>Played</div>
         </div>
       )}
-      <button onClick={share} className="mt-4 w-full py-3 rounded-2xl bg-sky-600 text-white font-semibold shadow">
-        {copied ? 'Copied!' : 'Share result'}
-      </button>
-      {!promo && !promoError && <p className="mt-1 text-xs text-gray-500">Share to get a free Extra Attempt code for a friend</p>}
-      {promoError && !promo && <p className="mt-1 text-xs text-rose-600">Couldn't create your friend code — tap Share again to retry.</p>}
+      <p className="mt-4 text-sm font-semibold text-gray-800">Send a friend a free Extra Attempt</p>
       {promo && <SharePromoCard promo={promo} />}
+      {promoError && !promo && <p className="mt-1 text-xs text-rose-600">Couldn't create your friend code — share anyway, then tap again to retry.</p>}
+      <div className="mt-2 flex flex-col gap-2">
+        <button onClick={shareWhatsApp} className="py-3 rounded-2xl bg-green-600 text-white font-bold shadow">WhatsApp</button>
+        <button onClick={copyLink} className="py-3 rounded-2xl border-2 border-sky-600 text-sky-700 font-semibold">{linkCopied ? '✓ Copied' : 'Copy link & code'}</button>
+      </div>
+      {linkCopied && <p className="mt-1 text-xs text-emerald-700">Link copied. Send it so a friend gets a free Extra Attempt.</p>}
+      <button onClick={share} className="mt-2 text-xs text-gray-500 underline">{copied ? 'Copied!' : 'Share score only'}</button>
       {isExtra && <p className="text-xs text-gray-500 mt-2">Extra attempt — your streak counts your first run of the day.</p>}
       <div className="mt-5">
         <DailyUnlockCard game="true-false" date={today} perfect={score === claims.length && claims.length > 0} cta={(
