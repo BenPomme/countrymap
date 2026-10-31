@@ -116,6 +116,20 @@ export default function StatPage({ params }: { params: { slug: string } }) {
         <h1 className="text-3xl md:text-5xl font-bold text-gray-900 mb-4">{lf?.h1 ?? question}</h1>
         <p className="text-lg md:text-xl text-gray-800 mb-4">{lf?.intro ?? answer}</p>
 
+        {(() => {
+          const rc = claimsForVariable(entry.id, 1)[0]
+          return (
+            <section className="mb-4 bg-white rounded-2xl shadow-sm p-5">
+              <h2 className="text-xl font-bold text-gray-900 mb-2">Play with these numbers</h2>
+              <ul className="space-y-1 list-disc pl-5">
+                <li><Link href="/truthle/" className="text-emerald-700 font-semibold hover:underline">Play today&apos;s Truthle — daily world facts quiz</Link></li>
+                <li><Link href="/true-false/" className="text-sky-700 font-semibold hover:underline">Play True or False: World</Link></li>
+                {rc && <li><Link href={`/true-false/claims/${rc.slug}/`} className="text-sky-700 hover:underline">Related claim: {rc.text}</Link></li>}
+              </ul>
+            </section>
+          )
+        })()}
+
         <DealQuiz slug={entry.slug} category={config.category} name={config.name} plain={PLAIN_QUIZ.has(entry.slug)} />
 
         <AdBanner slotId={AD_SLOTS.mapPageBanner} className="my-6" />

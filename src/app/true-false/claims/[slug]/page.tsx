@@ -59,6 +59,10 @@ export default function ClaimPage({ params }: { params: { slug: string } }) {
           <p className={`text-4xl font-extrabold mt-4 ${c.answer ? 'text-emerald-600' : 'text-rose-600'}`}>{verdict}</p>
           <p className="mt-3 text-gray-700">{explanation}</p>
         </details>
+        <nav aria-label="Play" className="mt-4 flex flex-col sm:flex-row gap-2 text-sm font-semibold">
+          <Link href="/truthle/" className="text-emerald-700 underline">Try today&apos;s Truthle →</Link>
+          <Link href="/true-false/" className="text-sky-700 underline sm:ml-4">Play today&apos;s 5 True or False →</Link>
+        </nav>
         <p className="mt-4 text-sm text-gray-600"><strong>Source:</strong>{' '}{note ? <a href={note.url} rel="nofollow noopener" target="_blank" className="underline">{sourceText}</a> : sourceText}</p>
         <div className="grid grid-cols-2 gap-3 mt-6">
           {[{ r: c.a, rank: c.rankA }, { r: c.b, rank: c.rankB }].map(({ r, rank }) => (

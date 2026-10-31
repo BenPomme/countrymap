@@ -3,8 +3,8 @@ import type { Metadata } from 'next'
 import { MONETIZE_COPY } from '@/lib/truthle/monetizeCopy'
 
 export const metadata: Metadata = {
-  title: 'Truthle - Daily World Facts Quiz | Test Your Global Knowledge',
-  description: 'Play Truthle, the daily world facts quiz! 5 quick questions about countries, statistics, and global data. Same questions for everyone, one chance per day. Earn coins, unlock badges, and share with friends!',
+  title: { absolute: 'Truthle — Free Daily World Facts Quiz | Extra Attempt & Friend Codes' },
+  description: '5 country-stat questions a day, free, one try. Share for a friend Extra Attempt code, or buy Extra Attempt (€0.99) for another run today.',
   keywords: [
     'truthle',
     'daily quiz',
@@ -68,6 +68,7 @@ export default function TruthleLayout({
           { q: 'Is Truthle the same as Trustle or Truthling?', a: 'No. Truthle (theworldtruth.com/truthle) is a separate game about world facts and country data. Trustle, Truthling and other similarly named games are unrelated products.' },
           { q: 'How many questions are in Truthle?', a: '5 questions per day. A new set unlocks every day.' },
           { q: 'Is Truthle free?', a: 'Yes. Every daily game is free with one attempt. An optional Extra Attempt costs €0.99, or a friend can share a free Extra Attempt code with you.' },
+          { q: 'What is a Truthle Extra Attempt code?', a: 'When you share your Truthle result, you get a code that gives a friend a free Extra Attempt (one more run of today\'s quiz). If you want another run yourself, an optional paid Extra Attempt is €0.99, one-time — no subscription.' },
           ...MONETIZE_COPY.en.faq,
           { q: 'Where does the data come from?', a: 'Questions use the country datasets behind The World Truth Map. Each map page lists its source.' },
         ]}
