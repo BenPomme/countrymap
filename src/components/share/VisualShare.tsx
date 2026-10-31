@@ -2,7 +2,7 @@
 
 import { useState, useRef } from 'react'
 import html2canvas from 'html2canvas'
-import { Share2, Download, Copy, X, Twitter, MessageCircle, Check, Loader2 } from 'lucide-react'
+import { Share2, Download, Copy, X, MessageCircle, Check, Loader2 } from 'lucide-react'
 
 interface VisualShareProps {
   targetRef: React.RefObject<HTMLElement>
@@ -113,16 +113,6 @@ export default function VisualShare({
     }
   }
 
-  const handleTwitterShare = () => {
-    const text = encodeURIComponent(`${description}\n\n`)
-    const shareUrl = encodeURIComponent(url)
-    window.open(
-      `https://twitter.com/intent/tweet?text=${text}&url=${shareUrl}`,
-      '_blank',
-      'width=550,height=420'
-    )
-  }
-
   const handleWhatsAppShare = () => {
     const text = encodeURIComponent(`${description}\n\n${url}`)
     window.open(`https://wa.me/?text=${text}`, '_blank')
@@ -181,6 +171,15 @@ export default function VisualShare({
 
             {/* Share Options */}
             <div className="space-y-3">
+              {/* WhatsApp primary (X removed per share-bridge rules 2026-10-31) */}
+              <button
+                onClick={handleWhatsAppShare}
+                className="w-full flex items-center justify-center gap-2 px-4 py-3 bg-green-600 text-white rounded-xl hover:bg-green-700 transition-colors"
+              >
+                <MessageCircle className="w-5 h-5" />
+                <span className="font-medium">WhatsApp</span>
+              </button>
+
               {/* Native Share (mobile) */}
               {'share' in navigator && (
                 <button
@@ -193,34 +192,8 @@ export default function VisualShare({
                 </button>
               )}
 
-              {/* Social Buttons */}
-              <div className="grid grid-cols-2 gap-3">
-                <button
-                  onClick={handleTwitterShare}
-                  className="flex items-center justify-center gap-2 px-4 py-3 bg-black text-white rounded-xl hover:bg-gray-800 transition-colors"
-                >
-                  <Twitter className="w-5 h-5" />
-                  <span className="font-medium">X / Twitter</span>
-                </button>
-                <button
-                  onClick={handleWhatsAppShare}
-                  className="flex items-center justify-center gap-2 px-4 py-3 bg-green-500 text-white rounded-xl hover:bg-green-600 transition-colors"
-                >
-                  <MessageCircle className="w-5 h-5" />
-                  <span className="font-medium">WhatsApp</span>
-                </button>
-              </div>
-
               {/* Download & Copy */}
               <div className="grid grid-cols-2 gap-3">
-                <button
-                  onClick={handleDownload}
-                  disabled={!capturedImage}
-                  className="flex items-center justify-center gap-2 px-4 py-3 bg-gray-100 text-gray-700 rounded-xl hover:bg-gray-200 transition-colors disabled:opacity-50"
-                >
-                  <Download className="w-5 h-5" />
-                  <span className="font-medium">Download</span>
-                </button>
                 <button
                   onClick={handleCopyImage}
                   disabled={!capturedImage}
@@ -237,6 +210,14 @@ export default function VisualShare({
                       <span className="font-medium">Copy Image</span>
                     </>
                   )}
+                </button>
+                <button
+                  onClick={handleDownload}
+                  disabled={!capturedImage}
+                  className="flex items-center justify-center gap-2 px-4 py-3 bg-gray-100 text-gray-700 rounded-xl hover:bg-gray-200 transition-colors disabled:opacity-50"
+                >
+                  <Download className="w-5 h-5" />
+                  <span className="font-medium">Download</span>
                 </button>
               </div>
             </div>
