@@ -1,6 +1,6 @@
 # Growth implementation contract, 2 November 2026
 
-Approved scope: playful data magazine, correct sharing, visible ordinary affiliate recommendations with a separate verified 5/5 coupon bonus, reliable retries/rewards, truthful provenance/metadata, consent-aware measurement, DataForSEO research capped at USD5 using existing credits, reviewable preview before production. No architecture rewrite, new games, forced signup, mass noindex, backend deployment or live commerce/email operations. Preserve all source URLs and stored state. Private GA4 extracts are not worker inputs.
+Approved scope: playful data magazine, correct sharing, visible ordinary affiliate recommendations with no Lien & Cie merchant bonus (user removed it), reliable retries/rewards, truthful provenance/metadata, consent-aware measurement, DataForSEO research capped at USD5 using existing credits, reviewable preview before production. No architecture rewrite, new games, forced signup, mass noindex, backend deployment or live commerce/email operations. Preserve all source URLs and stored state. Private GA4 extracts are not worker inputs.
 
 ## Common interfaces
 - New src/lib/analytics/events.ts exports trackEvent(name: string, params?: Record<string,string|number|boolean|undefined>): void. Consent denied/unknown means no transmission. Allowlist event and parameter names. Permitted events: game_start, game_complete, share_intent, share_handoff, share_copy, share_cancel, share_error, referral_open, referral_game_complete, affiliate_click, reward_mint, reward_copy, checkout_start, checkout_return, purchase, reminder_toggle. No UID, email, code, full URL, query or arbitrary text parameters. Parameters include game, puzzle_day, content_id, placement, method, score, correct, partner, status, value, currency, transaction_id only as appropriate and sanitized. Backend purchase data must be verified, never inferred from a URL. Existing GA4 / Ads ids remain; preview is denied by default. Strip private query strings from analytics page location and referrer.
@@ -21,3 +21,6 @@ Approved scope: playful data magazine, correct sharing, visible ordinary affilia
 
 ## QA and integration
 Each worker changes only owned files and leaves a compact report with exact changed paths, checks, open cases and integration needs. Tests must verify behavior and regressions, not mirror implementation. Do not start a production build or UI server concurrently; one coordinator-owned integration build directory. Run isolated pure tests when available. Do not install new dependencies outside the assigned manifest owner. No worker commits or pushes. Coordinator integrates diffs, performs build and independent runtime QA, then creates a reviewable branch/PR if GitHub credentials permit.
+
+## Latest correction
+Read USER-UPDATES.md before finishing. Remove all Lien & Cie references and its coupon/bonus. Friend Extra Attempt gifts remain.
