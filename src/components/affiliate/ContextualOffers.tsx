@@ -2,9 +2,11 @@
 
 import type { LucideIcon } from 'lucide-react'
 import { BedDouble, BookOpen, ExternalLink, ShieldCheck } from 'lucide-react'
+import AffiliatePhoto from '@/components/affiliate/AffiliatePhoto'
 import { AmazonDealsAction } from '@/components/affiliate/AffiliateShelf'
 import { trackEvent } from '@/lib/analytics/events'
 import { amazonSearchUrl, bookingSearchUrl, vpnUrl } from '@/lib/constants/affiliates'
+import { ATLAS_PHOTO } from '@/lib/affiliate/photos'
 import {
   BOOKING_DISCLOSURE,
   COMMISSION_DISCLOSURE,
@@ -97,6 +99,7 @@ export default function ContextualOffers({
   if (embeddedMode || offers.length === 0) return null
 
   const visibleOffers = offers.slice(0, 3)
+  const hasAmazonOffer = visibleOffers.some((offer) => offer.partner === 'amazon')
   const disclosures = Array.from(new Set([COMMISSION_DISCLOSURE, ...visibleOffers.map((offer) => offer.disclosure)]))
 
   return (
@@ -134,9 +137,18 @@ export default function ContextualOffers({
                 onClick={() => trackEvent('affiliate_click', { partner: offer.partner, placement: 'map-context' })}
                 aria-label={`${offer.label}. ${offer.action} in a new tab.`}
               >
-                <span className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-xl ${tile}`}>
-                  <Icon className="h-5 w-5" strokeWidth={1.9} aria-hidden="true" />
-                </span>
+                {offer.partner === 'amazon' ? (
+                  <AffiliatePhoto
+                    photo={ATLAS_PHOTO}
+                    className="h-[72px] w-[88px] shrink-0 rounded-xl"
+                    fallbackClassName={`items-center justify-center ${tile}`}
+                    fallback={<Icon className="h-5 w-5" strokeWidth={1.9} aria-hidden="true" />}
+                  />
+                ) : (
+                  <span className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-xl ${tile}`}>
+                    <Icon className="h-5 w-5" strokeWidth={1.9} aria-hidden="true" />
+                  </span>
+                )}
                 <span className="min-w-0 flex-1">
                   <span className="block break-words text-sm font-bold leading-5 text-twt-ink">{offer.label}</span>
                   <span className="mt-1 inline-flex items-center gap-1.5 text-xs font-extrabold text-twt-blue">
@@ -149,6 +161,10 @@ export default function ContextualOffers({
           )
         })}
       </ul>
+
+      {hasAmazonOffer && (
+        <p className="mt-3 text-xs leading-5 text-twt-ink/55">Illustrative photos. Explore matching products on Amazon.</p>
+      )}
 
       <div className="mt-4 border-t border-twt-ink/15 pt-3">
         <p className="text-[10px] font-black uppercase tracking-[0.16em] text-twt-ink/45">Affiliate disclosure</p>

@@ -13,12 +13,12 @@ import {
   Newspaper,
   Plug,
   ShieldCheck,
-  Sparkles,
-  Telescope,
   Webcam,
 } from 'lucide-react'
+import AffiliatePhoto from '@/components/affiliate/AffiliatePhoto'
 import { trackEvent } from '@/lib/analytics/events'
 import { amazonDealsUrl } from '@/lib/constants/affiliates'
+import { getAffiliatePhoto, type AffiliatePhotoKey } from '@/lib/affiliate/photos'
 import {
   getAffiliateContentId,
   getAmazonDisclosure,
@@ -48,38 +48,21 @@ type Artwork = {
   tile: string
 }
 
-const BLUE_ARTWORK: Artwork = { Icon: Map, tile: 'bg-twt-blue text-white' }
-const BUTTER_ARTWORK: Artwork = { Icon: Sparkles, tile: 'bg-twt-butter text-twt-ink' }
-const GREEN_ARTWORK: Artwork = { Icon: Compass, tile: 'bg-twt-green text-white' }
-const PAPER_ARTWORK: Artwork = { Icon: Telescope, tile: 'bg-white text-twt-blue' }
 const AMAZON_DEALS_CONTENT_ID = 'amazon_daily_deals'
 
-const FALLBACK_ARTWORK: Artwork[] = [
-  BLUE_ARTWORK,
-  GREEN_ARTWORK,
-  BUTTER_ARTWORK,
-  PAPER_ARTWORK,
-]
-
-function getPickArtwork(pick: OrdinaryPick, index: number): Artwork {
-  const text = `${pick.label} ${pick.query}`.toLowerCase()
-
-  if (/webcam/.test(text)) return { Icon: Webcam, tile: GREEN_ARTWORK.tile }
-  if (/privacy|passport|rfid/.test(text)) return { Icon: ShieldCheck, tile: BLUE_ARTWORK.tile }
-  if (/adapter|plug/.test(text)) return { Icon: Plug, tile: BUTTER_ARTWORK.tile }
-  if (/cabin|carry-on|carry on|luggage|backpack/.test(text)) {
-    return { Icon: Luggage, tile: GREEN_ARTWORK.tile }
-  }
-  if (/orwell/.test(text)) return { Icon: BookMarked, tile: PAPER_ARTWORK.tile }
-  if (/press freedom|journalism|news/.test(text)) return { Icon: Newspaper, tile: BUTTER_ARTWORK.tile }
-  if (/game|trivia/.test(text)) return { Icon: Gamepad2, tile: PAPER_ARTWORK.tile }
-  if (/globe/.test(text)) return { Icon: Globe, tile: BUTTER_ARTWORK.tile }
-  if (/scratch/.test(text)) return { Icon: Compass, tile: GREEN_ARTWORK.tile }
-  if (/atlas|map/.test(text)) return { Icon: Map, tile: BLUE_ARTWORK.tile }
-  if (/guide|book/.test(text)) return { Icon: BookOpen, tile: PAPER_ARTWORK.tile }
-  if (/travel|trip|journey/.test(text)) return { Icon: Compass, tile: GREEN_ARTWORK.tile }
-
-  return FALLBACK_ARTWORK[index % FALLBACK_ARTWORK.length]
+const PHOTO_FALLBACK_ARTWORK: Record<AffiliatePhotoKey, Artwork> = {
+  'privacy-screen': { Icon: ShieldCheck, tile: 'bg-twt-blue text-white' },
+  webcam: { Icon: Webcam, tile: 'bg-twt-green text-white' },
+  journalism: { Icon: Newspaper, tile: 'bg-twt-butter text-twt-ink' },
+  books: { Icon: BookMarked, tile: 'bg-white text-twt-blue' },
+  passport: { Icon: ShieldCheck, tile: 'bg-twt-blue text-white' },
+  adapter: { Icon: Plug, tile: 'bg-twt-butter text-twt-ink' },
+  luggage: { Icon: Luggage, tile: 'bg-twt-green text-white' },
+  guides: { Icon: BookOpen, tile: 'bg-white text-twt-blue' },
+  atlas: { Icon: Map, tile: 'bg-twt-blue text-white' },
+  map: { Icon: Compass, tile: 'bg-twt-green text-white' },
+  globe: { Icon: Globe, tile: 'bg-twt-butter text-twt-ink' },
+  trivia: { Icon: Gamepad2, tile: 'bg-white text-twt-blue' },
 }
 
 interface AmazonDealsActionProps {
@@ -162,8 +145,9 @@ export default function AffiliateShelf({
       </p>
 
       <ul className={`mt-5 grid min-w-0 gap-2.5 sm:gap-3 ${compact ? 'grid-cols-1 sm:grid-cols-2' : 'grid-cols-2 lg:grid-cols-4'}`}>
-        {items.map((pick, index) => {
-          const { Icon, tile } = getPickArtwork(pick, index)
+        {items.map((pick) => {
+          const photo = getAffiliatePhoto(pick)
+          const { Icon, tile } = PHOTO_FALLBACK_ARTWORK[photo.key]
           const contentId = getAffiliateContentId(pick.query)
 
           return (
@@ -180,10 +164,17 @@ export default function AffiliateShelf({
                 })}
                 aria-label={`${pick.label}. Browse on ${storefront} in a new tab.`}
               >
-                <span className={`relative flex items-center overflow-hidden px-3 sm:px-4 ${compact ? 'h-20' : 'h-24'} ${tile}`}>
-                  <span aria-hidden="true" className="absolute -right-5 -top-8 h-24 w-24 rounded-full border-[14px] border-current opacity-10" />
-                  <Icon className={`${compact ? 'h-8 w-8' : 'h-9 w-9'} relative shrink-0`} strokeWidth={1.8} aria-hidden="true" />
-                </span>
+                <AffiliatePhoto
+                  photo={photo}
+                  className="aspect-[32/21] w-full"
+                  fallbackClassName={`items-center px-3 sm:px-4 ${tile}`}
+                  fallback={(
+                    <>
+                      <span aria-hidden="true" className="absolute -right-5 -top-8 h-24 w-24 rounded-full border-[14px] border-current opacity-10" />
+                      <Icon className={`${compact ? 'h-8 w-8' : 'h-9 w-9'} relative shrink-0`} strokeWidth={1.8} aria-hidden="true" />
+                    </>
+                  )}
+                />
                 <span className="flex min-w-0 flex-1 flex-col p-3 sm:p-4">
                   <span className="twt-display break-words text-lg leading-snug text-twt-ink">{pick.label}</span>
                   <span className="mt-auto inline-flex min-h-11 items-center gap-2 pt-3 text-sm font-extrabold text-twt-blue">
@@ -196,6 +187,8 @@ export default function AffiliateShelf({
           )
         })}
       </ul>
+
+      <p className="mt-3 text-xs leading-5 text-twt-ink/55">Illustrative photos. Explore matching products on Amazon.</p>
 
       <div className="mt-5 border-t border-twt-ink/15 pt-3">
         <p className="text-[10px] font-black uppercase tracking-[0.16em] text-twt-ink/45">Affiliate disclosure</p>
