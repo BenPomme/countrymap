@@ -20,8 +20,9 @@ Implementation constraints remain: preserve the static Next.js export, existing 
 - [x] P6 Explorers, exact link state, accessible share dialog and ad collapse. Charts, discoveries, share focus, Escape return, clipboard denial, native cancel and downloaded card sizes were checked. The final map card framing was visually checked. A real network-filled ad remains a production gate.
 - [x] P7 Guarded DataForSEO pilot and ten evidence-backed existing URL priorities. Collection used 248 distinct queries, 496 US and UK rows, 20 SERPs and USD 0.22 actual within the USD 5 cap using existing credits. Ten priorities were reviewed and root verified their values and top five URLs.
 - [x] P8 Independent functional, visual, metadata and commerce QA. Local P8 accepted with the state-by-state coverage limits in the checklist. Final integrated frontend and data tests passed 174 of 174 with zero skips and failures, and final browser checks passed for the changed quiz, map card and shell states. Production and post-launch gates remain.
-- [ ] P9 Reviewable preview and draft PR. The preview is assembled and the draft PR is pending root creation. Root will add the exact PR URL. Production remains gated on user review.
-- [ ] P10 Four-week selected-keyword monitor. Runs are scheduled for 9, 16, 23 and 30 November at 09:00 Madrid. Do not create another automation. The four-week observations remain open and no ranking result is promised.
+- [x] P9 Reviewable preview and draft PR. Desktop/mobile gallery and the working local preview are delivered. Draft [PR #8](https://github.com/BenPomme/countrymap/pull/8) is open. Production remains gated on user review.
+- [x] P10 Four-week selected-keyword monitor setup. Runs are scheduled for 9, 16, 23 and 30 November at 09:00 Madrid. Do not create another automation.
+- [ ] Observe the four-week results after scheduled collections and any approved rollout. No ranking result is promised.
 
 The separate friend gift is one shared Extra Attempt across both games. It is not a game-specific product. Existing game coins and virtual shop ownership remain in scope.
 
@@ -46,7 +47,7 @@ Acceptance evidence is in `docs/acceptance-checklist.md`. The release sequence a
 - Run controlled Stripe checkout and webhook verification before enabling live payment.
 - Verify the World Truth GA4 stream, consent, realtime receipt, cross-domain referral and enhanced-measurement automatic-event privacy and settings before delivery. No account setting was changed.
 - After real indexing, inspect GSC indexing and clicks. Measure seven-day further-game completion, confirmed transactions, traffic and commission for four weeks.
-- Root creates the draft PR, records its exact URL and final delivery evidence. No merge, main push or deploy occurs without user review.
+- Root created draft [PR #8](https://github.com/BenPomme/countrymap/pull/8) and recorded final local acceptance. No merge, main push or deploy occurred.
 
 Private analytics and API credentials stay local. Code complete is separate from deployed, email, indexing and live-account verification.
 

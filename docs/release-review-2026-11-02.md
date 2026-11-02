@@ -6,7 +6,7 @@ Status: local review package ready, release not approved and not deployed. This 
 
 - Ready for user first review: desktop and mobile home, statistic, game result, rewards and the remaining route families listed below. Local P8 is accepted with state-by-state limitations recorded in the checklist.
 - Not ready to call complete: user visual review, separate frontend and backend rollout approval, real ad fill, live Stripe, real email delivery, GA4 production verification and post-launch measurement.
-- No release action is authorized by this document. Frontend and backend rollout require separate user approval. Root creates the draft PR and final delivery record. No merge, main push or deploy occurs here.
+- No release action is authorized by this document. Frontend and backend rollout require separate user approval. Root created draft [PR #8](https://github.com/BenPomme/countrymap/pull/8) and the final local acceptance record. No merge, main push or deploy occurs here.
 
 ## Evidence basis
 
@@ -75,7 +75,7 @@ The full state-by-state matrix is in `docs/acceptance-checklist.md`. This releas
 1. Local evidence is complete: 174 of 174 frontend and data tests, 66 of 66 backend tests and 47 of 47 Python SEO tests passed with zero skips and failures. The final export, invalid-route checks, cards and changed browser states are recorded.
 2. Assemble the user first-review package described below. Root independently accepts the evidence and final records.
 3. Obtain separate user decisions for frontend and backend rollout. Approval of one track must not imply approval of the other.
-4. Root creates the draft PR and records the exact URL and final delivery evidence. Do not guess a PR URL. Do not merge, push main or deploy as part of a worker task.
+4. Root created draft [PR #8](https://github.com/BenPomme/countrymap/pull/8). Review precedes any merge, main push or deployment.
 5. For an approved backend track, record the deployment receipt and controlled smoke evidence. Confirm function compatibility before enabling checkout, gifts, wallet transfers, provider callbacks or reminders.
 6. For an approved frontend track, record the static export deployment receipt and run route, canonical, 404, sitemap and Open Graph smoke checks.
 7. Before mail is enabled, configure a trusted HTTPS unsubscribe destination. Verify real opt-in delivery and unsubscribe end to end. Keep reminder UI and delivery off until both pass.
@@ -110,6 +110,6 @@ The package includes four desktop and mobile first-review screenshots for root a
 
 - Final integrated test, export, route and browser results are recorded without inventing counts.
 - Observed browser states are distinguished from unit, mock, source and integration coverage.
-- The draft PR is created by root with its exact URL.
+- Root created draft [PR #8](https://github.com/BenPomme/countrymap/pull/8); it remains unmerged.
 - User review is complete and frontend and backend decisions are recorded separately.
 - Every live gate in `docs/acceptance-checklist.md` remains visible until its real environment check passes.

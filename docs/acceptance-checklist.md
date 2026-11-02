@@ -67,7 +67,7 @@ This is a release evidence record, not a deployment claim. It uses coordinator-s
 - [x] All 164 bundled RSF values and all 140 available WHR values match primary data.
 - [x] Ten existing URL priorities have accepted evidence and verified top URLs.
 - [ ] User review of desktop and mobile home, statistic, result and rewards, followed by separate frontend and backend rollout approval.
-- [ ] Root-created draft PR and final delivery evidence. No guessed PR URL, merge, main push or deploy.
+- [x] Root-created draft [PR #8](https://github.com/BenPomme/countrymap/pull/8) and final local acceptance record. No merge, main push or deploy.
 - [ ] Real network-filled ad state. Preview and denied states already show no ad and no fake placeholder.
 - [ ] Trusted HTTPS unsubscribe configuration plus real opt-in delivery and unsubscribe verification before enabling reminders.
 - [ ] Controlled Stripe checkout and webhook verification before live payment.

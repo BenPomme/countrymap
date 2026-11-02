@@ -31,4 +31,4 @@ The checklist distinguishes browser-observed examples from unit, source and mock
 
 No production deployment, main push, indexing request, payment, email delivery, gift mint or live analytics event occurred. Traffic uplift, seven-day further-game completion, confirmed transactions and commissions require observed post-launch evidence. Review the four primary screens before approving frontend and backend rollout separately.
 
-The local review gallery is outside Git at `coordination/previews/index.html` in the task directory. The working preview is http://127.0.0.1:3107/. Draft PR creation is the final packaging step; its actual URL will be recorded after creation.
+The local review gallery is outside Git at `coordination/previews/index.html` in the task directory. The working preview is http://127.0.0.1:3107/. Draft [PR #8](https://github.com/BenPomme/countrymap/pull/8) is open and unmerged.
