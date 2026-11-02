@@ -13,7 +13,7 @@ const {
 } = require('../lib/reminders');
 
 const context = (uid = 'player-1', email = 'player@example.test') => ({
-  auth: { uid, token: { email } },
+  auth: { uid, token: { email, email_verified: true } },
 });
 const token = (letter) => letter.repeat(43);
 const unsubscribeBaseUrl = 'https://europe-west1-theworldtruth.cloudfunctions.net/unsubscribeRemindersLink';
@@ -128,17 +128,83 @@ test('opting in creates an opaque token while keeping token state server-only', 
   assert.ok(db.read('email_subscribers/player-1').unsubscribedAt instanceof Date);
 });
 
-test('email preference updates require authentication and a verified email for opt-in', async () => {
-  const db = new FakeFirestore();
-  const update = createUpdateEmailPreferencesHandler({ db, makeToken: () => token('F') });
+test('email preference opt-in requires a verified auth token email and writes nothing when rejected', async () => {
+  const existing = { enabled: false, email: 'existing@example.test' };
+  const db = new FakeFirestore({ 'email_subscribers/player-1': existing });
+  let tokenFactoryCalls = 0;
+  const update = createUpdateEmailPreferencesHandler({
+    db,
+    makeToken: () => {
+      tokenFactoryCalls += 1;
+      return token('F');
+    },
+  });
+  const rejectedContexts = [
+    {},
+    { auth: { uid: 'player-1' } },
+    { auth: { uid: 'player-1', token: {} } },
+    { auth: { uid: 'player-1', token: { email: 'player@example.test' } } },
+    { auth: { uid: 'player-1', token: { email: 'player@example.test', email_verified: false } } },
+    { auth: { uid: 'player-1', token: { email: 'player@example.test', email_verified: 'true' } } },
+    { auth: { uid: 'player-1', token: { email_verified: true } } },
+    { auth: { uid: 'player-1', token: { email: 'not-an-email', email_verified: true } } },
+  ];
 
-  await assert.rejects(update({ enabled: true }, {}), (error) => error.code === 'unauthenticated');
-  await assert.rejects(
-    update({ enabled: true }, { auth: { uid: 'player-1', token: {} } }),
-    (error) => error.code === 'failed-precondition',
-  );
+  for (const rejectedContext of rejectedContexts) {
+    await assert.rejects(update({ enabled: true }, rejectedContext), (error) => {
+      assert.equal(
+        error.code,
+        rejectedContext.auth ? 'failed-precondition' : 'unauthenticated',
+      );
+      return true;
+    });
+  }
+
   await assert.rejects(update({ enabled: 'yes' }, context()), (error) => error.code === 'invalid-argument');
-  assert.equal(db.paths().length, 0);
+  assert.equal(tokenFactoryCalls, 0);
+  assert.deepEqual(db.paths(), ['email_subscribers/player-1']);
+  assert.deepEqual(db.read('email_subscribers/player-1'), existing);
+});
+
+test('authenticated opt-out succeeds regardless of email verification state', async () => {
+  const tokenHash = unsubscribeTokenHash(token('J'));
+  const cases = [
+    { token: { email: 'player@example.test', email_verified: false } },
+    { token: { email: 'player@example.test' } },
+    {},
+  ];
+
+  for (const authCase of cases) {
+    const db = new FakeFirestore({
+      'email_subscribers/player-1': {
+        enabled: true,
+        email: 'player@example.test',
+        unsubscribeTokenHash: tokenHash,
+      },
+    });
+    let tokenFactoryCalls = 0;
+    const update = createUpdateEmailPreferencesHandler({
+      db,
+      now: () => new Date('2026-11-02T10:00:00.000Z'),
+      makeToken: () => {
+        tokenFactoryCalls += 1;
+        return token('K');
+      },
+    });
+    const auth = { uid: 'player-1', ...authCase };
+
+    assert.deepEqual(
+      await update({ enabled: false }, { auth }),
+      { success: true, enabled: false, unsubscribeToken: null },
+    );
+    assert.equal(tokenFactoryCalls, 0);
+    assert.deepEqual(db.paths(), ['email_subscribers/player-1']);
+    const subscriber = db.read('email_subscribers/player-1');
+    assert.equal(subscriber.enabled, false);
+    assert.equal(subscriber.unsubscribeTokenHash, tokenHash);
+    assert.equal(subscriber.unsubscribeToken, undefined);
+    assert.ok(subscriber.unsubscribedAt instanceof Date);
+  }
 });
 
 test('queued unsubscribe URL round-trips through the real HTTP adapter and replays safely', async () => {

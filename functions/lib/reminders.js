@@ -128,9 +128,13 @@ function createUpdateEmailPreferencesHandler(options) {
     if (typeof input.enabled !== 'boolean') {
       throw new CommerceError('invalid-argument', 'enabled must be a boolean', 400);
     }
-    const tokenEmail = context.auth.token && context.auth.token.email;
+    const authToken = (context.auth && context.auth.token) || {};
+    const tokenEmail = authToken.email;
     const email = typeof tokenEmail === 'string' ? tokenEmail.trim() : '';
-    if (input.enabled && (email.length < 3 || email.length > 320 || !email.includes('@'))) {
+    if (
+      input.enabled &&
+      (authToken.email_verified !== true || email.length < 3 || email.length > 320 || !email.includes('@'))
+    ) {
       throw new CommerceError('failed-precondition', 'A verified account email is required', 412);
     }
 

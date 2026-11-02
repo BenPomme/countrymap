@@ -174,11 +174,11 @@ test('unknown and denied consent transmit no events or page views', () => {
 
 test('event and parameter allowlists reject sensitive or unknown values', () => {
   withBrowser({ stored: storedChoice(true, false) }, (calls) => {
-    trackEvent('share_copy', {
-      game: 'truthle',
+    trackEvent('share_handoff', {
       content_id: 'day-2026-11-02',
       method: 'whatsapp',
       placement: 'results',
+      status: 'requested',
       code: 'RAW-CODE',
       email: 'person@example.com',
       uid: 'user-123',
@@ -201,11 +201,12 @@ test('event and parameter allowlists reject sensitive or unknown values', () => 
     assert.deepEqual(calls, [
       [
         'event',
-        'share_copy',
+        'share_handoff',
         {
-          game: 'truthle',
           content_id: 'day-2026-11-02',
           method: 'whatsapp',
+          placement: 'results',
+          status: 'requested',
         },
       ],
       ['event', 'affiliate_click', { placement: 'results', method: 'link' }],
