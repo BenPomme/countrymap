@@ -10,7 +10,7 @@ import SiteHeader from '@/components/site/SiteHeader'
 import { VARIABLES } from '@/lib/constants/variables'
 import '@/lib/constants/extraVariables'
 import { countries } from '@/lib/data/loadCountries'
-import correlationsData from '../../../data/correlations.json'
+import correlationsData from '../../data/correlations.json'
 
 const countryCount = countries.length
 const statisticCount = Object.keys(VARIABLES).length

@@ -37,14 +37,14 @@ function decodeHtml(value: string): string {
 function parseAttributes(tag: string): Record<string, string> {
   const attributes: Record<string, string> = {}
   const pattern = /([^\s=/>]+)\s*=\s*(?:"([^"]*)"|'([^']*)'|([^\s>]+))/g
-  for (const match of tag.matchAll(pattern)) {
+  for (const match of Array.from(tag.matchAll(pattern))) {
     attributes[match[1].toLowerCase()] = decodeHtml(match[2] ?? match[3] ?? match[4] ?? '')
   }
   return attributes
 }
 
 function findMeta(html: string, name: string): string | undefined {
-  for (const match of html.matchAll(/<meta\b[^>]*>/gi)) {
+  for (const match of Array.from(html.matchAll(/<meta\b[^>]*>/gi))) {
     const attributes = parseAttributes(match[0])
     if (attributes.name?.toLowerCase() === name) return attributes.content
   }
@@ -52,7 +52,7 @@ function findMeta(html: string, name: string): string | undefined {
 }
 
 function findCanonical(html: string): string | undefined {
-  for (const match of html.matchAll(/<link\b[^>]*>/gi)) {
+  for (const match of Array.from(html.matchAll(/<link\b[^>]*>/gi))) {
     const attributes = parseAttributes(match[0])
     if (attributes.rel?.toLowerCase().split(/\s+/).includes('canonical')) return attributes.href
   }
