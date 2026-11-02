@@ -1,4 +1,14 @@
+'use client'
+
+import { trackEvent } from '@/lib/analytics/events'
 import { amazonSearchUrl, bookingSearchUrl, vpnUrl } from '@/lib/constants/affiliates'
+import {
+  BOOKING_DISCLOSURE,
+  COMMISSION_DISCLOSURE,
+  VPN_DISCLOSURE,
+  getAmazonDisclosure,
+  getAmazonStorefrontLabel,
+} from '@/lib/affiliate/rewards'
 
 interface Props {
   slug: string
@@ -9,48 +19,77 @@ interface Props {
 const PRIVACY_RE = /press|freedom|censor|internet|surveillance|privacy|democra|corruption|vpn/i
 const TRAVEL_RE = /touris|travel|visa|safety|happiness|cost of living|climate|food|beer|wine|coffee/i
 
-/**
- * Contextual affiliate links. Renders nothing unless at least one affiliate
- * env var is configured. All links are rel="sponsored nofollow".
- */
+type Offer = {
+  href: string
+  label: string
+  partner: 'amazon' | 'booking' | 'vpn'
+  disclosure: string
+}
+
+/** Contextual sponsored links. Optional partners render only when configured. */
 export default function ContextualOffers({ slug, category = '', name = '' }: Props) {
   const ctx = `${slug} ${category} ${name}`
-  const offers: { href: string; label: string }[] = []
+  const offers: Offer[] = []
+  const storefront = getAmazonStorefrontLabel()
 
   const books = amazonSearchUrl(`world atlas ${name || 'country statistics'}`.trim())
-  if (books) offers.push({ href: books, label: '📚 World atlases & country stats books on Amazon' })
+  if (books) {
+    offers.push({
+      href: books,
+      label: `World atlases and country data books on ${storefront}`,
+      partner: 'amazon',
+      disclosure: getAmazonDisclosure(),
+    })
+  }
 
   if (PRIVACY_RE.test(ctx)) {
     const vpn = vpnUrl()
-    if (vpn) offers.push({ href: vpn, label: '🔒 Browse privately where the internet is restricted (VPN)' })
+    if (vpn) {
+      offers.push({
+        href: vpn,
+        label: 'Browse privacy information and services',
+        partner: 'vpn',
+        disclosure: VPN_DISCLOSURE,
+      })
+    }
   }
 
   if (TRAVEL_RE.test(ctx) || offers.length < 2) {
     const travel = bookingSearchUrl()
-    if (travel) offers.push({ href: travel, label: '✈️ Find hotels in the countries on this map (Booking.com)' })
+    if (travel) {
+      offers.push({
+        href: travel,
+        label: 'Find places to stay on Booking.com',
+        partner: 'booking',
+        disclosure: BOOKING_DISCLOSURE,
+      })
+    }
   }
 
   if (offers.length === 0) return null
 
+  const disclosures = Array.from(new Set([COMMISSION_DISCLOSURE, ...offers.map((offer) => offer.disclosure)]))
+
   return (
-    <aside className="mt-10 bg-white rounded-2xl shadow-sm p-6" aria-label="Sponsored links">
-      <p className="text-xs uppercase tracking-wide text-gray-400 mb-3">
-        Affiliate links — we may earn a commission
-      </p>
-      <ul className="space-y-2">
+    <aside className="twt-panel mt-10 rounded-2xl border border-[#e3d9bd] bg-white p-6 shadow-sm" aria-label="Sponsored links">
+      <p className="twt-kicker mb-3 text-xs font-bold uppercase tracking-[0.16em] text-[#294cc4]">Sponsored links</p>
+      <ul className="space-y-3">
         {offers.slice(0, 3).map((o) => (
           <li key={o.href}>
             <a
               href={o.href}
               target="_blank"
               rel="sponsored nofollow noopener noreferrer"
-              className="text-blue-700 hover:underline"
+              className="font-semibold text-[#294cc4] underline-offset-4 hover:underline"
+              onClick={() => trackEvent('affiliate_click', { partner: o.partner, placement: 'map-context' })}
             >
               {o.label}
             </a>
+            <p className="mt-1 text-xs leading-5 text-[#5f6b7c]">{o.disclosure}</p>
           </li>
         ))}
       </ul>
+      {disclosures.length > 0 && <p className="mt-4 text-xs leading-5 text-[#5f6b7c]">{COMMISSION_DISCLOSURE}</p>}
     </aside>
   )
 }
