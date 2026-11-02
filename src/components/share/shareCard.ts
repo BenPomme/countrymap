@@ -131,7 +131,7 @@ export function buildMapShareCopy(input: {
       counts.set(category, (counts.get(category) || 0) + 1)
     }
 
-    const highestCount = Math.max(...counts.values())
+    const highestCount = Math.max(...Array.from(counts.values()))
     const categories = Array.from(counts.entries())
       .filter(([, count]) => count === highestCount)
       .map(([category]) => category)
