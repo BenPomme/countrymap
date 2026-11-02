@@ -1,12 +1,11 @@
 import Link from 'next/link'
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
-import { getAllClaims, getClaim, claimsForVariable } from '@/lib/seo/claims'
+import { getAllClaims, getClaim, claimsForVariable, claimSourceDetails } from '@/lib/seo/claims'
 import { countrySlug } from '@/lib/seo/slugs'
+import { formatRankRange, rankOrderLabel } from '@/lib/seo/ranking'
 import { AdBanner } from '@/components/ads'
 import { AD_SLOTS } from '@/lib/constants/ads'
-import { VARIABLES } from '@/lib/constants/variables'
-import { sourceNote } from '@/lib/seo/sourceNotes'
 
 export function generateStaticParams() {
   return getAllClaims().map((c) => ({ slug: c.slug }))
@@ -16,7 +15,7 @@ export function generateMetadata({ params }: { params: { slug: string } }): Meta
   const c = getClaim(params.slug)
   if (!c) return {}
   const title = `True or False: ${c.text.replace(/\.$/, '')}?`
-  const description = `${c.answer ? 'True' : 'False'}. ${c.a.country.name}: ${c.a.formatted} vs ${c.b.country.name}: ${c.b.formatted}. See the data source, then play today's free quiz.`
+  const description = `Stored-data comparison: ${c.answer ? 'True' : 'False'}. ${c.a.country.name}: ${c.a.formatted} vs ${c.b.country.name}: ${c.b.formatted}. See the source and coverage notes, then play today's free quiz.`
   const url = `https://theworldtruth.com/true-false/claims/${c.slug}/`
   return { title, description, alternates: { canonical: url }, openGraph: { title, description, url, images: ['https://theworldtruth.com/og/true-false.png'] } }
 }
@@ -25,18 +24,16 @@ export default function ClaimPage({ params }: { params: { slug: string } }) {
   const c = getClaim(params.slug)
   if (!c) notFound()
   const verdict = c.answer ? 'TRUE' : 'FALSE'
-  const explanation = `${c.a.country.name} has ${c.a.formatted} (rank #${c.rankA} of ${c.total}) and ${c.b.country.name} has ${c.b.formatted} (rank #${c.rankB} of ${c.total}) for ${c.variableName.toLowerCase()}.`
-  const note = sourceNote(c.variableId)
-  const sourceText = note
-    ? `${note.source} — ${note.vintage}.`
-    : `${VARIABLES[c.variableId]?.description || c.variableName} (The World Truth dataset; see the map page for source details).`
+  const explanation = `${c.a.country.name} has ${c.a.formatted} (rank ${formatRankRange(c.rankA)} of ${c.total}) and ${c.b.country.name} has ${c.b.formatted} (rank ${formatRankRange(c.rankB)} of ${c.total}) for ${c.variableName}. ${rankOrderLabel(c.rankOrder)}`
+  const source = claimSourceDetails(c)
+  const higherCountry = c.a.value > c.b.value ? c.a.country.name : c.b.country.name
   const more = claimsForVariable(c.variableId, 6).filter((x) => x.slug !== c.slug)
   const faqLd = {
     '@context': 'https://schema.org',
     '@type': 'FAQPage',
     mainEntity: [
       { '@type': 'Question', name: `True or false: ${c.text}`, acceptedAnswer: { '@type': 'Answer', text: `${verdict}. ${explanation}` } },
-      { '@type': 'Question', name: `Which country has more ${c.variableName.toLowerCase()}, ${c.a.country.name} or ${c.b.country.name}?`, acceptedAnswer: { '@type': 'Answer', text: `${c.a.value > c.b.value ? c.a.country.name : c.b.country.name} has the higher value. ${explanation}` } },
+      { '@type': 'Question', name: `Which country has the higher stored value for ${c.variableName}, ${c.a.country.name} or ${c.b.country.name}?`, acceptedAnswer: { '@type': 'Answer', text: `${higherCountry} has the higher stored value. ${explanation}` } },
     ],
   }
   return (
@@ -63,12 +60,26 @@ export default function ClaimPage({ params }: { params: { slug: string } }) {
           <Link href="/truthle/" className="text-emerald-700 underline">Try today&apos;s Truthle →</Link>
           <Link href="/true-false/" className="text-sky-700 underline sm:ml-4">Play today&apos;s 5 True or False →</Link>
         </nav>
-        <p className="mt-4 text-sm text-gray-600"><strong>Source:</strong>{' '}{note ? <a href={note.url} rel="nofollow noopener" target="_blank" className="underline">{sourceText}</a> : sourceText}</p>
+        <div className="mt-4 text-sm text-gray-600 space-y-1">
+          <p><strong>Source:</strong>{' '}{source.sourceUrl ? <a href={source.sourceUrl} rel="nofollow noopener" target="_blank" className="underline">{source.sourceName}</a> : source.sourceName}</p>
+          <p><strong>Vintage:</strong> {source.vintage}</p>
+          <p><strong>Coverage:</strong> {source.coverageLabel}</p>
+          <p>{source.comparisonBasis}</p>
+          {source.limitations.length > 0 && (
+            <div>
+              <p><strong>Recorded limitations:</strong></p>
+              <ul className="list-disc pl-5 space-y-1">
+                {source.limitations.map((limitation) => <li key={limitation}>{limitation}</li>)}
+              </ul>
+            </div>
+          )}
+          {source.editorialReviewRequired && <p>Named editorial review has not been recorded for this sensitive or limited-coverage comparison.</p>}
+        </div>
         <div className="grid grid-cols-2 gap-3 mt-6">
           {[{ r: c.a, rank: c.rankA }, { r: c.b, rank: c.rankB }].map(({ r, rank }) => (
             <Link key={r.country.iso3} href={`/country/${countrySlug(r.country.name)}/`} className="bg-white rounded-xl shadow-sm p-4 hover:shadow">
               <div className="font-semibold">{r.country.name}</div>
-              <div className="text-sm text-gray-500">Rank #{rank} of {c.total}</div>
+              <div className="text-sm text-gray-500">Rank {formatRankRange(rank)} of {c.total}</div>
             </Link>
           ))}
         </div>
@@ -76,7 +87,7 @@ export default function ClaimPage({ params }: { params: { slug: string } }) {
           Play today&apos;s 5 True or False claims →
         </Link>
         <Link href="/truthle/" className="block mt-3 w-full py-3 rounded-2xl border-2 border-emerald-600 text-emerald-700 font-bold text-center">
-          Or play Truthle — today&apos;s 5-question world facts quiz →
+          Or play Truthle: today&apos;s 5-question world facts quiz →
         </Link>
         <AdBanner slotId={AD_SLOTS.mapPageBanner} className="my-8" />
         <p className="mt-2 text-sm">
@@ -84,7 +95,7 @@ export default function ClaimPage({ params }: { params: { slug: string } }) {
         </p>
         {more.length > 0 && (
           <section className="mt-8">
-            <h2 className="font-bold text-lg">More {c.variableName.toLowerCase()} claims</h2>
+            <h2 className="font-bold text-lg">More {c.variableName} claims</h2>
             <ul className="mt-2 space-y-1 list-disc pl-5">
               {more.map((m) => <li key={m.slug}><Link href={`/true-false/claims/${m.slug}/`} className="text-sky-700 hover:underline">{m.text}</Link></li>)}
             </ul>

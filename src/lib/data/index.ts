@@ -12,6 +12,55 @@ export function getCountryByCode(iso3: string): Country | undefined {
   return getAllCountries().find((c) => c.iso3 === iso3)
 }
 
+type NumericFilterKey =
+  | 'democracyMin'
+  | 'democracyMax'
+  | 'povertyMin'
+  | 'povertyMax'
+  | 'gdpMin'
+  | 'gdpMax'
+  | 'genderMin'
+  | 'genderMax'
+  | 'happinessMin'
+  | 'happinessMax'
+  | 'iqMin'
+  | 'iqMax'
+
+type NumericRange = {
+  minKey: NumericFilterKey
+  maxKey: NumericFilterKey
+  neutralMin: number
+  neutralMax: number
+  value: (country: Country) => unknown
+}
+
+const NUMERIC_RANGES: NumericRange[] = [
+  { minKey: 'democracyMin', maxKey: 'democracyMax', neutralMin: 0, neutralMax: 100, value: (c) => c.democracy.score },
+  { minKey: 'povertyMin', maxKey: 'povertyMax', neutralMin: 0, neutralMax: 100, value: (c) => c.poverty.povertyRate },
+  { minKey: 'gdpMin', maxKey: 'gdpMax', neutralMin: 0, neutralMax: 100000, value: (c) => c.poverty.gdpPerCapita },
+  { minKey: 'genderMin', maxKey: 'genderMax', neutralMin: 0, neutralMax: 100, value: (c) => c.gender.wblIndex },
+  { minKey: 'happinessMin', maxKey: 'happinessMax', neutralMin: 0, neutralMax: 10, value: (c) => c.lifestyle.happinessIndex },
+  { minKey: 'iqMin', maxKey: 'iqMax', neutralMin: 0, neutralMax: 200, value: (c) => c.education.avgIQ },
+]
+
+function activeBound(value: number | undefined, neutral: number): number | undefined {
+  return typeof value === 'number' && Number.isFinite(value) && value !== neutral ? value : undefined
+}
+
+function matchesNumericRanges(country: Country, filters: CountryFilters): boolean {
+  for (const range of NUMERIC_RANGES) {
+    const min = activeBound(filters[range.minKey], range.neutralMin)
+    const max = activeBound(filters[range.maxKey], range.neutralMax)
+    if (min === undefined && max === undefined) continue
+
+    const value = range.value(country)
+    if (typeof value !== 'number' || !Number.isFinite(value)) return false
+    if (min !== undefined && value < min) return false
+    if (max !== undefined && value > max) return false
+  }
+  return true
+}
+
 export function filterCountries(
   countries: Country[],
   filters: CountryFilters
@@ -24,53 +73,12 @@ export function filterCountries(
       }
     }
 
-    // Democracy score filter
-    if (filters.democracyMin !== undefined) {
-      if (country.democracy.score < filters.democracyMin) return false
-    }
-    if (filters.democracyMax !== undefined) {
-      if (country.democracy.score > filters.democracyMax) return false
-    }
-
-    // GDP per capita filter
-    if (filters.gdpMin !== undefined) {
-      if (!country.poverty.gdpPerCapita || country.poverty.gdpPerCapita < filters.gdpMin) {
-        return false
-      }
-    }
-    if (filters.gdpMax !== undefined) {
-      if (!country.poverty.gdpPerCapita || country.poverty.gdpPerCapita > filters.gdpMax) {
-        return false
-      }
-    }
-
-    // Poverty rate filter
-    if (filters.povertyMin !== undefined) {
-      if (country.poverty.povertyRate === null || country.poverty.povertyRate < filters.povertyMin) {
-        return false
-      }
-    }
-    if (filters.povertyMax !== undefined) {
-      if (country.poverty.povertyRate === null || country.poverty.povertyRate > filters.povertyMax) {
-        return false
-      }
-    }
+    // Numeric range filters
+    if (!matchesNumericRanges(country, filters)) return false
 
     // Conflict filter
     if (filters.hasConflict !== undefined) {
       if (country.conflict.hasActiveConflict !== filters.hasConflict) {
-        return false
-      }
-    }
-
-    // Gender equality filter
-    if (filters.genderMin !== undefined) {
-      if (!country.gender.wblIndex || country.gender.wblIndex < filters.genderMin) {
-        return false
-      }
-    }
-    if (filters.genderMax !== undefined) {
-      if (!country.gender.wblIndex || country.gender.wblIndex > filters.genderMax) {
         return false
       }
     }

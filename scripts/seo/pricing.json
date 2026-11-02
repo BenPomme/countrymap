@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "reviewed_on": "2026-11-02",
+  "reviewed_by": "coordinator",
+  "currency": "USD",
+  "pilot_budget_usd": 5.0,
+  "source_urls": [
+    "https://dataforseo.com/pricing/keywords-data/google-ads",
+    "https://docs.dataforseo.com/v3/keywords_data/google_ads/search_volume/live/",
+    "https://dataforseo.com/pricing/google-serp/google-organic-serp-api",
+    "https://docs.dataforseo.com/v3/serp/google/organic/live/advanced/"
+  ],
+  "endpoints": {
+    "/v3/keywords_data/google_ads/search_volume/live": {
+      "method": "POST",
+      "price_usd": 0.09,
+      "max_cost_usd": 0.09,
+      "max_keywords": 1000,
+      "tasks_per_request": 1
+    },
+    "/v3/serp/google/organic/live/advanced": {
+      "method": "POST",
+      "price_usd": 0.002,
+      "max_cost_usd": 0.002,
+      "depth": 10,
+      "device": "desktop",
+      "os": "windows",
+      "tasks_per_request": 1
+    }
+  }
+}
