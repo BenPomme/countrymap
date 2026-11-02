@@ -248,7 +248,7 @@ test('heading wrapping keeps every word for every map question', () => {
 test('game cards share the magazine brand without scores, percentile, merchant, or spoiler claims', () => {
   for (const copy of [TRUTHLE_OG_COPY, TRUE_FALSE_OG_COPY]) {
     const svg = buildGameOgSvg(copy)
-    const visibleText = [...svg.matchAll(/>([^<>]+)</g)].map((match) => match[1]).join(' ')
+    const visibleText = Array.from(svg.matchAll(/>([^<>]+)</g)).map((match) => match[1]).join(' ')
     assert.match(svg, /width="1200" height="630"/)
     assert.ok(svg.includes(MAGAZINE_COLORS.paper))
     assert.ok(svg.includes(MAGAZINE_COLORS.ink))
