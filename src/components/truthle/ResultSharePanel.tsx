@@ -4,6 +4,7 @@ import { useEffect, useMemo, useRef, useState } from 'react'
 import { trackEvent } from '@/lib/analytics/events'
 import { buildChallengeUrl, normalizeGiftCode } from '@/lib/truthle/gifts'
 import { createTruthleSharePromo, getStoredSharePromo, recordShare, type SharePromo } from '@/lib/truthle/storage'
+import { FRIEND_GIFT_UNAVAILABLE_MESSAGE, SERVER_COMMERCE_READY } from '@/lib/truthle/commerceRelease'
 import SharePromoCard from './SharePromoCard'
 import { generateResultCard } from './shareCardImage'
 import {
@@ -311,6 +312,10 @@ export default function ResultSharePanel({
 
   const prepareGift = async (intent: 'share' | 'copy') => {
     if (giftBusy || busyAction) return
+    if (!SERVER_COMMERCE_READY) {
+      setStatus(FRIEND_GIFT_UNAVAILABLE_MESSAGE, 'neutral')
+      return
+    }
     setGiftBusy(true)
     setFallbackText('')
     setStatus('Preparing one friend Extra Attempt for today...', 'pending')
@@ -397,7 +402,11 @@ export default function ResultSharePanel({
         <summary className="cursor-pointer py-3 text-sm font-black text-[#192947]">Friend gift: one free Extra Attempt</summary>
         <p className="text-sm leading-6 text-[#59647a]">Prepare one single-use gift for a friend, for today&apos;s challenge only. It expires at 23:59:59 UTC today. Your account cannot use it. Choose an option below to prepare it.</p>
 
-        {!promo || giftExpired ? (
+        {!SERVER_COMMERCE_READY && (!promo || giftExpired) ? (
+          <p className="mt-3 rounded-xl border border-[#d8d2c2] bg-[#fffdf5] p-3 text-sm leading-6 text-[#59647a]" role="status">
+            {FRIEND_GIFT_UNAVAILABLE_MESSAGE}
+          </p>
+        ) : !promo || giftExpired ? (
           <div className="mt-3">
             {storedGiftExpired && !giftExpired && (
               <p className="mb-2 text-sm text-[#a33f2c]">A stored friend gift is no longer usable. Choose a gift option to prepare a new one.</p>

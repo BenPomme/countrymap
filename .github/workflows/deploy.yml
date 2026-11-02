@@ -39,6 +39,7 @@ jobs:
           NEXT_PUBLIC_AMAZON_DOMAIN: ${{ vars.NEXT_PUBLIC_AMAZON_DOMAIN || secrets.NEXT_PUBLIC_AMAZON_DOMAIN }}
           NEXT_PUBLIC_BOOKING_AID: ${{ vars.NEXT_PUBLIC_BOOKING_AID || secrets.NEXT_PUBLIC_BOOKING_AID }}
           NEXT_PUBLIC_VPN_AFFILIATE_URL: ${{ vars.NEXT_PUBLIC_VPN_AFFILIATE_URL || secrets.NEXT_PUBLIC_VPN_AFFILIATE_URL }}
+          NEXT_PUBLIC_TWT_SERVER_COMMERCE_READY: ${{ vars.NEXT_PUBLIC_TWT_SERVER_COMMERCE_READY || 'false' }}
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3

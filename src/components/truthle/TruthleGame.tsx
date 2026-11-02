@@ -21,6 +21,10 @@ import {
   saveRetryAttempt,
   updateAchievementStats,
 } from '@/lib/truthle/storage'
+import {
+  EXTRA_ATTEMPT_UNAVAILABLE_MESSAGE,
+  SERVER_COMMERCE_READY,
+} from '@/lib/truthle/commerceRelease'
 import { getRememberedChallenge } from '@/lib/truthle/gifts'
 import { getVariableById } from '@/lib/seo/catalog'
 import { T } from '@/lib/truthle/monetizeCopy'
@@ -460,7 +464,7 @@ export default function TruthleGame({ countries }: TruthleGameProps) {
       if (isRetryRun) {
         const saved = await saveRetryAttempt(detail.totalScore, finalResults, finalTimes, shownStreak)
         if (!saved.success) {
-          setRetryMessage('Your retry result is visible, but cloud saving could not be confirmed. Your primary result was not changed.')
+          setRetryMessage('Your retry result is visible, but it could not be saved right now. Your primary result was not changed.')
         }
       } else {
         const beforeCoins = getCoins()
@@ -564,6 +568,10 @@ export default function TruthleGame({ countries }: TruthleGameProps) {
 
   const startExtraAttempt = useCallback(async () => {
     if (retryConsumeRef.current) return
+    if (!SERVER_COMMERCE_READY) {
+      setRetryMessage(EXTRA_ATTEMPT_UNAVAILABLE_MESSAGE)
+      return
+    }
     if (questions.length === 0) {
       setRetryMessage("Extra Attempt is unavailable because today's sourced question set could not be loaded.")
       return
@@ -611,6 +619,10 @@ export default function TruthleGame({ countries }: TruthleGameProps) {
 
   const buyExtraAttempt = useCallback(async () => {
     if (checkoutLoading || retryPending || retryConsumeRef.current) return
+    if (!SERVER_COMMERCE_READY) {
+      setRetryMessage(EXTRA_ATTEMPT_UNAVAILABLE_MESSAGE)
+      return
+    }
     setCheckoutLoading(true)
     setRetryMessage(null)
 
@@ -887,6 +899,15 @@ export default function TruthleGame({ countries }: TruthleGameProps) {
               <p className="mt-3 rounded-xl border border-[#d8d2c2] bg-[#fffdf5] p-3 text-sm text-[#49556b]">
                 Extra Attempt is unavailable because today&apos;s sourced question set could not be loaded. No checkout is offered.
               </p>
+            ) : !SERVER_COMMERCE_READY ? (
+              <div className="mt-4">
+                <button type="button" disabled className="twt-button min-h-11 w-full disabled:opacity-60">
+                  Extra Attempts temporarily unavailable
+                </button>
+                <p className="mt-3 text-sm leading-6 text-[#49556b]" role="status">
+                  {EXTRA_ATTEMPT_UNAVAILABLE_MESSAGE}
+                </p>
+              </div>
             ) : retryPending ? (
               <button
                 type="button"

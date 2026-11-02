@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "npx tsx scripts/compute-correlations.ts && npx tsx scripts/generate-og-maps.ts && npx tsx scripts/generate-truthle-og.ts && npx tsx scripts/generate-true-false-og.ts && npx tsx scripts/generate-sitemap.ts && next build && npx tsx scripts/validate-metadata.ts",
+    "build": "npx tsx scripts/compute-correlations.ts && npx tsx scripts/generate-og-maps.ts && npx tsx scripts/generate-home-og.ts && npx tsx scripts/generate-truthle-og.ts && npx tsx scripts/generate-true-false-og.ts && npx tsx scripts/generate-sitemap.ts && next build && npx tsx scripts/validate-metadata.ts",
     "start": "next start",
     "lint": "next lint",
     "test:platform": "node --import tsx --test tests/platform*.test.ts",

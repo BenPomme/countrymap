@@ -10,6 +10,7 @@ import {
 } from '../src/lib/analytics/consent'
 import {
   filterEventParams,
+  markAnalyticsConfigured,
   sanitizeAnalyticsReferrer,
   sanitizeAnalyticsUrl,
   trackEvent,
@@ -48,6 +49,7 @@ function withBrowser(
       ? {}
       : { gtag: (...args: unknown[]) => calls.push(args) }),
   }
+  if (options.includeGtag !== false) markAnalyticsConfigured()
 
   try {
     run(calls)

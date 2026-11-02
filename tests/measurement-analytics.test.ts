@@ -5,6 +5,7 @@ import {
   configureGoogleTags,
   filterEventParams,
   isIgnoredBillingReferrer,
+  markAnalyticsConfigured,
   queueAnalyticsPageContext,
   sanitizeAnalyticsReferrer,
   trackEvent,
@@ -62,6 +63,7 @@ function withBrowser(
       ? {}
       : { gtag: (...args: unknown[]) => calls.push(args) }),
   }
+  if (options.includeGtag !== false) markAnalyticsConfigured()
 
   try {
     run(calls, { location, document })

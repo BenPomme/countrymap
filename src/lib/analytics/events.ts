@@ -3,6 +3,7 @@ import { getConsentSnapshot } from './consent'
 type EventValue = string | number | boolean
 type EventParams = Record<string, string | number | boolean | undefined>
 type Gtag = (...args: unknown[]) => void
+type TrackEventOptions = { onceKey?: string }
 
 export const SHARE_METHODS = {
   clipboard: 'clipboard',
@@ -52,6 +53,21 @@ export type AnalyticsPageContext = {
   ignore_referrer?: true
 }
 
+type QueuedAnalyticsEvent = {
+  name: string
+  params: Record<string, EventValue>
+  context: AnalyticsPageContext
+}
+
+type AnalyticsTransportState = {
+  configured: boolean
+  queued: QueuedAnalyticsEvent[]
+  onceKeys: Set<string>
+}
+
+const MAX_QUEUED_ANALYTICS_EVENTS = 20
+const transportStates = new WeakMap<object, AnalyticsTransportState>()
+
 const EVENT_PARAMETERS: Record<string, ReadonlySet<string>> = {
   game_start: new Set(['game', 'puzzle_day', 'content_id', 'placement']),
   game_complete: new Set(['game', 'puzzle_day', 'content_id', 'placement', 'score', 'correct']),
@@ -60,7 +76,7 @@ const EVENT_PARAMETERS: Record<string, ReadonlySet<string>> = {
   share_copy: new Set(['game', 'puzzle_day', 'content_id', 'method', 'placement', 'status']),
   share_cancel: new Set(['game', 'puzzle_day', 'content_id', 'method', 'placement', 'status']),
   share_error: new Set(['game', 'puzzle_day', 'content_id', 'method', 'placement', 'status']),
-  referral_open: new Set(['game', 'puzzle_day', 'content_id', 'placement']),
+  referral_open: new Set(['game', 'puzzle_day', 'content_id', 'placement', 'status']),
   referral_game_complete: new Set(['game', 'puzzle_day', 'content_id', 'score', 'correct']),
   affiliate_click: new Set(['partner', 'placement', 'content_id', 'method']),
   reward_mint: new Set(['game', 'puzzle_day', 'content_id', 'method', 'status']),
@@ -72,6 +88,7 @@ const EVENT_PARAMETERS: Record<string, ReadonlySet<string>> = {
 }
 
 const GAMES = new Set(['truthle', 'true-false', 'quiz'])
+const REFERRAL_STATUSES = new Set(['current', 'past', 'future', 'invalid'])
 const PARTNERS = new Set(['amazon', 'booking', 'vpn', 'offertoro', 'affiliate'])
 const STATUSES = new Set([
   'success',
@@ -226,6 +243,9 @@ function sanitizeParameter(eventName: string, name: string, value: EventValue): 
     case 'partner':
       return PARTNERS.has(text) ? text : undefined
     case 'status': {
+      if (eventName === 'referral_open') {
+        return REFERRAL_STATUSES.has(text) ? text : undefined
+      }
       if (SHARE_EVENTS.has(eventName)) {
         const allowed = SHARE_EVENT_STATUSES[eventName]
         return allowed?.has(text as ShareStatus) ? text : undefined
@@ -365,27 +385,97 @@ function getGtag(): Gtag | undefined {
   return typeof candidate === 'function' ? candidate : undefined
 }
 
-export function trackEvent(name: string, params: EventParams = {}): void {
-  const consent = getConsentSnapshot()
-  if (!consent.analytics) return
+function getTransportState(): AnalyticsTransportState | null {
+  if (typeof window === 'undefined') return null
 
-  const safeParams = filterEventParams(name, params)
-  if (!safeParams) return
+  let state = transportStates.get(window)
+  if (!state) {
+    state = { configured: false, queued: [], onceKeys: new Set() }
+    transportStates.set(window, state)
+  }
+  return state
+}
+
+function sendEvent(gtag: Gtag, event: QueuedAnalyticsEvent): void {
+  gtag('event', event.name, {
+    ...event.params,
+    ...eventPageParameters(event.context),
+  })
+}
+
+function flushQueuedAnalyticsEvents(state: AnalyticsTransportState): void {
+  if (!state.configured || state.queued.length === 0) return
+
+  const consent = getConsentSnapshot()
+  if (!consent.analytics) {
+    state.queued = []
+    return
+  }
 
   const gtag = getGtag()
   if (!gtag) return
 
+  const queued = state.queued
+  state.queued = []
+  for (const event of queued) sendEvent(gtag, event)
+}
+
+export function markAnalyticsConfigured(): void {
+  const state = getTransportState()
+  if (!state) return
+
+  state.configured = true
+  flushQueuedAnalyticsEvents(state)
+}
+
+export function clearQueuedAnalyticsEvents(): void {
+  const state = getTransportState()
+  if (state) state.queued = []
+}
+
+export function trackEvent(
+  name: string,
+  params: EventParams = {},
+  options: TrackEventOptions = {}
+): boolean {
+  const consent = getConsentSnapshot()
+  if (!consent.analytics) {
+    clearQueuedAnalyticsEvents()
+    return false
+  }
+
+  const safeParams = filterEventParams(name, params)
+  if (!safeParams) return false
+
+  const state = getTransportState()
+  if (!state) return false
+
+  if (options.onceKey && state.onceKeys.has(options.onceKey)) return false
+
+  const gtag = getGtag()
   const context = getAnalyticsPageContext()
-  if (!context) return
+  if (!context) return false
+
+  if (!state.configured || !gtag) {
+    if (state.configured) return false
+
+    if (options.onceKey) state.onceKeys.add(options.onceKey)
+    if (state.queued.length >= MAX_QUEUED_ANALYTICS_EVENTS) state.queued.shift()
+    state.queued.push({ name, params: safeParams, context })
+    return true
+  }
+
+  if (options.onceKey) state.onceKeys.add(options.onceKey)
 
   if (!rawPageNeedsSanitizing(context)) {
     gtag('event', name, safeParams)
-    return
+    return true
   }
 
   const contextParams = eventPageParameters(context)
   gtag('set', contextParams)
   gtag('event', name, { ...safeParams, ...contextParams })
+  return true
 }
 
 export function trackPageView(): boolean {

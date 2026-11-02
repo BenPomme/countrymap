@@ -3,6 +3,7 @@
 import Link from 'next/link'
 import { useEffect, useRef, useState, type FormEvent } from 'react'
 import { trackEvent } from '@/lib/analytics/events'
+import { useConsent } from '@/lib/analytics/useConsent'
 import { parseChallengeSearch, type ChallengeState } from './challengeState'
 import {
   normalizeGiftCode,
@@ -40,10 +41,12 @@ function GameChoices() {
 }
 
 export default function ChallengePage() {
+  const consent = useConsent()
   const [state, setState] = useState<ChallengeState | null>(null)
   const [codeInput, setCodeInput] = useState('')
   const [codeNotice, setCodeNotice] = useState<string | null>(null)
   const tracked = useRef(false)
+  const analyticsAllowed = consent?.analytics === true
 
   useEffect(() => {
     if (tracked.current) return
@@ -68,13 +71,19 @@ export default function ChallengePage() {
         setCodeNotice('The friend code could not be saved. Enter it below before you continue.')
       }
     }
+  }, [])
+
+  useEffect(() => {
+    if (!analyticsAllowed || !state) return
 
     trackEvent('referral_open', {
-      game: parsed.game ?? 'none',
-      puzzle_day: parsed.day ?? 'none',
-      status: parsed.status,
+      game: state.game ?? 'none',
+      puzzle_day: state.day ?? 'none',
+      status: state.status,
+    }, {
+      onceKey: `referral_open:${state.status}:${state.game ?? 'none'}:${state.day ?? 'none'}`,
     })
-  }, [])
+  }, [analyticsAllowed, state])
 
   function saveEnteredCode(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()

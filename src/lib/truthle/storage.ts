@@ -3,6 +3,11 @@ import { doc, getDoc, setDoc, serverTimestamp } from 'firebase/firestore'
 import { httpsCallable } from 'firebase/functions'
 import { getCompletionStreak, getDisplayStreak, getUtcDay } from './dailyLifecycle'
 import {
+  EXTRA_ATTEMPT_UNAVAILABLE_MESSAGE,
+  REWARD_PURCHASE_UNAVAILABLE_MESSAGE,
+  isServerCommerceReady,
+} from './commerceRelease'
+import {
   CommerceRequestError,
   createCommerceService,
   type CheckoutStatus,
@@ -35,6 +40,9 @@ export interface TruthleRetryStatus {
 }
 
 const LOCAL_STORAGE_KEY = 'truthle_state'
+const STORAGE_COMMERCE_READY = isServerCommerceReady(
+  process.env.NEXT_PUBLIC_TWT_SERVER_COMMERCE_READY,
+)
 
 // Default state factory
 function getDefaultState(): TruthleLocalState {
@@ -192,6 +200,7 @@ export async function saveRetryAttempt(
   times: number[],
   streak: number
 ): Promise<{ success: boolean }> {
+  if (!STORAGE_COMMERCE_READY) return { success: false }
   const today = getUtcDay()
 
   try {
@@ -262,6 +271,7 @@ export function addCoins(amount: number): number {
 
 // Spend coins (for purchases)
 export function spendCoins(amount: number): boolean {
+  if (!STORAGE_COMMERCE_READY) return false
   const state = getLocalState()
   if (state.coins < amount) {
     return false
@@ -291,6 +301,9 @@ export function addOwnedItem(itemId: string): void {
 
 // Purchase a reward
 export function purchaseReward(itemId: string, price: number): { success: boolean; error?: string } {
+  if (!STORAGE_COMMERCE_READY) {
+    return { success: false, error: REWARD_PURCHASE_UNAVAILABLE_MESSAGE }
+  }
   const state = getLocalState()
 
   // Check if already owned
@@ -644,6 +657,7 @@ const firebaseCommerceTransport: CommerceTransport = {
 const commerceService = createCommerceService({
   storage: commerceStorage,
   transport: firebaseCommerceTransport,
+  commerceReady: STORAGE_COMMERCE_READY,
   applyWalletClaim: ({ coins }) => {
     if (coins > 0) addCoins(coins)
   },
@@ -664,6 +678,7 @@ export async function getTruthleCheckoutStatus({ sessionId }: { sessionId: strin
 }
 
 export async function consumeCloudRetry(): Promise<{ success: boolean; remainingRetries: number }> {
+  if (!STORAGE_COMMERCE_READY) return { success: false, remainingRetries: 0 }
   try {
     return await commerceService.consumeRetry()
   } catch {
@@ -677,6 +692,9 @@ export async function createRetryCheckout(
   returnTo: 'truthle' | 'true-false' = 'truthle',
   options: { shareCode?: string } = {}
 ): Promise<{ url: string | null; id?: string; error?: string }> {
+  if (!STORAGE_COMMERCE_READY) {
+    return { url: null, error: EXTRA_ATTEMPT_UNAVAILABLE_MESSAGE }
+  }
   try {
     const result = await commerceService.createRetryCheckout(quantity, returnTo, options.shareCode)
     return { url: result.url, id: result.id }
@@ -739,6 +757,7 @@ export function getStoredSharePromo(): SharePromo | null {
 let mintInFlight: Promise<SharePromo | null> | null = null
 // Explicit share action only. Server enforces one code per authenticated user per UTC day.
 export function mintSharePromo(): Promise<SharePromo | null> {
+  if (!STORAGE_COMMERCE_READY) return Promise.resolve(null)
   const cached = getStoredSharePromo()
   if (cached) return Promise.resolve(cached)
   if (mintInFlight) return mintInFlight

@@ -18,6 +18,8 @@ import {
   type WalletClaimResponse,
 } from '../src/lib/truthle/commerce'
 
+process.env.NEXT_PUBLIC_TWT_SERVER_COMMERCE_READY = 'true'
+
 type ModuleHookContext = Record<string, unknown>
 
 type ResolveResult = {
@@ -355,11 +357,11 @@ test('retry request id survives a lost response and service reload', async () =>
     },
   })
 
-  const firstService = createCommerceService({ storage: store, transport })
+  const firstService = createCommerceService({ storage: store, transport, commerceReady: true })
   await assert.rejects(firstService.consumeRetry(), /Lost response/)
   assert.equal(store.getItem('truthle_retry_request_v1'), seenRequestIds[0])
 
-  const reloadedService = createCommerceService({ storage: store, transport })
+  const reloadedService = createCommerceService({ storage: store, transport, commerceReady: true })
   const result = await reloadedService.consumeRetry()
 
   assert.equal(seenRequestIds[1], seenRequestIds[0])
@@ -385,12 +387,12 @@ test('wallet claim receipt applies once across reload and account switch', async
   })
   const applyWalletClaim = (claim: WalletClaimResponse) => applied.push(claim)
 
-  const accountAService = createCommerceService({ storage: store, transport, applyWalletClaim })
+  const accountAService = createCommerceService({ storage: store, transport, applyWalletClaim, commerceReady: true })
   const first = await accountAService.claimWallet('request-a')
   assert.equal(first.applied, true)
 
   account = 'account-b'
-  const accountBService = createCommerceService({ storage: store, transport, applyWalletClaim })
+  const accountBService = createCommerceService({ storage: store, transport, applyWalletClaim, commerceReady: true })
   const duplicate = await accountBService.claimWallet('request-b')
   assert.equal(duplicate.applied, false)
 
