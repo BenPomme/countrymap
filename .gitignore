@@ -38,3 +38,6 @@ extensions/
 # Generated choropleth OG images (created at build)
 public/og/map/*.png
 .write-test
+
+# Local audit, API receipts and worker artifacts
+.scratch/
