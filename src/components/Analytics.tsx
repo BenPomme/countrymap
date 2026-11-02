@@ -5,7 +5,9 @@ import { usePathname } from 'next/navigation'
 import { useEffect, useRef, useState } from 'react'
 import { ANALYTICS_CONFIG, isTrackingEnabled } from '@/lib/constants/analytics'
 import {
+  clearQueuedAnalyticsEvents,
   configureGoogleTags,
+  markAnalyticsConfigured,
   queueAnalyticsPageContext,
   trackPageView,
 } from '@/lib/analytics/events'
@@ -76,11 +78,18 @@ export default function Analytics() {
         adsConversionId,
       })
       if (configured) {
-        if (analyticsMeasurementId) configuredAnalytics.current = true
+        if (analyticsMeasurementId) {
+          configuredAnalytics.current = true
+          markAnalyticsConfigured()
+        }
         if (adsConversionId) configuredAds.current = true
       }
     }
   }, [advertisingAllowed, analyticsAllowed, ready, tagId])
+
+  useEffect(() => {
+    if (!analyticsAllowed) clearQueuedAnalyticsEvents()
+  }, [analyticsAllowed])
 
   useEffect(() => {
     if (!ready) return

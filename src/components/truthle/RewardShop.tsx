@@ -30,6 +30,10 @@ import {
   ownsItem,
   syncCloudCoins
 } from '@/lib/truthle/storage'
+import {
+  REWARD_PURCHASE_UNAVAILABLE_MESSAGE,
+  SERVER_COMMERCE_READY,
+} from '@/lib/truthle/commerceRelease'
 import OfferWall from './OfferWall'
 import { useEmbeddedAppMode } from '@/lib/useEmbeddedAppMode'
 
@@ -37,15 +41,18 @@ import { useEmbeddedAppMode } from '@/lib/useEmbeddedAppMode'
 const OFFERTORO_ENABLED = !!process.env.NEXT_PUBLIC_OFFERTORO_PUBID
 
 type TabType = 'earn' | 'all' | 'badges' | 'themes' | 'powerups' | 'profile' | 'achievements'
-type WalletSyncStatus = 'idle' | 'syncing' | 'synced' | 'error'
+type WalletSyncStatus = 'idle' | 'syncing' | 'synced' | 'error' | 'disabled'
 
 export async function syncCloudWalletForShop({
   syncCloud = syncCloudCoins,
   readCoins = getCoins,
+  commerceReady = SERVER_COMMERCE_READY,
 }: {
   syncCloud?: typeof syncCloudCoins
   readCoins?: typeof getCoins
-} = {}): Promise<{ status: 'synced' | 'error'; coins: number }> {
+  commerceReady?: boolean
+} = {}): Promise<{ status: 'synced' | 'error' | 'disabled'; coins: number }> {
+  if (!commerceReady) return { status: 'disabled', coins: readCoins() }
   try {
     await syncCloud()
     return { status: 'synced', coins: readCoins() }
@@ -122,6 +129,10 @@ export default function RewardShop() {
 
   useEffect(() => {
     if (loadStatus !== 'ready') return
+    if (!SERVER_COMMERCE_READY) {
+      setWalletSyncStatus('idle')
+      return
+    }
 
     let cancelled = false
     setWalletSyncStatus('syncing')
@@ -215,6 +226,11 @@ export default function RewardShop() {
   }
 
   const handlePurchase = (reward: VirtualReward) => {
+    if (!SERVER_COMMERCE_READY) {
+      setPurchaseMessage({ type: 'error', text: REWARD_PURCHASE_UNAVAILABLE_MESSAGE })
+      return
+    }
+
     const result = purchaseReward(reward.id, reward.price)
 
     if (result.success) {
@@ -280,7 +296,7 @@ export default function RewardShop() {
 
   const tabs: { id: TabType; label: string; icon: string; badge?: string }[] = [
     // Only show Earn tab when Offertoro is configured
-    ...(!embeddedMode && OFFERTORO_ENABLED ? [{ id: 'earn' as TabType, label: 'Earn Coins', icon: '🎁' }] : []),
+    ...(!embeddedMode && OFFERTORO_ENABLED && SERVER_COMMERCE_READY ? [{ id: 'earn' as TabType, label: 'Earn Coins', icon: '🎁' }] : []),
     { id: 'all', label: 'Shop', icon: '🛒' },
     { id: 'achievements', label: 'Achievements', icon: '🏆', badge: `${achievementStats.unlocked}/${achievementStats.total}` },
     { id: 'badges', label: 'Badges', icon: '🏅' },
@@ -418,7 +434,7 @@ export default function RewardShop() {
       </div>
 
       {/* Earn Coins Tab - Offer Wall (only when Offertoro configured) */}
-      {!embeddedMode && OFFERTORO_ENABLED && activeTab === 'earn' && (
+      {!embeddedMode && OFFERTORO_ENABLED && SERVER_COMMERCE_READY && activeTab === 'earn' && (
         <div className="mb-8">
           <OfferWall />
         </div>
@@ -667,8 +683,8 @@ export default function RewardShop() {
                     <button
                       type="button"
                       onClick={() => handlePurchase(reward)}
-                      disabled={!canAfford}
-                      aria-describedby={!canAfford ? balanceNoteId : undefined}
+                      disabled={!canAfford || !SERVER_COMMERCE_READY}
+                      aria-describedby={!canAfford || !SERVER_COMMERCE_READY ? balanceNoteId : undefined}
                       aria-label={`Buy ${reward.name} for ${reward.price.toLocaleString()} Truthle Coins`}
                       className="twt-button !min-h-10 !px-4 !py-2 !text-sm disabled:cursor-not-allowed disabled:border-twt-ink/20 disabled:bg-twt-ink/10 disabled:text-twt-ink/45 disabled:shadow-none"
                     >
@@ -677,7 +693,12 @@ export default function RewardShop() {
                   </>
                 )}
               </div>
-              {!owned && !canAfford && (
+              {!owned && !SERVER_COMMERCE_READY && (
+                <p id={balanceNoteId} className="mt-3 rounded-lg bg-twt-blue/10 px-3 py-2 text-sm font-semibold text-twt-blue">
+                  {REWARD_PURCHASE_UNAVAILABLE_MESSAGE}
+                </p>
+              )}
+              {!owned && SERVER_COMMERCE_READY && !canAfford && (
                 <p id={balanceNoteId} className="mt-3 rounded-lg bg-twt-coral/10 px-3 py-2 text-sm font-semibold text-twt-coral">
                   Insufficient balance. Earn {missingCoins.toLocaleString()} more coins to buy this reward.
                 </p>

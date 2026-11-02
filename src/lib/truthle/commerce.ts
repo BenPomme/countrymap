@@ -1,3 +1,5 @@
+import { COMMERCE_UNAVAILABLE_MESSAGE } from './commerceRelease'
+
 export type CheckoutStatus = 'pending' | 'fulfilled' | 'expired' | 'failed'
 
 export interface RetryCheckoutRequest {
@@ -103,9 +105,21 @@ export interface CommerceServiceOptions {
   storage: CommerceStorage
   transport: CommerceTransport
   applyWalletClaim?: (claim: WalletClaimResponse) => void
+  commerceReady?: boolean
 }
 
-export function createCommerceService({ storage, transport, applyWalletClaim }: CommerceServiceOptions) {
+export function createCommerceService({
+  storage,
+  transport,
+  applyWalletClaim,
+  commerceReady = false,
+}: CommerceServiceOptions) {
+  function assertCommerceReady(): void {
+    if (!commerceReady) {
+      throw new CommerceRequestError(COMMERCE_UNAVAILABLE_MESSAGE, true)
+    }
+  }
+
   function pendingRequestId(key: string): string | null {
     const existing = storage.getItem(key)
     return existing && existing.trim().length > 0 ? existing : null
@@ -125,6 +139,7 @@ export function createCommerceService({ storage, transport, applyWalletClaim }: 
       returnTo: 'truthle' | 'true-false' = 'truthle',
       shareCode?: string
     ): Promise<RetryCheckoutResponse> {
+      assertCommerceReady()
       const safeQuantity = Math.floor(quantity)
       if (!Number.isFinite(safeQuantity) || safeQuantity < 1) {
         throw new CommerceRequestError('Invalid checkout quantity', true)
@@ -156,6 +171,7 @@ export function createCommerceService({ storage, transport, applyWalletClaim }: 
     },
 
     async consumeRetry(): Promise<RetryConsumptionResponse & { reusedRequestId: boolean }> {
+      assertCommerceReady()
       const reusedRequestId = pendingRequestId(RETRY_REQUEST_KEY) !== null
       const stableRequestId = getOrCreateRequestId(RETRY_REQUEST_KEY)
       try {
@@ -177,6 +193,7 @@ export function createCommerceService({ storage, transport, applyWalletClaim }: 
     },
 
     async claimWallet(stableRequestId?: string): Promise<WalletClaimResponse & { applied: boolean }> {
+      assertCommerceReady()
       const claimRequestId = stableRequestId?.trim()
         ? stableRequestId.trim()
         : getOrCreateRequestId(WALLET_REQUEST_KEY)
@@ -207,6 +224,7 @@ export function createCommerceService({ storage, transport, applyWalletClaim }: 
     },
 
     async redeemReward(rewardId: string): Promise<RedemptionResponse> {
+      assertCommerceReady()
       const safeRewardId = assertNonEmptyString(rewardId, 'reward id')
       const stableRequestId = getOrCreateRequestId(`truthle_redeem_request_v1:${safeRewardId}`)
       try {

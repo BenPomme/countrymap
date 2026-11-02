@@ -6,6 +6,10 @@ import type { Country } from '@/types/country'
 import { generateTrueFalseClaims, loadTF, recordTF, type TFState, type TrueFalseClaim } from '@/lib/truthle/trueFalse'
 import { getTruthleDay } from '@/lib/truthle/generator'
 import { getCloudRetryStatus, consumeCloudRetry, createRetryCheckout, getStoredSharePromo } from '@/lib/truthle/storage'
+import {
+  EXTRA_ATTEMPT_UNAVAILABLE_MESSAGE,
+  SERVER_COMMERCE_READY,
+} from '@/lib/truthle/commerceRelease'
 import { getCompletionStreak, getDisplayStreak, getUtcDay } from '@/lib/truthle/dailyLifecycle'
 import { getQuizProvenance, type QuestionProvenanceFields } from '@/lib/truthle/questionProvenance'
 import { getRememberedChallenge, normalizeGiftCode } from '@/lib/truthle/gifts'
@@ -366,6 +370,10 @@ export default function TrueFalseGame({ countries }: { countries: Country[] }) {
 
   const startExtraAttempt = async () => {
     if (retryBusy) return
+    if (!SERVER_COMMERCE_READY) {
+      setRetryNotice(EXTRA_ATTEMPT_UNAVAILABLE_MESSAGE)
+      return
+    }
     setRetryBusy(true)
     setRetryNotice(null)
     try {
@@ -390,6 +398,10 @@ export default function TrueFalseGame({ countries }: { countries: Country[] }) {
 
   const buyExtra = async () => {
     if (retryBusy) return
+    if (!SERVER_COMMERCE_READY) {
+      setRetryNotice(EXTRA_ATTEMPT_UNAVAILABLE_MESSAGE)
+      return
+    }
     setRetryBusy(true)
     setRetryNotice(null)
     try {
@@ -615,7 +627,11 @@ export default function TrueFalseGame({ countries }: { countries: Country[] }) {
           <p className="mt-1 text-xs leading-5 text-[#59647a]">An Extra Attempt never replaces your first result, adds streak days or duplicates first-completion rewards.</p>
 
           <div className="mt-4">
-            {retryStatus.state === 'loading' && !retryRecovery ? (
+            {!SERVER_COMMERCE_READY ? (
+              <button type="button" disabled className="twt-button min-h-12 w-full disabled:opacity-60">
+                Extra Attempts temporarily unavailable
+              </button>
+            ) : retryStatus.state === 'loading' && !retryRecovery ? (
               <button type="button" disabled className="twt-button-secondary min-h-12 w-full disabled:opacity-60">
                 Checking Extra Attempt availability...
               </button>
@@ -639,7 +655,11 @@ export default function TrueFalseGame({ countries }: { countries: Country[] }) {
               </button>
             )}
           </div>
-          {retryNotice && <p className="mt-3 text-sm leading-6 text-[#a33f2c]" role="status">{retryNotice}</p>}
+          {(retryNotice || (!SERVER_COMMERCE_READY ? EXTRA_ATTEMPT_UNAVAILABLE_MESSAGE : null)) && (
+            <p className="mt-3 text-sm leading-6 text-[#a33f2c]" role="status">
+              {retryNotice || EXTRA_ATTEMPT_UNAVAILABLE_MESSAGE}
+            </p>
+          )}
           {msg && <p className="mt-3 text-sm leading-6 text-[#a33f2c]" role="alert">{msg}</p>}
         </section>
 

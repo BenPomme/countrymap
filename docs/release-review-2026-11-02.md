@@ -1,6 +1,6 @@
 # Release review, 2 November 2026
 
-Status: local review package ready, release not approved and not deployed. This record is based on root source checkpoint `b19b5f9`, coordinator-supplied local evidence and public repository inspection. It does not establish production delivery or replace root acceptance.
+Historical pre-approval review. The user subsequently approved deployment; see [the production release record](production-release-2026-11-02.md) for current rollout status. At this review checkpoint, the local package was ready and not deployed. This record is based on root source checkpoint `b19b5f9`, coordinator-supplied local evidence and public repository inspection. It does not establish production delivery or replace root acceptance.
 
 ## Decision summary
 
