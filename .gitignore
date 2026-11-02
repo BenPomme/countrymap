@@ -41,3 +41,7 @@ public/og/map/*.png
 
 # Local audit, API receipts and worker artifacts
 .scratch/
+
+# Local Python tooling caches
+__pycache__/
+*.py[cod]
