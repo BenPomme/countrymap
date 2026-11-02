@@ -20,6 +20,7 @@ const {
   createGetEmailPreferencesHandler,
   createUpdateEmailPreferencesHandler,
   createUnsubscribeRemindersHandler,
+  createUnsubscribeRemindersHttpHandler,
   createQueueDailyRemindersHandler,
 } = require('./lib/reminders');
 
@@ -36,6 +37,10 @@ const OFFERTORO_SECRET = (config.offertoro && config.offertoro.secret) || '';
 const ADMOB_SSV_SECRET = (config.admob && config.admob.ssv_secret) || '';
 const REMINDERS_ENABLED = String((config.reminders && config.reminders.enabled) || process.env.REMINDERS_ENABLED || '')
   .toLowerCase() === 'true';
+const REMINDER_UNSUBSCRIBE_URL =
+  (config.reminders && config.reminders.unsubscribe_url) ||
+  process.env.REMINDER_UNSUBSCRIBE_URL ||
+  '';
 
 let stripeClient = null;
 function requireStripe() {
@@ -130,17 +135,17 @@ exports.updateEmailPreferences = functions.https.onCall(callable(createUpdateEma
 exports.unsubscribeReminders = functions.https.onCall(callable(createUnsubscribeRemindersHandler({ db })));
 
 const unsubscribeHandler = createUnsubscribeRemindersHandler({ db });
+const unsubscribeHttpHandler = createUnsubscribeRemindersHttpHandler({ unsubscribe: unsubscribeHandler });
 exports.unsubscribeRemindersLink = functions.https.onRequest(async (request, response) => {
-  if (request.method !== 'GET') return response.status(405).send('Method not allowed');
-  try {
-    await unsubscribeHandler({ token: request.query && request.query.token }, {});
-    return response.status(200).send('Reminder preferences updated.');
-  } catch (error) {
-    return response.status(error instanceof CommerceError ? error.httpStatus : 400).send('Unsubscribe link is invalid.');
-  }
+  const result = await unsubscribeHttpHandler(request);
+  return sendHttpResult(response, result);
 });
 
-const queueDailyReminders = createQueueDailyRemindersHandler({ db, enabled: REMINDERS_ENABLED });
+const queueDailyReminders = createQueueDailyRemindersHandler({
+  db,
+  enabled: REMINDERS_ENABLED,
+  unsubscribeBaseUrl: REMINDER_UNSUBSCRIBE_URL,
+});
 exports.sendDailyReminders = functions.pubsub
   .schedule('0 9 * * *')
   .timeZone('UTC')

@@ -386,7 +386,11 @@ export default function TruthleGame({ countries }: TruthleGameProps) {
     const runKey = `${day}:${retry ? 'retry' : 'primary'}`
     if (!startedAnalyticsRef.current.has(runKey)) {
       startedAnalyticsRef.current.add(runKey)
-      trackEvent('game_start', { game: 'truthle', puzzle_day: day })
+      trackEvent('game_start', {
+        game: 'truthle',
+        puzzle_day: day,
+        placement: retry ? 'extra' : 'primary',
+      })
     }
     setCurrentIndex(0)
     setResults([])
@@ -523,6 +527,7 @@ export default function TruthleGame({ countries }: TruthleGameProps) {
         trackEvent('game_complete', {
           game: 'truthle',
           puzzle_day: day,
+          placement: isRetryRun ? 'extra' : 'primary',
           score: shownScore,
           correct: shownResults.filter(Boolean).length,
         })

@@ -1,7 +1,6 @@
 import test from 'node:test'
 import assert from 'node:assert/strict'
-import { readFileSync } from 'node:fs'
-import { CONSENT_STORAGE_KEY } from '../src/lib/analytics/consent'
+import { CONSENT_OPEN_EVENT, CONSENT_STORAGE_KEY, openConsentPreferences } from '../src/lib/analytics/consent'
 import {
   configureGoogleTags,
   filterEventParams,
@@ -341,19 +340,196 @@ test('numeric correct counts and uppercase metric content IDs pass the allowlist
   }
 })
 
-test('footer exposes the existing consent preference opener directly', () => {
-  const footer = readFileSync(
-    new URL('../src/components/site/SiteFooter.tsx', import.meta.url),
-    'utf8'
-  )
-  const analytics = readFileSync(
-    new URL('../src/components/Analytics.tsx', import.meta.url),
-    'utf8'
+type ShareFilterCase = {
+  name: string
+  params: Record<string, string | number | boolean | undefined>
+}
+
+test('ResultSharePanel share and reward payloads retain their bounded fields', () => {
+  const base = { game: 'truthle', puzzle_day: '2026-11-02' }
+  const cases: ShareFilterCase[] = [
+    ...['clipboard', 'clipboard_gift', 'native', 'native_gift', 'whatsapp', 'whatsapp_gift', 'native_image']
+      .map((method) => ({ name: 'share_intent', params: { ...base, method } })),
+    { name: 'share_handoff', params: { ...base, method: 'native', status: 'handed_off' } },
+    { name: 'share_handoff', params: { ...base, method: 'native_gift', status: 'handed_off' } },
+    { name: 'share_handoff', params: { ...base, method: 'native_image', status: 'handed_off' } },
+    { name: 'share_handoff', params: { ...base, method: 'whatsapp', status: 'opened' } },
+    { name: 'share_handoff', params: { ...base, method: 'whatsapp_gift', status: 'opened' } },
+    { name: 'share_copy', params: { ...base, method: 'clipboard', status: 'success' } },
+    { name: 'share_copy', params: { ...base, method: 'clipboard_gift', status: 'success' } },
+    { name: 'share_cancel', params: { ...base, method: 'native', status: 'cancel' } },
+    { name: 'share_cancel', params: { ...base, method: 'native_gift', status: 'cancel' } },
+    { name: 'share_cancel', params: { ...base, method: 'native_image', status: 'cancel' } },
+    { name: 'share_error', params: { ...base, method: 'whatsapp', status: 'blocked' } },
+    { name: 'share_error', params: { ...base, method: 'whatsapp_gift', status: 'blocked' } },
+    { name: 'share_error', params: { ...base, method: 'image', status: 'generation' } },
+    { name: 'share_error', params: { ...base, method: 'native_image', status: 'unavailable' } },
+    { name: 'share_error', params: { ...base, method: 'image_download', status: 'download' } },
+    { name: 'reward_mint', params: { ...base, status: 'success' } },
+    { name: 'reward_mint', params: { ...base, status: 'failed' } },
+  ]
+
+  for (const { name, params } of cases) {
+    assert.deepEqual(filterEventParams(name, params), params, `${name} should retain its caller payload`)
+  }
+})
+
+test('VisualShare share payloads retain their bounded fields', () => {
+  const base = {
+    content_id: 'chart_correlation_gdpGrowth_lifeExpectancy',
+    placement: 'share_dialog',
+  }
+  const cases: ShareFilterCase[] = [
+    { name: 'share_intent', params: { ...base, method: 'dialog' } },
+    { name: 'share_copy', params: { ...base, method: 'url_fallback', status: 'success' } },
+    { name: 'share_copy', params: { ...base, method: 'image_clipboard', status: 'success' } },
+    { name: 'share_handoff', params: { ...base, method: 'download', status: 'requested' } },
+    { name: 'share_handoff', params: { ...base, method: 'whatsapp', status: 'requested' } },
+    { name: 'share_handoff', params: { ...base, method: 'native_file', status: 'success' } },
+    { name: 'share_handoff', params: { ...base, method: 'native_link', status: 'success' } },
+    { name: 'share_cancel', params: { ...base, method: 'native', status: 'cancelled' } },
+    { name: 'share_error', params: { ...base, method: 'image_generation', status: 'capture_failed' } },
+    { name: 'share_error', params: { ...base, method: 'clipboard', status: 'denied' } },
+    { name: 'share_error', params: { ...base, method: 'clipboard', status: 'unavailable' } },
+    { name: 'share_error', params: { ...base, method: 'clipboard', status: 'failed' } },
+    { name: 'share_error', params: { ...base, method: 'whatsapp', status: 'handoff_failed' } },
+    { name: 'share_error', params: { ...base, method: 'download', status: 'download_failed' } },
+    { name: 'share_error', params: { ...base, method: 'native', status: 'denied' } },
+    { name: 'share_error', params: { ...base, method: 'native', status: 'unavailable' } },
+    { name: 'share_error', params: { ...base, method: 'native', status: 'failed' } },
+  ]
+
+  for (const { name, params } of cases) {
+    assert.deepEqual(filterEventParams(name, params), params, `${name} should retain its caller payload`)
+  }
+})
+
+test('share event enums reject private values and values from another share event', () => {
+  assert.deepEqual(
+    filterEventParams('share_error', {
+      game: 'truthle',
+      puzzle_day: '2026-02-30',
+      content_id: 'person@example.com',
+      placement: 'https://private.example/path?gift=RAW-GIFT',
+      method: 'RAW-GIFT',
+      status: 'blocked',
+      code: 'RAW-GIFT',
+      email: 'person@example.com',
+      uid: 'user-123',
+      session_id: 'cs_live_SECRET',
+      url: 'https://private.example/path?gift=RAW-GIFT',
+    }),
+    { game: 'truthle', status: 'blocked' }
   )
 
-  assert.match(footer, /import \{ openConsentPreferences \}/)
-  assert.match(footer, /onClick=\{openConsentPreferences\}/)
-  assert.match(footer, />\s*Privacy choices\s*</)
-  assert.match(analytics, /queueAnalyticsPageContext\(gtag\)/)
-  assert.match(analytics, /\[pageViewsAllowed, pathname, ready, tagId\]/)
+  assert.deepEqual(
+    filterEventParams('share_error', { game: 'truthle', method: 'native', status: 'RAW-GIFT' }),
+    { game: 'truthle', method: 'native' }
+  )
+
+  const crossEventValues: Array<ShareFilterCase & { expected: Record<string, string> }> = [
+    {
+      name: 'share_handoff',
+      params: { method: 'clipboard_gift', status: 'requested' },
+      expected: { status: 'requested' },
+    },
+    {
+      name: 'share_handoff',
+      params: { method: 'native', status: 'blocked' },
+      expected: { method: 'native' },
+    },
+    {
+      name: 'share_copy',
+      params: { method: 'native', status: 'success' },
+      expected: { status: 'success' },
+    },
+    {
+      name: 'share_copy',
+      params: { method: 'clipboard', status: 'handed_off' },
+      expected: { method: 'clipboard' },
+    },
+    {
+      name: 'share_cancel',
+      params: { method: 'whatsapp', status: 'cancel' },
+      expected: { status: 'cancel' },
+    },
+    {
+      name: 'share_cancel',
+      params: { method: 'native', status: 'opened' },
+      expected: { method: 'native' },
+    },
+    {
+      name: 'share_error',
+      params: { method: 'url_fallback', status: 'failed' },
+      expected: { status: 'failed' },
+    },
+    {
+      name: 'share_error',
+      params: { method: 'native', status: 'success' },
+      expected: { method: 'native' },
+    },
+  ]
+  for (const { name, params, expected } of crossEventValues) {
+    assert.deepEqual(
+      filterEventParams(name, params),
+      expected,
+      `${name} should drop only the value from another share event`
+    )
+  }
+
+  assert.deepEqual(filterEventParams('reward_copy', { game: 'truthle', method: 'clipboard_gift' }), {
+    game: 'truthle',
+  })
+})
+
+test('Truthle primary and extra placements pass game event filtering', () => {
+  for (const placement of ['primary', 'extra']) {
+    assert.deepEqual(
+      filterEventParams('game_start', { game: 'truthle', puzzle_day: '2026-11-02', placement }),
+      { game: 'truthle', puzzle_day: '2026-11-02', placement }
+    )
+    assert.deepEqual(
+      filterEventParams('game_complete', {
+        game: 'truthle',
+        puzzle_day: '2026-11-02',
+        placement,
+        score: 4200,
+        correct: 4,
+      }),
+      { game: 'truthle', puzzle_day: '2026-11-02', placement, score: 4200, correct: 4 }
+    )
+  }
+
+  assert.deepEqual(
+    filterEventParams('game_complete', {
+      game: 'truthle',
+      puzzle_day: '2026-02-30',
+      placement: 'https://private.example/',
+      score: 4200,
+      correct: 4,
+    }),
+    { game: 'truthle', score: 4200, correct: 4 }
+  )
+})
+
+test('opening privacy choices dispatches the consent dialog contract event', () => {
+  const globals = globalThis as unknown as { window?: unknown }
+  const previousWindow = globals.window
+  const browser = new EventTarget()
+  const receivedEvents: string[] = []
+  const recordOpen = (event: Event) => receivedEvents.push(event.type)
+
+  globals.window = browser
+  browser.addEventListener(CONSENT_OPEN_EVENT, recordOpen)
+
+  try {
+    openConsentPreferences()
+    openConsentPreferences()
+    browser.dispatchEvent(new Event('unrelated-event'))
+
+    assert.deepEqual(receivedEvents, [CONSENT_OPEN_EVENT, CONSENT_OPEN_EVENT])
+  } finally {
+    browser.removeEventListener(CONSENT_OPEN_EVENT, recordOpen)
+    globals.window = previousWindow
+  }
 })

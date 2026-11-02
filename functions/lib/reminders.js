@@ -13,6 +13,33 @@ const {
 const UNSUBSCRIBE_TOKEN_PATTERN = /^[A-Za-z0-9_-]{32,128}$/;
 const UNSUBSCRIBE_TOKEN_HASH_PATTERN = /^[a-f0-9]{64}$/;
 
+function requireTrustedUnsubscribeBaseUrl(value) {
+  const raw = typeof value === 'string' ? value.trim() : '';
+  let baseUrl;
+  try {
+    baseUrl = new URL(raw);
+  } catch (error) {
+    throw new CommerceError('failed-precondition', 'Reminder unsubscribe URL is not configured correctly', 503);
+  }
+
+  if (
+    baseUrl.protocol !== 'https:' ||
+    baseUrl.username ||
+    baseUrl.password ||
+    baseUrl.search ||
+    baseUrl.hash
+  ) {
+    throw new CommerceError('failed-precondition', 'Reminder unsubscribe URL is not configured correctly', 503);
+  }
+  return baseUrl;
+}
+
+function buildUnsubscribeUrl(baseUrl, token) {
+  const url = new URL(baseUrl.toString());
+  url.searchParams.set('token', token);
+  return url.toString();
+}
+
 function defaultTokenFactory() {
   return crypto.randomBytes(32).toString('base64url');
 }
@@ -191,10 +218,34 @@ function createUnsubscribeRemindersHandler(options) {
   };
 }
 
+function createUnsubscribeRemindersHttpHandler(options) {
+  const { unsubscribe } = options;
+  if (typeof unsubscribe !== 'function') {
+    throw new TypeError('unsubscribe handler is required');
+  }
+
+  return async function unsubscribeRemindersHttp(request) {
+    if (!request || request.method !== 'GET') {
+      return { status: 405, body: 'Method not allowed' };
+    }
+
+    try {
+      await unsubscribe({ token: request.query && request.query.token }, {});
+      return { status: 200, body: 'Reminder preferences updated.' };
+    } catch (error) {
+      return {
+        status: error instanceof CommerceError ? error.httpStatus : 400,
+        body: 'Unsubscribe link is invalid.',
+      };
+    }
+  };
+}
+
 function createQueueDailyRemindersHandler(options) {
   const {
     db,
     enabled = false,
+    unsubscribeBaseUrl,
     now = () => new Date(),
     makeToken = defaultTokenFactory,
   } = options;
@@ -204,6 +255,7 @@ function createQueueDailyRemindersHandler(options) {
     const day = utcDateKey(nowDate);
     if (!enabled) return { enabled: false, queued: 0, skipped: 0 };
 
+    const trustedUnsubscribeBaseUrl = requireTrustedUnsubscribeBaseUrl(unsubscribeBaseUrl);
     const subscribers = await db.collection('email_subscribers').where('enabled', '==', true).get();
     let queued = 0;
     let skipped = 0;
@@ -257,7 +309,7 @@ function createQueueDailyRemindersHandler(options) {
             data: {
               truthleDay: day,
               playUrl: 'https://theworldtruth.com/truthle/',
-              unsubscribeUrl: `https://theworldtruth.com/truthle/?unsubscribe=${tokenInfo.token}`,
+              unsubscribeUrl: buildUnsubscribeUrl(trustedUnsubscribeBaseUrl, tokenInfo.token),
             },
           },
         });
@@ -280,5 +332,6 @@ module.exports = {
   createGetEmailPreferencesHandler,
   createUpdateEmailPreferencesHandler,
   createUnsubscribeRemindersHandler,
+  createUnsubscribeRemindersHttpHandler,
   createQueueDailyRemindersHandler,
 };
