@@ -1,8 +1,12 @@
 import { normalizeShareCopy } from './shareState'
+import type { ValueOrder } from '../../lib/seo/ranking'
 
 export const VISUAL_SHARE_WIDTH = 1200
 export const VISUAL_SHARE_HEIGHT = 630
+export const MAP_CAPTURE_WIDTH = 952
+export const MAP_CAPTURE_HEIGHT = 612
 const CARD_DISCLOSURE_MAX_LINES = 2
+const CARD_DISCLOSURE_WIDTH = VISUAL_SHARE_WIDTH - 128
 
 export interface VisualShareCardInput {
   title: string
@@ -13,6 +17,32 @@ export interface VisualShareCardInput {
   sourceName?: string
   sourceVintage?: string
   target?: HTMLElement | null
+}
+
+export interface MapShareRow {
+  countryName: string
+  formatted: string
+  rankMin: number
+}
+
+export interface MapShareCopy {
+  title: string
+  description: string
+  stat?: string
+  detail?: string
+}
+
+export interface CardSourceLayout {
+  lines: string[]
+  fontSize: number
+  lineHeight: number
+}
+
+interface CaptureBounds {
+  x: number
+  y: number
+  width: number
+  height: number
 }
 
 const COLORS = {
@@ -59,6 +89,95 @@ function appendEllipsis(
   }
   if (trimmed) return `${trimmed}...`
   return measureText('...') <= maxWidth ? '...' : ''
+}
+
+function listWithAnd(items: string[]): string {
+  if (items.length < 2) return items[0] || ''
+  if (items.length === 2) return `${items[0]} and ${items[1]}`
+  return `${items.slice(0, -1).join(', ')} and ${items[items.length - 1]}`
+}
+
+function listForSentence(items: string[]): string {
+  if (items.length <= 3) return listWithAnd(items)
+  return `${items[0]}, ${items[1]} and ${items.length - 2} others`
+}
+
+export function buildMapShareCopy(input: {
+  metricName: string
+  categorical: boolean
+  rankOrder: ValueOrder
+  rows: readonly MapShareRow[]
+  filteredCountryCount: number
+}): MapShareCopy {
+  const { metricName, categorical, rankOrder, rows, filteredCountryCount } = input
+  const title = normalizeShareCopy(metricName)
+  const reportingNoun = categorical ? 'category' : 'value'
+  const viewScope = `${filteredCountryCount} ${filteredCountryCount === 1 ? 'country' : 'countries'} in this view`
+
+  if (rows.length === 0) {
+    return {
+      title,
+      description: normalizeShareCopy(
+        `${metricName} map for the current filters. No reported ${reportingNoun} among the ${viewScope}.`,
+      ),
+      detail: normalizeShareCopy(`0 of ${viewScope} have a reported ${reportingNoun}.`),
+    }
+  }
+
+  if (categorical) {
+    const counts = new Map<string, number>()
+    for (const row of rows) {
+      const category = normalizeShareCopy(row.formatted)
+      counts.set(category, (counts.get(category) || 0) + 1)
+    }
+
+    const highestCount = Math.max(...counts.values())
+    const categories = Array.from(counts.entries())
+      .filter(([, count]) => count === highestCount)
+      .map(([category]) => category)
+    const categoryList = listForSentence(categories)
+    const tied = categories.length > 1
+    const allOnce = highestCount === 1 && categories.length === rows.length
+
+    if (allOnce) {
+      return {
+        title,
+        description: normalizeShareCopy(
+          `Each reported category appears once in this filtered view. ${rows.length} of ${viewScope} have a reported category.`,
+        ),
+      }
+    }
+
+    return {
+      title,
+      description: normalizeShareCopy(
+        tied
+          ? `Most commonly reported categories in this filtered view: ${categoryList}, each reported by ${highestCount} of ${viewScope}.`
+          : `Most commonly reported category in this filtered view: ${categoryList}, reported by ${highestCount} of ${viewScope}.`,
+      ),
+    }
+  }
+
+  const extremeRank = Math.min(...rows.map((row) => row.rankMin))
+  const leaders = rows.filter((row) => row.rankMin === extremeRank)
+  const first = leaders[0] || rows[0]
+  const leaderNames = leaders.map((row) => normalizeShareCopy(row.countryName))
+  const direction = rankOrder === 'highest-first' ? 'largest' : 'smallest'
+  const tied = leaders.length > 1
+  const formatted = normalizeShareCopy(first.formatted)
+
+  return {
+    title,
+    description: normalizeShareCopy(
+      tied
+        ? `Observed ${direction} reported value in this filtered view: ${listForSentence(leaderNames)} tied at ${formatted}.`
+        : `Observed ${direction} reported value in this filtered view: ${leaderNames[0]} at ${formatted}.`,
+    ),
+    stat: formatted,
+    detail: normalizeShareCopy(
+      `${rows.length} of ${viewScope} have a reported ${reportingNoun}.`,
+    ),
+  }
 }
 
 export function wrapTextLines(
@@ -151,6 +270,63 @@ export function buildCardSourceLines(
   return lines
 }
 
+export function buildCardSourceLayout(
+  sourceName: string,
+  sourceVintage: string,
+  measureAt: (value: string, fontSize: number) => number,
+): CardSourceLayout {
+  const disclosure = `Source: ${normalizeShareCopy(sourceName)} | Vintage: ${normalizeShareCopy(sourceVintage)}`
+  const attempts = [
+    { fontSize: 19, lineHeight: 20, maxLines: 2 },
+    { fontSize: 17, lineHeight: 18, maxLines: 3 },
+    { fontSize: 16, lineHeight: 17, maxLines: 3 },
+  ]
+
+  for (const attempt of attempts) {
+    const lines = wrapExactText(
+      disclosure,
+      CARD_DISCLOSURE_WIDTH,
+      attempt.maxLines,
+      (value) => measureAt(value, attempt.fontSize),
+    )
+    if (lines) {
+      return { lines, fontSize: attempt.fontSize, lineHeight: attempt.lineHeight }
+    }
+  }
+
+  throw new Error('The full source and vintage are too long to render on the share card')
+}
+
+export function buildMapCaptureViewBox(
+  bounds: CaptureBounds,
+  sourceWidth: number,
+  sourceHeight: number,
+  padding = 8,
+): string | null {
+  if (![bounds.x, bounds.y, bounds.width, bounds.height, sourceWidth, sourceHeight].every(Number.isFinite)) {
+    return null
+  }
+  if (bounds.width <= 0 || bounds.height <= 0 || sourceWidth <= 0 || sourceHeight <= 0) return null
+
+  const left = Math.max(0, bounds.x - padding)
+  const right = Math.min(sourceWidth, bounds.x + bounds.width + padding)
+  const visibleWidth = right - left
+  if (visibleWidth <= 0) return null
+
+  const captureAspect = MAP_CAPTURE_WIDTH / MAP_CAPTURE_HEIGHT
+  let viewHeight = visibleWidth / captureAspect
+  if (viewHeight > sourceHeight) {
+    viewHeight = sourceHeight
+  }
+
+  let top = Math.max(0, bounds.y - padding)
+  if (top + viewHeight > sourceHeight) {
+    top = Math.max(0, sourceHeight - viewHeight)
+  }
+
+  return `${left.toFixed(3)} ${top.toFixed(3)} ${visibleWidth.toFixed(3)} ${viewHeight.toFixed(3)}`
+}
+
 function wrapLines(
   context: CanvasRenderingContext2D,
   text: string,
@@ -181,9 +357,11 @@ async function captureTarget(target: HTMLElement | null | undefined): Promise<HT
     throw new Error('The selected visual is not ready to capture')
   }
 
+  const mapStage = target.dataset.shareVisual === 'map' ? createMapCaptureStage(target) : null
+
   try {
     const html2canvas = (await import('html2canvas')).default
-    const capture = html2canvas(target, {
+    const capture = html2canvas(mapStage?.element || target, {
       backgroundColor: COLORS.white,
       scale: 1,
       useCORS: true,
@@ -200,6 +378,59 @@ async function captureTarget(target: HTMLElement | null | undefined): Promise<HT
     }
   } catch {
     throw new Error('The selected visual could not be captured')
+  } finally {
+    mapStage?.cleanup()
+  }
+}
+
+function createMapCaptureStage(
+  target: HTMLElement,
+): { element: HTMLDivElement; cleanup: () => void } | null {
+  const svg = target.querySelector<SVGSVGElement>('svg.rsm-svg')
+  if (!svg) return null
+
+  const rawViewBox = svg.getAttribute('viewBox')?.trim().split(/\s+/).map(Number)
+  if (!rawViewBox || rawViewBox.length !== 4 || rawViewBox.some((value) => !Number.isFinite(value))) {
+    return null
+  }
+  const sourceWidth = rawViewBox[2]
+  const sourceHeight = rawViewBox[3]
+  const geography = svg.querySelector<SVGGraphicsElement>('.rsm-geographies')
+  if (!geography) return null
+
+  let bounds: DOMRect
+  try {
+    bounds = geography.getBBox()
+  } catch {
+    return null
+  }
+  const viewBox = buildMapCaptureViewBox(bounds, sourceWidth, sourceHeight)
+  if (!viewBox) return null
+
+  const stage = document.createElement('div')
+  stage.setAttribute('aria-hidden', 'true')
+  stage.style.position = 'fixed'
+  stage.style.left = '-10000px'
+  stage.style.top = '0'
+  stage.style.width = `${MAP_CAPTURE_WIDTH}px`
+  stage.style.height = `${MAP_CAPTURE_HEIGHT}px`
+  stage.style.overflow = 'hidden'
+  stage.style.background = COLORS.white
+  stage.style.pointerEvents = 'none'
+
+  const clonedSvg = svg.cloneNode(true) as SVGSVGElement
+  clonedSvg.querySelector('.rsm-zoomable-group')?.removeAttribute('transform')
+  clonedSvg.setAttribute('viewBox', viewBox)
+  clonedSvg.setAttribute('preserveAspectRatio', 'xMidYMid meet')
+  clonedSvg.style.display = 'block'
+  clonedSvg.style.width = `${MAP_CAPTURE_WIDTH}px`
+  clonedSvg.style.height = `${MAP_CAPTURE_HEIGHT}px`
+  stage.appendChild(clonedSvg)
+  document.body.appendChild(stage)
+
+  return {
+    element: stage,
+    cleanup: () => stage.remove(),
   }
 }
 
@@ -334,17 +565,22 @@ function paintCard(
   context.fillStyle = COLORS.ink
   context.fillRect(0, 500, VISUAL_SHARE_WIDTH, 130)
   context.fillStyle = COLORS.yellow
-  context.font = font(700, 19)
-  const sourceLines = buildCardSourceLines(sourceName, sourceVintage, (value) =>
-    context.measureText(value).width,
-  )
-  sourceLines.forEach((line, index) => context.fillText(line, 64, 529 + index * 20))
+  const sourceLayout = buildCardSourceLayout(sourceName, sourceVintage, (value, fontSize) => {
+    context.font = font(700, fontSize)
+    return context.measureText(value).width
+  })
+  context.font = font(700, sourceLayout.fontSize)
+  sourceLayout.lines.forEach((line, index) => {
+    context.fillText(line, 64, 529 + index * sourceLayout.lineHeight)
+  })
 
   context.fillStyle = COLORS.paper
   context.font = font(600, 18)
   const urlLines = wrapExactText(url, 1072, 2, (value) => context.measureText(value).width)
   if (!urlLines) throw new Error('The exact share link is too long to render')
-  urlLines.forEach((line, index) => context.fillText(line, 64, 574 + index * 22))
+  const lastSourceBaseline = 529 + (sourceLayout.lines.length - 1) * sourceLayout.lineHeight
+  const urlY = Math.max(574, lastSourceBaseline + 22)
+  urlLines.forEach((line, index) => context.fillText(line, 64, urlY + index * 22))
 }
 
 export async function generateVisualShareCard(input: VisualShareCardInput): Promise<Blob> {

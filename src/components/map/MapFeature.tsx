@@ -8,6 +8,7 @@ import { REGIONS, VARIABLES } from '@/lib/constants/variables'
 import { ranksHighFirst } from '@/lib/seo/catalog'
 import type { ValueOrder } from '@/lib/seo/ranking'
 import { VisualShare } from '@/components/share'
+import { buildMapShareCopy } from '@/components/share/shareCard'
 import ContextualOffers from '@/components/affiliate/ContextualOffers'
 import NeutralMapLegend from './NeutralMapLegend'
 import ProvenancePanel, { type ProvenancePanelProps } from './ProvenancePanel'
@@ -169,11 +170,16 @@ export default function MapFeature({
     return buildMapShareUrl(origin, canonicalPath, filters)
   }, [canonicalPath, filters])
 
-  const shareDescription = useMemo(() => {
-    const count = `${filteredCountries.length} of ${countries.length} countries shown.`
-    const coverage = `${rankingRows.length} countries have a reported ${reportingNoun} in the full dataset.`
-    return `${config.name} map. ${count} ${coverage} Source, vintage and limitations are on the page.`
-  }, [config.name, countries.length, filteredCountries.length, rankingRows.length, reportingNoun])
+  const shareCopy = useMemo(
+    () => buildMapShareCopy({
+      metricName: config.name,
+      categorical,
+      rankOrder,
+      rows: filteredRankingRows,
+      filteredCountryCount: filteredCountries.length,
+    }),
+    [categorical, config.name, filteredCountries.length, filteredRankingRows, rankOrder],
+  )
 
   return (
     <section aria-labelledby="map-heading" className="mt-5 md:mt-8">
@@ -199,9 +205,11 @@ export default function MapFeature({
           </a>
           <VisualShare
             targetRef={mapCaptureRef}
-            title={`${config.name} by country`}
-            description={shareDescription}
+            title={shareCopy.title}
+            description={shareCopy.description}
             url={shareUrl}
+            stat={shareCopy.stat}
+            detail={shareCopy.detail}
             sourceName={sourceName?.trim() || 'Unknown'}
             sourceVintage={vintage?.trim() || 'Unknown'}
             sourceUrl={sourceUrl}
@@ -213,16 +221,19 @@ export default function MapFeature({
       </div>
 
       <div className="grid gap-0 overflow-hidden rounded-[1.75rem] border-2 border-[#192947]/20 bg-white shadow-[8px_8px_0_rgba(25,41,71,0.08)] lg:grid-cols-[19rem_minmax(0,1fr)]">
-        <div
-          ref={mapCaptureRef}
-          className="relative order-1 h-[540px] overflow-hidden bg-[#eef1f5] lg:order-2 lg:h-auto lg:min-h-[620px]"
-        >
-          <WorldMap
-            countries={countries}
-            filteredCountries={filteredCountries}
-            colorVariable={colorVariable}
-            className="[&>div.absolute.bottom-4.left-4]:hidden"
-          />
+        <div className="relative order-1 h-[540px] overflow-hidden bg-[#eef1f5] lg:order-2 lg:h-auto lg:min-h-[620px]">
+          <div
+            ref={mapCaptureRef}
+            data-share-visual="map"
+            className="absolute inset-0 overflow-hidden"
+          >
+            <WorldMap
+              countries={countries}
+              filteredCountries={filteredCountries}
+              colorVariable={colorVariable}
+              className="[&>div.absolute.bottom-4.left-4]:hidden"
+            />
+          </div>
           <NeutralMapLegend colorVariable={colorVariable} />
 
           {filteredCountries.length === 0 && (
