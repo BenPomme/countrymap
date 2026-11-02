@@ -54,6 +54,7 @@ export default function StatPage({ params }: { params: { slug: string } }) {
   const note = sourceNote(entry.id)
   const lf = mapLongform(entry.slug)
   const dataNoun = config.type === 'categorical' ? 'a reported category' : 'a reported value'
+  const rankingRows = buildRankingRows(config, ranked)
   const baseFaqs = [
     {
       q: question,
@@ -61,17 +62,18 @@ export default function StatPage({ params }: { params: { slug: string } }) {
     },
     {
       q: `How is ${lname} measured?`,
-      a: note ? `${sourceBlurb(entry.id)} Source: ${note.source}. Data year: ${note.vintage}.` : sourceBlurb(entry.id),
+      a: note
+        ? `${sourceBlurb(entry.id)} Source: ${note.source}. Data year: ${note.vintage}.`
+        : `${sourceBlurb(entry.id)} Source and data vintage: Unknown.`,
     },
     ...(note ? note.notes.map((n, i) => ({ q: i === 0 ? `Which places are included in the ${lname} ranking?` : `Why might this ranking differ from other sources?`, a: n })) : []),
     {
       q: `How many countries have data for ${lname}?`,
-      a: `${ranked.length} of ${countries.length} countries on this map have ${dataNoun} for ${lname}.`,
+      a: `${rankingRows.length} of ${countries.length} countries on this map have ${dataNoun} for ${lname}.`,
     },
   ]
   const faqs = lf ? [...lf.faqs, baseFaqs[1]] : baseFaqs
   const claims = claimsForVariable(entry.id)
-  const rankingRows = buildRankingRows(config, ranked)
   const canonicalPath = `/map/${entry.slug}/`
 
   const jsonLd = {
@@ -132,6 +134,11 @@ export default function StatPage({ params }: { params: { slug: string } }) {
               </p>
             </div>
             <p className="mt-1 text-[11px] font-bold text-[#192947]/55">{mainFact.valueLabel}</p>
+            {mainFact.rankLabel && (
+              <p className="mt-1 text-xs font-black leading-5 text-[#192947]/70">
+                {mainFact.rankLabel}. {mainFact.directionLabel}
+              </p>
+            )}
             <p className="mt-4 text-sm font-semibold leading-6 text-[#192947]/75">{mainFact.detail}</p>
             {mainFact.countryHref && (
               <Link
@@ -156,7 +163,7 @@ export default function StatPage({ params }: { params: { slug: string } }) {
                   . Data vintage: {note.vintage}.
                 </>
               ) : (
-                'Source and data vintage are not verified on this page.'
+                'Source and data vintage: Unknown.'
               )}
             </p>
           </aside>

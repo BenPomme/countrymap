@@ -2,6 +2,13 @@ import { getConsentSnapshot } from './consent'
 
 type EventValue = string | number | boolean
 type EventParams = Record<string, string | number | boolean | undefined>
+type Gtag = (...args: unknown[]) => void
+
+export type AnalyticsPageContext = {
+  page_location: string
+  page_referrer?: string
+  ignore_referrer?: true
+}
 
 const EVENT_PARAMETERS: Record<string, ReadonlySet<string>> = {
   game_start: new Set(['game', 'puzzle_day', 'content_id', 'placement']),
@@ -51,9 +58,13 @@ const METHODS = new Set([
   'other',
 ])
 
-const SLUG_PATTERN = /^[a-z0-9]+(?:[._-][a-z0-9]+)*$/
+const SAFE_ID_PATTERN = /^[A-Za-z0-9]+(?:[._-][A-Za-z0-9]+)*$/
 const DATE_PATTERN = /^\d{4}-\d{2}-\d{2}$/
 const TRANSACTION_PATTERN = /^(?:cs|pi|ch|evt|txn)_[A-Za-z0-9_]{8,120}$/
+const IGNORED_REFERRER_ORIGINS = new Set([
+  'https://checkout.stripe.com',
+  'https://billing.stripe.com',
+])
 
 function isValidDay(value: string): boolean {
   if (!DATE_PATTERN.test(value)) return false
@@ -66,6 +77,7 @@ function sanitizeParameter(name: string, value: EventValue): EventValue | undefi
 
   if (typeof value === 'number') {
     if (!Number.isFinite(value)) return undefined
+    if (name === 'correct') return Number.isInteger(value) && value >= 0 && value <= 5 ? value : undefined
     if (name === 'score') return Number.isInteger(value) && value >= 0 && value <= 100000 ? value : undefined
     if (name === 'value') return value >= 0 && value <= 1000000000 ? value : undefined
     return undefined
@@ -80,9 +92,9 @@ function sanitizeParameter(name: string, value: EventValue): EventValue | undefi
     case 'puzzle_day':
       return isValidDay(text) ? text : undefined
     case 'content_id':
-      return text.length <= 100 && SLUG_PATTERN.test(text) ? text : undefined
+      return text.length <= 100 && SAFE_ID_PATTERN.test(text) ? text : undefined
     case 'placement':
-      return SLUG_PATTERN.test(text) && text.length <= 60 ? text : undefined
+      return SAFE_ID_PATTERN.test(text) && text.length <= 60 ? text : undefined
     case 'method':
       return METHODS.has(text) ? text : undefined
     case 'partner':
@@ -128,7 +140,82 @@ export function sanitizeAnalyticsUrl(raw: string | null | undefined): string | u
   }
 }
 
-type Gtag = (...args: unknown[]) => void
+export function isIgnoredBillingReferrer(raw: string | null | undefined): boolean {
+  if (!raw) return false
+
+  try {
+    return IGNORED_REFERRER_ORIGINS.has(new URL(raw).origin)
+  } catch {
+    return false
+  }
+}
+
+export function getAnalyticsPageContext(): AnalyticsPageContext | null {
+  if (typeof window === 'undefined') return null
+
+  const pageLocation = sanitizeAnalyticsUrl(window.location.href)
+  if (!pageLocation) return null
+
+  const rawReferrer = window.document.referrer
+  const pageReferrer = sanitizeAnalyticsUrl(rawReferrer)
+
+  return {
+    page_location: pageLocation,
+    ...(pageReferrer ? { page_referrer: pageReferrer } : {}),
+    ...(isIgnoredBillingReferrer(rawReferrer) ? { ignore_referrer: true } : {}),
+  }
+}
+
+function eventPageParameters(context: AnalyticsPageContext): Record<string, string> {
+  return {
+    page_location: context.page_location,
+    ...(context.page_referrer ? { page_referrer: context.page_referrer } : {}),
+  }
+}
+
+function rawPageNeedsSanitizing(context: AnalyticsPageContext): boolean {
+  if (typeof window === 'undefined') return false
+
+  return (
+    window.location.href !== context.page_location ||
+    (!!window.document.referrer && window.document.referrer !== context.page_referrer)
+  )
+}
+
+export function queueAnalyticsPageContext(gtag: Gtag): AnalyticsPageContext | null {
+  const context = getAnalyticsPageContext()
+  if (!context) return null
+
+  gtag('set', eventPageParameters(context))
+  return context
+}
+
+export function buildAnalyticsConfigOptions(
+  context: AnalyticsPageContext
+): Record<string, string | boolean> {
+  return {
+    send_page_view: false,
+    ...eventPageParameters(context),
+    ...(context.ignore_referrer ? { ignore_referrer: true } : {}),
+  }
+}
+
+export function configureGoogleTags(
+  gtag: Gtag,
+  ids: { analyticsMeasurementId?: string; adsConversionId?: string }
+): boolean {
+  const context = queueAnalyticsPageContext(gtag)
+  if (!context) return false
+
+  if (ids.analyticsMeasurementId) {
+    gtag('config', ids.analyticsMeasurementId, buildAnalyticsConfigOptions(context))
+  }
+  if (ids.adsConversionId) {
+    gtag('config', ids.adsConversionId, { send_page_view: false })
+  }
+
+  return true
+}
 
 function getGtag(): Gtag | undefined {
   if (typeof window === 'undefined') return undefined
@@ -143,7 +230,13 @@ export function trackEvent(name: string, params: EventParams = {}): void {
   const safeParams = filterEventParams(name, params)
   if (!safeParams) return
 
-  getGtag()?.('event', name, safeParams)
+  const context = getAnalyticsPageContext()
+  const eventParams =
+    context && rawPageNeedsSanitizing(context)
+      ? { ...safeParams, ...eventPageParameters(context) }
+      : safeParams
+
+  getGtag()?.('event', name, eventParams)
 }
 
 export function trackPageView(): boolean {
@@ -153,14 +246,10 @@ export function trackPageView(): boolean {
   const gtag = getGtag()
   if (!gtag) return false
 
-  const pageLocation = sanitizeAnalyticsUrl(window.location.href)
-  if (!pageLocation) return false
+  const context = getAnalyticsPageContext()
+  if (!context) return false
 
-  const pageReferrer = sanitizeAnalyticsUrl(window.document.referrer)
-  gtag('event', 'page_view', {
-    page_location: pageLocation,
-    ...(pageReferrer ? { page_referrer: pageReferrer } : {}),
-  })
+  gtag('event', 'page_view', eventPageParameters(context))
   return true
 }
 

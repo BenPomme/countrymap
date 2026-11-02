@@ -8,7 +8,7 @@ import { getTruthleDay } from '@/lib/truthle/generator'
 import { getCloudRetryStatus, consumeCloudRetry, createRetryCheckout, getStoredSharePromo } from '@/lib/truthle/storage'
 import { getCompletionStreak, getDisplayStreak, getUtcDay } from '@/lib/truthle/dailyLifecycle'
 import { getQuizProvenance, type QuestionProvenanceFields } from '@/lib/truthle/questionProvenance'
-import { getRememberedChallenge } from '@/lib/truthle/gifts'
+import { getRememberedChallenge, normalizeGiftCode } from '@/lib/truthle/gifts'
 import { trackEvent } from '@/lib/analytics/events'
 import CheckoutBanner from '@/components/truthle/CheckoutBanner'
 import ResultScorecard from '@/components/truthle/ResultScorecard'
@@ -79,7 +79,7 @@ function getClaimProvenance(claim: TrueFalseClaim): ClaimProvenance | null {
   return provenance ? { ...provenance, provenance: [provenance], quizEligible: true } : null
 }
 
-function selectQuestions(countries: Country[], day: string): ClaimSelection {
+export function selectQuestions(countries: Country[], day: string): ClaimSelection {
   if (!day) return { questions: [], error: null }
   try {
     const questions = generateTrueFalseClaims(countries, day).flatMap((claim) => {
@@ -92,37 +92,55 @@ function selectQuestions(countries: Country[], day: string): ClaimSelection {
   }
 }
 
-function restorableResults(stats: TFState, day: string, total: number): boolean[] | null {
-  if (stats.lastDate !== day || !Array.isArray(stats.lastResults) || stats.lastResults.length !== total) return null
-  if (!stats.lastResults.every((result) => typeof result === 'boolean')) return null
-  return stats.lastResults.slice()
+export type SavedResultRestore =
+  | { kind: 'not-today' }
+  | { kind: 'restored'; results: boolean[] }
+  | { kind: 'unusable'; reason: 'missing-breakdown' | 'count-mismatch' | 'invalid-breakdown' }
+
+export function restoreSavedResult(stats: TFState, day: string, total: number): SavedResultRestore {
+  if (stats.lastDate !== day) return { kind: 'not-today' }
+  if (!Array.isArray(stats.lastResults) || stats.lastResults.length === 0) {
+    return { kind: 'unusable', reason: 'missing-breakdown' }
+  }
+  if (stats.lastResults.length !== total) return { kind: 'unusable', reason: 'count-mismatch' }
+  if (!stats.lastResults.every((result) => typeof result === 'boolean')) {
+    return { kind: 'unusable', reason: 'invalid-breakdown' }
+  }
+  return { kind: 'restored', results: stats.lastResults.slice() }
 }
 
-function retryView(status: CloudRetry): RetryView {
+export function retryView(status: CloudRetry): RetryView {
   const ready = status.source === 'backend'
-  let credits = count(status.paidCredits)
-  if (ready && status.canConsume && credits === 0) credits = 1
+  const credits = count(status.paidCredits)
   return {
     state: ready ? 'ready' : 'unknown',
     credits,
-    canConsume: ready && status.canConsume,
+    canConsume: ready && status.canConsume && !status.consumed,
     consumed: ready && status.consumed,
   }
 }
 
-interface RecipientContext {
+export interface RecipientContext {
   referred: boolean
   shareCode?: string
 }
 
+export function classifyRecipientChallenge(
+  day: string,
+  remembered: { day: string; code?: string } | null,
+  ownGiftCode: string | null | undefined,
+): RecipientContext {
+  if (remembered?.day !== day) return { referred: false }
+  if (!remembered.code) return { referred: true }
+  const shareCode = normalizeGiftCode(remembered.code)
+  if (!shareCode) return { referred: false }
+  if (normalizeGiftCode(ownGiftCode) === shareCode) return { referred: false }
+  return { referred: true, shareCode }
+}
+
 function recipientContext(day: string): RecipientContext {
   try {
-    const remembered = getRememberedChallenge('true-false')
-    if (remembered?.day !== day) return { referred: false }
-    if (!remembered.code) return { referred: true }
-    const ownGift = getStoredSharePromo()
-    if (ownGift?.code.trim().toUpperCase() === remembered.code.trim().toUpperCase()) return { referred: false }
-    return { referred: true, shareCode: remembered.code }
+    return classifyRecipientChallenge(day, getRememberedChallenge('true-false'), getStoredSharePromo()?.code)
   } catch {
     return { referred: false }
   }
@@ -217,14 +235,16 @@ export default function TrueFalseGame({ countries }: { countries: Country[] }) {
         setPhase('unavailable')
         return
       }
-      const restored = restorableResults(saved, day, questions.length)
-      if (restored) {
-        setResults(restored)
+      const restored = restoreSavedResult(saved, day, questions.length)
+      if (restored.kind === 'restored') {
+        setResults(restored.results)
         setPhase('done')
         return
       }
-      if (saved.lastDate === day) {
-        setLoadError('A saved result for today could not be matched safely to today\'s questions. A new scored first run was not started.')
+      if (restored.kind === 'unusable') {
+        setLoadError(restored.reason === 'missing-breakdown'
+          ? 'A saved result for today exists, but its answer breakdown is missing. Its score cannot be shown safely. A new scored first run was not started.'
+          : 'A saved result for today could not be matched safely to today\'s questions. A new scored first run was not started.')
         setPhase('error')
         return
       }

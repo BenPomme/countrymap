@@ -65,7 +65,7 @@ export default function ProvenancePanel({
             ) : sourceName ? (
               sourceName
             ) : (
-              <span className="text-[#dc654e]">Not verified on this page</span>
+              <span className="text-[#dc654e]">Unknown</span>
             )}
           </dd>
         </div>
@@ -74,9 +74,7 @@ export default function ProvenancePanel({
             Data vintage
           </dt>
           <dd className="mt-1 text-sm font-bold leading-6 text-[#192947]">
-            {vintage || (
-              <span className="text-[#dc654e]">Not verified on this page</span>
-            )}
+            {vintage || <span className="text-[#dc654e]">Unknown</span>}
           </dd>
         </div>
         <div>
@@ -108,7 +106,7 @@ export default function ProvenancePanel({
 
       {!hasVerifiedSource && (
         <p className="mt-3 text-sm font-semibold leading-6 text-[#192947]">
-          This page does not claim a verified source or current vintage for this metric. Check a primary source before interpreting or republishing the figure.
+          The source and vintage are unknown for this metric. Check a primary source before interpreting or republishing the figure.
         </p>
       )}
     </section>

@@ -100,7 +100,7 @@ function numberArray(value: unknown): number[] | null {
 
 function stringArray(value: unknown): string[] {
   if (!Array.isArray(value)) return []
-  return [...new Set(value.filter((item): item is string => typeof item === 'string' && item.length > 0))]
+  return Array.from(new Set(value.filter((item): item is string => typeof item === 'string' && item.length > 0)))
 }
 
 export function sanitizeTruthleState(value: unknown): TruthleLocalState {

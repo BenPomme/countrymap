@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import type { ReactNode } from 'react'
+import { rankOrderLabel, type ValueOrder } from '@/lib/seo/ranking'
 
 export interface RankingRow {
   iso3: string
@@ -7,6 +8,9 @@ export interface RankingRow {
   countryHref: string
   formatted: string
   rank: number
+  rankMin: number
+  rankMax: number
+  rangeLabel: string
 }
 
 interface RankingTableProps {
@@ -15,6 +19,7 @@ interface RankingTableProps {
   categorical: boolean
   filteredCountryCount: number
   hasActiveFilters: boolean
+  rankOrder?: ValueOrder
 }
 
 function tableHead(metricName: string, categorical: boolean): ReactNode {
@@ -34,7 +39,7 @@ function tableRows(rows: RankingRow[], categorical: boolean): ReactNode {
     <tr key={row.iso3} className="border-b border-[#192947]/10 last:border-0">
       {!categorical && (
         <td className="whitespace-nowrap px-3 py-2.5 text-xs font-bold tabular-nums text-[#192947]/50">
-          #{row.rank}
+          {row.rangeLabel}
         </td>
       )}
       <td className="px-3 py-2.5 text-sm font-semibold">
@@ -58,6 +63,7 @@ export default function RankingTable({
   categorical,
   filteredCountryCount,
   hasActiveFilters,
+  rankOrder,
 }: RankingTableProps) {
   const initialRows = rows.slice(0, 10)
   const remainingRows = rows.slice(10)
@@ -79,12 +85,17 @@ export default function RankingTable({
       <p className="mt-2 max-w-2xl text-sm leading-6 text-[#192947]/65">
         {categorical
           ? 'This metric is categorical, so the table is alphabetical rather than ranked. Explicit Unknown categories appear where reported.'
-          : 'Ranks use every country with a reported value. Filtering the map does not change a country overall rank.'}{' '}
+          : 'Ranks use every country with a reported finite value. Filtering the map does not change a country overall rank. Tied values share a rank range.'}{' '}
         {rows.length} of {filteredCountryCount} countries that match the current filters are listed.
         {missingMetricCount > 0
           ? ` ${missingMetricCount} additional filtered countries have no reported ${reportingNoun}.`
           : ''}
       </p>
+      {!categorical && rankOrder && (
+        <p className="mt-1 max-w-2xl text-xs font-semibold leading-5 text-[#192947]/55">
+          {rankOrderLabel(rankOrder)}
+        </p>
+      )}
 
       {rows.length === 0 ? (
         <div className="mt-5 rounded-2xl border border-dashed border-[#192947]/20 bg-[#fff9e8] p-5">

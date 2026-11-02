@@ -25,3 +25,5 @@ Acceptance evidence is tracked in docs/acceptance-checklist.md. A worker report 
 - Home/shared design, country/shop and rewards/challenge code integrated. Rewards helper/state suite:12 passed. Product visual and interaction acceptance remains pending.
 - One SEO tooling attempt failed on response output length before saving code. Client/budget and inventory/reporting are now separate bounded tasks. Its accounting remains preserved.
 - No production, email, payment, account-setting or repository-secret change has been made.
+
+2026-11-02 checkpoint: integrated shared game UI and both daily game drafts. Initial DataForSEO collection complete, USD0.22 actual, 248 distinct queries /496 market rows and20 SERPs. Clean isolated npm ci passed (541 packages).12 new game helper/lifecycle tests passed. Five-question source-pool fix, measurement privacy, tie ranks, UI polish and independent money/persistence review assigned to isolated capped leaves; full export and browser acceptance pending.

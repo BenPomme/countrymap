@@ -59,7 +59,7 @@ test('reports every numeric leader when the top value is tied', () => {
       makeRow('Italy', 'ITA', 90),
       makeRow('Spain', 'ESP', 70),
     ],
-    false,
+    true,
     4
   )
 
@@ -93,6 +93,7 @@ test('reports no data without inventing a country or value', () => {
     value: '0 of 5',
     valueLabel: 'Countries with data',
     detail: 'No country in this 5-country dataset has a reported value for Test Metric.',
+    directionLabel: 'Rank 1 is the highest stored value. Tied values share the same rank range.',
     empty: true,
   })
 })

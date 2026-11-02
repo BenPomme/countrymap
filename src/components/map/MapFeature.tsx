@@ -5,6 +5,8 @@ import dynamic from 'next/dynamic'
 import { RotateCcw, SlidersHorizontal } from 'lucide-react'
 import type { Country, ColorVariable } from '@/types/country'
 import { REGIONS, VARIABLES } from '@/lib/constants/variables'
+import { ranksHighFirst } from '@/lib/seo/catalog'
+import type { ValueOrder } from '@/lib/seo/ranking'
 import { VisualShare } from '@/components/share'
 import ContextualOffers from '@/components/affiliate/ContextualOffers'
 import NeutralMapLegend from './NeutralMapLegend'
@@ -105,6 +107,7 @@ export default function MapFeature({
   const config = VARIABLES[colorVariable]
   const categorical = config.type === 'categorical'
   const reportingNoun = categorical ? 'category' : 'value'
+  const rankOrder: ValueOrder = ranksHighFirst(config) ? 'highest-first' : 'lowest-first'
 
   useEffect(() => {
     const restoreFromUrl = () => {
@@ -379,6 +382,7 @@ export default function MapFeature({
           categorical={categorical}
           filteredCountryCount={filteredCountries.length}
           hasActiveFilters={activeFilters}
+          rankOrder={rankOrder}
         />
       </div>
     </section>

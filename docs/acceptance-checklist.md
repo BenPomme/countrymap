@@ -48,9 +48,9 @@ Date: 2026-11-02. Status: implementation and independent review in progress.
 
 - [x] Existing DataForSEO credits checked locally without top-up.
 - [x] Current primary pricing and one-task-per-live-request requirement reviewed by coordinator.
-- [ ] Pilot runner independently accepted before any paid request.
-- [ ] Up to 500 US/UK English candidate combinations collected and cached, with actual costs retained.
+- [x] Pilot runner independently accepted before paid collection; 47 Python tests passed.
+- [x] 248 distinct queries, 496 US/UK English combinations cached. 203 measured-volume rows, 293 unknown. Actual volume charge USD 0.18; 20 SERPs USD 0.04; total USD 0.22, no unresolved reservation.
 - [ ] Twenty selected SERPs inspected for intent, competition, freshness and usefulness.
 - [ ] Ten existing URL priorities carry real evidence and concrete changes.
 - [ ] Four weekly selected-keyword rank checks share the same USD 5 pilot ledger and finite end date.
-- [ ] Search Console baseline and actual indexing evidence retained locally; third-party estimates never treated as rankings or indexing guarantees.
+- [x] Search Console and GA4 baselines retained outside Git; third-party estimates remain separate from observed clicks/indexing.

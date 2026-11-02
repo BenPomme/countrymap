@@ -261,7 +261,9 @@ export default function ResultSharePanel({
     let canShareFile = false
     try {
       file = new File([cardBlob], shareCardFileName(game, day), { type: 'image/png' })
-      canShareFile = Boolean(navigator.share && navigator.canShare?.({ files: [file] }))
+      canShareFile = typeof navigator.share === 'function'
+        && typeof navigator.canShare === 'function'
+        && navigator.canShare({ files: [file] })
     } catch {
       trackEvent('share_error', { game, puzzle_day: day, method: 'native_image', status: 'unavailable' })
     }

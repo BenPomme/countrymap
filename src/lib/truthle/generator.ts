@@ -193,7 +193,7 @@ function generateHighestQuestion(
   const categoryInfo = getCategoryInfo(variablePath)
 
   return {
-    id: `highest-${variablePath}`,
+    id: `highest-${variablePath}-${topCountry.country.iso3}`,
     type: 'highest',
     question: `Which country has the HIGHEST ${variable.name.toLowerCase()}?`,
     options: allOptions.map((opt) => opt.country.name),
@@ -232,7 +232,7 @@ function generateLowestQuestion(
   const categoryInfo = getCategoryInfo(variablePath)
 
   return {
-    id: `lowest-${variablePath}`,
+    id: `lowest-${variablePath}-${lowestCountry.country.iso3}`,
     type: 'lowest',
     question: `Which country has the LOWEST ${variable.name.toLowerCase()}?`,
     options: allOptions.map((opt) => opt.country.name),
@@ -277,7 +277,7 @@ function generateCompareQuestion(
   const categoryInfo = getCategoryInfo(variablePath)
 
   return {
-    id: `compare-${variablePath}`,
+    id: `compare-${variablePath}-${higherCountry.country.iso3}-${lowerCountry.country.iso3}`,
     type: 'compare',
     question: `Which country has a HIGHER ${variable.name.toLowerCase()}?`,
     options,
@@ -311,6 +311,23 @@ function convertCorrelationQuestion(cq: CorrelationQuestion): TruthleQuestion {
   }
 }
 
+type RegularQuestionType = 'highest' | 'lowest' | 'compare'
+
+function quizEligibleVariables(resolver: ProvenanceResolver): string[] {
+  const candidates = [
+    ...POLITICS_VARIABLES,
+    ...TRUTHLE_VARIABLES,
+    ...Object.keys(VARIABLES),
+  ]
+  return Array.from(new Set(candidates)).filter((variablePath) => (
+    variablePath in VARIABLES && getQuizProvenance(variablePath, resolver) !== null
+  ))
+}
+
+function hasVerifiedProvenance(question: TruthleQuestion): boolean {
+  return question.provenance.length > 0 && question.provenance.every((item) => item.quizEligible === true)
+}
+
 export function generateDailyQuestions(
   countries: Country[],
   dateStr?: string,
@@ -322,13 +339,18 @@ export function generateDailyQuestions(
   const rng = seededRandom(seed)
 
   const questions: TruthleQuestion[] = []
-  const usedVariables = new Set<string>()
+  const usedQuestionIds = new Set<string>()
+
+  if (count <= 0) return questions
 
   // Scale correlation mix to quiz length (1 for 5Q; 2–3 for longer)
   const correlationCount = count <= 5 ? 1 : 2 + Math.floor(rng() * 2)
   const correlations = (correlationsData as { correlations: Correlation[] }).correlations
   const correlationQuestions = generateCorrelationQuestions(correlations, rng, correlationCount, resolver)
     .map(convertCorrelationQuestion)
+    .filter((question) => question.provenance.length >= 2 && hasVerifiedProvenance(question))
+
+  correlationQuestions.forEach((question) => usedQuestionIds.add(question.id))
 
   // Determine positions for correlation questions (spread throughout the game)
   const correlationPositions = new Set<number>()
@@ -342,66 +364,46 @@ export function generateDailyQuestions(
   const regularQuestionCount = count - correlationQuestions.length
   const regularQuestions: TruthleQuestion[] = []
 
-  // Shuffle variables for this day
-  // Politics-first: date-seeded pick of 3–4 politics vars at the front, rest after
-  // (later politics vars still serve as fallbacks if a front one fails to generate)
-  const politicsTarget = Math.min(regularQuestionCount, rng() < 0.5 ? 3 : 4)
-  const shuffledPolitics = shuffleWithRng(
-    POLITICS_VARIABLES.filter((v) => v in VARIABLES && getQuizProvenance(v, resolver) !== null),
-    rng
-  )
-  const frontPolitics = shuffledPolitics.slice(0, politicsTarget)
-  const rest = shuffleWithRng(
-    TRUTHLE_VARIABLES.filter((v) => (
-      v in VARIABLES &&
-      !frontPolitics.includes(v) &&
-      getQuizProvenance(v, resolver) !== null
-    )),
-    rng
-  )
-  const shuffledVariables = [...frontPolitics, ...rest]
+  const verifiedVariables = quizEligibleVariables(resolver)
+  if (regularQuestionCount > 0 && verifiedVariables.length === 0) return []
 
-  const questionGenerators = [
-    generateHighestQuestion,
-    generateLowestQuestion,
-    generateCompareQuestion,
-  ]
+  const questionGenerators: Record<RegularQuestionType, typeof generateHighestQuestion> = {
+    highest: generateHighestQuestion,
+    lowest: generateLowestQuestion,
+    compare: generateCompareQuestion,
+  }
+  const typeCycle = shuffleWithRng<RegularQuestionType>(['highest', 'lowest', 'compare'], rng)
+  const typePlan: RegularQuestionType[] = []
+  for (let i = 0; i < regularQuestionCount; i++) {
+    typePlan.push(typeCycle[i % typeCycle.length])
+  }
 
-  let varIndex = 0
-  let attempts = 0
-  const maxAttempts = 100
+  for (const type of typePlan) {
+    const generator = questionGenerators[type]
+    const variableOrder = shuffleWithRng(verifiedVariables, rng)
+    const maxAttempts = Math.max(24, verifiedVariables.length * 12)
+    let selected: TruthleQuestion | null = null
 
-  while (regularQuestions.length < regularQuestionCount && attempts < maxAttempts && varIndex < shuffledVariables.length) {
-    attempts++
+    for (let attempt = 0; attempt < maxAttempts && !selected; attempt++) {
+      const variablePath = variableOrder[attempt % variableOrder.length]
+      const provenance = getQuizProvenance(variablePath, resolver)
+      if (!provenance) continue
 
-    const variablePath = shuffledVariables[varIndex]
-    if (usedVariables.has(variablePath)) {
-      varIndex++
-      continue
+      const question = generator(
+        countries,
+        variablePath,
+        rng,
+        questionProvenanceFields([provenance])
+      )
+      if (!question || !hasVerifiedProvenance(question) || usedQuestionIds.has(question.id)) continue
+
+      selected = question
     }
 
-    // Pick question type based on RNG
-    const typeIndex = Math.floor(rng() * questionGenerators.length)
-    const generator = questionGenerators[typeIndex]
-    const provenance = getQuizProvenance(variablePath, resolver)
-    if (!provenance) {
-      varIndex++
-      continue
-    }
+    if (!selected) return []
 
-    const question = generator(
-      countries,
-      variablePath,
-      rng,
-      questionProvenanceFields([provenance])
-    )
-
-    if (question) {
-      regularQuestions.push(question)
-      usedVariables.add(variablePath)
-    }
-
-    varIndex++
+    regularQuestions.push(selected)
+    usedQuestionIds.add(selected.id)
   }
 
   const mixedRegular = shuffleWithRng(regularQuestions, rng)
@@ -432,5 +434,5 @@ export function generateDailyQuestions(
     regularIndex++
   }
 
-  return questions
+  return questions.length === count ? questions : []
 }

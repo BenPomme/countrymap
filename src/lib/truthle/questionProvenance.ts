@@ -17,7 +17,7 @@ export interface QuestionProvenanceFields {
 export const defaultProvenanceResolver: ProvenanceResolver = getMetricProvenance
 
 function uniqueStrings(values: Array<string | undefined>): string[] {
-  return [...new Set(values.filter((value): value is string => Boolean(value && value.trim())))]
+  return Array.from(new Set(values.filter((value): value is string => Boolean(value && value.trim()))))
 }
 
 function limitations(value: unknown): string[] {
