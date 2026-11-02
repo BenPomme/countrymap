@@ -2,8 +2,27 @@
 @tailwind components;
 @tailwind utilities;
 
+@font-face {
+  font-family: 'Bricolage Grotesque';
+  src: url('/fonts/bricolage-grotesque/BricolageGrotesque-Variable.ttf') format('truetype');
+  font-style: normal;
+  font-weight: 200 800;
+  font-stretch: 75% 100%;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Source Sans 3';
+  src: url('/fonts/source-sans-3/SourceSans3-Variable.ttf') format('truetype');
+  font-style: normal;
+  font-weight: 200 900;
+  font-display: swap;
+}
+
 @layer base {
   :root {
+    --font-body: 'Source Sans 3', system-ui, sans-serif;
+    --font-display: 'Bricolage Grotesque', 'Source Sans 3', system-ui, sans-serif;
     --background: 0 0% 100%;
     --foreground: 222.2 84% 4.9%;
     --primary: 222.2 47.4% 11.2%;
@@ -42,7 +61,219 @@
     @apply border-border;
   }
   body {
-    @apply bg-background text-foreground;
+    @apply bg-twt-paper text-twt-ink;
+    font-family: var(--font-body);
+    text-rendering: optimizeLegibility;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  ::selection {
+    background: #ffda62;
+    color: #192947;
+  }
+
+  a,
+  button,
+  input,
+  select,
+  summary {
+    outline: none;
+  }
+
+  a:focus-visible,
+  button:focus-visible,
+  input:focus-visible,
+  select:focus-visible,
+  summary:focus-visible {
+    outline: 3px solid #ffda62;
+    outline-offset: 3px;
+    box-shadow: 0 0 0 2px #192947;
+  }
+}
+
+@layer components {
+  .twt-shell {
+    min-height: 100svh;
+    background: #fff9e8;
+    color: #192947;
+    font-family: var(--font-body);
+  }
+
+  .twt-container {
+    width: 100%;
+    max-width: 78rem;
+    margin-inline: auto;
+    padding-inline: 1rem;
+  }
+
+  .twt-display {
+    font-family: var(--font-display);
+    font-weight: 700;
+    letter-spacing: -0.035em;
+  }
+
+  .twt-panel {
+    border: 2px solid #192947;
+    border-radius: 1.5rem;
+    background: #ffffff;
+    box-shadow: 6px 6px 0 rgb(25 41 71 / 0.1);
+  }
+
+  .twt-button,
+  .twt-button-secondary {
+    display: inline-flex;
+    min-height: 2.75rem;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    border: 2px solid #192947;
+    border-radius: 999px;
+    padding: 0.7rem 1.1rem;
+    font-size: 0.9rem;
+    font-weight: 800;
+    line-height: 1.1;
+    text-decoration: none;
+    transition: transform 160ms ease, box-shadow 160ms ease, background-color 160ms ease;
+  }
+
+  .twt-button {
+    background: #294cc4;
+    color: #ffffff;
+    box-shadow: 3px 3px 0 #192947;
+  }
+
+  .twt-button:hover {
+    transform: translate(-1px, -1px);
+    box-shadow: 5px 5px 0 #192947;
+  }
+
+  .twt-button-secondary {
+    background: #ffffff;
+    color: #192947;
+  }
+
+  .twt-button-secondary:hover {
+    background: #ffda62;
+  }
+
+  .twt-kicker {
+    color: #294cc4;
+    font-size: 0.7rem;
+    font-weight: 800;
+    letter-spacing: 0.16em;
+    line-height: 1.3;
+    text-transform: uppercase;
+  }
+
+  .twt-prose {
+    max-width: 68ch;
+    color: rgb(25 41 71 / 0.72);
+    font-size: 1.05rem;
+    line-height: 1.75;
+  }
+
+  .twt-site-header {
+    position: sticky;
+    top: 0;
+    z-index: 60;
+    border-bottom: 2px solid rgb(25 41 71 / 0.14);
+    background: rgb(255 249 232 / 0.94);
+    color: #192947;
+    font-family: var(--font-body);
+    backdrop-filter: blur(12px);
+  }
+
+  .twt-brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.65rem;
+    color: #192947;
+    text-decoration: none;
+  }
+
+  .twt-brand-mark {
+    display: inline-flex;
+    width: 2.4rem;
+    height: 2.4rem;
+    flex: 0 0 auto;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid #192947;
+    border-radius: 50%;
+    background: #ffda62;
+    box-shadow: 2px 2px 0 #192947;
+  }
+
+  .twt-header-link {
+    display: inline-flex;
+    min-height: 2.5rem;
+    align-items: center;
+    border-radius: 999px;
+    padding: 0.55rem 0.75rem;
+    color: rgb(25 41 71 / 0.72);
+    font-size: 0.875rem;
+    font-weight: 700;
+    text-decoration: none;
+  }
+
+  .twt-header-link:hover {
+    background: rgb(25 41 71 / 0.06);
+    color: #192947;
+  }
+
+  .twt-site-footer {
+    border-top: 2px solid rgb(25 41 71 / 0.14);
+    background: #ffffff;
+    color: #192947;
+    font-family: var(--font-body);
+  }
+
+  .twt-footer-link {
+    text-decoration: underline;
+    text-decoration-color: rgb(25 41 71 / 0.2);
+    text-underline-offset: 0.25rem;
+  }
+
+  .twt-footer-link:hover {
+    color: #294cc4;
+    text-decoration-color: currentColor;
+  }
+
+  .twt-map-surface {
+    background:
+      radial-gradient(circle at 78% 18%, rgb(255 218 98 / 0.35), transparent 24%),
+      #eef1e5;
+  }
+}
+
+@media (min-width: 640px) {
+  .twt-container {
+    padding-inline: 1.5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .twt-container {
+    padding-inline: 2rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .twt-button,
+  .twt-button-secondary {
+    transition: none;
+  }
+
+  .twt-button:hover,
+  .twt-button-secondary:hover {
+    transform: none;
   }
 }
 

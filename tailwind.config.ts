@@ -9,6 +9,16 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
+        twt: {
+          paper: '#fff9e8',
+          ink: '#192947',
+          blue: '#294cc4',
+          butter: '#ffda62',
+          yellow: '#ffda62',
+          coral: '#dc654e',
+          green: '#246e55',
+          'map-surface': '#eef1e5',
+        },
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
@@ -35,6 +45,10 @@ const config: Config = {
         lg: "var(--radius)",
         md: "calc(var(--radius) - 2px)",
         sm: "calc(var(--radius) - 4px)",
+      },
+      fontFamily: {
+        sans: ['Source Sans 3', 'system-ui', 'sans-serif'],
+        display: ['Bricolage Grotesque', 'Source Sans 3', 'system-ui', 'sans-serif'],
       },
     },
   },
