@@ -1,8 +1,10 @@
 'use client'
 
 import Script from 'next/script'
+import { useEffect, useState } from 'react'
 import { ADSENSE_CONFIG } from '@/lib/constants/ads'
 import { useEmbeddedAppMode } from '@/lib/useEmbeddedAppMode'
+import { useConsent } from '@/lib/analytics/useConsent'
 
 const ADSENSE_SCRIPT_ID = 'adsense-script'
 
@@ -12,8 +14,19 @@ const ADSENSE_SCRIPT_ID = 'adsense-script'
  */
 export default function AdSenseLoader() {
   const embeddedMode = useEmbeddedAppMode()
+  const consent = useConsent()
+  const [embeddedChecked, setEmbeddedChecked] = useState(false)
 
-  if (embeddedMode) {
+  useEffect(() => {
+    setEmbeddedChecked(true)
+  }, [])
+
+  if (
+    !embeddedChecked ||
+    embeddedMode ||
+    consent?.advertising !== true ||
+    !consent.environmentAllowed
+  ) {
     return null
   }
 
