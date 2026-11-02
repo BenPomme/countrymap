@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react'
 import { ADSENSE_CONFIG } from '@/lib/constants/ads'
 import { useEmbeddedAppMode } from '@/lib/useEmbeddedAppMode'
 import { useConsent } from '@/lib/analytics/useConsent'
+import { emitAdStatus } from '@/lib/ads/state'
 
 const ADSENSE_SCRIPT_ID = 'adsense-script'
 
@@ -36,6 +37,7 @@ export default function AdSenseLoader() {
       src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${ADSENSE_CONFIG.clientId}`}
       strategy="afterInteractive"
       crossOrigin="anonymous"
+      onError={() => emitAdStatus({ status: 'error' })}
     />
   )
 }

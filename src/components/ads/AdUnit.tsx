@@ -2,7 +2,9 @@
 
 import { useEffect, useRef } from 'react'
 import { ADSENSE_CONFIG } from '@/lib/constants/ads'
+import { useConsent } from '@/lib/analytics/useConsent'
 import { useEmbeddedAppMode } from '@/lib/useEmbeddedAppMode'
+import { emitAdStatus, isAdEligible } from '@/lib/ads/state'
 
 declare global {
   interface Window {
@@ -26,56 +28,32 @@ export default function AdUnit({
   style,
 }: AdUnitProps) {
   const embeddedMode = useEmbeddedAppMode()
+  const consent = useConsent()
   const adRef = useRef<HTMLModElement>(null)
-  const isLoaded = useRef(false)
+  const requestedSlot = useRef<string | null>(null)
+  const eligible = isAdEligible({ consent, embedded: embeddedMode, slotId })
 
   useEffect(() => {
-    if (embeddedMode) return
-    if (!slotId) return
-    if (isLoaded.current) return
+    if (!eligible) {
+      requestedSlot.current = null
+      return
+    }
+    if (requestedSlot.current === slotId) return
     if (typeof window === 'undefined') return
 
     try {
-      // Always enqueue — script may load later and will drain the queue.
-      // Previous code only pushed when window.adsbygoogle already existed,
-      // so most page loads never requested a fill.
       ;(window.adsbygoogle = window.adsbygoogle || []).push({})
-      isLoaded.current = true
+      requestedSlot.current = slotId
     } catch (error) {
+      emitAdStatus({ slotId, status: 'error' })
       console.error('AdSense error:', error)
     }
-  }, [embeddedMode, slotId])
+  }, [eligible, slotId])
 
-  if (embeddedMode) {
-    return null
-  }
-
-  // Show placeholder if no slot ID configured
-  if (!slotId) {
-    return (
-      <div
-        className={`bg-gray-100 border-2 border-dashed border-gray-300 rounded-lg flex items-center justify-center text-gray-400 text-sm ${className}`}
-        style={style || { minHeight: 90 }}
-      >
-        <span>Ad Space</span>
-      </div>
-    )
-  }
-
-  const reservedHeight =
-    typeof style?.height === 'number'
-      ? style.height
-      : typeof style?.minHeight === 'number'
-        ? style.minHeight
-        : 90
+  if (!eligible) return null
 
   return (
-    <div
-      className="w-full flex justify-center"
-      // No reserved grey box: unfilled slots collapse (see globals.css data-ad-status rule).
-      data-reserved={reservedHeight}
-      aria-hidden="true"
-    >
+    <div className="w-full flex justify-center" aria-hidden="true">
       <ins
         ref={adRef}
         className={`adsbygoogle ${className}`}
