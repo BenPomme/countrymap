@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-**The World Truth Map** is a Next.js 14 interactive world map visualization that displays country-level statistics across 89 variables (health, demographics, economy, governance, sex/relationships, lifestyle, transport, environment, etc.) with 76% data coverage across 164 countries.
+**The World Truth Map** is a Next.js 14 interactive world map visualization that displays country-level statistics across the current variable catalogue (health, demographics, economy, governance, sex/relationships, lifestyle, transport, environment, and more). Topic and coverage counts change with the data, so derive them from the initialized app catalogue. `src/lib/data/loadCountries.ts` imports `src/lib/constants/extraVariables.ts`, which extends `VARIABLES`; counting `VARIABLES` before that import omits the extra topics.
 
 **Live Site:** https://theworldtruth.com
 
@@ -12,7 +12,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - **Interactive Map** (`/`) - Choropleth map with filtering and variable selection
 - **Truthle** (`/truthle`) - Daily world facts quiz (flagship feature, Wordle-style)
 - **Charts** (`/charts`) - Correlation explorer and country rankings
-- **Discoveries** (`/discoveries`) - Browse 1,300+ correlations between variables
+- **Discoveries** (`/discoveries`) - Browse correlations stored in `data/correlations.json`
 - **Quiz** (`/quiz`) - Random 20-question knowledge test
 
 ## Build & Development Commands
@@ -55,7 +55,7 @@ countrymap/
 ├── .github/workflows/
 │   └── deploy.yml              # GitHub Actions deployment
 ├── data/
-│   ├── countries.json          # Main dataset (~870KB, 164 countries, 89 variables)
+│   ├── countries.json          # Main country dataset (164 countries; see the variable catalogue)
 │   └── correlations.json       # Precomputed correlations (built at build time)
 ├── public/
 │   ├── ads.txt                 # Google AdSense authorization
@@ -84,7 +84,7 @@ countrymap/
 │   │   └── truthle/            # TruthleGame.tsx, RewardShop.tsx, AuthModal.tsx, AccountButton.tsx
 │   ├── lib/
 │   │   ├── constants/
-│   │   │   ├── variables.ts    # 89 variable definitions
+│   │   │   ├── variables.ts    # Variable definitions used by the map and charts
 │   │   │   └── ads.ts          # AdSense configuration
 │   │   ├── firebase/
 │   │   │   └── config.ts       # Firebase initialization
@@ -189,7 +189,7 @@ firestore/
 
 4. **Sharing**
    - Wordle-style emoji grid (🟩🟥)
-   - Score + percentile + streak
+   - Score and streak
    - Native share API with clipboard fallback
 
 5. **Rewards System** (`src/lib/truthle/coins.ts`, `rewards.ts`)
@@ -293,13 +293,13 @@ The `sendDailyReminders` function runs at 9am UTC and sends emails to subscriber
 
 ## Correlation System
 
-Computes Pearson correlations between all 89 numeric variables at build time.
+Computes Pearson correlations between the numeric variables listed in `scripts/compute-correlations.ts` at build time.
 
 **Script:** `scripts/compute-correlations.ts`
 - Runs automatically during `npm run build`
 - Outputs to `data/correlations.json`
 - Filters to |r| >= 0.4 (moderate+)
-- Currently: ~1,300 correlations (81 very strong, 441 strong)
+- Read current correlation and strength bucket counts from the generated `data/correlations.json`; do not copy snapshot counts into documentation.
 
 ## Adding New Data Variables
 
@@ -318,7 +318,7 @@ Computes Pearson correlations between all 89 numeric variables at build time.
 1. Update meta tags in page's `layout.tsx`
 2. Update `public/sitemap.xml` with new pages
 3. Update keywords in `src/app/layout.tsx`
-4. Update descriptions to reflect current stats count (89)
+4. Derive any count in descriptions from the initialized catalogue after `src/lib/constants/extraVariables.ts` extends `VARIABLES`, from the current data, or from the generated correlation output instead of copying a stale number
 5. Check JSON-LD structured data in root layout
 
 ### Current Pages in Sitemap

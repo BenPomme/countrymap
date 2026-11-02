@@ -1,0 +1,21 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "incremental": false,
+    "target": "ES2017"
+  },
+  "include": [
+    "src/components/Analytics.tsx",
+    "src/components/ads/AdSenseLoader.tsx",
+    "src/components/analytics/**/*.ts",
+    "src/components/analytics/**/*.tsx",
+    "src/lib/analytics/**/*.ts",
+    "src/app/country/[slug]/layout.tsx",
+    "src/app/privacy/**/*.ts",
+    "src/app/privacy/**/*.tsx",
+    "scripts/generate-sitemap.ts",
+    "scripts/validate-metadata.ts",
+    "tests/platform*.test.ts"
+  ],
+  "exclude": ["node_modules"]
+}

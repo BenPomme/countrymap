@@ -1,12 +1,12 @@
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: 'Discover 1,300+ Correlations Between Country Statistics | World Truth Map',
-  description: 'Explore surprising correlations: IQ vs GDP (+0.82), Corruption vs Economic Freedom (+0.92), Life Expectancy vs Median Age (+0.91). Find hidden patterns in 89 country statistics.',
+  title: 'Country Data Discoveries: 1,321 Correlations | The World Truth',
+  description:
+    'Explore 1,321 measured associations from 4,186 country data pairs across 92 variables. Inspect each sample and open a direct pair link.',
   keywords: [
     'country data correlations',
     'statistics correlations',
-    'IQ GDP correlation',
     'data patterns',
     'country comparisons',
     'economic correlations',
@@ -14,16 +14,18 @@ export const metadata: Metadata = {
     'world data analysis',
   ],
   openGraph: {
-    title: 'Discover 1,300+ Surprising Correlations in Country Data',
-    description: 'Did you know corruption correlates +0.92 with economic freedom? Explore 1,300+ data correlations across 89 country statistics.',
+    title: '1,321 Country Data Discoveries',
+    description:
+      'Browse 1,321 measured associations from 4,186 tested pairs across 92 country variables, with sample sizes and direct pair links.',
     url: 'https://theworldtruth.com/discoveries/',
     type: 'website',
     images: ['/og-image.png'],
   },
   twitter: {
     card: 'summary_large_image',
-    title: '1,300+ Surprising Correlations in Country Data 🔍',
-    description: 'IQ vs GDP: +0.82 | Corruption vs Freedom: +0.92 | Explore hidden patterns in world statistics',
+    title: 'Country Data Discoveries',
+    description:
+      'Explore 1,321 measured country associations across 92 variables. Each pair includes its sample size and a direct link.',
   },
   alternates: {
     canonical: '/discoveries/',

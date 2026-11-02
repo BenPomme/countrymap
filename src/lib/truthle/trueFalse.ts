@@ -2,6 +2,11 @@ import type { Country, DataSource } from '@/types/country'
 import { VARIABLES } from '@/lib/constants/variables'
 import { getNestedValue } from '@/lib/utils'
 import { getTodayDateString } from './generator'
+import {
+  getQuizProvenance,
+  questionProvenanceFields,
+  type QuestionProvenanceFields,
+} from './questionProvenance'
 
 export interface TrueFalseClaim {
   id: string
@@ -13,6 +18,8 @@ export interface TrueFalseClaim {
   mapSlugVar: string
   variableName: string
 }
+
+export type ProvenancedTrueFalseClaim = TrueFalseClaim & QuestionProvenanceFields
 
 // Politics-first pool (always 2 per day) + general stats pool.
 const POLITICS_VARS = [
@@ -92,9 +99,11 @@ function meta(path: string) {
   return v ? { name: v.name, fmt: (n: number) => v.format(n) } : null
 }
 
-function build(countries: Country[], path: string, rng: () => number, wantTrue: boolean): TrueFalseClaim | null {
+function build(countries: Country[], path: string, rng: () => number, wantTrue: boolean): ProvenancedTrueFalseClaim | null {
   const m = meta(path)
   if (!m) return null
+  const provenance = getQuizProvenance(path)
+  if (!provenance) return null
   const data = rows(countries, path)
   if (data.length < 30) return null
   const name = LABELS[path] ?? m.name.toLowerCase()
@@ -105,6 +114,7 @@ function build(countries: Country[], path: string, rng: () => number, wantTrue: 
   let claim = ''
   let fact = ''
   let subject: Row
+  let identity = ''
 
   if (kind === 0) {
     // Compare two countries with a clear gap.
@@ -115,12 +125,14 @@ function build(countries: Country[], path: string, rng: () => number, wantTrue: 
     claim = `${a.c.name} has a higher ${name} than ${b.c.name}.`
     fact = `${hi.c.name}: ${m.fmt(hi.v)} vs ${lo.c.name}: ${m.fmt(lo.v)}.`
     subject = hi
+    identity = `compare-${a.c.iso3}-${b.c.iso3}`
   } else if (kind === 1) {
     // Top 10 membership.
     const r = wantTrue ? data[Math.floor(rng() * 10)] : data[Math.floor(n / 2) + Math.floor(rng() * (n - Math.floor(n / 2)))]
     claim = `${r.c.name} ranks in the world's top 10 for ${name}.`
     fact = `${r.c.name} ranks #${rankOf(r)} of ${n} (${m.fmt(r.v)}). #1 is ${data[0].c.name} (${m.fmt(data[0].v)}).`
     subject = r
+    identity = `top10-${r.c.iso3}`
   } else {
     // Who is #1 — false swaps in a country ranked #2–#6.
     const top = data[0]
@@ -133,11 +145,12 @@ function build(countries: Country[], path: string, rng: () => number, wantTrue: 
       ? `Yes — ${top.c.name} leads with ${m.fmt(top.v)}.`
       : `${top.c.name} is #1 (${m.fmt(top.v)}); ${imposter.c.name} is #${rankOf(imposter)} (${m.fmt(imposter.v)}).`
     subject = top
+    identity = `highest-${shown.c.iso3}`
   }
 
   const src = sourceFor(subject.c, path)
   return {
-    id: `${path}-${kind}`,
+    id: `tf-${kind}-${path}-${identity}`,
     claim,
     answer: wantTrue,
     fact,
@@ -145,10 +158,16 @@ function build(countries: Country[], path: string, rng: () => number, wantTrue: 
     sourceUrl: src?.url,
     mapSlugVar: path,
     variableName: m.name,
+    ...questionProvenanceFields([provenance]),
   }
 }
 
-export function generateTrueFalseClaims(countries: Country[], date = getTodayDateString()): TrueFalseClaim[] {
+export function generateTrueFalseClaims(countries: Country[], date = getTodayDateString()): ProvenancedTrueFalseClaim[] {
+  const eligiblePolitics = POLITICS_VARS.filter((path) => getQuizProvenance(path) !== null)
+  const eligible = Array.from(new Set([...POLITICS_VARS, ...STATS_VARS]))
+    .filter((path) => getQuizProvenance(path) !== null)
+  if (eligible.length === 0) return []
+
   const rng = rngFrom(hash(`tf-world-${date}`))
   // 2 or 3 true answers, shuffled.
   const truths = [true, true, false, false, rng() < 0.5]
@@ -156,21 +175,23 @@ export function generateTrueFalseClaims(countries: Country[], date = getTodayDat
     const j = Math.floor(rng() * (i + 1))
     ;[truths[i], truths[j]] = [truths[j], truths[i]]
   }
-  const out: TrueFalseClaim[] = []
+  const out: ProvenancedTrueFalseClaim[] = []
   const used = new Set<string>()
   let guard = 0
   while (out.length < 5 && guard++ < 200) {
-    const pool = out.length < 2 ? POLITICS_VARS : STATS_VARS
+    const pool = out.length < 2 && eligiblePolitics.length > 0 ? eligiblePolitics : eligible
     const path = pick(pool, rng)
-    if (used.has(path)) continue
     const c = build(countries, path, rng, truths[out.length])
-    if (!c) continue
-    used.add(path)
+    if (!c || used.has(c.id)) continue
+    used.add(c.id)
     out.push(c)
   }
+  if (out.length !== 5) return []
   // Interleave so politics isn't always first
   return [out[0], out[2], out[1], out[3], out[4]].filter(Boolean)
 }
+
+export const generateTrueFalseQuestions = generateTrueFalseClaims
 
 // ---- local stats ----
 const KEY = 'tf_world_v1'

@@ -1,236 +1,597 @@
 'use client'
 
-import { useState, useRef } from 'react'
-import html2canvas from 'html2canvas'
-import { Share2, Download, Copy, X, MessageCircle, Check, Loader2 } from 'lucide-react'
+import { useCallback, useEffect, useId, useRef, useState, type RefObject } from 'react'
+import { createPortal } from 'react-dom'
+import {
+  Check,
+  Copy,
+  Download,
+  Loader2,
+  MessageCircle,
+  RotateCcw,
+  Share2,
+  X,
+} from 'lucide-react'
+import { trackEvent } from '@/lib/analytics/events'
+import { generateVisualShareCard } from './shareCard'
+import {
+  buildShareFilename,
+  buildWhatsAppShareUrl,
+  clipboardFailureStatus,
+  nativeShareFailureKind,
+  normalizeShareCopy,
+  resolveShareContentId,
+  sanitizeAnalyticsValue,
+} from './shareState'
+import { useDialogFocus } from './useDialogFocus'
 
 interface VisualShareProps {
-  targetRef: React.RefObject<HTMLElement>
+  targetRef?: RefObject<HTMLElement>
   title: string
   description: string
   url?: string
   className?: string
+  sourceName?: string
+  sourceVintage?: string
+  sourceUrl?: string
+  stat?: string
+  detail?: string
+  contentId?: string
+  placement?: string
+  onOpenChange?: (open: boolean) => void
+}
+
+type CaptureState = 'idle' | 'capturing' | 'ready' | 'error'
+type CopyState = 'idle' | 'image' | 'url' | 'error'
+
+const SHARE_CARD_TIMEOUT_MS = 20000
+
+function withTimeout<T>(promise: Promise<T>, timeoutMs: number): Promise<T> {
+  return new Promise<T>((resolve, reject) => {
+    const timer = window.setTimeout(() => {
+      reject(new Error('Share card generation timed out'))
+    }, timeoutMs)
+
+    promise.then(
+      (value) => {
+        window.clearTimeout(timer)
+        resolve(value)
+      },
+      (error: unknown) => {
+        window.clearTimeout(timer)
+        reject(error)
+      },
+    )
+  })
+}
+
+function track(name: string, params: Record<string, string | number | boolean | undefined>): void {
+  try {
+    trackEvent(name, params)
+  } catch {
+    // Measurement must never block sharing.
+  }
 }
 
 export default function VisualShare({
   targetRef,
   title,
   description,
-  url = typeof window !== 'undefined' ? window.location.href : '',
+  url,
   className = '',
+  sourceName = 'The World Truth country dataset',
+  sourceVintage = 'Unknown',
+  sourceUrl,
+  stat,
+  detail,
+  contentId,
+  placement = 'share_dialog',
+  onOpenChange,
 }: VisualShareProps) {
   const [isOpen, setIsOpen] = useState(false)
-  const [isCapturing, setIsCapturing] = useState(false)
-  const [capturedImage, setCapturedImage] = useState<string | null>(null)
-  const [copied, setCopied] = useState(false)
+  const [captureState, setCaptureState] = useState<CaptureState>('idle')
+  const [imageBlob, setImageBlob] = useState<Blob | null>(null)
+  const [previewUrl, setPreviewUrl] = useState('')
+  const [copyState, setCopyState] = useState<CopyState>('idle')
+  const [statusMessage, setStatusMessage] = useState('')
+  const [canNativeShare, setCanNativeShare] = useState(false)
+  const generationRef = useRef(0)
+  const previewUrlRef = useRef('')
+  const statusTimerRef = useRef<number | null>(null)
+  const dialogTitleId = useId()
+  const dialogDescriptionId = useId()
 
-  const captureImage = async () => {
-    if (!targetRef.current) return null
+  const closeDialog = useCallback(() => {
+    setIsOpen(false)
+    onOpenChange?.(false)
+  }, [onOpenChange])
+  const dialogRef = useDialogFocus(isOpen, closeDialog)
 
-    setIsCapturing(true)
-    try {
-      const canvas = await html2canvas(targetRef.current, {
-        backgroundColor: '#ffffff',
-        scale: 2, // Higher quality
-        useCORS: true,
-        logging: false,
-      })
-      const dataUrl = canvas.toDataURL('image/png')
-      setCapturedImage(dataUrl)
-      return dataUrl
-    } catch (error) {
-      console.error('Failed to capture image:', error)
-      return null
-    } finally {
-      setIsCapturing(false)
+  const showStatus = useCallback((message: string, clearAfter = 0) => {
+    if (statusTimerRef.current !== null) window.clearTimeout(statusTimerRef.current)
+    statusTimerRef.current = null
+    setStatusMessage(message)
+    if (clearAfter > 0) {
+      statusTimerRef.current = window.setTimeout(() => {
+        setStatusMessage('')
+        statusTimerRef.current = null
+      }, clearAfter)
     }
+  }, [])
+
+  const clearPreview = useCallback(() => {
+    if (previewUrlRef.current) {
+      URL.revokeObjectURL(previewUrlRef.current)
+      previewUrlRef.current = ''
+    }
+    setPreviewUrl('')
+  }, [])
+
+  useEffect(() => {
+    setCanNativeShare(typeof navigator !== 'undefined' && typeof navigator.share === 'function')
+  }, [])
+
+  useEffect(() => {
+    return () => {
+      if (previewUrlRef.current) URL.revokeObjectURL(previewUrlRef.current)
+      if (statusTimerRef.current !== null) window.clearTimeout(statusTimerRef.current)
+    }
+  }, [])
+
+  const resolvedContentId = resolveShareContentId(contentId)
+  const resolvedPlacement = sanitizeAnalyticsValue(placement, 'share_dialog')
+  const resolvedUrl = url || (typeof window !== 'undefined' ? window.location.href : '')
+
+  const prepareCard = useCallback(async () => {
+    const generation = generationRef.current + 1
+    generationRef.current = generation
+    setImageBlob(null)
+    clearPreview()
+    setCaptureState('capturing')
+    setCopyState('idle')
+    showStatus('Building your share card.')
+
+    try {
+      if (targetRef && !targetRef.current) {
+        throw new Error('The selected visual is not ready to capture')
+      }
+      const destination = url || (typeof window !== 'undefined' ? window.location.href : '')
+      const card = await withTimeout(
+        generateVisualShareCard({
+          title,
+          description,
+          url: destination,
+          stat,
+          detail,
+          sourceName,
+          sourceVintage,
+          target: targetRef?.current ?? null,
+        }),
+        SHARE_CARD_TIMEOUT_MS,
+      )
+      if (generationRef.current !== generation) return
+
+      clearPreview()
+      const nextPreviewUrl = URL.createObjectURL(card)
+      previewUrlRef.current = nextPreviewUrl
+      setImageBlob(card)
+      setPreviewUrl(nextPreviewUrl)
+      setCaptureState('ready')
+      showStatus('Share card ready.')
+    } catch {
+      if (generationRef.current !== generation) return
+      setImageBlob(null)
+      clearPreview()
+      setCaptureState('error')
+      showStatus('We could not build the share image. Try again or share the link.')
+      track('share_error', {
+        content_id: resolvedContentId,
+        placement: resolvedPlacement,
+        method: 'image_generation',
+        status: 'capture_failed',
+      })
+    }
+  }, [
+    clearPreview,
+    description,
+    detail,
+    resolvedContentId,
+    resolvedPlacement,
+    showStatus,
+    sourceName,
+    sourceVintage,
+    stat,
+    targetRef,
+    title,
+    url,
+  ])
+
+  const handleOpen = () => {
+    setIsOpen(true)
+    onOpenChange?.(true)
+    track('share_intent', {
+      content_id: resolvedContentId,
+      placement: resolvedPlacement,
+      method: 'dialog',
+    })
+    void prepareCard()
   }
 
-  const handleOpen = async () => {
-    setIsOpen(true)
-    if (!capturedImage) {
-      await captureImage()
+  const handleCopy = async () => {
+    const copyLink = async () => {
+      if (!resolvedUrl) {
+        const error = new Error('The share link is unavailable')
+        error.name = 'NotFoundError'
+        throw error
+      }
+      if (!navigator.clipboard?.writeText) {
+        const error = new Error('Text clipboard is unavailable')
+        error.name = 'NotSupportedError'
+        throw error
+      }
+      await navigator.clipboard.writeText(resolvedUrl)
+    }
+
+    const reportCopyFailure = (error: unknown) => {
+      const status = clipboardFailureStatus(error)
+      setCopyState('error')
+      showStatus(
+        status === 'denied'
+          ? 'Clipboard access was denied. Use Download or copy the address bar.'
+          : status === 'unavailable'
+            ? 'Clipboard copy is unavailable in this browser. Use Download or copy the address bar.'
+            : 'Could not copy. Use Download or copy the address bar.',
+      )
+      track('share_error', {
+        content_id: resolvedContentId,
+        placement: resolvedPlacement,
+        method: 'clipboard',
+        status,
+      })
+    }
+
+    if (!imageBlob) {
+      try {
+        await copyLink()
+        setCopyState('url')
+        showStatus('Link copied.', 3000)
+        track('share_copy', {
+          content_id: resolvedContentId,
+          placement: resolvedPlacement,
+          method: 'url_fallback',
+          status: 'success',
+        })
+      } catch (error) {
+        reportCopyFailure(error)
+      }
+      return
+    }
+
+    try {
+      if (!navigator.clipboard?.write || typeof ClipboardItem === 'undefined') {
+        throw new Error('Image clipboard is unavailable')
+      }
+      await navigator.clipboard.write([new ClipboardItem({ [imageBlob.type]: imageBlob })])
+      setCopyState('image')
+      showStatus('Share image copied.', 2500)
+      track('share_copy', {
+        content_id: resolvedContentId,
+        placement: resolvedPlacement,
+        method: 'image_clipboard',
+        status: 'success',
+      })
+    } catch {
+      try {
+        await copyLink()
+        setCopyState('url')
+        showStatus('Link copied. The image was not copied.', 3000)
+        track('share_copy', {
+          content_id: resolvedContentId,
+          placement: resolvedPlacement,
+          method: 'url_fallback',
+          status: 'success',
+        })
+      } catch (error) {
+        reportCopyFailure(error)
+      }
     }
   }
 
   const handleDownload = () => {
-    if (!capturedImage) return
-
-    const link = document.createElement('a')
-    link.download = `${title.replace(/\s+/g, '-').toLowerCase()}-theworldtruth.png`
-    link.href = capturedImage
-    link.click()
-  }
-
-  const handleCopyImage = async () => {
-    if (!capturedImage) return
+    if (!imageBlob) return
+    let objectUrl = ''
 
     try {
-      // Convert data URL to blob
-      const response = await fetch(capturedImage)
-      const blob = await response.blob()
+      objectUrl = URL.createObjectURL(imageBlob)
+      const anchor = document.createElement('a')
+      anchor.href = objectUrl
+      anchor.download = buildShareFilename(title)
+      document.body.appendChild(anchor)
+      try {
+        anchor.click()
+      } finally {
+        anchor.remove()
+      }
+      showStatus('Download requested. Check your browser downloads.', 3500)
+      track('share_handoff', {
+        content_id: resolvedContentId,
+        placement: resolvedPlacement,
+        method: 'download',
+        status: 'requested',
+      })
+    } catch {
+      showStatus('Could not start the download. Try Copy or use the page link.')
+      track('share_error', {
+        content_id: resolvedContentId,
+        placement: resolvedPlacement,
+        method: 'download',
+        status: 'download_failed',
+      })
+    } finally {
+      if (objectUrl) {
+        window.setTimeout(() => URL.revokeObjectURL(objectUrl), 1000)
+      }
+    }
+  }
 
-      await navigator.clipboard.write([
-        new ClipboardItem({
-          [blob.type]: blob,
-        }),
-      ])
-      setCopied(true)
-      setTimeout(() => setCopied(false), 2000)
-    } catch (error) {
-      // Fallback: copy URL
-      await navigator.clipboard.writeText(url)
-      setCopied(true)
-      setTimeout(() => setCopied(false), 2000)
+  const handleWhatsApp = () => {
+    try {
+      window.open(
+        buildWhatsAppShareUrl(description, resolvedUrl),
+        '_blank',
+        'noopener,noreferrer',
+      )
+      showStatus('WhatsApp handoff requested. If no tab opens, allow pop-ups or use Copy.', 3500)
+      track('share_handoff', {
+        content_id: resolvedContentId,
+        placement: resolvedPlacement,
+        method: 'whatsapp',
+        status: 'requested',
+      })
+    } catch {
+      showStatus('WhatsApp could not open. Use Copy or the page link.')
+      track('share_error', {
+        content_id: resolvedContentId,
+        placement: resolvedPlacement,
+        method: 'whatsapp',
+        status: 'handoff_failed',
+      })
     }
   }
 
   const handleNativeShare = async () => {
-    if (!capturedImage) return
+    if (!imageBlob || !canNativeShare) return
 
     try {
-      // Convert to blob for sharing
-      const response = await fetch(capturedImage)
-      const blob = await response.blob()
-      const file = new File([blob], 'theworldtruth-share.png', { type: 'image/png' })
+      const file = new File([imageBlob], buildShareFilename(title), { type: 'image/png' })
+      const canShareFile =
+        typeof navigator.canShare === 'function' && navigator.canShare({ files: [file] })
 
-      if (navigator.share && navigator.canShare({ files: [file] })) {
+      if (canShareFile) {
         await navigator.share({
-          title,
-          text: description,
-          url,
+          title: normalizeShareCopy(title),
+          text: normalizeShareCopy(description),
+          url: resolvedUrl,
           files: [file],
         })
-      } else if (navigator.share) {
-        // Fallback without image
+      } else {
         await navigator.share({
-          title,
-          text: `${description}\n\n${url}`,
+          title: normalizeShareCopy(title),
+          text: normalizeShareCopy(description),
+          url: resolvedUrl,
         })
       }
+      showStatus('Shared.', 2500)
+      track('share_handoff', {
+        content_id: resolvedContentId,
+        placement: resolvedPlacement,
+        method: canShareFile ? 'native_file' : 'native_link',
+        status: 'success',
+      })
     } catch (error) {
-      console.error('Share failed:', error)
+      const failureKind = nativeShareFailureKind(error)
+      if (failureKind === 'cancelled') {
+        showStatus('Share cancelled.')
+        track('share_cancel', {
+          content_id: resolvedContentId,
+          placement: resolvedPlacement,
+          method: 'native',
+          status: 'cancelled',
+        })
+        return
+      }
+      showStatus(
+        failureKind === 'denied'
+          ? 'Native sharing was not allowed. Try WhatsApp or Download.'
+          : failureKind === 'unavailable'
+            ? 'Native sharing is not available in this browser. Try WhatsApp or Download.'
+          : 'Native share did not complete. Try WhatsApp or Download.',
+      )
+      track('share_error', {
+        content_id: resolvedContentId,
+        placement: resolvedPlacement,
+        method: 'native',
+        status: failureKind,
+      })
     }
   }
 
-  const handleWhatsAppShare = () => {
-    const text = encodeURIComponent(`${description}\n\n${url}`)
-    window.open(`https://wa.me/?text=${text}`, '_blank')
-  }
+  const dialog =
+    isOpen && typeof document !== 'undefined'
+      ? createPortal(
+          <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+            <button
+              type="button"
+              aria-label="Close share dialog"
+              className="absolute inset-0 cursor-default bg-[#192947]/65"
+              onClick={closeDialog}
+            />
+            <div
+              ref={dialogRef}
+              role="dialog"
+              aria-modal="true"
+              aria-labelledby={dialogTitleId}
+              aria-describedby={dialogDescriptionId}
+              tabIndex={-1}
+              className="relative max-h-[92vh] w-full max-w-2xl overflow-y-auto rounded-[28px] border border-[#192947]/15 bg-[#fff9e8] p-5 text-[#192947] shadow-2xl md:p-7"
+            >
+              <div className="mb-5 flex items-start justify-between gap-4">
+                <div>
+                  <p className="text-xs font-bold uppercase tracking-[0.18em] text-[#294cc4]">Share this find</p>
+                  <h2 id={dialogTitleId} className="mt-1 text-2xl font-black tracking-tight">
+                    A clear card for this find
+                  </h2>
+                  <p id={dialogDescriptionId} className="mt-2 text-sm leading-6 text-[#192947]/70">
+                    The card includes the title, source vintage and the exact link to this page.
+                  </p>
+                </div>
+                <button
+                  type="button"
+                  onClick={closeDialog}
+                  className="rounded-full p-2 text-[#192947]/60 transition-colors hover:bg-[#192947]/10 hover:text-[#192947] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#294cc4] motion-reduce:transition-none"
+                  aria-label="Close share dialog"
+                >
+                  <X className="h-5 w-5" aria-hidden="true" />
+                </button>
+              </div>
+
+              <div
+                className="mb-5 overflow-hidden rounded-2xl border border-[#192947]/15 bg-white"
+                aria-busy={captureState === 'capturing'}
+              >
+                {captureState === 'capturing' && (
+                  <div className="flex h-56 flex-col items-center justify-center gap-3 text-[#192947]/65">
+                    <Loader2 className="h-8 w-8 animate-spin motion-reduce:animate-none" aria-hidden="true" />
+                    <span className="text-sm font-semibold">Building a readable share card...</span>
+                  </div>
+                )}
+                {captureState === 'ready' && previewUrl && (
+                  <img
+                    src={previewUrl}
+                    alt={`Share card preview: ${normalizeShareCopy(title)}`}
+                    className="block h-auto w-full"
+                  />
+                )}
+                {captureState === 'error' && (
+                  <div className="flex min-h-56 flex-col items-center justify-center gap-3 px-6 text-center">
+                    <p className="font-bold">The image could not be generated.</p>
+                    <p className="max-w-md text-sm text-[#192947]/70">
+                      Retry the image, or close this dialog and use the page link.
+                    </p>
+                    <button
+                      type="button"
+                      onClick={() => void prepareCard()}
+                      className="inline-flex items-center gap-2 rounded-full bg-[#294cc4] px-4 py-2 text-sm font-bold text-white hover:bg-[#1f3ca0] motion-reduce:transition-none"
+                    >
+                      <RotateCcw className="h-4 w-4" aria-hidden="true" />
+                      Try again
+                    </button>
+                  </div>
+                )}
+              </div>
+
+              <div className="space-y-3">
+                <button
+                  type="button"
+                  onClick={handleWhatsApp}
+                  className="flex w-full items-center justify-center gap-2 rounded-xl bg-[#246e55] px-4 py-3 font-bold text-white transition-colors hover:bg-[#1c5944] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#246e55] motion-reduce:transition-none"
+                >
+                  <MessageCircle className="h-5 w-5" aria-hidden="true" />
+                  WhatsApp
+                </button>
+
+                <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+                  <button
+                    type="button"
+                    onClick={() => void handleCopy()}
+                    disabled={!imageBlob && !resolvedUrl}
+                    className="flex items-center justify-center gap-2 rounded-xl border border-[#192947]/20 bg-white px-4 py-3 font-bold text-[#192947] transition-colors hover:bg-[#ffda62]/30 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#294cc4] disabled:cursor-not-allowed disabled:opacity-50 motion-reduce:transition-none"
+                  >
+                    {copyState === 'image' || copyState === 'url' ? (
+                      <Check className="h-5 w-5 text-[#246e55]" aria-hidden="true" />
+                    ) : (
+                      <Copy className="h-5 w-5" aria-hidden="true" />
+                    )}
+                    {copyState === 'image'
+                      ? 'Image copied'
+                      : copyState === 'url'
+                        ? 'Link copied'
+                        : imageBlob
+                          ? 'Copy'
+                          : 'Copy link'}
+                  </button>
+                  <button
+                    type="button"
+                    onClick={handleDownload}
+                    disabled={!imageBlob}
+                    className="flex items-center justify-center gap-2 rounded-xl border border-[#192947]/20 bg-white px-4 py-3 font-bold text-[#192947] transition-colors hover:bg-[#ffda62]/30 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#294cc4] disabled:cursor-not-allowed disabled:opacity-50 motion-reduce:transition-none"
+                  >
+                    <Download className="h-5 w-5" aria-hidden="true" />
+                    Download
+                  </button>
+                </div>
+
+                {canNativeShare && (
+                  <button
+                    type="button"
+                    onClick={() => void handleNativeShare()}
+                    disabled={!imageBlob}
+                    className="flex w-full items-center justify-center gap-2 rounded-xl bg-[#192947] px-4 py-3 font-bold text-white transition-colors hover:bg-[#0f1c33] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#294cc4] disabled:cursor-not-allowed disabled:opacity-50 motion-reduce:transition-none"
+                  >
+                    <Share2 className="h-5 w-5" aria-hidden="true" />
+                    More sharing options
+                  </button>
+                )}
+              </div>
+
+              <div
+                className={`mt-4 min-h-6 rounded-lg px-3 py-2 text-sm font-semibold ${
+                  captureState === 'error' || copyState === 'error'
+                    ? 'bg-[#dc654e]/12 text-[#9c3726]'
+                    : 'bg-[#294cc4]/8 text-[#294cc4]'
+                }`}
+                role="status"
+                aria-live="polite"
+              >
+                {statusMessage}
+              </div>
+
+              <div className="mt-5 border-t border-[#192947]/10 pt-4 text-xs leading-5 text-[#192947]/65">
+                <p>
+                  <span className="font-bold text-[#192947]">Source:</span> {normalizeShareCopy(sourceName)}
+                  {' | '}
+                  <span className="font-bold text-[#192947]">Vintage:</span> {normalizeShareCopy(sourceVintage)}
+                </p>
+                {sourceUrl && /^https?:\/\//.test(sourceUrl) && (
+                  <a
+                    href={sourceUrl}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="mt-1 inline-block text-[#294cc4] underline decoration-[#294cc4]/30 underline-offset-2"
+                  >
+                    Open the source
+                  </a>
+                )}
+                <p className="mt-2 break-all font-mono text-[11px] text-[#192947]/55">{resolvedUrl}</p>
+              </div>
+            </div>
+          </div>,
+          document.body,
+        )
+      : null
 
   return (
     <>
       <button
+        type="button"
         onClick={handleOpen}
-        className={`flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors ${className}`}
+        className={`inline-flex items-center justify-center gap-2 rounded-full bg-[#294cc4] px-4 py-2 text-sm font-bold text-white transition-colors hover:bg-[#1f3ca0] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#294cc4] motion-reduce:transition-none ${className}`}
       >
-        <Share2 className="w-4 h-4" />
+        <Share2 className="h-4 w-4" aria-hidden="true" />
         Share
       </button>
 
-      {/* Modal */}
-      {isOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
-          {/* Backdrop */}
-          <div
-            className="absolute inset-0 bg-black/50"
-            onClick={() => setIsOpen(false)}
-          />
-
-          {/* Modal Content */}
-          <div className="relative bg-white rounded-2xl shadow-2xl max-w-lg w-full p-6 max-h-[90vh] overflow-y-auto">
-            {/* Header */}
-            <div className="flex items-center justify-between mb-4">
-              <h3 className="text-xl font-bold text-gray-900">Share</h3>
-              <button
-                onClick={() => setIsOpen(false)}
-                className="p-2 text-gray-400 hover:text-gray-600 rounded-full hover:bg-gray-100"
-              >
-                <X className="w-5 h-5" />
-              </button>
-            </div>
-
-            {/* Preview */}
-            <div className="mb-6">
-              {isCapturing ? (
-                <div className="h-48 bg-gray-100 rounded-lg flex items-center justify-center">
-                  <Loader2 className="w-8 h-8 text-gray-400 animate-spin" />
-                </div>
-              ) : capturedImage ? (
-                <img
-                  src={capturedImage}
-                  alt="Preview"
-                  className="w-full rounded-lg border border-gray-200 shadow-sm"
-                />
-              ) : (
-                <div className="h-48 bg-gray-100 rounded-lg flex items-center justify-center">
-                  <span className="text-gray-400">Generating preview...</span>
-                </div>
-              )}
-            </div>
-
-            {/* Share Options */}
-            <div className="space-y-3">
-              {/* WhatsApp primary (X removed per share-bridge rules 2026-10-31) */}
-              <button
-                onClick={handleWhatsAppShare}
-                className="w-full flex items-center justify-center gap-2 px-4 py-3 bg-green-600 text-white rounded-xl hover:bg-green-700 transition-colors"
-              >
-                <MessageCircle className="w-5 h-5" />
-                <span className="font-medium">WhatsApp</span>
-              </button>
-
-              {/* Native Share (mobile) */}
-              {'share' in navigator && (
-                <button
-                  onClick={handleNativeShare}
-                  disabled={!capturedImage}
-                  className="w-full flex items-center gap-3 px-4 py-3 bg-gradient-to-r from-blue-500 to-purple-600 text-white rounded-xl hover:opacity-90 transition-opacity disabled:opacity-50"
-                >
-                  <Share2 className="w-5 h-5" />
-                  <span className="font-medium">Share with Image</span>
-                </button>
-              )}
-
-              {/* Download & Copy */}
-              <div className="grid grid-cols-2 gap-3">
-                <button
-                  onClick={handleCopyImage}
-                  disabled={!capturedImage}
-                  className="flex items-center justify-center gap-2 px-4 py-3 bg-gray-100 text-gray-700 rounded-xl hover:bg-gray-200 transition-colors disabled:opacity-50"
-                >
-                  {copied ? (
-                    <>
-                      <Check className="w-5 h-5 text-green-500" />
-                      <span className="font-medium text-green-600">Copied!</span>
-                    </>
-                  ) : (
-                    <>
-                      <Copy className="w-5 h-5" />
-                      <span className="font-medium">Copy Image</span>
-                    </>
-                  )}
-                </button>
-                <button
-                  onClick={handleDownload}
-                  disabled={!capturedImage}
-                  className="flex items-center justify-center gap-2 px-4 py-3 bg-gray-100 text-gray-700 rounded-xl hover:bg-gray-200 transition-colors disabled:opacity-50"
-                >
-                  <Download className="w-5 h-5" />
-                  <span className="font-medium">Download</span>
-                </button>
-              </div>
-            </div>
-
-            {/* Tips */}
-            <div className="mt-4 p-3 bg-blue-50 rounded-lg">
-              <p className="text-sm text-blue-700">
-                <strong>Tip:</strong> Download the image and attach it when sharing on social media for the best visual impact!
-              </p>
-            </div>
-          </div>
-        </div>
-      )}
+      {dialog}
     </>
   )
 }

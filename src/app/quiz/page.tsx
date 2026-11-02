@@ -1,17 +1,42 @@
 'use client'
 
-import { useState, useEffect, useCallback, useRef } from 'react'
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import Link from 'next/link'
-import { Globe, Trophy, Share2, RotateCcw, ArrowRight, Check, X, Zap, Clock, Home, BarChart2 } from 'lucide-react'
-import CoinBalance from '@/components/truthle/CoinBalance'
-import type { Country } from '@/types/country'
+import {
+  ArrowRight,
+  BarChart3,
+  Check,
+  Clock,
+  Compass,
+  RotateCcw,
+  Sparkles,
+  Trophy,
+  X,
+  Zap,
+} from 'lucide-react'
 import { generateQuizQuestions, calculateScore, type QuizQuestion } from '@/lib/quiz/questionGenerator'
 import { countries } from '@/lib/data/loadCountries'
-import { VisualShare } from '@/components/share'
+import { getMetricProvenance } from '@/lib/seo/provenance'
 import { postBridgeMessage } from '@/lib/bridge/webBridge'
+import { VisualShare } from '@/components/share'
+import { absoluteSiteUrl } from '@/components/share/shareState'
+import { trackEvent } from '@/lib/analytics/events'
 import { useEmbeddedAppMode } from '@/lib/useEmbeddedAppMode'
+import { quizMetricId, selectProvenanceEligibleQuestions } from './quizEligibility'
 
 type GameState = 'start' | 'playing' | 'answered' | 'finished'
+
+const QUESTION_LIMIT = 20
+const QUESTION_POOL_LIMIT = 180
+const SECONDS_PER_QUESTION = 15
+
+function track(name: string, params: Record<string, string | number | boolean>): void {
+  try {
+    trackEvent(name, params)
+  } catch {
+    // Measurement must never interrupt the quiz.
+  }
+}
 
 export default function QuizPage() {
   const [gameState, setGameState] = useState<GameState>('start')
@@ -22,109 +47,109 @@ export default function QuizPage() {
   const [streak, setStreak] = useState(0)
   const [maxStreak, setMaxStreak] = useState(0)
   const [streakBonus, setStreakBonus] = useState(0)
-  const [timeLeft, setTimeLeft] = useState(15)
+  const [timeLeft, setTimeLeft] = useState(SECONDS_PER_QUESTION)
   const [showTimer, setShowTimer] = useState(true)
   const [answers, setAnswers] = useState<boolean[]>([])
+  const [startNotice, setStartNotice] = useState('')
+  const [roundNote, setRoundNote] = useState('')
   const resultsRef = useRef<HTMLDivElement>(null)
+  const answerLockedRef = useRef(false)
+  const completionSentRef = useRef(false)
   const embeddedMode = useEmbeddedAppMode()
 
   const startGame = useCallback(() => {
-    const newQuestions = generateQuizQuestions(countries, 20)
-    setQuestions(newQuestions)
+    completionSentRef.current = false
+    answerLockedRef.current = false
+
+    const pool = generateQuizQuestions(countries, QUESTION_POOL_LIMIT)
+    const eligible = selectProvenanceEligibleQuestions(pool, getMetricProvenance, QUESTION_LIMIT)
+
+    if (eligible.length === 0) {
+      setQuestions([])
+      setGameState('start')
+      setStartNotice(
+        'No sourced questions are available right now. Explore charts or discoveries for now.',
+      )
+      return
+    }
+
+    setStartNotice('')
+    setRoundNote(
+      eligible.length < QUESTION_LIMIT
+        ? `This round has ${eligible.length} sourced ${eligible.length === 1 ? 'question' : 'questions'}.`
+        : '',
+    )
+    setQuestions(eligible)
     setCurrentQuestionIndex(0)
     setSelectedAnswer(null)
     setCorrectAnswers(0)
     setStreak(0)
     setMaxStreak(0)
     setStreakBonus(0)
-    setTimeLeft(15)
+    setTimeLeft(SECONDS_PER_QUESTION)
     setAnswers([])
     setGameState('playing')
+    track('game_start', { game: 'quiz', status: 'started' })
   }, [])
-
-  // Timer effect
-  useEffect(() => {
-    if (gameState !== 'playing' || !showTimer) return
-
-    const timer = setInterval(() => {
-      setTimeLeft((prev) => {
-        if (prev <= 1) {
-          handleAnswer(-1) // Time's up, wrong answer
-          return 15
-        }
-        return prev - 1
-      })
-    }, 1000)
-
-    return () => clearInterval(timer)
-  }, [gameState, showTimer, currentQuestionIndex])
-
-  const handleAnswer = (answerIndex: number) => {
-    if (gameState !== 'playing') return
-
-    const currentQuestion = questions[currentQuestionIndex]
-    const isCorrect = answerIndex === currentQuestion.correctAnswer
-
-    setSelectedAnswer(answerIndex)
-    setAnswers((prev) => [...prev, isCorrect])
-
-    if (isCorrect) {
-      setCorrectAnswers((prev) => prev + 1)
-      const newStreak = streak + 1
-      setStreak(newStreak)
-      if (newStreak > maxStreak) {
-        setMaxStreak(newStreak)
-      }
-      // Streak bonus: +2 points for each answer in a streak of 3+
-      if (newStreak >= 3) {
-        setStreakBonus((prev) => prev + 2)
-      }
-    } else {
-      setStreak(0)
-    }
-
-    setGameState('answered')
-  }
-
-  const nextQuestion = () => {
-    if (currentQuestionIndex + 1 >= questions.length) {
-      setGameState('finished')
-    } else {
-      setCurrentQuestionIndex((prev) => prev + 1)
-      setSelectedAnswer(null)
-      setTimeLeft(15)
-      setGameState('playing')
-    }
-  }
-
-  const shareResults = async () => {
-    const { score, grade } = calculateScore(correctAnswers, questions.length, streakBonus)
-    const text = `I scored ${score}% (Grade: ${grade}) on The Truth Quiz!\n\n${correctAnswers}/${questions.length} correct answers\nMax streak: ${maxStreak}\n\nCan you beat my score?\nhttps://theworldtruth.com/quiz`
-
-    if (navigator.share) {
-      try {
-        await navigator.share({ text })
-      } catch {
-        // User cancelled or error
-        copyToClipboard(text)
-      }
-    } else {
-      copyToClipboard(text)
-    }
-  }
-
-  const copyToClipboard = (text: string) => {
-    navigator.clipboard.writeText(text)
-    alert('Results copied to clipboard!')
-  }
 
   const currentQuestion = questions[currentQuestionIndex]
 
+  const handleAnswer = useCallback(
+    (answerIndex: number) => {
+      if (gameState !== 'playing' || answerLockedRef.current || !currentQuestion) return
+      answerLockedRef.current = true
+
+      const isCorrect = answerIndex === currentQuestion.correctAnswer
+      setSelectedAnswer(answerIndex)
+      setAnswers((previous) => [...previous, isCorrect])
+
+      if (isCorrect) {
+        setCorrectAnswers((previous) => previous + 1)
+        const nextStreak = streak + 1
+        setStreak(nextStreak)
+        if (nextStreak > maxStreak) setMaxStreak(nextStreak)
+        if (nextStreak >= 3) setStreakBonus((previous) => previous + 2)
+      } else {
+        setStreak(0)
+      }
+
+      setGameState('answered')
+    },
+    [currentQuestion, gameState, maxStreak, streak],
+  )
+
   useEffect(() => {
-    if (gameState !== 'finished') return
+    if (gameState !== 'playing' || !showTimer) return
+
+    const timer = window.setInterval(() => {
+      setTimeLeft((previous) => Math.max(0, previous - 1))
+    }, 1000)
+
+    return () => window.clearInterval(timer)
+  }, [currentQuestionIndex, gameState, showTimer])
+
+  useEffect(() => {
+    if (gameState === 'playing' && showTimer && timeLeft === 0) handleAnswer(-1)
+  }, [gameState, handleAnswer, showTimer, timeLeft])
+
+  const nextQuestion = () => {
+    answerLockedRef.current = false
+    if (currentQuestionIndex + 1 >= questions.length) {
+      setGameState('finished')
+      return
+    }
+
+    setCurrentQuestionIndex((previous) => previous + 1)
+    setSelectedAnswer(null)
+    setTimeLeft(SECONDS_PER_QUESTION)
+    setGameState('playing')
+  }
+
+  useEffect(() => {
+    if (gameState !== 'finished' || questions.length === 0 || completionSentRef.current) return
+    completionSentRef.current = true
 
     const { score } = calculateScore(correctAnswers, questions.length, streakBonus)
-
     postBridgeMessage({
       type: 'session_completed',
       payload: {
@@ -135,376 +160,416 @@ export default function QuizPage() {
         timestamp: new Date().toISOString(),
       },
     })
+    track('game_complete', {
+      game: 'quiz',
+      score,
+      correct: correctAnswers,
+      status: 'completed',
+    })
   }, [correctAnswers, gameState, questions.length, streakBonus])
 
-  // Start Screen
+  const quizMetricIds = useMemo(
+    () =>
+      Array.from(
+        new Set(
+          questions
+            .map((question) => quizMetricId(question.id))
+            .filter((metricId): metricId is string => Boolean(metricId)),
+        ),
+      ),
+    [questions],
+  )
+
+  const shareProvenance = useMemo(() => {
+    const records = quizMetricIds.flatMap((metricId) => {
+      try {
+        const record = getMetricProvenance(metricId)
+        return record ? [record] : []
+      } catch {
+        return []
+      }
+    })
+    const sourceNames = Array.from(
+      new Set(
+        records
+          .map((record) => record.sourceName?.trim())
+          .filter((value): value is string => Boolean(value)),
+      ),
+    )
+    const years = Array.from(
+      new Set(
+        records
+          .map((record) => record.year?.trim())
+          .filter((value): value is string => Boolean(value)),
+      ),
+    )
+    const sourceUrls = Array.from(
+      new Set(records.map((record) => record.sourceUrl).filter(Boolean) as string[]),
+    )
+    const hasUnknownProvenance =
+      records.length !== quizMetricIds.length ||
+      records.some((record) => !record.sourceName?.trim() || !record.year?.trim())
+    const unknownSuffix = hasUnknownProvenance ? '; Unknown for one or more measures' : ''
+
+    return {
+      sourceName: `${sourceNames.join('; ') || 'The World Truth country dataset'}${unknownSuffix}`,
+      sourceVintage: years.length > 0 ? `${years.join('; ')}${unknownSuffix}` : 'Unknown',
+      sourceUrl: !hasUnknownProvenance && sourceUrls.length === 1 ? sourceUrls[0] : undefined,
+    }
+  }, [quizMetricIds])
+
+  const currentProvenance = useMemo(() => {
+    if (!currentQuestion) return null
+    const metricId = quizMetricId(currentQuestion.id)
+    if (!metricId) return null
+
+    try {
+      return getMetricProvenance(metricId)
+    } catch {
+      return null
+    }
+  }, [currentQuestion])
+
   if (gameState === 'start') {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-blue-600 via-purple-600 to-pink-500 flex flex-col">
-        {/* Header */}
-        {!embeddedMode && (
-        <header className="bg-white/10 backdrop-blur-sm px-4 md:px-6 py-3 md:py-4">
-          <div className="max-w-4xl mx-auto flex items-center justify-between">
-            <Link href="/" className="flex items-center gap-2 md:gap-3">
-              <Globe className="w-6 h-6 md:w-8 md:h-8 text-white" />
-              <div>
-                <h1 className="text-base md:text-xl font-bold text-white">The World Truth Map</h1>
+      <div className="twt-shell min-h-screen bg-[#fff9e8] text-[#192947]">
+        <main className={`twt-container mx-auto max-w-5xl px-4 ${embeddedMode ? 'py-5' : 'py-10 md:py-16'}`}>
+          <section className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_330px] lg:items-stretch">
+            <div className="twt-panel rounded-[32px] border border-[#192947]/12 bg-white p-6 shadow-sm md:p-10">
+              <p className="twt-kicker flex items-center gap-2 text-xs font-black uppercase tracking-[0.2em] text-[#294cc4]">
+                <Trophy className="h-4 w-4" aria-hidden="true" />
+                The Truth Quiz
+              </p>
+              <h1 className="twt-display mt-4 max-w-2xl text-4xl font-black leading-[0.98] tracking-tight md:text-6xl">
+                How well do you know the world?
+              </h1>
+              <p className="twt-prose mt-5 max-w-xl text-base leading-7 text-[#192947]/72 md:text-lg">
+                Answer up to 20 questions from sourced country data. Every answer shows its source, year, coverage and known limits.
+              </p>
+
+              {startNotice && (
+                <div
+                  role="alert"
+                  className="mt-6 rounded-2xl border border-[#dc654e]/25 bg-[#dc654e]/8 p-4 text-sm font-semibold leading-6 text-[#7f3022]"
+                >
+                  {startNotice}
+                </div>
+              )}
+
+              <div className="mt-8 grid gap-3 sm:grid-cols-3">
+                <div className="rounded-2xl bg-[#fff9e8] p-4">
+                  <Clock className="h-5 w-5 text-[#294cc4]" aria-hidden="true" />
+                  <p className="mt-3 font-black">{SECONDS_PER_QUESTION} seconds</p>
+                  <p className="mt-1 text-sm text-[#192947]/60">for each question</p>
+                </div>
+                <div className="rounded-2xl bg-[#fff9e8] p-4">
+                  <Zap className="h-5 w-5 text-[#dc654e]" aria-hidden="true" />
+                  <p className="mt-3 font-black">Streak bonus</p>
+                  <p className="mt-1 text-sm text-[#192947]/60">after three correct</p>
+                </div>
+                <div className="rounded-2xl bg-[#fff9e8] p-4">
+                  <Compass className="h-5 w-5 text-[#246e55]" aria-hidden="true" />
+                  <p className="mt-3 font-black">Sourced data</p>
+                  <p className="mt-1 text-sm text-[#192947]/60">source notes after each answer</p>
+                </div>
               </div>
-            </Link>
-            <nav className="flex items-center gap-2 md:gap-4">
-              <Link
-                href="/"
-                className="flex items-center gap-2 px-3 py-2 text-sm text-white/80 hover:text-white hover:bg-white/10 rounded-md transition-colors"
-              >
-                <Home className="w-4 h-4" />
-                <span className="hidden sm:inline">Map</span>
-              </Link>
-              <Link
-                href="/charts"
-                className="flex items-center gap-2 px-3 py-2 text-sm text-white/80 hover:text-white hover:bg-white/10 rounded-md transition-colors"
-              >
-                <BarChart2 className="w-4 h-4" />
-                <span className="hidden sm:inline">Charts</span>
-              </Link>
-              <CoinBalance size="sm" />
-            </nav>
-          </div>
-        </header>
-        )}
 
-        {/* Start Content */}
-        <div className={`flex-1 flex items-center justify-center p-4 ${embeddedMode ? 'pt-8' : ''}`}>
-          <div className="text-center text-white max-w-md">
-            <div className="text-6xl mb-6">🌍</div>
-            <h1 className="text-4xl md:text-5xl font-bold mb-4">The Truth Quiz</h1>
-            <p className="text-xl text-white/80 mb-8">
-              Test your knowledge about countries around the world!
-            </p>
-
-            <div className="bg-white/10 backdrop-blur-sm rounded-xl p-6 mb-8">
-              <h2 className="text-lg font-semibold mb-4">How it works:</h2>
-              <ul className="text-left text-white/90 space-y-2">
-                <li className="flex items-center gap-2">
-                  <span className="text-yellow-300">20</span> Questions about world statistics
-                </li>
-                <li className="flex items-center gap-2">
-                  <Clock className="w-4 h-4 text-yellow-300" /> 15 seconds per question
-                </li>
-                <li className="flex items-center gap-2">
-                  <Zap className="w-4 h-4 text-yellow-300" /> Streak bonuses for consecutive correct answers
-                </li>
-                <li className="flex items-center gap-2">
-                  <Share2 className="w-4 h-4 text-yellow-300" /> Share your score with friends
-                </li>
-              </ul>
+              <div className="mt-8 flex flex-col gap-4 sm:flex-row sm:items-center">
+                <button
+                  type="button"
+                  onClick={startGame}
+                  className="twt-button inline-flex items-center justify-center gap-2 rounded-full bg-[#294cc4] px-7 py-3.5 font-black text-white transition-colors hover:bg-[#1f3ca0] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#294cc4] motion-reduce:transition-none"
+                >
+                  <Sparkles className="h-5 w-5" aria-hidden="true" />
+                  Start quiz
+                </button>
+                <label className="flex items-center gap-2 text-sm font-semibold text-[#192947]/70">
+                  <input
+                    type="checkbox"
+                    checked={showTimer}
+                    onChange={(event) => setShowTimer(event.target.checked)}
+                    className="h-4 w-4 rounded border-[#192947]/30 accent-[#294cc4]"
+                  />
+                  Enable the timer
+                </label>
+              </div>
             </div>
 
-            <div className="space-y-3">
-              <button
-                onClick={startGame}
-                className="w-full px-8 py-4 bg-white text-purple-600 font-bold text-xl rounded-xl hover:bg-yellow-300 hover:text-purple-700 transition-all transform hover:scale-105 shadow-lg"
-              >
-                Start Quiz
-              </button>
-
-              <label className="flex items-center justify-center gap-2 text-sm text-white/70">
-                <input
-                  type="checkbox"
-                  checked={showTimer}
-                  onChange={(e) => setShowTimer(e.target.checked)}
-                  className="rounded"
-                />
-                Enable timer (15s per question)
-              </label>
-            </div>
-          </div>
-        </div>
+            <aside className="flex flex-col justify-between rounded-[32px] bg-[#192947] p-6 text-white md:p-8">
+              <div>
+                <p className="text-xs font-black uppercase tracking-[0.2em] text-[#ffda62]">Before you start</p>
+                <h2 className="mt-4 text-2xl font-black leading-tight">Questions from sourced country data</h2>
+                <p className="mt-3 text-sm leading-6 text-white/70">
+                  A short round shows its question count before the first question. Every answer shows its source, year, coverage and known limits.
+                </p>
+              </div>
+              <div className="mt-8 space-y-3 text-sm font-bold">
+                <Link href="/charts" className="flex items-center justify-between rounded-xl bg-white/10 px-4 py-3 hover:bg-white/15">
+                  Compare charts
+                  <BarChart3 className="h-4 w-4" aria-hidden="true" />
+                </Link>
+                <Link href="/discoveries" className="flex items-center justify-between rounded-xl bg-white/10 px-4 py-3 hover:bg-white/15">
+                  Browse discoveries
+                  <ArrowRight className="h-4 w-4" aria-hidden="true" />
+                </Link>
+              </div>
+            </aside>
+          </section>
+        </main>
       </div>
     )
   }
 
-  // Finished Screen
   if (gameState === 'finished') {
     const { score, grade, message } = calculateScore(correctAnswers, questions.length, streakBonus)
 
-    const gradeColors: Record<string, string> = {
-      S: 'from-yellow-400 to-orange-500',
-      A: 'from-green-400 to-emerald-500',
-      B: 'from-blue-400 to-cyan-500',
-      C: 'from-purple-400 to-pink-500',
-      D: 'from-orange-400 to-red-500',
-      F: 'from-red-500 to-red-700',
-    }
-
     return (
-      <div className="min-h-screen bg-gradient-to-br from-blue-600 via-purple-600 to-pink-500 flex flex-col">
-        {/* Header */}
-        {!embeddedMode && (
-        <header className="bg-white/10 backdrop-blur-sm px-4 md:px-6 py-3 md:py-4">
-          <div className="max-w-4xl mx-auto flex items-center justify-between">
-            <Link href="/" className="flex items-center gap-2 md:gap-3">
-              <Globe className="w-6 h-6 md:w-8 md:h-8 text-white" />
-              <div>
-                <h1 className="text-base md:text-xl font-bold text-white">The Truth Quiz</h1>
-              </div>
-            </Link>
-          </div>
-        </header>
-        )}
-
-        {/* Results Content */}
-        <div className={`flex-1 flex items-center justify-center p-4 ${embeddedMode ? 'pt-8' : ''}`}>
-          <div ref={resultsRef} className="bg-white rounded-2xl shadow-2xl p-8 max-w-md w-full text-center">
-            <div className="text-5xl mb-4">
-              {grade === 'S' || grade === 'A' ? '🏆' : grade === 'B' || grade === 'C' ? '🎉' : '📚'}
-            </div>
-
-            <h2 className="text-2xl font-bold text-gray-800 mb-2">Quiz Complete!</h2>
-            <p className="text-gray-600 mb-6">{message}</p>
-
-            {/* Grade Badge */}
-            <div
-              className={`inline-block px-8 py-4 rounded-xl bg-gradient-to-r ${gradeColors[grade]} text-white font-bold text-4xl mb-6 shadow-lg`}
-            >
-              Grade: {grade}
-            </div>
-
-            {/* Stats */}
-            <div className="grid grid-cols-2 gap-4 mb-6">
-              <div className="bg-gray-100 rounded-lg p-4">
-                <div className="text-3xl font-bold text-purple-600">{score}%</div>
-                <div className="text-sm text-gray-500">Final Score</div>
-              </div>
-              <div className="bg-gray-100 rounded-lg p-4">
-                <div className="text-3xl font-bold text-green-600">
-                  {correctAnswers}/{questions.length}
+      <div className="twt-shell min-h-screen bg-[#fff9e8] text-[#192947]">
+        <main className={`twt-container mx-auto max-w-4xl px-4 ${embeddedMode ? 'py-5' : 'py-10 md:py-16'}`}>
+          <div ref={resultsRef} className="twt-panel overflow-hidden rounded-[32px] border border-[#192947]/12 bg-white shadow-sm">
+            <div className="bg-[#192947] px-6 py-7 text-white md:px-9">
+              <p className="text-xs font-black uppercase tracking-[0.2em] text-[#ffda62]">Quiz complete</p>
+              <div className="mt-3 flex flex-wrap items-end justify-between gap-4">
+                <div>
+                  <h1 className="text-3xl font-black tracking-tight md:text-5xl">Grade {grade}</h1>
+                  <p className="mt-2 max-w-xl text-sm leading-6 text-white/72 md:text-base">{message}</p>
                 </div>
-                <div className="text-sm text-gray-500">Correct</div>
-              </div>
-              <div className="bg-gray-100 rounded-lg p-4">
-                <div className="text-3xl font-bold text-orange-600">{maxStreak}</div>
-                <div className="text-sm text-gray-500">Max Streak</div>
-              </div>
-              <div className="bg-gray-100 rounded-lg p-4">
-                <div className="text-3xl font-bold text-blue-600">+{streakBonus}</div>
-                <div className="text-sm text-gray-500">Streak Bonus</div>
+                <div className="rounded-2xl bg-[#ffda62] px-5 py-3 text-center text-[#192947]">
+                  <p className="text-4xl font-black">{score} points</p>
+                  <p className="text-xs font-black uppercase tracking-[0.12em]">Final points</p>
+                </div>
               </div>
             </div>
 
-            {/* Answer Summary */}
-            <div className="flex justify-center gap-1 mb-6 flex-wrap">
-              {answers.map((isCorrect, i) => (
-                <div
-                  key={i}
-                  className={`w-4 h-4 rounded-full ${isCorrect ? 'bg-green-500' : 'bg-red-500'}`}
-                  title={`Question ${i + 1}: ${isCorrect ? 'Correct' : 'Wrong'}`}
+            <div className="p-6 md:p-9">
+              {roundNote && (
+                <p className="mb-5 rounded-xl bg-[#fff9e8] px-4 py-3 text-sm font-semibold text-[#192947]/70">
+                  {roundNote}
+                </p>
+              )}
+
+              <dl className="grid grid-cols-2 gap-3 md:grid-cols-4">
+                {[
+                  { label: 'Correct', value: `${correctAnswers}/${questions.length}` },
+                  { label: 'Max streak', value: String(maxStreak) },
+                  { label: 'Streak bonus', value: `+${streakBonus}` },
+                  { label: 'Questions', value: String(questions.length) },
+                ].map((item) => (
+                  <div key={item.label} className="rounded-2xl bg-[#fff9e8] p-4">
+                    <dt className="text-xs font-black uppercase tracking-[0.1em] text-[#192947]/50">{item.label}</dt>
+                    <dd className="mt-1 text-2xl font-black">{item.value}</dd>
+                  </div>
+                ))}
+              </dl>
+
+              <div className="mt-6" aria-label="Answer summary">
+                <div className="flex flex-wrap gap-2">
+                  {answers.map((isCorrect, index) => (
+                    <span
+                      key={index}
+                      className={`inline-flex h-8 min-w-8 items-center justify-center rounded-full text-xs font-black ${
+                        isCorrect ? 'bg-[#246e55]/12 text-[#246e55]' : 'bg-[#dc654e]/12 text-[#a63f2d]'
+                      }`}
+                      aria-label={`Question ${index + 1}: ${isCorrect ? 'correct' : 'incorrect'}`}
+                    >
+                      {isCorrect ? <Check className="h-4 w-4" aria-hidden="true" /> : <X className="h-4 w-4" aria-hidden="true" />}
+                    </span>
+                  ))}
+                </div>
+              </div>
+
+              <div className="mt-7 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+                <VisualShare
+                  targetRef={resultsRef}
+                  title={`Quiz result: grade ${grade}`}
+                  description={`I earned ${score} quiz points on The Truth Quiz with ${correctAnswers} of ${questions.length} correct and a max streak of ${maxStreak}. Can you beat it?`}
+                  url={absoluteSiteUrl('/quiz')}
+                  stat={`${score} points`}
+                  detail={`${correctAnswers} of ${questions.length} correct`}
+                  sourceName={shareProvenance.sourceName}
+                  sourceVintage={shareProvenance.sourceVintage}
+                  sourceUrl={shareProvenance.sourceUrl}
+                  contentId="quiz_results"
+                  placement="quiz_results"
+                  className="w-full px-6 py-3 text-base sm:w-auto"
                 />
-              ))}
-            </div>
-
-            {/* Action Buttons */}
-            <div className="space-y-3">
-              <VisualShare
-                targetRef={resultsRef}
-                title={`Quiz Results - Grade ${grade}`}
-                description={`I scored ${score}% (Grade: ${grade}) on The Truth Quiz! ${correctAnswers}/${questions.length} correct answers, max streak: ${maxStreak}. Can you beat my score?`}
-                className="w-full px-6 py-3 bg-gradient-to-r from-blue-500 to-purple-600 text-white font-semibold rounded-lg hover:opacity-90 transition-all justify-center"
-              />
-              <button
-                onClick={startGame}
-                className="w-full px-6 py-3 bg-gray-100 text-gray-700 font-semibold rounded-lg hover:bg-gray-200 transition-all flex items-center justify-center gap-2"
-              >
-                <RotateCcw className="w-5 h-5" />
-                Play Again
-              </button>
-              <Link
-                href="/"
-                className="w-full px-6 py-3 border border-gray-300 text-gray-600 font-semibold rounded-lg hover:bg-gray-50 transition-all flex items-center justify-center gap-2"
-              >
-                <Home className="w-5 h-5" />
-                Back to Map
-              </Link>
+                <button
+                  type="button"
+                  onClick={startGame}
+                  className="inline-flex items-center justify-center gap-2 rounded-full border border-[#192947]/20 bg-white px-5 py-3 font-bold hover:bg-[#ffda62]/30 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#294cc4]"
+                >
+                  <RotateCcw className="h-5 w-5" aria-hidden="true" />
+                  Play again
+                </button>
+                <Link
+                  href="/discoveries"
+                  className="inline-flex items-center justify-center gap-2 rounded-full border border-[#192947]/20 bg-white px-5 py-3 font-bold hover:bg-[#ffda62]/30 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#294cc4]"
+                >
+                  Explore discoveries
+                  <ArrowRight className="h-5 w-5" aria-hidden="true" />
+                </Link>
+              </div>
             </div>
           </div>
-        </div>
+        </main>
       </div>
     )
   }
 
-  // Playing/Answered Screen
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-600 via-purple-600 to-pink-500 flex flex-col">
-      {/* Header with progress */}
-      {!embeddedMode && (
-      <header className="bg-white/10 backdrop-blur-sm px-4 md:px-6 py-3">
-        <div className="max-w-4xl mx-auto">
-          <div className="flex items-center justify-between mb-2">
-            <div className="flex items-center gap-2 text-white">
-              <span className="text-sm font-medium">
-                Question {currentQuestionIndex + 1}/{questions.length}
-              </span>
-            </div>
-            <div className="flex items-center gap-4">
+    <div className="twt-shell min-h-screen bg-[#fff9e8] text-[#192947]">
+      <main className={`twt-container mx-auto max-w-3xl px-4 ${embeddedMode ? 'py-5' : 'py-10 md:py-16'}`}>
+        <header className="mb-5">
+          <div className="flex flex-wrap items-center justify-between gap-3">
+            <p className="text-sm font-black">
+              Question {currentQuestionIndex + 1} of {questions.length}
+            </p>
+            <div className="flex items-center gap-3 text-sm font-bold">
               {streak >= 3 && (
-                <div className="flex items-center gap-1 text-yellow-300 animate-pulse">
-                  <Zap className="w-4 h-4" />
-                  <span className="text-sm font-bold">{streak} streak!</span>
-                </div>
+                <span className="inline-flex items-center gap-1 text-[#dc654e] motion-safe:animate-pulse">
+                  <Zap className="h-4 w-4" aria-hidden="true" />
+                  {streak} streak
+                </span>
               )}
               {showTimer && gameState === 'playing' && (
-                <div
-                  className={`flex items-center gap-1 ${timeLeft <= 5 ? 'text-red-300 animate-pulse' : 'text-white'}`}
+                <span
+                  role="timer"
+                  aria-label={`${timeLeft} seconds left`}
+                  className={`inline-flex items-center gap-1 ${timeLeft <= 5 ? 'text-[#a63f2d]' : 'text-[#294cc4]'}`}
                 >
-                  <Clock className="w-4 h-4" />
-                  <span className="font-mono font-bold">{timeLeft}s</span>
-                </div>
+                  <Clock className="h-4 w-4" aria-hidden="true" />
+                  {timeLeft}s
+                </span>
               )}
-              <div className="flex items-center gap-1 text-green-300">
-                <Trophy className="w-4 h-4" />
-                <span className="font-bold">{correctAnswers}</span>
-              </div>
+              <span className="inline-flex items-center gap-1 text-[#246e55]">
+                <Trophy className="h-4 w-4" aria-hidden="true" />
+                {correctAnswers} correct
+              </span>
             </div>
           </div>
-
-          {/* Progress bar */}
-          <div className="h-2 bg-white/20 rounded-full overflow-hidden">
+          <div
+            className="mt-3 h-2 overflow-hidden rounded-full bg-[#192947]/10"
+            role="progressbar"
+            aria-label="Quiz progress"
+            aria-valuemin={1}
+            aria-valuemax={questions.length}
+            aria-valuenow={currentQuestionIndex + 1}
+          >
             <div
-              className="h-full bg-white transition-all duration-300"
+              className="h-full rounded-full bg-[#294cc4] transition-[width] duration-300 motion-reduce:transition-none"
               style={{ width: `${((currentQuestionIndex + 1) / questions.length) * 100}%` }}
             />
           </div>
-        </div>
-      </header>
-      )}
+          {roundNote && <p className="mt-3 text-xs font-semibold text-[#192947]/55">{roundNote}</p>}
+        </header>
 
-      {/* Question Content */}
-      <div className={`flex-1 flex items-center justify-center p-4 ${embeddedMode ? 'pt-8' : ''}`}>
-        <div className="bg-white rounded-2xl shadow-2xl p-6 md:p-8 max-w-2xl w-full">
-          {embeddedMode && (
-            <div className="mb-5 space-y-3">
-              <div className="flex items-center justify-between text-sm">
-                <span className="font-semibold text-gray-700">
-                  Question {currentQuestionIndex + 1}/{questions.length}
-                </span>
-                <div className="flex items-center gap-3">
-                  {showTimer && gameState === 'playing' && (
-                    <span className={`font-mono font-bold ${timeLeft <= 5 ? 'text-red-500' : 'text-purple-600'}`}>
-                      {timeLeft}s
-                    </span>
-                  )}
-                  <span className="font-bold text-green-600">{correctAnswers} correct</span>
-                </div>
-              </div>
-              <div className="grid grid-cols-3 gap-2">
-                <div className="rounded-2xl bg-purple-50 px-3 py-2 text-center">
-                  <div className="text-[11px] uppercase tracking-[0.18em] text-purple-500">Score</div>
-                  <div className="text-lg font-bold text-purple-700">{correctAnswers}</div>
-                </div>
-                <div className="rounded-2xl bg-orange-50 px-3 py-2 text-center">
-                  <div className="text-[11px] uppercase tracking-[0.18em] text-orange-500">Streak</div>
-                  <div className="text-lg font-bold text-orange-700">{streak}</div>
-                </div>
-                <div className="rounded-2xl bg-blue-50 px-3 py-2 text-center">
-                  <div className="text-[11px] uppercase tracking-[0.18em] text-blue-500">Bonus</div>
-                  <div className="text-lg font-bold text-blue-700">+{streakBonus}</div>
-                </div>
-              </div>
-              <div className="h-2 overflow-hidden rounded-full bg-purple-100">
-                <div
-                  className="h-full rounded-full bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 transition-all duration-300"
-                  style={{ width: `${((currentQuestionIndex + 1) / questions.length) * 100}%` }}
-                />
-              </div>
-            </div>
-          )}
-
-          {/* Category Badge */}
-          <div className="flex items-center gap-2 mb-4">
-            <span className="text-2xl">{currentQuestion?.categoryIcon}</span>
-            <span className="text-sm font-medium text-gray-500">{currentQuestion?.category}</span>
-            <span
-              className={`ml-auto px-2 py-1 text-xs font-medium rounded ${
-                currentQuestion?.difficulty === 'easy'
-                  ? 'bg-green-100 text-green-700'
-                  : currentQuestion?.difficulty === 'medium'
-                    ? 'bg-yellow-100 text-yellow-700'
-                    : 'bg-red-100 text-red-700'
-              }`}
-            >
+        <section className="twt-panel rounded-[28px] border border-[#192947]/12 bg-white p-5 shadow-sm md:p-8">
+          <div className="flex flex-wrap items-center gap-2">
+            <span className="rounded-full bg-[#fff9e8] px-3 py-1 text-xs font-black uppercase tracking-[0.1em] text-[#192947]/65">
+              {currentQuestion?.category}
+            </span>
+            <span className="rounded-full bg-[#294cc4]/8 px-3 py-1 text-xs font-bold text-[#294cc4]">
               {currentQuestion?.difficulty}
             </span>
+            {currentQuestion && (
+              <span className="ml-auto text-xs font-semibold text-[#192947]/45">Sourced data</span>
+            )}
           </div>
 
-          {/* Question */}
-          <h2 className="text-xl md:text-2xl font-bold text-gray-800 mb-6">{currentQuestion?.question}</h2>
+          <h1 className="mt-5 text-2xl font-black leading-tight tracking-tight md:text-4xl">
+            {currentQuestion?.question}
+          </h1>
 
-          {/* Options */}
-          <div className="space-y-3">
+          <div className="mt-6 space-y-3" role="group" aria-label="Answer choices">
             {currentQuestion?.options.map((option, index) => {
               const isSelected = selectedAnswer === index
               const isCorrect = index === currentQuestion.correctAnswer
               const showResult = gameState === 'answered'
 
-              let buttonClass = 'w-full p-4 text-left rounded-xl border-2 transition-all font-medium '
-
-              if (showResult) {
-                if (isCorrect) {
-                  buttonClass += 'border-green-500 bg-green-50 text-green-700'
-                } else if (isSelected && !isCorrect) {
-                  buttonClass += 'border-red-500 bg-red-50 text-red-700'
-                } else {
-                  buttonClass += 'border-gray-200 bg-gray-50 text-gray-400'
-                }
-              } else {
-                buttonClass += 'border-gray-200 hover:border-purple-400 hover:bg-purple-50 text-gray-700'
+              let stateClass = 'border-[#192947]/15 bg-white text-[#192947] hover:border-[#294cc4]/50 hover:bg-[#294cc4]/5'
+              if (showResult && isCorrect) {
+                stateClass = 'border-[#246e55] bg-[#246e55]/8 text-[#1d5743]'
+              } else if (showResult && isSelected) {
+                stateClass = 'border-[#dc654e] bg-[#dc654e]/8 text-[#8e3324]'
+              } else if (showResult) {
+                stateClass = 'border-[#192947]/10 bg-[#192947]/3 text-[#192947]/45'
               }
 
               return (
                 <button
-                  key={index}
+                  key={`${currentQuestion.id}-${index}`}
+                  type="button"
                   onClick={() => handleAnswer(index)}
                   disabled={gameState === 'answered'}
-                  className={buttonClass}
+                  aria-pressed={isSelected}
+                  className={`flex w-full items-center justify-between gap-4 rounded-2xl border-2 px-4 py-3.5 text-left font-bold transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#294cc4] disabled:cursor-default motion-reduce:transition-none ${stateClass}`}
                 >
-                  <div className="flex items-center justify-between">
-                    <span>{option}</span>
-                    {showResult && isCorrect && <Check className="w-5 h-5 text-green-500" />}
-                    {showResult && isSelected && !isCorrect && <X className="w-5 h-5 text-red-500" />}
-                  </div>
+                  <span>{option}</span>
+                  {showResult && isCorrect && <Check className="h-5 w-5 shrink-0" aria-hidden="true" />}
+                  {showResult && isSelected && !isCorrect && <X className="h-5 w-5 shrink-0" aria-hidden="true" />}
                 </button>
               )
             })}
           </div>
 
-          {/* Explanation (after answering) */}
           {gameState === 'answered' && (
-            <div className="mt-6 p-4 bg-blue-50 rounded-xl border border-blue-200">
-              <p className="text-blue-800 font-medium">{currentQuestion?.explanation}</p>
+            <div className="mt-5 rounded-2xl border border-[#294cc4]/15 bg-[#294cc4]/5 p-4" role="status">
+              <p className="font-semibold leading-6">{currentQuestion?.explanation}</p>
               {currentQuestion?.funFact && (
-                <p className="text-blue-600 text-sm mt-2 italic">💡 {currentQuestion.funFact}</p>
+                <p className="mt-2 text-sm leading-6 text-[#192947]/65">{currentQuestion.funFact}</p>
+              )}
+              {currentProvenance && (
+                <div className="mt-4 border-t border-[#294cc4]/15 pt-3 text-xs leading-5 text-[#192947]/65">
+                  <p>
+                    <span className="font-black text-[#192947]">Source:</span>{' '}
+                    {currentProvenance.sourceUrl ? (
+                      <a
+                        href={currentProvenance.sourceUrl}
+                        target="_blank"
+                        rel="nofollow noopener"
+                        className="underline decoration-[#294cc4]/40 underline-offset-2 hover:text-[#294cc4]"
+                      >
+                        {currentProvenance.sourceName ?? 'Unknown'}
+                      </a>
+                    ) : (
+                      currentProvenance.sourceName ?? 'Unknown'
+                    )}
+                  </p>
+                  <p className="mt-1">
+                    <span className="font-black text-[#192947]">Year:</span>{' '}
+                    {currentProvenance.year ?? 'Unknown'}
+                  </p>
+                  <p className="mt-1">
+                    <span className="font-black text-[#192947]">Coverage:</span>{' '}
+                    {currentProvenance.coverage !== undefined ? `${currentProvenance.coverage}%` : 'Unknown'}
+                  </p>
+                  {currentProvenance.limitations.length > 0 && (
+                    <div className="mt-2">
+                      <p className="font-black text-[#192947]">Known limits:</p>
+                      <ul className="mt-1 list-disc space-y-1 pl-5">
+                        {currentProvenance.limitations.map((limitation) => (
+                          <li key={limitation}>{limitation}</li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
+                </div>
               )}
             </div>
           )}
 
-          {/* Next Button */}
           {gameState === 'answered' && (
             <button
+              type="button"
               onClick={nextQuestion}
-              className="w-full mt-6 px-6 py-4 bg-gradient-to-r from-purple-600 to-pink-600 text-white font-bold text-lg rounded-xl hover:opacity-90 transition-all flex items-center justify-center gap-2"
+              className="mt-5 inline-flex w-full items-center justify-center gap-2 rounded-full bg-[#294cc4] px-6 py-3.5 font-black text-white hover:bg-[#1f3ca0] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#294cc4] motion-reduce:transition-none"
             >
-              {currentQuestionIndex + 1 >= questions.length ? (
-                <>
-                  See Results <Trophy className="w-5 h-5" />
-                </>
-              ) : (
-                <>
-                  Next Question <ArrowRight className="w-5 h-5" />
-                </>
-              )}
+              {currentQuestionIndex + 1 >= questions.length ? 'See results' : 'Next question'}
+              <ArrowRight className="h-5 w-5" aria-hidden="true" />
             </button>
           )}
-        </div>
-      </div>
+        </section>
+      </main>
     </div>
   )
 }

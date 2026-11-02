@@ -1,95 +1,135 @@
 'use client'
 
 import Script from 'next/script'
+import { usePathname } from 'next/navigation'
+import { useEffect, useRef, useState } from 'react'
 import { ANALYTICS_CONFIG, isTrackingEnabled } from '@/lib/constants/analytics'
+import {
+  configureGoogleTags,
+  queueAnalyticsPageContext,
+  trackPageView,
+} from '@/lib/analytics/events'
+import { useConsent } from '@/lib/analytics/useConsent'
 
-/**
- * Analytics component that loads all tracking scripts
- * Add this to your layout.tsx
- */
+const GOOGLE_TAG_SCRIPT_ID = 'twt-google-tag'
+const GOOGLE_TAG_BOOTSTRAP_ID = 'twt-google-tag-bootstrap'
+
+type Gtag = (...args: unknown[]) => void
+
+function getGtag(): Gtag | undefined {
+  if (typeof window === 'undefined') return undefined
+  const candidate = (window as Window & { gtag?: Gtag }).gtag
+  return typeof candidate === 'function' ? candidate : undefined
+}
+
+function consentSignals(analytics: boolean, advertising: boolean): Record<string, string> {
+  return {
+    analytics_storage: analytics ? 'granted' : 'denied',
+    ad_storage: advertising ? 'granted' : 'denied',
+    ad_user_data: advertising ? 'granted' : 'denied',
+    ad_personalization: advertising ? 'granted' : 'denied',
+  }
+}
+
 export default function Analytics() {
-  const ga = ANALYTICS_CONFIG.googleAnalytics
-  const gads = ANALYTICS_CONFIG.googleAds
-  const meta = ANALYTICS_CONFIG.metaPixel
-  const tiktok = ANALYTICS_CONFIG.tiktokPixel
-  const xPixel = ANALYTICS_CONFIG.xPixel
+  const consent = useConsent()
+  const pathname = usePathname()
+  const [ready, setReady] = useState(false)
+  const scriptStarted = useRef(false)
+  const configuredAnalytics = useRef(false)
+  const configuredAds = useRef(false)
+  const lastPathname = useRef<string | null>(null)
+
+  const analyticsAllowed = consent?.analytics === true
+  const advertisingAllowed = consent?.advertising === true
+  const pageViewsAllowed = analyticsAllowed
+  const tagId = analyticsAllowed
+    ? ANALYTICS_CONFIG.googleAnalytics.measurementId
+    : advertisingAllowed
+      ? ANALYTICS_CONFIG.googleAds.conversionId
+      : null
+
+  useEffect(() => {
+    if (!ready || !tagId) return
+
+    const gtag = getGtag()
+    if (!gtag) return
+
+    gtag('consent', 'update', consentSignals(analyticsAllowed, advertisingAllowed))
+    if (!scriptStarted.current) {
+      gtag('js', new Date())
+      scriptStarted.current = true
+    }
+
+    const analyticsMeasurementId =
+      analyticsAllowed && isTrackingEnabled('googleAnalytics') && !configuredAnalytics.current
+        ? ANALYTICS_CONFIG.googleAnalytics.measurementId
+        : undefined
+    const adsConversionId =
+      advertisingAllowed && isTrackingEnabled('googleAds') && !configuredAds.current
+        ? ANALYTICS_CONFIG.googleAds.conversionId
+        : undefined
+
+    if (analyticsMeasurementId || adsConversionId) {
+      const configured = configureGoogleTags(gtag, {
+        analyticsMeasurementId,
+        adsConversionId,
+      })
+      if (configured) {
+        if (analyticsMeasurementId) configuredAnalytics.current = true
+        if (adsConversionId) configuredAds.current = true
+      }
+    }
+  }, [advertisingAllowed, analyticsAllowed, ready, tagId])
+
+  useEffect(() => {
+    if (!ready) return
+    if (!tagId) {
+      lastPathname.current = null
+      return
+    }
+
+    const gtag = getGtag()
+    if (!gtag || !queueAnalyticsPageContext(gtag)) return
+
+    if (!pageViewsAllowed) {
+      lastPathname.current = null
+      return
+    }
+    if (lastPathname.current === pathname) return
+    lastPathname.current = pathname
+    trackPageView()
+  }, [pageViewsAllowed, pathname, ready, tagId])
+
+  useEffect(() => {
+    if (!consent || tagId) return
+    const gtag = getGtag()
+    if (!gtag) return
+    gtag('consent', 'update', consentSignals(false, false))
+  }, [advertisingAllowed, analyticsAllowed, consent, tagId])
+
+  if (!consent?.environmentAllowed || !tagId) return null
 
   return (
     <>
-      {/* Google Analytics 4 */}
-      {isTrackingEnabled('googleAnalytics') && (
-        <>
-          <Script
-            src={`https://www.googletagmanager.com/gtag/js?id=${ga.measurementId}`}
-            strategy="afterInteractive"
-          />
-          <Script id="google-analytics" strategy="afterInteractive">
-            {`
-              window.dataLayer = window.dataLayer || [];
-              function gtag(){dataLayer.push(arguments);}
-              gtag('js', new Date());
-              gtag('config', '${ga.measurementId}');
-              ${isTrackingEnabled('googleAds') ? `gtag('config', '${gads.conversionId}');` : ''}
-            `}
-          </Script>
-        </>
-      )}
-
-      {/* Meta (Facebook) Pixel */}
-      {isTrackingEnabled('metaPixel') && (
-        <Script id="meta-pixel" strategy="afterInteractive">
-          {`
-            !function(f,b,e,v,n,t,s)
-            {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-            n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-            if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-            n.queue=[];t=b.createElement(e);t.async=!0;
-            t.src=v;s=b.getElementsByTagName(e)[0];
-            s.parentNode.insertBefore(t,s)}(window, document,'script',
-            'https://connect.facebook.net/en_US/fbevents.js');
-            fbq('init', '${meta.pixelId}');
-            fbq('track', 'PageView');
-          `}
-        </Script>
-      )}
-
-      {/* TikTok Pixel */}
-      {isTrackingEnabled('tiktokPixel') && (
-        <Script id="tiktok-pixel" strategy="afterInteractive">
-          {`
-            !function (w, d, t) {
-              w.TiktokAnalyticsObject=t;var ttq=w[t]=w[t]||[];ttq.methods=["page","track","identify","instances","debug","on","off","once","ready","alias","group","enableCookie","disableCookie"],ttq.setAndDefer=function(t,e){t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}};for(var i=0;i<ttq.methods.length;i++)ttq.setAndDefer(ttq,ttq.methods[i]);ttq.instance=function(t){for(var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n]);return e},ttq.load=function(e,n){var i="https://analytics.tiktok.com/i18n/pixel/events.js";ttq._i=ttq._i||{},ttq._i[e]=[],ttq._i[e]._u=i,ttq._t=ttq._t||{},ttq._t[e]=+new Date,ttq._o=ttq._o||{},ttq._o[e]=n||{};var o=document.createElement("script");o.type="text/javascript",o.async=!0,o.src=i+"?sdkid="+e+"&lib="+t;var a=document.getElementsByTagName("script")[0];a.parentNode.insertBefore(o,a)};
-              ttq.load('${tiktok.pixelId}');
-              ttq.page();
-            }(window, document, 'ttq');
-          `}
-        </Script>
-      )}
-
-      {/* Meta Pixel noscript fallback */}
-      {isTrackingEnabled('metaPixel') && (
-        <noscript>
-          <img
-            height="1"
-            width="1"
-            style={{ display: 'none' }}
-            src={`https://www.facebook.com/tr?id=${meta.pixelId}&ev=PageView&noscript=1`}
-            alt=""
-          />
-        </noscript>
-      )}
-
-      {/* X (Twitter) Pixel */}
-      {isTrackingEnabled('xPixel') && (
-        <Script id="x-pixel" strategy="afterInteractive">
-          {`
-            !function(e,t,n,s,u,a){e.twq||(s=e.twq=function(){s.exe?s.exe.apply(s,arguments):s.queue.push(arguments);
-            },s.version='1.1',s.queue=[],u=t.createElement(n),u.async=!0,u.src='https://static.ads-twitter.com/uwt.js',
-            a=t.getElementsByTagName(n)[0],a.parentNode.insertBefore(u,a))}(window,document,'script');
-            twq('config','${xPixel.pixelId}');
-          `}
-        </Script>
-      )}
+      <Script id={GOOGLE_TAG_BOOTSTRAP_ID} strategy="afterInteractive">
+        {`
+          window.dataLayer = window.dataLayer || [];
+          window.gtag = window.gtag || function(){ window.dataLayer.push(arguments); };
+          window.gtag('consent', 'default', {
+            analytics_storage: 'denied',
+            ad_storage: 'denied',
+            ad_user_data: 'denied',
+            ad_personalization: 'denied'
+          });
+        `}
+      </Script>
+      <Script
+        id={GOOGLE_TAG_SCRIPT_ID}
+        src={`https://www.googletagmanager.com/gtag/js?id=${encodeURIComponent(tagId)}`}
+        strategy="afterInteractive"
+        onReady={() => setReady(true)}
+      />
     </>
   )
 }

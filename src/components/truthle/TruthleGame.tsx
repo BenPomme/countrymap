@@ -1,95 +1,197 @@
 'use client'
 
-import { T } from '@/lib/truthle/monetizeCopy'
-
-import { useState, useEffect, useCallback } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
+import Link from 'next/link'
 import type { Country } from '@/types/country'
-import { generateDailyQuestions, getTodayDateString, getTruthleDay, TRUTHLE_QUESTIONS_PER_DAY, TruthleQuestion } from '@/lib/truthle/generator'
-import { calculateScore, estimatePercentile, getGrade, TruthleScore } from '@/lib/truthle/scoring'
-import ShareResultsButton from '@/components/truthle/ShareResultsButton'
-import RewardsTeaser from '@/components/truthle/RewardsTeaser'
+import { trackEvent } from '@/lib/analytics/events'
+import { generateDailyQuestions, getTruthleDay, type TruthleQuestion } from '@/lib/truthle/generator'
+import { calculateScore, type TruthleScore } from '@/lib/truthle/scoring'
+import { calculateCoinsEarned, getNextStreakMilestone, type CoinBreakdown } from '@/lib/truthle/coins'
+import { getCompletionStreak, getDisplayStreak, getUtcDay } from '@/lib/truthle/dailyLifecycle'
 import {
+  addCoins,
+  consumeCloudRetry,
+  createRetryCheckout,
+  getCloudRetryStatus,
+  getCoins,
+  getLocalState,
+  getStoredSharePromo,
   hasPlayedToday,
   saveAttempt,
   saveRetryAttempt,
-  getLocalState,
-  getStats,
-  addCoins,
-  getCoins,
   updateAchievementStats,
-  getCloudRetryStatus,
-  createRetryCheckout,
-  consumeCloudRetry,
 } from '@/lib/truthle/storage'
-import { calculateCoinsEarned, isStreakMilestone, getNextStreakMilestone, CoinBreakdown } from '@/lib/truthle/coins'
+import { getRememberedChallenge } from '@/lib/truthle/gifts'
+import { getVariableById } from '@/lib/seo/catalog'
+import { T } from '@/lib/truthle/monetizeCopy'
+import CheckoutBanner from '@/components/truthle/CheckoutBanner'
+import QuestionProvenance, { type ProvenanceItem } from '@/components/truthle/QuestionProvenance'
+import ResultScorecard from '@/components/truthle/ResultScorecard'
+import ResultSharePanel from '@/components/truthle/ResultSharePanel'
+import UtcCountdown from '@/components/truthle/UtcCountdown'
+import RewardsTeaser from '@/components/truthle/RewardsTeaser'
 import { AdSidebar } from '@/components/ads'
 import { AD_SLOTS } from '@/lib/constants/ads'
-import DailyUnlockCard from '@/components/affiliate/DailyUnlockCard'
-import Image from 'next/image'
-import Link from 'next/link'
-import CheckoutBanner from '@/components/truthle/CheckoutBanner'
 import { useEmbeddedAppMode } from '@/lib/useEmbeddedAppMode'
 import { onNativeBridgeMessage, postBridgeMessage } from '@/lib/bridge/webBridge'
 import type { IOSToWebBridgeMessage } from '@/lib/bridge/types'
 import { ensureAnonymousAuth } from '@/lib/firebase/config'
 
-type GameState = 'loading' | 'ready' | 'playing' | 'answered' | 'finished' | 'already_played'
+type Phase = 'loading' | 'ready' | 'playing' | 'answered' | 'result' | 'unavailable' | 'error'
 
 interface TruthleGameProps {
   countries: Country[]
 }
 
-const EMPTY_COIN_BREAKDOWN: CoinBreakdown = {
-  dailyPlay: 0,
-  correctAnswers: 0,
-  speedBonus: 0,
-  perfectBonus: 0,
-  streakBonus: 0,
-  firstPlayBonus: 0,
-  shareBonus: 0,
+type SourcedQuestion = TruthleQuestion & {
+  sourceUrl?: string
+  sourceName?: string
+  year?: string
+  coverage?: number
+  limitations?: string[]
+  provenance?: Array<{
+    sourceUrl?: string
+    sourceName?: string
+    year?: string
+    coverage?: number
+    limitations?: string[]
+  }>
 }
 
-export default function TruthleGame(props: TruthleGameProps) {
-  return (
-    <>
-      <CheckoutBanner />
-      <TruthleGameInner {...props} />
-    </>
-  )
+interface DisplayResult {
+  score: number
+  results: boolean[]
+  times: number[]
+  streak: number
+  isRetry: boolean
+  scoreDetail?: TruthleScore | null
 }
 
-function TruthleGameInner({ countries }: TruthleGameProps) {
+const COIN_LABELS: Record<keyof CoinBreakdown, string> = {
+  dailyPlay: 'Daily play',
+  correctAnswers: 'Correct answers',
+  speedBonus: 'Speed bonus',
+  perfectBonus: 'Perfect round',
+  streakBonus: 'Streak bonus',
+  firstPlayBonus: 'First play bonus',
+  shareBonus: 'Share bonus',
+}
+
+const RETRY_PENDING_KEY = 'truthle_retry_consume_pending_v1'
+const REFERRAL_CONTEXT_KEY = 'truthle_referral_context_v1'
+
+function readSessionRecord(key: string): Record<string, unknown> | null {
+  if (typeof window === 'undefined') return null
+  try {
+    const raw = window.sessionStorage.getItem(key)
+    if (!raw) return null
+    const parsed = JSON.parse(raw)
+    return parsed && typeof parsed === 'object' && !Array.isArray(parsed)
+      ? parsed as Record<string, unknown>
+      : null
+  } catch {
+    return null
+  }
+}
+
+function hasPendingRetry(day: string): boolean {
+  return readSessionRecord(RETRY_PENDING_KEY)?.day === day
+}
+
+function setPendingRetry(day: string, pending: boolean): void {
+  if (typeof window === 'undefined') return
+  try {
+    if (pending) window.sessionStorage.setItem(RETRY_PENDING_KEY, JSON.stringify({ day }))
+    else window.sessionStorage.removeItem(RETRY_PENDING_KEY)
+  } catch {
+    // A session storage failure must not start a second paid checkout.
+  }
+}
+
+function markReferralContext(day: string): void {
+  if (typeof window === 'undefined') return
+  try {
+    window.sessionStorage.setItem(REFERRAL_CONTEXT_KEY, JSON.stringify({ day }))
+  } catch {
+    // Referral analytics are optional; the game and checkout are not.
+  }
+}
+
+function hasReferralContext(day: string): boolean {
+  return readSessionRecord(REFERRAL_CONTEXT_KEY)?.day === day
+}
+
+function clearReferralContext(): void {
+  if (typeof window === 'undefined') return
+  try {
+    window.sessionStorage.removeItem(REFERRAL_CONTEXT_KEY)
+  } catch {
+    // Best effort cleanup only.
+  }
+}
+
+function provenanceItems(question: SourcedQuestion): ProvenanceItem[] {
+  const supplied = question.provenance ?? []
+  if (supplied.length > 0) {
+    return supplied.map((item, index) => ({
+      ...(supplied.length > 1 ? { label: `Source ${index + 1}` } : {}),
+      sourceUrl: item.sourceUrl,
+      sourceName: item.sourceName,
+      year: item.year,
+      coverage: item.coverage,
+      limitations: item.limitations,
+    }))
+  }
+  if (question.sourceUrl || question.sourceName || question.year || question.limitations?.length) {
+    return [{
+      sourceUrl: question.sourceUrl,
+      sourceName: question.sourceName,
+      year: question.year,
+      coverage: question.coverage,
+      limitations: question.limitations,
+    }]
+  }
+  return []
+}
+
+function mapHref(question: SourcedQuestion): string | undefined {
+  if (!question.variablePath) return undefined
+  const entry = getVariableById(question.variablePath)
+  return entry ? `/map/${entry.slug}/` : undefined
+}
+
+export default function TruthleGame({ countries }: TruthleGameProps) {
   const embeddedMode = useEmbeddedAppMode()
-  const [gameState, setGameState] = useState<GameState>('loading')
-  // Lets page-level chrome (e.g. True/False promo) hide itself during play.
-  useEffect(() => {
-    if (typeof window !== 'undefined') window.dispatchEvent(new CustomEvent('truthle:state', { detail: gameState }))
-  }, [gameState])
-  const [questions, setQuestions] = useState<TruthleQuestion[]>([])
+  const [day, setDay] = useState(() => getUtcDay())
+  const [initToken, setInitToken] = useState(0)
+  const [phase, setPhase] = useState<Phase>('loading')
+  const [resultSource, setResultSource] = useState<'restored' | 'completed'>('completed')
+  const [questions, setQuestions] = useState<SourcedQuestion[]>([])
   const [currentIndex, setCurrentIndex] = useState(0)
   const [results, setResults] = useState<boolean[]>([])
   const [times, setTimes] = useState<number[]>([])
   const [selectedAnswer, setSelectedAnswer] = useState<number | null>(null)
-  const [questionStartTime, setQuestionStartTime] = useState<number>(0)
-  const [score, setScore] = useState<TruthleScore | null>(null)
-  const [previousAttempt, setPreviousAttempt] = useState<{ score: number; results: boolean[]; streak: number } | null>(null)
-  const [streak, setStreak] = useState(0)
+  const [questionStartTime, setQuestionStartTime] = useState(0)
+  const [result, setResult] = useState<DisplayResult | null>(null)
+  const [displayStreak, setDisplayStreak] = useState(0)
   const [coinsEarned, setCoinsEarned] = useState<{ total: number; breakdown: CoinBreakdown } | null>(null)
   const [coinBalance, setCoinBalance] = useState(0)
-  const [showBadgeUnlock, setShowBadgeUnlock] = useState<string | null>(null)
-  const handleFirstShare = () => {
-    setShowBadgeUnlock('Social Butterfly')
-    setTimeout(() => setShowBadgeUnlock(null), 3000)
-  }
-
-  const [playedToday, setPlayedToday] = useState(false)
+  const [isRetryRun, setIsRetryRun] = useState(false)
   const [hasRetryAvailable, setHasRetryAvailable] = useState(false)
+  const [retryPending, setRetryPending] = useState(false)
+  const [retryConsuming, setRetryConsuming] = useState(false)
   const [retryRequesting, setRetryRequesting] = useState(false)
   const [retryMessage, setRetryMessage] = useState<string | null>(null)
-  const [isRetryRun, setIsRetryRun] = useState(false)
+  const [checkoutLoading, setCheckoutLoading] = useState(false)
   const [authenticatedUserId, setAuthenticatedUserId] = useState<string | null>(null)
+  const [referralRun, setReferralRun] = useState(false)
+  const [errorText, setErrorText] = useState('')
+  const retryConsumeRef = useRef(false)
+  const submittingRef = useRef(false)
+  const startedAnalyticsRef = useRef(new Set<string>())
+  const completedAnalyticsRef = useRef(new Set<string>())
 
-  const truthleDay = getTruthleDay()
+  const truthleDay = getTruthleDay(day)
 
   const postTruthleState = useCallback((state: string, stateScore?: number) => {
     postBridgeMessage({
@@ -105,25 +207,26 @@ function TruthleGameInner({ countries }: TruthleGameProps) {
     })
   }, [authenticatedUserId, hasRetryAvailable, truthleDay])
 
-  const refreshRetryStatus = useCallback(async () => {
+  const refreshRetryStatus = useCallback(async (statusDay = day) => {
     const status = await getCloudRetryStatus()
-    const canRetry = status.canConsume
-
+    const sameDay = !status.date || status.date === statusDay
+    const canRetry = (sameDay && status.canConsume) || hasPendingRetry(statusDay)
     setHasRetryAvailable(canRetry)
-    if (!embeddedMode) return canRetry
 
-    postBridgeMessage({
-      type: 'retry_status_changed',
-      payload: {
-        granted: status.granted,
-        consumed: status.consumed,
-        source: status.source,
-        timestamp: new Date().toISOString(),
-      },
-    })
+    if (embeddedMode) {
+      postBridgeMessage({
+        type: 'retry_status_changed',
+        payload: {
+          granted: status.granted,
+          consumed: status.consumed,
+          source: status.source,
+          timestamp: new Date().toISOString(),
+        },
+      })
+    }
 
     return canRetry
-  }, [embeddedMode])
+  }, [day, embeddedMode])
 
   const wait = (ms: number) => new Promise((resolve) => {
     window.setTimeout(resolve, ms)
@@ -131,735 +234,706 @@ function TruthleGameInner({ countries }: TruthleGameProps) {
 
   const pollRetryStatus = useCallback(async () => {
     for (let attempt = 0; attempt < 6; attempt += 1) {
-      const canRetry = await refreshRetryStatus()
-      if (canRetry) return true
+      if (await refreshRetryStatus(day)) return true
       await wait(2000)
     }
-
     return false
-  }, [refreshRetryStatus])
+  }, [day, refreshRetryStatus])
 
   useEffect(() => {
     let cancelled = false
 
     async function init() {
+      setPhase('loading')
+      setErrorText('')
+      setResult(null)
+      setCoinsEarned(null)
+      setSelectedAnswer(null)
+      setResults([])
+      setTimes([])
+      setIsRetryRun(false)
+      setRetryMessage(null)
       setCoinBalance(getCoins())
 
-      try {
-        const user = await ensureAnonymousAuth()
-        if (!cancelled) {
-          setAuthenticatedUserId(user.uid)
-        }
-      } catch (error) {
-        console.error('Failed to ensure auth for Truthle bridge:', error)
-      }
-
-      const { played, attempt } = await hasPlayedToday()
-      if (cancelled) return
-
-      if (played && attempt) {
-        setPreviousAttempt({
-          score: attempt.score,
-          results: attempt.results,
-          streak: attempt.streak,
-        })
-        setStreak(attempt.streak)
-        setPlayedToday(true)
-
-        await refreshRetryStatus()
-        if (typeof window !== 'undefined') {
-          const checkout = new URLSearchParams(window.location.search).get('checkout')
-          if (checkout === 'success') {
-            setRetryMessage('Payment received. Unlocking your extra attempt...')
-            let ok = false
-            for (let i = 0; i < 8 && !ok && !cancelled; i += 1) {
-              ok = await refreshRetryStatus()
-              if (!ok) await new Promise((r) => window.setTimeout(r, 2000))
-            }
-            setRetryMessage(ok ? T.extraAttemptSuccess : 'Payment received; unlocking is taking longer than usual. Refresh in a minute.')
-          } else if (checkout === 'cancel') {
-            setRetryMessage('Checkout cancelled. No charge was made.')
-          }
-          if (checkout) window.history.replaceState(null, '', window.location.pathname)
-        }
-
-        setGameState('already_played')
+      const activeDay = getUtcDay()
+      if (activeDay !== day) {
+        setDay(activeDay)
         return
       }
 
-      const dailyQuestions = generateDailyQuestions(countries)
-      setQuestions(dailyQuestions)
+      try {
+        const generated = generateDailyQuestions(countries, day) as SourcedQuestion[]
+        let played = false
+        let attempt: Awaited<ReturnType<typeof hasPlayedToday>>['attempt']
 
-      const localState = getLocalState()
-      setStreak(localState.streak)
+        try {
+          const check = await hasPlayedToday()
+          played = check.played
+          attempt = check.attempt
+        } catch {
+          // Local progress remains usable if the cloud check is unavailable.
+        }
 
-      setGameState('ready')
+        try {
+          const user = await ensureAnonymousAuth()
+          if (!cancelled) setAuthenticatedUserId(user.uid)
+        } catch {
+          if (!cancelled) setAuthenticatedUserId(null)
+        }
+
+        if (cancelled) return
+
+        const state = getLocalState()
+        const currentStreak = getDisplayStreak(state, day)
+        setQuestions(generated)
+        setDisplayStreak(currentStreak)
+        const pending = hasPendingRetry(day)
+        setRetryPending(pending)
+
+        if (played && attempt) {
+          const restoredState = getLocalState()
+          const restoredStreak = getDisplayStreak(restoredState, day) || Math.max(1, attempt.streak || 0)
+          setResult({
+            score: attempt.score,
+            results: attempt.results ?? [],
+            times: attempt.times ?? [],
+            streak: restoredStreak,
+            isRetry: false,
+          })
+          setResultSource('restored')
+          setPhase('result')
+          if (generated.length > 0) await refreshRetryStatus(day)
+          else setRetryMessage("Extra Attempt is unavailable because today's sourced question set could not be loaded.")
+          return
+        }
+
+        if (generated.length === 0) {
+          setPhase('unavailable')
+          return
+        }
+
+        setPhase('ready')
+      } catch {
+        if (!cancelled) {
+          setErrorText("We could not load today's round. No score or coins were changed.")
+          setPhase('error')
+        }
+      }
     }
 
-    init()
-
+    void init()
     return () => {
       cancelled = true
     }
-  }, [countries, embeddedMode, refreshRetryStatus])
+  }, [countries, day, initToken, refreshRetryStatus])
+
+  useEffect(() => {
+    const checkRollover = () => {
+      const currentDay = getUtcDay()
+      if (currentDay !== day) setDay(currentDay)
+    }
+    const onVisibility = () => {
+      if (document.visibilityState === 'visible') checkRollover()
+    }
+    const timer = window.setInterval(checkRollover, 30000)
+    document.addEventListener('visibilitychange', onVisibility)
+    return () => {
+      window.clearInterval(timer)
+      document.removeEventListener('visibilitychange', onVisibility)
+    }
+  }, [day])
+
+  const chromeState = phase === 'result'
+    ? (resultSource === 'restored' ? 'already_played' : 'finished')
+    : phase
+
+  useEffect(() => {
+    window.dispatchEvent(new CustomEvent('truthle:state', { detail: chromeState }))
+  }, [chromeState])
+
+  useEffect(() => {
+    postTruthleState(chromeState, result?.score)
+  }, [chromeState, postTruthleState, result?.score])
 
   useEffect(() => {
     if (!embeddedMode) return
-
     const unsubscribe = onNativeBridgeMessage(async (message: IOSToWebBridgeMessage) => {
       if (message.type !== 'rewarded_result') return
-
       setRetryRequesting(false)
 
       if (message.payload.status === 'closed') {
         setRetryMessage('Ad was closed before completion.')
         return
       }
-
       if (message.payload.status === 'failed') {
         setRetryMessage(message.payload.reason || 'Rewarded ad failed. Please try again later.')
         return
       }
 
-      setRetryMessage('Reward completed. Verifying retry entitlement...')
+      setRetryMessage('Reward completed. Verifying the retry entitlement...')
       const granted = await pollRetryStatus()
-
       if (granted) {
-        setRetryMessage('Retry unlocked. You can play one extra run today.')
+        setRetryMessage('Extra Attempt unlocked. You can start one more run today.')
         postTruthleState('retry_unlocked')
       } else {
-        setRetryMessage('Reward processed, but retry is still pending. Please try again in a moment.')
+        setRetryMessage('The reward is still pending. Check the Extra Attempt again in a moment.')
       }
     })
-
     return unsubscribe
   }, [embeddedMode, pollRetryStatus, postTruthleState])
 
-  useEffect(() => {
-    postTruthleState(gameState, score?.totalScore)
-  }, [gameState, postTruthleState, score])
-
-  useEffect(() => {
-    if (gameState !== 'finished' || !score) return
-
-    postBridgeMessage({
-      type: 'session_completed',
-      payload: {
-        route: '/truthle',
-        sessionType: isRetryRun ? 'truthle_retry' : 'truthle_primary',
-        reason: 'completed',
-        score: score.totalScore,
-        timestamp: new Date().toISOString(),
-      },
-    })
-  }, [gameState, isRetryRun, score])
-
-  const startGame = useCallback(async () => {
-    // already_played init never loads questions — without this, Play Extra Attempt
-    // sets gameState to playing with questions=[] and crashes on currentQuestion.*.
-    const nextQuestions =
-      questions.length > 0 ? questions : generateDailyQuestions(countries)
-    setQuestions(nextQuestions)
-
-    if (playedToday && hasRetryAvailable && !isRetryRun) {
-      const consumed = await consumeCloudRetry()
-      if (!consumed.success) {
-        setRetryMessage('Retry token is no longer available. Please watch another rewarded ad.')
-        setHasRetryAvailable(false)
-        postBridgeMessage({
-          type: 'retry_consumed',
-          payload: {
-            success: false,
-            timestamp: new Date().toISOString(),
-          },
-        })
-        return
-      }
-
-      setIsRetryRun(true)
-      setHasRetryAvailable(false)
-      setRetryMessage(null)
-
-      postBridgeMessage({
-        type: 'retry_consumed',
-        payload: {
-          success: true,
-          timestamp: new Date().toISOString(),
-        },
+  const beginRun = useCallback((retry: boolean) => {
+    const runKey = `${day}:${retry ? 'retry' : 'primary'}`
+    if (!startedAnalyticsRef.current.has(runKey)) {
+      startedAnalyticsRef.current.add(runKey)
+      trackEvent('game_start', {
+        game: 'truthle',
+        puzzle_day: day,
+        placement: retry ? 'extra' : 'primary',
       })
     }
-
     setCurrentIndex(0)
     setResults([])
     setTimes([])
     setSelectedAnswer(null)
-    setScore(null)
+    setResult(null)
     setCoinsEarned(null)
-    setGameState('playing')
-    setQuestionStartTime(Date.now())
-  }, [countries, hasRetryAvailable, isRetryRun, playedToday, questions])
-
-  const [checkoutLoading, setCheckoutLoading] = useState(false)
-  const buyExtraAttempt = useCallback(async () => {
-    if (checkoutLoading) return
-    setCheckoutLoading(true)
+    setIsRetryRun(retry)
     setRetryMessage(null)
-    const { url, error } = await createRetryCheckout(1)
-    if (url) {
-      window.location.href = url
+    setPhase('playing')
+    setQuestionStartTime(Date.now())
+  }, [day])
+
+  const startPrimaryRun = useCallback(() => {
+    beginRun(false)
+  }, [beginRun])
+
+  const handleAnswer = useCallback((answerIndex: number) => {
+    if (phase !== 'playing') return
+    const question = questions[currentIndex]
+    if (!question) return
+    const elapsed = (Date.now() - questionStartTime) / 1000
+    setSelectedAnswer(answerIndex)
+    setResults((previous) => [...previous, answerIndex === question.correctAnswer])
+    setTimes((previous) => [...previous, elapsed])
+    setPhase('answered')
+  }, [currentIndex, phase, questionStartTime, questions])
+
+  const nextQuestion = useCallback(() => {
+    if (phase !== 'answered') return
+    if (currentIndex < questions.length - 1) {
+      setCurrentIndex((previous) => previous + 1)
+      setSelectedAnswer(null)
+      setPhase('playing')
+      setQuestionStartTime(Date.now())
+    }
+  }, [currentIndex, phase, questions.length])
+
+  const finishRun = useCallback(async () => {
+    if (submittingRef.current) return
+    submittingRef.current = true
+
+    try {
+      const finalResults = [...results]
+      const finalTimes = [...times]
+      if (finalResults.length === 0) {
+        setErrorText('This run has no saved answers to score. Start the round again when you are ready.')
+        setPhase('error')
+        return
+      }
+
+      const localBefore = getLocalState()
+      const completionStreak = isRetryRun
+        ? Math.max(1, displayStreak)
+        : getCompletionStreak({
+            lastPlayedDate: localBefore.lastPlayedDate,
+            currentStreak: localBefore.streak,
+          }, day)
+      const detail = calculateScore(finalResults, finalTimes, completionStreak)
+      let shownScore = detail.totalScore
+      let shownResults = finalResults
+      let shownTimes = finalTimes
+      let shownStreak = Math.max(1, completionStreak)
+      let scoreDetail: TruthleScore | null = isRetryRun ? detail : null
+      let earned: { total: number; breakdown: CoinBreakdown } | null = null
+
+      if (isRetryRun) {
+        const saved = await saveRetryAttempt(detail.totalScore, finalResults, finalTimes, shownStreak)
+        if (!saved.success) {
+          setRetryMessage('Your retry result is visible, but cloud saving could not be confirmed. Your primary result was not changed.')
+        }
+      } else {
+        const beforeCoins = getCoins()
+        const fastAnswers = finalTimes.filter((time) => time < 3).length
+        const isPerfect = finalResults.every(Boolean)
+        const isFirstPlay = localBefore.gamesPlayed === 0
+        const calculatedCoins = calculateCoinsEarned(
+          finalResults.filter(Boolean).length,
+          fastAnswers,
+          completionStreak,
+          isPerfect,
+          isFirstPlay,
+          false,
+        )
+        const saved = await saveAttempt(detail.totalScore, finalResults, finalTimes)
+
+        if (!saved.success) {
+          setErrorText('We could not confirm that your result was saved. No coins were added. Reopen Truthle to check your saved state before trying again.')
+          setPhase('error')
+          return
+        }
+
+        if (saved.isFirstCompletion) {
+          shownStreak = saved.streak
+          scoreDetail = detail
+          const afterCoins = getCoins()
+          if (afterCoins === beforeCoins) {
+            const nextBalance = addCoins(calculatedCoins.total)
+            setCoinBalance(nextBalance)
+            updateAchievementStats(isPerfect, fastAnswers)
+          } else {
+            setCoinBalance(afterCoins)
+          }
+          earned = calculatedCoins
+        } else {
+          const savedState = getLocalState()
+          if (savedState.todayScore !== null) {
+            shownScore = savedState.todayScore
+            shownResults = savedState.todayResults ?? finalResults
+            shownTimes = savedState.todayTimes ?? finalTimes
+          }
+          shownStreak = getDisplayStreak(savedState, day) || completionStreak
+          setCoinBalance(getCoins())
+        }
+      }
+
+      const finalResult: DisplayResult = {
+        score: shownScore,
+        results: shownResults,
+        times: shownTimes,
+        streak: shownStreak,
+        isRetry: isRetryRun,
+        scoreDetail,
+      }
+      setResult(finalResult)
+      setResultSource('completed')
+      setDisplayStreak(shownStreak)
+      setCoinsEarned(earned)
+      setPhase('result')
+
+      const runKey = `${day}:${isRetryRun ? 'retry' : 'primary'}`
+      if (!completedAnalyticsRef.current.has(runKey)) {
+        completedAnalyticsRef.current.add(runKey)
+        trackEvent('game_complete', {
+          game: 'truthle',
+          puzzle_day: day,
+          placement: isRetryRun ? 'extra' : 'primary',
+          score: shownScore,
+          correct: shownResults.filter(Boolean).length,
+        })
+        postBridgeMessage({
+          type: 'session_completed',
+          payload: {
+            route: '/truthle',
+            sessionType: isRetryRun ? 'truthle_retry' : 'truthle_primary',
+            reason: 'completed',
+            score: shownScore,
+            timestamp: new Date().toISOString(),
+          },
+        })
+      }
+
+      if (isRetryRun && referralRun && !completedAnalyticsRef.current.has(`referral:${day}`)) {
+        completedAnalyticsRef.current.add(`referral:${day}`)
+        trackEvent('referral_game_complete', {
+          game: 'truthle',
+          puzzle_day: day,
+          score: shownScore,
+          correct: shownResults.filter(Boolean).length,
+        })
+        clearReferralContext()
+        setReferralRun(false)
+      }
+    } catch {
+      setErrorText('We could not finish this result. No new run was started. Reopen Truthle to check what was saved before trying again.')
+      setPhase('error')
+    } finally {
+      submittingRef.current = false
+    }
+  }, [day, displayStreak, isRetryRun, referralRun, results, times])
+
+  const startExtraAttempt = useCallback(async () => {
+    if (retryConsumeRef.current) return
+    if (questions.length === 0) {
+      setRetryMessage("Extra Attempt is unavailable because today's sourced question set could not be loaded.")
       return
     }
-    setCheckoutLoading(false)
-    setRetryMessage(error ? `Checkout unavailable: ${error}` : 'Checkout unavailable right now.')
-  }, [checkoutLoading])
+
+    retryConsumeRef.current = true
+    setRetryConsuming(true)
+    setRetryMessage('Checking your Extra Attempt. Nothing is charged twice.')
+    setPendingRetry(day, true)
+    setRetryPending(true)
+
+    try {
+      const consumed = await consumeCloudRetry()
+      if (!consumed.success) {
+        setRetryMessage('The Extra Attempt could not be confirmed. Check Extra Attempt again. Your result and primary score are unchanged.')
+        setHasRetryAvailable(true)
+        postBridgeMessage({
+          type: 'retry_consumed',
+          payload: { success: false, timestamp: new Date().toISOString() },
+        })
+        return
+      }
+
+      setPendingRetry(day, false)
+      setRetryPending(false)
+      setHasRetryAvailable(false)
+      setReferralRun(hasReferralContext(day))
+      postBridgeMessage({
+        type: 'retry_consumed',
+        payload: { success: true, timestamp: new Date().toISOString() },
+      })
+      beginRun(true)
+    } catch {
+      setRetryMessage('The Extra Attempt check was interrupted. Check Extra Attempt again. Your result is unchanged.')
+      setHasRetryAvailable(true)
+      postBridgeMessage({
+        type: 'retry_consumed',
+        payload: { success: false, timestamp: new Date().toISOString() },
+      })
+    } finally {
+      retryConsumeRef.current = false
+      setRetryConsuming(false)
+    }
+  }, [beginRun, day, questions.length])
+
+  const buyExtraAttempt = useCallback(async () => {
+    if (checkoutLoading || retryPending || retryConsumeRef.current) return
+    setCheckoutLoading(true)
+    setRetryMessage(null)
+
+    try {
+      let shareCode: string | undefined
+      const remembered = getRememberedChallenge('truthle')
+      const ownPromo = getStoredSharePromo()
+      if (remembered && remembered.day === day && remembered.code && remembered.code !== ownPromo?.code) {
+        shareCode = remembered.code
+      }
+
+      const checkout = await createRetryCheckout(1, 'truthle', shareCode ? { shareCode } : {})
+      if (checkout.url) {
+        if (shareCode) markReferralContext(day)
+        window.location.assign(checkout.url)
+        return
+      }
+
+      setRetryMessage(checkout.error || 'Checkout is unavailable right now. No charge was made.')
+    } catch {
+      setRetryMessage('Checkout could not be started. No charge was made. Try again in a moment.')
+    } finally {
+      setCheckoutLoading(false)
+    }
+  }, [checkoutLoading, day, retryPending])
 
   const requestRewardedRetry = useCallback(() => {
-    if (!embeddedMode || retryRequesting) return
-
+    if (!embeddedMode || retryRequesting || retryPending) return
     setRetryRequesting(true)
-    setRetryMessage('Requesting rewarded ad...')
-
+    setRetryMessage('Requesting the rewarded ad...')
     postBridgeMessage({
       type: 'request_rewarded_retry',
       payload: {
         route: '/truthle',
-        date: getTodayDateString(),
+        date: day,
         truthleDay,
         timestamp: new Date().toISOString(),
       },
     })
-  }, [embeddedMode, retryRequesting, truthleDay])
+  }, [day, embeddedMode, retryPending, retryRequesting, truthleDay])
 
-  const handleAnswer = useCallback((answerIndex: number) => {
-    if (gameState !== 'playing') return
+  const handleVerifiedCheckout = useCallback((credits: number) => {
+    setRetryMessage(`${credits} Extra Attempt ${credits === 1 ? 'is' : 'credits are'} ready. Use ${credits === 1 ? 'it' : 'them'} below when you are ready.`)
+    void refreshRetryStatus(day)
+  }, [day, refreshRetryStatus])
 
-    const timeElapsed = (Date.now() - questionStartTime) / 1000
-    const currentQuestion = questions[currentIndex]
-    const isCorrect = answerIndex === currentQuestion.correctAnswer
+  const resultCorrect = result?.results.filter(Boolean).length ?? 0
+  const resultTotal = result?.results.length ?? 0
+  const hasResultBreakdown = resultTotal > 0
+  const resultSecondaryNote = result?.isRetry
+    ? 'Extra Attempt. Your first saved result remains your daily result and streak.'
+    : resultSource === 'restored'
+      ? 'Restored from your saved daily result.'
+      : 'Saved as today\'s result. One completion counts per UTC day.'
+  const coinLines = coinsEarned
+    ? (Object.entries(coinsEarned.breakdown) as Array<[keyof CoinBreakdown, number]>)
+        .filter(([, value]) => value > 0)
+    : []
+  const currentQuestion = questions[currentIndex]
 
-    setSelectedAnswer(answerIndex)
-    setResults(prev => [...prev, isCorrect])
-    setTimes(prev => [...prev, timeElapsed])
-    setGameState('answered')
-  }, [gameState, questionStartTime, questions, currentIndex])
+  return (
+    <div className="mx-auto w-full max-w-2xl">
+      <CheckoutBanner game="truthle" onVerified={handleVerifiedCheckout} />
 
-  const nextQuestion = useCallback(async () => {
-    if (currentIndex < questions.length - 1) {
-      setCurrentIndex(prev => prev + 1)
-      setSelectedAnswer(null)
-      setGameState('playing')
-      setQuestionStartTime(Date.now())
-    } else {
-      setGameState('finished')
-
-      const localState = getLocalState()
-      const newStreak = localState.lastPlayedDate
-        ? (new Date(getTodayDateString()).getTime() - new Date(localState.lastPlayedDate).getTime()) / (1000 * 60 * 60 * 24) === 1
-          ? localState.streak + 1
-          : localState.streak
-        : 1
-
-      const finalResults = [...results]
-      const finalTimes = [...times]
-      const calculatedScore = calculateScore(finalResults, finalTimes, newStreak)
-
-      setScore(calculatedScore)
-      setStreak(newStreak)
-
-      if (!isRetryRun) {
-        const fastAnswers = finalTimes.filter(t => t < 3).length
-        const isPerfect = finalResults.every(r => r)
-        const isFirstPlay = localState.gamesPlayed === 0
-
-        const earnedCoins = calculateCoinsEarned(
-          calculatedScore.correctCount,
-          fastAnswers,
-          newStreak,
-          isPerfect,
-          isFirstPlay,
-          false
-        )
-
-        setCoinsEarned(earnedCoins)
-
-        const newBalance = addCoins(earnedCoins.total)
-        setCoinBalance(newBalance)
-
-        updateAchievementStats(isPerfect, fastAnswers)
-
-        await saveAttempt(calculatedScore.totalScore, finalResults, finalTimes)
-      } else {
-        setCoinsEarned({ total: 0, breakdown: EMPTY_COIN_BREAKDOWN })
-        await saveRetryAttempt(calculatedScore.totalScore, finalResults, finalTimes, newStreak)
-      }
-    }
-  }, [currentIndex, questions.length, results, times, isRetryRun])
-
-  const getTimeUntilNext = () => {
-    const now = new Date()
-    const tomorrow = new Date(Date.UTC(
-      now.getUTCFullYear(),
-      now.getUTCMonth(),
-      now.getUTCDate() + 1,
-      0, 0, 0
-    ))
-    const diff = tomorrow.getTime() - now.getTime()
-
-    const hours = Math.floor(diff / (1000 * 60 * 60))
-    const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60))
-    const seconds = Math.floor((diff % (1000 * 60)) / 1000)
-
-    return `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`
-  }
-
-  const [countdown, setCountdown] = useState(getTimeUntilNext())
-
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setCountdown(getTimeUntilNext())
-    }, 1000)
-    return () => clearInterval(timer)
-  }, [])
-
-  const payCta = (
-    <>
-      <button
-        onClick={hasRetryAvailable ? startGame : buyExtraAttempt}
-        disabled={checkoutLoading}
-        className="w-full whitespace-nowrap bg-emerald-600 hover:bg-emerald-700 disabled:bg-emerald-300 text-white text-lg font-bold py-3 px-4 rounded-lg shadow transition-colors"
-      >
-        {hasRetryAvailable ? '▶ Play Your Extra Attempt' : checkoutLoading ? 'Opening secure checkout…' : `${T.extraAttemptButton} — €0.99`}
-      </button>
-      {!hasRetryAvailable && (
-        <p className="text-xs text-gray-600 mt-2">{T.extraAttemptBlurb} Your first score stays on the leaderboard. Secure payment via Stripe.</p>
-      )}
-      {retryMessage && <p className="text-sm text-rose-700 mt-2">{retryMessage}</p>}
-    </>
-  )
-
-  if (gameState === 'loading') {
-    return (
-      <div className="flex flex-col items-center justify-center min-h-[400px]">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-emerald-500"></div>
-        <p className="mt-4 text-gray-600">Loading today's Truthle...</p>
-      </div>
-    )
-  }
-
-  if (gameState === 'ready') {
-    const stats = getStats()
-    const nextMilestone = getNextStreakMilestone(stats.currentStreak)
-
-    return (
-      <div className="flex flex-col items-center justify-center min-h-[500px] text-center px-4">
-        {embeddedMode ? (
-          <Link
-            href="/truthle/shop"
-            className="mb-5 flex items-center gap-2 rounded-full bg-amber-100 px-4 py-2 text-amber-800 shadow-sm transition-transform hover:scale-[1.02]"
-          >
-            <span className="text-lg">🪙</span>
-            <span className="font-bold">{coinBalance.toLocaleString()}</span>
-            <span className="text-sm font-medium text-amber-700">Shop</span>
+      <header className="mb-5 text-left">
+        <p className="twt-kicker">The World Truth daily game</p>
+        <div className="mt-1 flex flex-wrap items-end justify-between gap-3">
+          <h1 className="twt-display text-4xl font-black text-[#192947] sm:text-5xl">Truthle</h1>
+          <Link href="/rewards/" className="text-sm font-bold text-[#294cc4] underline">
+            {coinBalance} coins
           </Link>
-        ) : null}
-
-        <Image src="/truthle.png" alt="Truthle" width={120} height={120} className="mb-4" />
-        <h2 className="text-3xl font-bold text-gray-900 mb-2">Truthle</h2>
-        <p className="text-gray-600 mb-1">Daily world facts. Five questions. Same for everyone. One free attempt.</p>
-        <p className="text-sm text-gray-500 mb-2">#{truthleDay} • {TRUTHLE_QUESTIONS_PER_DAY} Questions</p>
-        {isRetryRun && (
-          <p className="text-sm text-blue-600 font-medium mb-4">Retry run active (ad reward)</p>
-        )}
-
-        {stats.gamesPlayed > 0 && (
-          <div className="flex gap-6 mb-6 text-center">
-            <div>
-              <div className="text-2xl font-bold text-emerald-600">{stats.currentStreak}</div>
-              <div className="text-xs text-gray-500">Streak</div>
-            </div>
-            <div>
-              <div className="text-2xl font-bold text-blue-600">{stats.bestStreak}</div>
-              <div className="text-xs text-gray-500">Best</div>
-            </div>
-            <div>
-              <div className="text-2xl font-bold text-purple-600">{stats.gamesPlayed}</div>
-              <div className="text-xs text-gray-500">Played</div>
-            </div>
-          </div>
-        )}
-
-        {nextMilestone && stats.gamesPlayed > 0 && !isRetryRun && (
-          <div className="bg-gradient-to-r from-amber-50 to-orange-50 border border-amber-200 rounded-lg px-4 py-2 mb-4">
-            <p className="text-sm text-amber-700">
-              🎯 {nextMilestone.days - stats.currentStreak} days to {nextMilestone.days}-day streak
-              <span className="font-bold ml-1">+{nextMilestone.reward} 🪙</span>
-            </p>
-          </div>
-        )}
-
-        {!embeddedMode && <RewardsTeaser />}
-        <button
-          onClick={startGame}
-          className="bg-emerald-500 hover:bg-emerald-600 text-white font-semibold py-3 px-8 rounded-lg text-lg transition-colors shadow-lg hover:shadow-xl"
-        >
-          {isRetryRun ? 'Play Retry Run' : 'Play Today\'s Truthle'}
-        </button>
-
-        <p className="text-xs text-gray-400 mt-6">
-          5 questions · Same for everyone · One attempt per day
+        </div>
+        <p className="mt-2 text-base leading-7 text-[#49556b]">
+          Sourced world facts, the same round for everyone, one free attempt each UTC day.
         </p>
-      </div>
-    )
-  }
+      </header>
 
-  if (gameState === 'already_played' && previousAttempt) {
-    const percentile = estimatePercentile(previousAttempt.score)
-    const correctCount = previousAttempt.results.filter(r => r).length
-    const grade = getGrade(correctCount, previousAttempt.results.length || TRUTHLE_QUESTIONS_PER_DAY)
+      {phase === 'loading' && (
+        <section className="twt-panel p-6 text-left" role="status" aria-live="polite" aria-busy="true">
+          <p className="twt-kicker">Loading</p>
+          <h2 className="twt-display mt-2 text-2xl font-black">Preparing today&apos;s sourced round</h2>
+          <p className="twt-prose mt-2">Checking saved progress and eligible questions. No answer is submitted while this loads.</p>
+        </section>
+      )}
 
-    return (
-      <div className="flex flex-col items-center justify-center min-h-[500px] text-center px-4 relative">
-        {embeddedMode ? (
-          <Link
-            href="/truthle/shop"
-            className="mb-5 flex items-center gap-2 rounded-full bg-amber-100 px-4 py-2 text-amber-800 shadow-sm transition-transform hover:scale-[1.02]"
-          >
-            <span className="text-lg">🪙</span>
-            <span className="font-bold">{coinBalance.toLocaleString()}</span>
-            <span className="text-sm font-medium text-amber-700">Shop</span>
-          </Link>
-        ) : null}
-
-        <Image src="/truthle.png" alt="Truthle" width={80} height={80} className="mb-4" />
-        <h2 className="text-xl font-semibold text-gray-700 mb-2">You've already played today!</h2>
-        <p className="text-sm text-gray-500 mb-4">Truthle #{truthleDay}</p>
-
-        <div className="text-6xl mb-2">{grade.emoji}</div>
-        <div className="text-4xl font-bold text-gray-900 mb-1">
-          {previousAttempt.score.toLocaleString()}
-        </div>
-        <div className="text-emerald-600 font-medium mb-4">Top {percentile}%</div>
-
-        <div className="flex gap-1 mb-4">
-          {previousAttempt.results.map((r, i) => (
-            <div
-              key={i}
-              className={`w-8 h-8 rounded ${r ? 'bg-emerald-500' : 'bg-red-500'}`}
-            />
-          ))}
-        </div>
-
-        <p className="text-gray-600 mb-2">{correctCount}/{previousAttempt.results.length || TRUTHLE_QUESTIONS_PER_DAY} correct</p>
-        {previousAttempt.streak > 1 && (
-          <p className="text-orange-500 font-medium mb-4">🔥 {previousAttempt.streak} day streak</p>
-        )}
-
-        <div className="flex flex-col items-center mb-4">
-          <ShareResultsButton
-            score={previousAttempt.score}
-            results={previousAttempt.results}
-            streak={previousAttempt.streak}
-            truthleDay={truthleDay}
-            onFirstShare={handleFirstShare}
-            className="bg-blue-600 hover:bg-blue-700 disabled:bg-blue-300 text-white text-base font-bold py-3 px-8 rounded-lg shadow transition-colors"
-          />
-        </div>
-
-        {!embeddedMode && (
-          <div className="mb-4 w-full max-w-sm">
-            <DailyUnlockCard game="truthle" date={getTodayDateString()} perfect={correctCount === (previousAttempt.results.length || TRUTHLE_QUESTIONS_PER_DAY)} cta={payCta} />
-          </div>
-        )}
-
-        {embeddedMode && (
-          <div className="mb-4 w-full max-w-sm">
-            <button
-              onClick={hasRetryAvailable ? startGame : requestRewardedRetry}
-              disabled={retryRequesting}
-              className="w-full bg-purple-600 hover:bg-purple-700 disabled:bg-purple-300 text-white font-semibold py-2.5 px-4 rounded-lg transition-colors"
-            >
-              {hasRetryAvailable
-                ? 'Use Rewarded Retry'
-                : retryRequesting
-                ? 'Opening rewarded ad...'
-                : 'Watch Ad for One Retry'}
-            </button>
-            {retryMessage && (
-              <p className="text-sm text-purple-700 mt-2">{retryMessage}</p>
-            )}
-          </div>
-        )}
-
-        <div className="text-gray-500 text-sm">
-          <p>Next Truthle in</p>
-          <p className="text-2xl font-mono font-bold text-gray-700">{countdown}</p>
-        </div>
-
-        <div className="mt-6">
-          <AdSidebar slotId={AD_SLOTS.truthleResults} size="square" />
-        </div>
-      </div>
-    )
-  }
-
-  if (gameState === 'playing' || gameState === 'answered') {
-    const currentQuestion = questions[currentIndex]
-    if (!currentQuestion) {
-      return (
-        <div className="flex items-center justify-center min-h-[300px] text-gray-500">
-          Loading questions...
-        </div>
-      )
-    }
-
-    return (
-      <div className="max-w-lg mx-auto px-4">
-        <div className="flex gap-1 mb-6">
-          {questions.map((_, i) => (
-            <div
-              key={i}
-              className={`h-2 flex-1 rounded ${
-                i < currentIndex
-                  ? results[i]
-                    ? 'bg-emerald-500'
-                    : 'bg-red-500'
-                  : i === currentIndex
-                  ? 'bg-blue-500'
-                  : 'bg-gray-200'
-              }`}
-            />
-          ))}
-        </div>
-
-        <div className="flex justify-between items-center mb-4">
-          <span className="text-sm text-gray-500">
-            Question {currentIndex + 1}/{questions.length}
-          </span>
-          <span className="text-sm px-2 py-1 bg-gray-100 rounded">
-            {currentQuestion.categoryIcon} {currentQuestion.category}
-          </span>
-        </div>
-
-        <h2 className="text-xl font-semibold text-gray-900 mb-6 text-center">
-          {currentQuestion.question}
-        </h2>
-
-        <div className="space-y-3 mb-6">
-          {currentQuestion.options.map((option, i) => {
-            let buttonClass = 'w-full py-3 px-4 rounded-lg border-2 transition-all text-left font-medium '
-
-            if (gameState === 'answered') {
-              if (i === currentQuestion.correctAnswer) {
-                buttonClass += 'bg-emerald-100 border-emerald-500 text-emerald-700'
-              } else if (i === selectedAnswer) {
-                buttonClass += 'bg-red-100 border-red-500 text-red-700'
-              } else {
-                buttonClass += 'bg-gray-50 border-gray-200 text-gray-400'
-              }
-            } else {
-              buttonClass += 'bg-white border-gray-200 hover:border-blue-400 hover:bg-blue-50 text-gray-700'
-            }
-
-            return (
-              <button
-                key={i}
-                onClick={() => handleAnswer(i)}
-                disabled={gameState === 'answered'}
-                className={buttonClass}
-              >
-                {option}
-              </button>
-            )
-          })}
-        </div>
-
-        {gameState === 'answered' && (
-          <div className="bg-gray-50 rounded-lg p-4 mb-3">
-            <p className="text-sm text-gray-700">{currentQuestion.explanation}</p>
-          </div>
-        )}
-
-        {/* No backend miss-rate stats yet — factual explainer above; clear share nudge instead. */}
-        {gameState === 'answered' && (
-          <p className="text-sm text-center text-blue-600 mb-4">
-            {selectedAnswer !== currentQuestion.correctAnswer
-              ? 'Tough one — finish the 5 and Share your score. Friends play the same quiz today.'
-              : 'Nice! Finish the 5 and Share — same quiz for everyone today.'}
+      {phase === 'ready' && (
+        <section className="twt-panel p-6 text-left sm:p-8">
+          <p className="twt-kicker">Today&apos;s round</p>
+          <h2 className="twt-display mt-2 text-3xl font-black text-[#192947]">
+            {questions.length} sourced {questions.length === 1 ? 'question' : 'questions'} ready
+          </h2>
+          <p className="twt-prose mt-2">
+            The set is fixed for today. Source, year, coverage and known limits appear after you answer each question.
           </p>
-        )}
-
-        {gameState === 'answered' && (
-          <button
-            onClick={nextQuestion}
-            className="w-full bg-blue-500 hover:bg-blue-600 text-white font-semibold py-3 rounded-lg transition-colors"
-          >
-            {currentIndex < questions.length - 1 ? 'Next Question' : 'See Results'}
+          {displayStreak > 0 && (
+            <p className="mt-3 text-sm font-semibold text-[#246e55]">Current round streak: {displayStreak} {displayStreak === 1 ? 'day' : 'days'}.</p>
+          )}
+          <button type="button" onClick={startPrimaryRun} className="twt-button mt-5 min-h-12 w-full sm:w-auto">
+            Start today&apos;s round
           </button>
-        )}
-      </div>
-    )
-  }
+          <p className="mt-3 text-xs text-[#59647a]">One free attempt. A new set unlocks at 00:00 UTC.</p>
+        </section>
+      )}
 
-  if (gameState === 'finished' && score) {
-    const percentile = estimatePercentile(score.totalScore)
-    const grade = getGrade(score.correctCount, score.totalQuestions)
-    const isMilestone = isStreakMilestone(streak)
+      {(phase === 'playing' || phase === 'answered') && currentQuestion && (
+        <section className="twt-panel p-5 text-left sm:p-7" aria-labelledby="truthle-question">
+          <div className="flex flex-wrap items-center justify-between gap-2">
+            <p className="twt-kicker">Question {currentIndex + 1} of {questions.length}</p>
+            <p className="text-xs font-bold uppercase tracking-wide text-[#59647a]">{currentQuestion.categoryIcon} {currentQuestion.category}</p>
+          </div>
+          <div className="mt-3 h-2 overflow-hidden rounded-full bg-[#e7dfc8]" role="progressbar" aria-valuemin={1} aria-valuemax={questions.length} aria-valuenow={currentIndex + 1}>
+            <div className="h-full rounded-full bg-[#294cc4]" style={{ width: `${((currentIndex + 1) / questions.length) * 100}%` }} />
+          </div>
+          <h2 id="truthle-question" className="twt-display mt-5 text-2xl font-black leading-tight text-[#192947] sm:text-3xl">
+            {currentQuestion.question}
+          </h2>
+          <div className="mt-5 space-y-2">
+            {currentQuestion.options.map((option, index) => {
+              const isPicked = selectedAnswer === index
+              const isCorrect = index === currentQuestion.correctAnswer
+              const revealed = phase === 'answered'
+              const tone = revealed && isCorrect
+                ? 'border-[#246e55] bg-[#eef8f3] text-[#174c3a]'
+                : revealed && isPicked
+                  ? 'border-[#dc654e] bg-[#fff1ed] text-[#7d2e1f]'
+                  : 'border-[#d8d2c2] bg-[#fffdf5] text-[#192947] hover:border-[#294cc4]'
+              return (
+                <button
+                  key={`${currentQuestion.id}-${option}`}
+                  type="button"
+                  onClick={() => handleAnswer(index)}
+                  disabled={revealed}
+                  aria-pressed={isPicked}
+                  className={`min-h-12 w-full rounded-xl border-2 px-4 py-3 text-left text-base font-semibold transition ${tone} disabled:cursor-default`}
+                >
+                  <span className="mr-2 font-black text-[#294cc4]">{String.fromCharCode(65 + index)}.</span>
+                  {option}
+                </button>
+              )
+            })}
+          </div>
 
-    return (
-      <div className="flex flex-col items-center justify-center min-h-[500px] text-center px-4">
-        <Image src="/truthle.png" alt="Truthle" width={80} height={80} className="mb-4" />
+          {phase === 'answered' && (
+            <div className="mt-5 rounded-xl border border-[#d8d2c2] bg-[#fff9e8] p-4" role="status" aria-live="polite">
+              <p className={`font-black ${selectedAnswer === currentQuestion.correctAnswer ? 'text-[#246e55]' : 'text-[#a33f2c]'}`}>
+                {selectedAnswer === currentQuestion.correctAnswer ? 'Correct.' : 'Not this time.'}
+              </p>
+              <p className="mt-1 text-sm font-semibold text-[#192947]">Answer: {currentQuestion.options[currentQuestion.correctAnswer]}</p>
+              <p className="mt-2 text-sm leading-6 text-[#49556b]">{currentQuestion.explanation}</p>
+              <QuestionProvenance items={provenanceItems(currentQuestion)} mapHref={mapHref(currentQuestion)} />
+              <button
+                type="button"
+                onClick={() => {
+                  if (currentIndex < questions.length - 1) nextQuestion()
+                  else void finishRun()
+                }}
+                className="twt-button mt-4 min-h-11 w-full sm:w-auto"
+              >
+                {currentIndex < questions.length - 1 ? 'Next question' : 'See result'}
+              </button>
+            </div>
+          )}
+        </section>
+      )}
 
-        <div className="text-6xl mb-2">{grade.emoji}</div>
-        <h2 className="text-xl font-semibold text-gray-700 mb-1">{grade.message}</h2>
-        <p className="text-sm text-gray-500 mb-4">Truthle #{truthleDay}</p>
+      {phase === 'unavailable' && (
+        <section className="twt-panel p-6 text-left sm:p-8">
+          <p className="twt-kicker">Round unavailable</p>
+          <h2 className="twt-display mt-2 text-3xl font-black text-[#192947]">No eligible sourced questions today</h2>
+          <p className="twt-prose mt-2">
+            Today&apos;s question set could not be built from sources that meet the game requirements. No substitute or invented question is shown.
+          </p>
+          <div className="mt-4 flex flex-wrap gap-3">
+            <button type="button" onClick={() => setInitToken((value) => value + 1)} className="twt-button min-h-11">Check again</button>
+            <Link href="/true-false/" className="twt-button-secondary inline-flex min-h-11 items-center px-4">Try True or False</Link>
+          </div>
+        </section>
+      )}
 
-        <div className="text-5xl font-bold text-gray-900 mb-1">
-          {score.totalScore.toLocaleString()}
-        </div>
-        <div className="text-emerald-600 font-medium text-lg mb-4">Top {percentile}%</div>
+      {phase === 'error' && (
+        <section className="twt-panel border-[#dc654e] p-6 text-left sm:p-8" role="alert">
+          <p className="twt-kicker !text-[#a33f2c]">Round interrupted</p>
+          <h2 className="twt-display mt-2 text-3xl font-black text-[#192947]">We could not complete this step</h2>
+          <p className="twt-prose mt-2">{errorText}</p>
+          <div className="mt-4 flex flex-wrap gap-3">
+            {results.length > 0 && (
+              <button type="button" onClick={() => void finishRun()} className="twt-button min-h-11">Try saving this result again</button>
+            )}
+            <button type="button" onClick={() => setInitToken((value) => value + 1)} className="twt-button-secondary min-h-11 px-4">Reload today&apos;s round</button>
+          </div>
+        </section>
+      )}
 
-        <div className="flex gap-1 mb-4">
-          {results.map((r, i) => (
-            <div
-              key={i}
-              className={`w-8 h-8 rounded ${r ? 'bg-emerald-500' : 'bg-red-500'}`}
+      {phase === 'result' && result && (
+        <div className="space-y-4">
+          {hasResultBreakdown ? (
+            <ResultScorecard
+              game="truthle"
+              day={day}
+              score={result.score}
+              correct={resultCorrect}
+              total={resultTotal}
+              streak={result.streak}
+              secondaryNote={resultSecondaryNote}
             />
-          ))}
-        </div>
-
-        <div className="flex gap-6 mb-6 text-center">
-          <div>
-            <div className="text-xl font-bold text-gray-800">{score.correctCount}/{score.totalQuestions}</div>
-            <div className="text-xs text-gray-500">Correct</div>
-          </div>
-          <div>
-            <div className="text-xl font-bold text-gray-800">{score.averageTime.toFixed(1)}s</div>
-            <div className="text-xs text-gray-500">Avg Time</div>
-          </div>
-          {streak > 0 && (
-            <div>
-              <div className="text-xl font-bold text-orange-500">🔥 {streak}</div>
-              <div className="text-xs text-gray-500">Streak</div>
-            </div>
+          ) : (
+            <section className="twt-panel p-6 text-left" aria-label="Saved result">
+              <p className="twt-kicker">Saved result</p>
+              <h2 className="twt-display mt-2 text-3xl font-black text-[#192947]">{result.score.toLocaleString('en-GB')} points</h2>
+              <p className="mt-2 text-sm font-semibold text-[#246e55]">Round streak: {result.streak} {result.streak === 1 ? 'day' : 'days'}</p>
+              <p className="twt-prose mt-2">This saved result did not include an answer breakdown. Its score and streak are shown without guessing the missing details.</p>
+            </section>
           )}
-        </div>
 
-        <ShareResultsButton
-          score={score.totalScore}
-          results={results}
-          streak={streak}
-          truthleDay={truthleDay}
-          onFirstShare={handleFirstShare}
-        />
-
-        {isRetryRun && (
-          <div className="bg-blue-50 border border-blue-200 rounded-lg px-4 py-2 mb-4 text-sm text-blue-700">
-            This was your rewarded retry run.
-          </div>
-        )}
-
-        {!embeddedMode && (
-          <div className="mb-4 w-full max-w-sm">
-            <DailyUnlockCard game="truthle" date={getTodayDateString()} perfect={score.correctCount === score.totalQuestions} cta={isRetryRun ? undefined : payCta} />
-          </div>
-        )}
-
-
-        <div className="mb-6" />
-
-        {coinsEarned && coinsEarned.total > 0 && (
-          <div className="bg-gradient-to-r from-amber-50 to-yellow-50 border border-amber-200 rounded-lg p-4 mb-6 w-full max-w-xs">
-            <div className="flex items-center justify-center gap-2 mb-3">
-              <span className="text-2xl">🪙</span>
-              <span className="text-2xl font-bold text-amber-600">+{coinsEarned.total}</span>
-              <span className="text-amber-600 font-medium">coins earned!</span>
-            </div>
-            <div className="text-xs text-amber-700 space-y-1">
-              {coinsEarned.breakdown.dailyPlay > 0 && (
-                <div className="flex justify-between">
-                  <span>Daily play</span>
-                  <span>+{coinsEarned.breakdown.dailyPlay}</span>
-                </div>
-              )}
-              {coinsEarned.breakdown.correctAnswers > 0 && (
-                <div className="flex justify-between">
-                  <span>Correct answers</span>
-                  <span>+{coinsEarned.breakdown.correctAnswers}</span>
-                </div>
-              )}
-              {coinsEarned.breakdown.speedBonus > 0 && (
-                <div className="flex justify-between">
-                  <span>Speed bonus</span>
-                  <span>+{coinsEarned.breakdown.speedBonus}</span>
-                </div>
-              )}
-              {coinsEarned.breakdown.perfectBonus > 0 && (
-                <div className="flex justify-between font-medium">
-                  <span>Perfect score!</span>
-                  <span>+{coinsEarned.breakdown.perfectBonus}</span>
-                </div>
-              )}
-              {coinsEarned.breakdown.streakBonus > 0 && (
-                <div className="flex justify-between font-medium">
-                  <span>{isMilestone ? `🎉 ${streak}-day milestone!` : 'Streak bonus'}</span>
-                  <span>+{coinsEarned.breakdown.streakBonus}</span>
-                </div>
-              )}
-              {coinsEarned.breakdown.firstPlayBonus > 0 && (
-                <div className="flex justify-between font-medium">
-                  <span>🎁 Welcome bonus!</span>
-                  <span>+{coinsEarned.breakdown.firstPlayBonus}</span>
-                </div>
-              )}
-            </div>
-            <div className="mt-3 pt-3 border-t border-amber-200 flex items-center justify-between">
-              <span className="text-sm text-amber-700">Total balance:</span>
-              <span className="font-bold text-amber-600">{coinBalance.toLocaleString()} 🪙</span>
-            </div>
-            <Link
-              href="/truthle/shop"
-              className="mt-3 block w-full text-amber-700 hover:underline text-sm text-center"
-            >
-              Coin shop →
-            </Link>
-          </div>
-        )}
-
-        <div className="bg-gray-50 rounded-lg p-4 mb-6 text-sm text-left w-full max-w-xs">
-          <div className="flex justify-between mb-1">
-            <span className="text-gray-600">Base score</span>
-            <span className="font-medium">{score.baseScore}</span>
-          </div>
-          <div className="flex justify-between mb-1">
-            <span className="text-gray-600">Speed bonus</span>
-            <span className="font-medium text-blue-600">+{score.speedBonus}</span>
-          </div>
-          {score.streakBonus > 0 && (
-            <div className="flex justify-between">
-              <span className="text-gray-600">Streak bonus</span>
-              <span className="font-medium text-orange-500">+{score.streakBonus}</span>
-            </div>
+          {hasResultBreakdown && (
+            <ResultSharePanel
+              game="truthle"
+              day={day}
+              score={result.score}
+              correct={resultCorrect}
+              total={resultTotal}
+              streak={result.streak}
+            />
           )}
+
+          <section className="twt-panel p-5 text-left sm:p-6" aria-labelledby="coin-result-heading">
+            <div className="flex flex-wrap items-end justify-between gap-2">
+              <div>
+                <p className="twt-kicker">Your coins</p>
+                <h3 id="coin-result-heading" className="twt-display mt-1 text-2xl font-black text-[#192947]">Balance: {coinBalance}</h3>
+              </div>
+              <Link href="/rewards/" className="text-sm font-bold text-[#294cc4] underline">Open rewards</Link>
+            </div>
+            {coinsEarned && coinsEarned.total > 0 ? (
+              <>
+                <p className="mt-2 font-semibold text-[#246e55]">You earned {coinsEarned.total} coins for this first completion.</p>
+                <ul className="mt-2 grid gap-1 text-sm text-[#49556b] sm:grid-cols-2">
+                  {coinLines.map(([key, value]) => <li key={key}>{COIN_LABELS[key]}: +{value}</li>)}
+                </ul>
+              </>
+            ) : (
+              <p className="mt-2 text-sm text-[#49556b]">No new coins were added. Coins for a daily round are awarded once.</p>
+            )}
+            {getNextStreakMilestone(displayStreak) && (
+              <p className="mt-2 text-xs text-[#59647a]">
+                Next streak milestone: {getNextStreakMilestone(displayStreak)?.days} days for {getNextStreakMilestone(displayStreak)?.reward} coins.
+              </p>
+            )}
+          </section>
+
+          <RewardsTeaser />
+
+          {result.scoreDetail && (
+            <section className="twt-panel p-5 text-left" aria-label="Score detail">
+              <p className="twt-kicker">Score detail</p>
+              <p className="mt-2 text-sm leading-6 text-[#49556b]">
+                Base {result.scoreDetail.baseScore}, speed {result.scoreDetail.speedBonus}, streak {result.scoreDetail.streakBonus}. Average answer time {result.scoreDetail.averageTime.toFixed(1)} seconds.
+              </p>
+            </section>
+          )}
+
+          <UtcCountdown />
+
+          <section className="twt-panel p-5 text-left sm:p-6" aria-labelledby="extra-attempt-heading">
+            <p className="twt-kicker">Optional</p>
+            <h3 id="extra-attempt-heading" className="twt-display mt-1 text-2xl font-black text-[#192947]">Extra Attempt</h3>
+            <p className="twt-prose mt-2">{T.extraAttemptBlurb}</p>
+
+            {result.isRetry ? (
+              <p className="mt-3 rounded-xl border border-[#d8d2c2] bg-[#fffdf5] p-3 text-sm text-[#49556b]">
+                This Extra Attempt is complete. Your first saved result remains your daily result and streak, and no further checkout is offered here.
+              </p>
+            ) : questions.length === 0 ? (
+              <p className="mt-3 rounded-xl border border-[#d8d2c2] bg-[#fffdf5] p-3 text-sm text-[#49556b]">
+                Extra Attempt is unavailable because today&apos;s sourced question set could not be loaded. No checkout is offered.
+              </p>
+            ) : retryPending ? (
+              <button
+                type="button"
+                onClick={() => void startExtraAttempt()}
+                disabled={retryConsuming}
+                className="twt-button mt-4 min-h-11 w-full disabled:opacity-60"
+              >
+                {retryConsuming ? 'Checking Extra Attempt...' : 'Check Extra Attempt again'}
+              </button>
+            ) : hasRetryAvailable ? (
+              <button
+                type="button"
+                onClick={() => void startExtraAttempt()}
+                disabled={retryConsuming}
+                className="twt-button mt-4 min-h-11 w-full disabled:opacity-60"
+              >
+                Use your Extra Attempt
+              </button>
+            ) : embeddedMode ? (
+              <button
+                type="button"
+                onClick={requestRewardedRetry}
+                disabled={retryRequesting}
+                className="twt-button mt-4 min-h-11 w-full disabled:opacity-60"
+              >
+                {retryRequesting ? 'Requesting reward...' : 'Get an Extra Attempt with a rewarded ad'}
+              </button>
+            ) : (
+              <button
+                type="button"
+                onClick={() => void buyExtraAttempt()}
+                disabled={checkoutLoading}
+                className="twt-button mt-4 min-h-11 w-full disabled:opacity-60"
+              >
+                {checkoutLoading ? 'Opening checkout...' : `${T.extraAttemptButton} for EUR0.99`}
+              </button>
+            )}
+
+            {retryMessage && <p className="mt-3 text-sm leading-6 text-[#49556b]" role="status" aria-live="polite">{retryMessage}</p>}
+            <p className="mt-3 text-xs leading-5 text-[#59647a]">
+              After checkout, your Extra Attempt appears here only when the payment is confirmed. A gift code you created cannot be used for your own Extra Attempt.
+            </p>
+          </section>
+
+          {!embeddedMode && <AdSidebar slotId={AD_SLOTS.truthleResults} className="mt-4" />}
         </div>
-
-        {showBadgeUnlock && (
-          <div className="fixed top-4 left-1/2 transform -translate-x-1/2 bg-gradient-to-r from-purple-500 to-pink-500 text-white px-6 py-3 rounded-full shadow-lg animate-bounce z-50">
-            <span className="text-xl mr-2">🦋</span>
-            <span className="font-semibold">Badge Unlocked: {showBadgeUnlock}!</span>
-          </div>
-        )}
-
-        <div className="text-gray-500 text-sm">
-          <p>Next Truthle in</p>
-          <p className="text-2xl font-mono font-bold text-gray-700">{countdown}</p>
-        </div>
-
-        <div className="mt-6">
-          <AdSidebar slotId={AD_SLOTS.truthleResults} size="square" />
-        </div>
-      </div>
-    )
-  }
-
-  return null
+      )}
+    </div>
+  )
 }

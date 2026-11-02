@@ -9,7 +9,6 @@ import {
   POWERUPS,
   PROFILE_ITEMS,
   getRewardById,
-  RARITY_COLORS,
   RARITY_LABELS,
   VirtualReward,
   RewardCategory
@@ -38,6 +37,38 @@ import { useEmbeddedAppMode } from '@/lib/useEmbeddedAppMode'
 const OFFERTORO_ENABLED = !!process.env.NEXT_PUBLIC_OFFERTORO_PUBID
 
 type TabType = 'earn' | 'all' | 'badges' | 'themes' | 'powerups' | 'profile' | 'achievements'
+type WalletSyncStatus = 'idle' | 'syncing' | 'synced' | 'error'
+
+export async function syncCloudWalletForShop({
+  syncCloud = syncCloudCoins,
+  readCoins = getCoins,
+}: {
+  syncCloud?: typeof syncCloudCoins
+  readCoins?: typeof getCoins
+} = {}): Promise<{ status: 'synced' | 'error'; coins: number }> {
+  try {
+    await syncCloud()
+    return { status: 'synced', coins: readCoins() }
+  } catch {
+    return { status: 'error', coins: readCoins() }
+  }
+}
+
+const REWARD_RARITY_STYLES: Record<VirtualReward['rarity'], string> = {
+  common: 'bg-twt-ink/10 text-twt-ink',
+  rare: 'bg-twt-blue/10 text-twt-blue',
+  epic: 'bg-twt-coral/15 text-twt-coral',
+  legendary: 'bg-twt-butter text-twt-ink',
+}
+
+const ACHIEVEMENT_RARITY_STYLES: Record<AchievementRarity, string> = {
+  common: 'border-twt-ink/20 bg-twt-ink/5 text-twt-ink',
+  uncommon: 'border-twt-green/30 bg-twt-green/10 text-twt-green',
+  rare: 'border-twt-blue/30 bg-twt-blue/10 text-twt-blue',
+  epic: 'border-twt-coral/30 bg-twt-coral/10 text-twt-coral',
+  legendary: 'border-twt-butter bg-twt-butter/35 text-twt-ink',
+  mythic: 'border-twt-ink bg-twt-ink text-white',
+}
 
 export default function RewardShop() {
   const embeddedMode = useEmbeddedAppMode()
@@ -56,28 +87,60 @@ export default function RewardShop() {
     title: null,
   })
   const [purchaseMessage, setPurchaseMessage] = useState<{ type: 'success' | 'error'; text: string } | null>(null)
+  const [loadStatus, setLoadStatus] = useState<'loading' | 'ready' | 'error'>('loading')
+  const [loadError, setLoadError] = useState<string | null>(null)
+  const [loadAttempt, setLoadAttempt] = useState(0)
+  const [walletSyncStatus, setWalletSyncStatus] = useState<WalletSyncStatus>('idle')
+  const [syncAttempt, setSyncAttempt] = useState(0)
 
-  // Load state on mount and sync cloud coins
+  // Load saved state before attempting the independent cloud wallet sync.
   useEffect(() => {
-    async function loadState() {
+    let cancelled = false
+    setLoadStatus('loading')
+    setLoadError(null)
+
+    try {
       const state = getLocalState()
+      if (cancelled) return
+
       setCoins(state.coins)
       setOwnedItems(state.ownedItems)
       setUnlockedAchievements(state.unlockedAchievements || [])
       setEquippedItems(getEquippedItems())
-
-      // Sync coins from cloud (offer wall earnings)
-      try {
-        const cloudCoins = await syncCloudCoins()
-        if (cloudCoins > 0) {
-          setCoins(getCoins()) // Refresh after sync
-        }
-      } catch (e) {
-        console.error('Failed to sync cloud coins:', e)
-      }
+      setLoadStatus('ready')
+    } catch {
+      if (cancelled) return
+      console.error('Failed to load reward shop state')
+      setLoadError('Your saved coins and rewards could not be loaded. No purchase was made.')
+      setLoadStatus('error')
     }
-    loadState()
-  }, [])
+
+    return () => {
+      cancelled = true
+    }
+  }, [loadAttempt])
+
+  useEffect(() => {
+    if (loadStatus !== 'ready') return
+
+    let cancelled = false
+    setWalletSyncStatus('syncing')
+
+    async function syncWallet() {
+      const result = await syncCloudWalletForShop()
+      if (cancelled) return
+
+      setCoins(result.coins)
+      setWalletSyncStatus(result.status)
+      if (result.status === 'error') console.error('Cloud coin sync unavailable')
+    }
+
+    void syncWallet()
+
+    return () => {
+      cancelled = true
+    }
+  }, [loadStatus, syncAttempt])
 
   // Filter achievements based on search/filters
   const filteredAchievements = useMemo(() => {
@@ -228,61 +291,124 @@ export default function RewardShop() {
 
   const rewards = getRewardsForTab()
 
-  return (
-    <div className={`max-w-4xl mx-auto px-4 ${embeddedMode ? 'py-5' : 'py-8'}`}>
-      {/* Header */}
-      <div className={`mb-8 ${embeddedMode ? 'space-y-4' : 'flex justify-between items-center'}`}>
-        <div>
-          <h1 className="text-3xl font-bold text-gray-900">Rewards Shop</h1>
-          <p className="text-gray-600">Spend your Truthle Coins on virtual rewards</p>
+  if (loadStatus === 'loading') {
+    return (
+      <div className="twt-container py-10 sm:py-14">
+        <div className="twt-panel mx-auto max-w-2xl p-6 sm:p-8" role="status" aria-live="polite" aria-busy="true">
+          <p className="twt-kicker">Rewards shop</p>
+          <h1 className="twt-display mt-2 text-3xl sm:text-4xl">Loading your coins and saved rewards</h1>
+          <p className="twt-prose mt-3">
+            Loading the coins and rewards saved on this device. Purchases remain disabled until that save is ready.
+          </p>
         </div>
-        <div className={`flex items-center gap-3 ${embeddedMode ? 'justify-between' : ''}`}>
-          <div className="bg-amber-100 px-4 py-2 rounded-full flex items-center gap-2 shadow-sm">
-            <span className="text-xl">🪙</span>
-            <span className="text-xl font-bold text-amber-700">{coins.toLocaleString()}</span>
-          </div>
-          {!embeddedMode && (
-            <Link
-              href="/truthle"
-              className="text-gray-600 hover:text-gray-900 flex items-center gap-1"
-            >
-              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
-              </svg>
-              Back
+      </div>
+    )
+  }
+
+  if (loadStatus === 'error') {
+    return (
+      <div className="twt-container py-10 sm:py-14">
+        <div className="twt-panel mx-auto max-w-2xl border-twt-coral p-6 sm:p-8" role="alert">
+          <p className="twt-kicker !text-twt-coral">Rewards shop unavailable</p>
+          <h1 className="twt-display mt-2 text-3xl sm:text-4xl">We could not load your rewards</h1>
+          <p className="twt-prose mt-3">{loadError}</p>
+          <div className="mt-6 flex flex-wrap gap-3">
+            <button type="button" className="twt-button" onClick={() => setLoadAttempt(attempt => attempt + 1)}>
+              Try again
+            </button>
+            <Link href="/truthle/" className="twt-button-secondary">
+              Back to Truthle
             </Link>
-          )}
+          </div>
         </div>
+      </div>
+    )
+  }
+
+  return (
+    <div className={`twt-container ${embeddedMode ? 'py-5' : 'py-8 sm:py-10'}`}>
+      {/* Header */}
+      <div className="mb-6 flex flex-col gap-5 sm:flex-row sm:items-end sm:justify-between">
+        <div>
+          <p className="twt-kicker">Truthle rewards</p>
+          <h1 className="twt-display mt-2 text-4xl sm:text-5xl">Rewards shop</h1>
+          <p className="twt-prose mt-3">Spend your Truthle Coins on virtual rewards.</p>
+        </div>
+        <div
+          className="flex w-fit items-center gap-2 rounded-full border-2 border-twt-ink bg-twt-butter px-4 py-2 shadow-[3px_3px_0_#192947]"
+          aria-live="polite"
+          aria-label={`${coins.toLocaleString()} Truthle Coins saved on this device${walletSyncStatus === 'error' ? ', cloud sync paused' : ''}`}
+        >
+          <span className="text-xl" aria-hidden="true">🪙</span>
+          <span className="text-xl font-extrabold text-twt-ink">{coins.toLocaleString()}</span>
+          <span className="text-sm font-bold text-twt-ink/70">coins</span>
+        </div>
+      </div>
+
+      {walletSyncStatus === 'syncing' && (
+        <p className="mb-6 rounded-xl border-2 border-twt-blue/25 bg-twt-blue/5 px-4 py-3 text-sm font-semibold text-twt-ink/75" role="status">
+          Syncing cloud coin earnings. Your saved balance is available now.
+        </p>
+      )}
+
+      {walletSyncStatus === 'error' && (
+        <div className="mb-6 flex flex-col gap-3 rounded-xl border-2 border-twt-coral/35 bg-twt-coral/10 px-4 py-3 sm:flex-row sm:items-center sm:justify-between" role="status" aria-live="polite">
+          <div>
+            <h2 className="font-extrabold text-twt-ink">Cloud coin sync paused</h2>
+            <p className="mt-1 text-sm leading-6 text-twt-ink/75">
+              Your saved local balance of {coins.toLocaleString()} coins and your rewards are still available. New cloud coins may be missing until sync succeeds.
+            </p>
+          </div>
+          <button
+            type="button"
+            className="twt-button-secondary shrink-0"
+            onClick={() => setSyncAttempt(attempt => attempt + 1)}
+          >
+            Retry sync
+          </button>
+        </div>
+      )}
+
+      <div className="twt-panel mb-6 bg-twt-butter/35 p-4 sm:p-5">
+        <h2 className="font-extrabold text-twt-ink">Virtual rewards only</h2>
+        <p className="mt-2 text-sm leading-6 text-twt-ink/75">
+          Truthle Coins are game credits with no cash value. Rewards are virtual items saved on this device.
+        </p>
+        <p className="mt-1 text-sm leading-6 text-twt-ink/75">
+          No cash, gift card, or physical reward delivery is available.
+        </p>
       </div>
 
       {/* Purchase message */}
       {purchaseMessage && (
-        <div className={`mb-6 px-4 py-3 rounded-lg ${
+        <div role={purchaseMessage.type === 'error' ? 'alert' : 'status'} className={`mb-6 rounded-xl border-2 px-4 py-3 font-semibold ${
           purchaseMessage.type === 'success'
-            ? 'bg-emerald-100 text-emerald-700'
-            : 'bg-red-100 text-red-700'
+            ? 'border-twt-green/30 bg-twt-green/10 text-twt-green'
+            : 'border-twt-coral/30 bg-twt-coral/10 text-twt-coral'
         }`}>
           {purchaseMessage.text}
         </div>
       )}
 
       {/* Tabs */}
-      <div className="flex gap-2 mb-8 overflow-x-auto pb-2">
+      <div className="mb-8 flex gap-2 overflow-x-auto pb-2" role="group" aria-label="Reward shop sections">
         {tabs.map(tab => (
           <button
             key={tab.id}
+            type="button"
             onClick={() => setActiveTab(tab.id)}
-            className={`flex items-center gap-2 px-4 py-2 rounded-lg font-medium transition-colors whitespace-nowrap ${
+            aria-pressed={activeTab === tab.id}
+            className={`flex min-h-11 items-center gap-2 whitespace-nowrap rounded-full border-2 border-twt-ink px-4 py-2 text-sm font-extrabold transition-colors ${
               activeTab === tab.id
-                ? 'bg-emerald-500 text-white'
-                : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                ? 'bg-twt-blue text-white'
+                : 'bg-white text-twt-ink hover:bg-twt-butter'
             }`}
           >
-            <span>{tab.icon}</span>
+            <span aria-hidden="true">{tab.icon}</span>
             <span>{tab.label}</span>
             {tab.badge && (
-              <span className={`text-xs px-2 py-0.5 rounded-full ${
-                activeTab === tab.id ? 'bg-emerald-600 text-white' : 'bg-gray-200 text-gray-600'
+              <span className={`rounded-full px-2 py-0.5 text-xs ${
+                activeTab === tab.id ? 'bg-white/20 text-white' : 'bg-twt-ink/10 text-twt-ink'
               }`}>
                 {tab.badge}
               </span>
@@ -302,89 +428,107 @@ export default function RewardShop() {
       {activeTab === 'achievements' && (
         <div className="space-y-6">
           {/* Achievement Stats Overview */}
-          <div className="bg-gradient-to-r from-purple-600 to-indigo-600 rounded-xl p-6 text-white">
-            <div className="flex items-center justify-between mb-4">
+          <div className="twt-panel bg-twt-ink p-6 text-white">
+            <div className="mb-4 flex flex-wrap items-start justify-between gap-4">
               <div>
-                <h2 className="text-2xl font-bold">Achievement Progress</h2>
-                <p className="text-purple-200">Unlock achievements by playing Truthle</p>
+                <p className="twt-kicker !text-twt-butter">Achievements</p>
+                <h2 className="twt-display mt-1 text-2xl sm:text-3xl">Achievement progress</h2>
+                <p className="mt-2 text-white/70">Unlock achievements by playing Truthle.</p>
               </div>
               <div className="text-right">
-                <div className="text-4xl font-bold">{achievementStats.unlocked}</div>
-                <div className="text-purple-200">of {achievementStats.total}</div>
+                <div className="twt-display text-4xl">{achievementStats.unlocked}</div>
+                <div className="text-white/70">of {achievementStats.total}</div>
               </div>
             </div>
-            <div className="w-full bg-purple-800 rounded-full h-3">
+            <div
+              className="h-3 w-full overflow-hidden rounded-full bg-white/15"
+              role="progressbar"
+              aria-label="Achievements unlocked"
+              aria-valuemin={0}
+              aria-valuemax={achievementStats.total}
+              aria-valuenow={achievementStats.unlocked}
+            >
               <div
-                className="bg-gradient-to-r from-yellow-400 to-amber-500 h-3 rounded-full transition-all"
+                className="h-3 rounded-full bg-twt-butter transition-all"
                 style={{ width: `${(achievementStats.unlocked / achievementStats.total) * 100}%` }}
               />
             </div>
 
             {/* Rarity breakdown */}
-            <div className="grid grid-cols-3 md:grid-cols-6 gap-2 mt-4">
+            <div className="mt-4 grid grid-cols-2 gap-2 sm:grid-cols-3 md:grid-cols-6">
               {Object.entries(RARITY_CONFIG).map(([rarity, config]) => (
-                <div key={rarity} className="text-center p-2 bg-white/10 rounded-lg">
-                  <div className="text-lg font-bold">
+                <div key={rarity} className="rounded-xl bg-white/10 p-2 text-center">
+                  <div className="text-lg font-extrabold">
                     {achievementStats.unlockedByRarity[rarity as AchievementRarity]}/{achievementStats.byRarity[rarity as AchievementRarity]}
                   </div>
-                  <div className={`text-xs ${config.color}`}>{config.label}</div>
+                  <div className="text-xs text-white/70">{config.label}</div>
                 </div>
               ))}
             </div>
           </div>
 
           {/* Filters */}
-          <div className="bg-white rounded-xl p-4 border border-gray-200 space-y-4">
-            <div className="flex flex-col md:flex-row gap-3">
+          <div className="twt-panel space-y-4 p-4 sm:p-5">
+            <div className="flex flex-col gap-3 md:flex-row">
               {/* Search */}
               <div className="flex-1">
+                <label htmlFor="achievement-search" className="mb-1 block text-sm font-bold text-twt-ink">Search achievements</label>
                 <input
+                  id="achievement-search"
                   type="text"
                   placeholder="Search achievements..."
                   value={achievementSearch}
                   onChange={(e) => setAchievementSearch(e.target.value)}
-                  className="w-full px-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
+                  className="w-full rounded-xl border-2 border-twt-ink/25 bg-white px-4 py-2 text-twt-ink placeholder:text-twt-ink/45 focus:border-twt-blue focus:outline-none focus:ring-2 focus:ring-twt-blue/30"
                 />
               </div>
 
               {/* Category filter */}
-              <select
-                value={achievementCategory}
-                onChange={(e) => setAchievementCategory(e.target.value)}
-                className="px-3 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
-              >
-                <option value="all">All Categories</option>
-                {ACHIEVEMENT_CATEGORIES.map(cat => (
-                  <option key={cat.id} value={cat.id}>
-                    {cat.icon} {cat.name}
-                  </option>
-                ))}
-              </select>
+              <div>
+                <label htmlFor="achievement-category" className="mb-1 block text-sm font-bold text-twt-ink">Category</label>
+                <select
+                  id="achievement-category"
+                  value={achievementCategory}
+                  onChange={(e) => setAchievementCategory(e.target.value)}
+                  className="w-full rounded-xl border-2 border-twt-ink/25 bg-white px-3 py-2 text-twt-ink focus:border-twt-blue focus:outline-none focus:ring-2 focus:ring-twt-blue/30"
+                >
+                  <option value="all">All Categories</option>
+                  {ACHIEVEMENT_CATEGORIES.map(cat => (
+                    <option key={cat.id} value={cat.id}>
+                      {cat.icon} {cat.name}
+                    </option>
+                  ))}
+                </select>
+              </div>
 
               {/* Rarity filter */}
-              <select
-                value={achievementRarity}
-                onChange={(e) => setAchievementRarity(e.target.value as AchievementRarity | 'all')}
-                className="px-3 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
-              >
-                <option value="all">All Rarities</option>
-                {Object.entries(RARITY_CONFIG).map(([rarity, config]) => (
-                  <option key={rarity} value={rarity}>{config.label}</option>
-                ))}
-              </select>
+              <div>
+                <label htmlFor="achievement-rarity" className="mb-1 block text-sm font-bold text-twt-ink">Rarity</label>
+                <select
+                  id="achievement-rarity"
+                  value={achievementRarity}
+                  onChange={(e) => setAchievementRarity(e.target.value as AchievementRarity | 'all')}
+                  className="w-full rounded-xl border-2 border-twt-ink/25 bg-white px-3 py-2 text-twt-ink focus:border-twt-blue focus:outline-none focus:ring-2 focus:ring-twt-blue/30"
+                >
+                  <option value="all">All Rarities</option>
+                  {Object.entries(RARITY_CONFIG).map(([rarity, config]) => (
+                    <option key={rarity} value={rarity}>{config.label}</option>
+                  ))}
+                </select>
+              </div>
             </div>
 
-            <div className="flex items-center justify-between">
+            <div className="flex flex-wrap items-center justify-between gap-3">
               <label className="flex items-center gap-2 cursor-pointer">
                 <input
                   type="checkbox"
                   checked={showUnlockedOnly}
                   onChange={(e) => setShowUnlockedOnly(e.target.checked)}
-                  className="w-4 h-4 text-purple-600 rounded"
+                  className="h-4 w-4 rounded accent-twt-blue"
                 />
-                <span className="text-sm text-gray-600">Show unlocked only</span>
+                <span className="text-sm font-semibold text-twt-ink/75">Show unlocked only</span>
               </label>
-              <span className="text-sm text-gray-500">
+              <span className="text-sm text-twt-ink/60">
                 Showing {filteredAchievements.length} achievements
               </span>
             </div>
@@ -400,10 +544,10 @@ export default function RewardShop() {
               return (
                 <div
                   key={achievement.id}
-                  className={`rounded-xl border-2 p-4 transition-all ${
+                  className={`rounded-2xl border-2 p-4 transition-all ${
                     isUnlocked
-                      ? `${rarityConfig.bgColor} border-current`
-                      : 'bg-gray-50 border-gray-200 opacity-60'
+                      ? ACHIEVEMENT_RARITY_STYLES[achievement.rarity]
+                      : 'border-twt-ink/20 bg-twt-paper'
                   }`}
                 >
                   <div className="flex items-start justify-between mb-2">
@@ -411,30 +555,30 @@ export default function RewardShop() {
                       {achievement.icon}
                     </span>
                     <div className="flex flex-col items-end gap-1">
-                      <span className={`text-xs px-2 py-0.5 rounded-full ${rarityConfig.bgColor} ${rarityConfig.color}`}>
+                      <span className={`rounded-full px-2 py-0.5 text-xs font-bold ${ACHIEVEMENT_RARITY_STYLES[achievement.rarity]}`}>
                         {rarityConfig.label}
                       </span>
-                      <span className="text-xs text-gray-500">{category?.icon}</span>
+                      <span className="text-xs text-twt-ink/55" aria-hidden="true">{category?.icon}</span>
                     </div>
                   </div>
-                  <h3 className={`font-semibold mb-1 ${isUnlocked ? 'text-gray-900' : 'text-gray-500'}`}>
+                  <h3 className={`mb-1 font-bold ${isUnlocked ? 'text-twt-ink' : 'text-twt-ink/70'}`}>
                     {achievement.name}
                   </h3>
-                  <p className={`text-sm mb-3 ${isUnlocked ? 'text-gray-600' : 'text-gray-400'}`}>
+                  <p className={`mb-3 text-sm leading-6 ${isUnlocked ? 'text-twt-ink/70' : 'text-twt-ink/60'}`}>
                     {achievement.description}
                   </p>
                   <div className="flex items-center justify-between">
                     {isUnlocked ? (
-                      <span className="text-emerald-600 font-medium flex items-center gap-1">
+                      <span className="flex items-center gap-1 font-semibold text-twt-green">
                         <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
                           <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
                         </svg>
                         Unlocked
                       </span>
                     ) : (
-                      <span className="text-gray-400 text-sm">🔒 Locked</span>
+                      <span className="text-sm font-semibold text-twt-ink/60">🔒 Locked</span>
                     )}
-                    <span className="text-sm font-medium text-amber-600">
+                    <span className="text-sm font-bold text-twt-ink">
                       +{achievement.coinReward} 🪙
                     </span>
                   </div>
@@ -444,16 +588,16 @@ export default function RewardShop() {
           </div>
 
           {filteredAchievements.length > 50 && (
-            <div className="text-center text-gray-500 py-4">
+            <div className="py-4 text-center text-sm text-twt-ink/60">
               Showing 50 of {filteredAchievements.length} achievements. Use filters to narrow down.
             </div>
           )}
 
           {filteredAchievements.length === 0 && (
-            <div className="text-center py-12">
-              <div className="text-6xl mb-4">🔍</div>
-              <h3 className="text-xl font-semibold text-gray-700 mb-2">No achievements found</h3>
-              <p className="text-gray-500">Try adjusting your filters or search query</p>
+            <div className="twt-panel bg-twt-paper px-5 py-12 text-center">
+              <div className="mb-4 text-6xl" aria-hidden="true">🔍</div>
+              <h3 className="twt-display mb-2 text-2xl">No achievements found</h3>
+              <p className="text-twt-ink/65">Try adjusting your filters or search query.</p>
             </div>
           )}
         </div>
@@ -467,69 +611,77 @@ export default function RewardShop() {
           const canAfford = coins >= reward.price
           const equipped = isEquipped(reward)
           const canEquip = reward.category !== 'powerup'
+          const missingCoins = Math.max(0, reward.price - coins)
+          const balanceNoteId = `reward-balance-${reward.id}`
 
           return (
             <div
               key={reward.id}
-              className={`bg-white rounded-xl border-2 p-4 transition-all ${
-                owned ? 'border-emerald-300 bg-emerald-50' : 'border-gray-200 hover:border-gray-300'
+              className={`twt-panel p-4 transition-all ${
+                owned ? '!border-twt-green bg-twt-green/5' : ''
               }`}
             >
               {/* Icon and rarity */}
               <div className="flex items-start justify-between mb-3">
-                <span className="text-4xl">{reward.icon}</span>
-                <span className={`text-xs px-2 py-1 rounded-full ${RARITY_COLORS[reward.rarity]}`}>
+                <span className="text-4xl" aria-hidden="true">{reward.icon}</span>
+                <span className={`rounded-full px-2 py-1 text-xs font-bold ${REWARD_RARITY_STYLES[reward.rarity]}`}>
                   {RARITY_LABELS[reward.rarity]}
                 </span>
               </div>
 
               {/* Name and description */}
-              <h3 className="font-semibold text-gray-900 mb-1">{reward.name}</h3>
-              <p className="text-sm text-gray-600 mb-4">{reward.description}</p>
+              <h3 className="mb-1 font-extrabold text-twt-ink">{reward.name}</h3>
+              <p className="mb-4 text-sm leading-6 text-twt-ink/70">{reward.description}</p>
 
               {/* Price and actions */}
-              <div className="flex items-center justify-between">
+              <div className="flex flex-wrap items-center justify-between gap-3">
                 {owned ? (
                   <>
-                    <span className="text-emerald-600 font-medium">✓ Owned</span>
+                    <span className="font-semibold text-twt-green">✓ Owned</span>
                     {canEquip && (
                       <button
+                        type="button"
                         onClick={() => handleEquip(reward)}
-                        className={`px-3 py-1 rounded-lg text-sm font-medium transition-colors ${
+                        aria-pressed={equipped}
+                        className={`min-h-10 rounded-full border-2 border-twt-ink px-3 py-1 text-sm font-extrabold transition-colors ${
                           equipped
-                            ? 'bg-emerald-500 text-white'
-                            : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
+                            ? 'bg-twt-green text-white'
+                            : 'bg-white text-twt-ink hover:bg-twt-butter'
                         }`}
                       >
                         {equipped ? 'Equipped' : 'Equip'}
                       </button>
                     )}
                     {!canEquip && (
-                      <span className="text-sm text-gray-500">Consumable</span>
+                      <span className="text-sm font-semibold text-twt-ink/60">Consumable</span>
                     )}
                   </>
                 ) : (
                   <>
                     <div className="flex items-center gap-1">
-                      <span className="text-amber-500">🪙</span>
-                      <span className={`font-bold ${canAfford ? 'text-gray-900' : 'text-red-500'}`}>
+                      <span aria-hidden="true">🪙</span>
+                      <span className={`font-extrabold ${canAfford ? 'text-twt-ink' : 'text-twt-coral'}`}>
                         {reward.price.toLocaleString()}
                       </span>
                     </div>
                     <button
+                      type="button"
                       onClick={() => handlePurchase(reward)}
                       disabled={!canAfford}
-                      className={`px-4 py-2 rounded-lg font-medium transition-colors ${
-                        canAfford
-                          ? 'bg-amber-500 hover:bg-amber-600 text-white'
-                          : 'bg-gray-200 text-gray-400 cursor-not-allowed'
-                      }`}
+                      aria-describedby={!canAfford ? balanceNoteId : undefined}
+                      aria-label={`Buy ${reward.name} for ${reward.price.toLocaleString()} Truthle Coins`}
+                      className="twt-button !min-h-10 !px-4 !py-2 !text-sm disabled:cursor-not-allowed disabled:border-twt-ink/20 disabled:bg-twt-ink/10 disabled:text-twt-ink/45 disabled:shadow-none"
                     >
                       Buy
                     </button>
                   </>
                 )}
               </div>
+              {!owned && !canAfford && (
+                <p id={balanceNoteId} className="mt-3 rounded-lg bg-twt-coral/10 px-3 py-2 text-sm font-semibold text-twt-coral">
+                  Insufficient balance. Earn {missingCoins.toLocaleString()} more coins to buy this reward.
+                </p>
+              )}
             </div>
           )
         })}
@@ -537,16 +689,20 @@ export default function RewardShop() {
       )}
 
       {activeTab !== 'earn' && activeTab !== 'achievements' && rewards.length === 0 && (
-        <div className="text-center py-12 text-gray-500">
-          No rewards available in this category
+        <div className="twt-panel bg-twt-paper px-5 py-12 text-center">
+          <h2 className="twt-display text-2xl">No rewards in this category</h2>
+          <p className="mt-2 text-twt-ink/65">Try another section of the shop.</p>
         </div>
       )}
 
       {/* Achievement badges section */}
       {(activeTab === 'badges' || activeTab === 'all') && (
         <div className="mt-12">
-          <h2 className="text-xl font-bold text-gray-900 mb-4">Achievement Badges</h2>
-          <p className="text-gray-600 mb-6">These badges are unlocked through gameplay achievements, not purchased.</p>
+          <p className="twt-kicker">Gameplay rewards</p>
+          <h2 className="twt-display mt-2 text-3xl text-twt-ink">Achievement badges</h2>
+          <p className="mt-3 max-w-2xl text-base leading-7 text-twt-ink/70">
+            These badges are unlocked through gameplay achievements, not purchased.
+          </p>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
             {BADGES.filter(b => b.unlockCondition).map(badge => {
               const owned = ownedItems.includes(badge.id)
@@ -554,22 +710,22 @@ export default function RewardShop() {
               return (
                 <div
                   key={badge.id}
-                  className={`bg-white rounded-xl border-2 p-4 ${
-                    owned ? 'border-emerald-300 bg-emerald-50' : 'border-gray-200 opacity-60'
+                  className={`twt-panel p-4 ${
+                    owned ? '!border-twt-green bg-twt-green/5' : 'bg-twt-paper'
                   }`}
                 >
                   <div className="flex items-start justify-between mb-3">
-                    <span className={`text-4xl ${owned ? '' : 'grayscale'}`}>{badge.icon}</span>
-                    <span className={`text-xs px-2 py-1 rounded-full ${RARITY_COLORS[badge.rarity]}`}>
+                    <span className={`text-4xl ${owned ? '' : 'grayscale'}`} aria-hidden="true">{badge.icon}</span>
+                    <span className={`rounded-full px-2 py-1 text-xs font-bold ${REWARD_RARITY_STYLES[badge.rarity]}`}>
                       {RARITY_LABELS[badge.rarity]}
                     </span>
                   </div>
-                  <h3 className="font-semibold text-gray-900 mb-1">{badge.name}</h3>
-                  <p className="text-sm text-gray-600 mb-3">{badge.description}</p>
+                  <h3 className="mb-1 font-extrabold text-twt-ink">{badge.name}</h3>
+                  <p className="mb-3 text-sm leading-6 text-twt-ink/70">{badge.description}</p>
                   {owned ? (
-                    <span className="text-emerald-600 font-medium">✓ Unlocked</span>
+                    <span className="font-semibold text-twt-green">✓ Unlocked</span>
                   ) : (
-                    <span className="text-gray-400 text-sm">🔒 Locked</span>
+                    <span className="text-sm font-semibold text-twt-ink/60">🔒 Locked</span>
                   )}
                 </div>
               )
@@ -578,54 +734,57 @@ export default function RewardShop() {
         </div>
       )}
 
-      {/* How to earn coins */}
-      <div className="mt-12 bg-gradient-to-r from-amber-50 to-yellow-50 border border-amber-200 rounded-xl p-6">
-        <h2 className="text-xl font-bold text-amber-800 mb-4">💡 How to Earn Coins</h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm">
-          <div className="flex items-start gap-3">
-            <span className="text-lg">🎮</span>
+      <section className="twt-panel mt-12 bg-twt-paper p-5 sm:p-6" aria-labelledby="earn-coins-heading">
+        <p className="twt-kicker">Gameplay</p>
+        <h2 id="earn-coins-heading" className="twt-display mt-2 text-2xl sm:text-3xl">How to earn coins</h2>
+        <p className="mt-3 max-w-2xl text-sm leading-6 text-twt-ink/70">
+          These game rewards add Truthle Coins to your balance. They do not change the shop prices.
+        </p>
+        <div className="mt-5 grid grid-cols-1 gap-3 sm:grid-cols-2">
+          <div className="flex items-start gap-3 rounded-xl border border-twt-ink/15 bg-white p-4">
+            <span className="text-lg" aria-hidden="true">🎮</span>
             <div>
-              <p className="font-medium text-amber-900">Daily Play</p>
-              <p className="text-amber-700">+10 coins just for playing</p>
+              <p className="font-extrabold text-twt-ink">Daily Play</p>
+              <p className="text-sm text-twt-ink/70">+10 coins just for playing</p>
             </div>
           </div>
-          <div className="flex items-start gap-3">
-            <span className="text-lg">✅</span>
+          <div className="flex items-start gap-3 rounded-xl border border-twt-ink/15 bg-white p-4">
+            <span className="text-lg" aria-hidden="true">✅</span>
             <div>
-              <p className="font-medium text-amber-900">Correct Answers</p>
-              <p className="text-amber-700">+5 coins per correct answer</p>
+              <p className="font-extrabold text-twt-ink">Correct Answers</p>
+              <p className="text-sm text-twt-ink/70">+5 coins per correct answer</p>
             </div>
           </div>
-          <div className="flex items-start gap-3">
-            <span className="text-lg">⚡</span>
+          <div className="flex items-start gap-3 rounded-xl border border-twt-ink/15 bg-white p-4">
+            <span className="text-lg" aria-hidden="true">⚡</span>
             <div>
-              <p className="font-medium text-amber-900">Speed Bonus</p>
-              <p className="text-amber-700">+2 coins per fast answer (&lt;3s)</p>
+              <p className="font-extrabold text-twt-ink">Speed Bonus</p>
+              <p className="text-sm text-twt-ink/70">+2 coins per fast answer (&lt;3s)</p>
             </div>
           </div>
-          <div className="flex items-start gap-3">
-            <span className="text-lg">💯</span>
+          <div className="flex items-start gap-3 rounded-xl border border-twt-ink/15 bg-white p-4">
+            <span className="text-lg" aria-hidden="true">💯</span>
             <div>
-              <p className="font-medium text-amber-900">Perfect Score</p>
-              <p className="text-amber-700">+50 coins for 5/5</p>
+              <p className="font-extrabold text-twt-ink">Perfect Score</p>
+              <p className="text-sm text-twt-ink/70">+50 coins for 5/5</p>
             </div>
           </div>
-          <div className="flex items-start gap-3">
-            <span className="text-lg">🔥</span>
+          <div className="flex items-start gap-3 rounded-xl border border-twt-ink/15 bg-white p-4">
+            <span className="text-lg" aria-hidden="true">🔥</span>
             <div>
-              <p className="font-medium text-amber-900">Streak Milestones</p>
-              <p className="text-amber-700">+25 to +2000 coins at milestones</p>
+              <p className="font-extrabold text-twt-ink">Streak Milestones</p>
+              <p className="text-sm text-twt-ink/70">+25 to +2000 coins at milestones</p>
             </div>
           </div>
-          <div className="flex items-start gap-3">
-            <span className="text-lg">🎁</span>
+          <div className="flex items-start gap-3 rounded-xl border border-twt-ink/15 bg-white p-4">
+            <span className="text-lg" aria-hidden="true">🎁</span>
             <div>
-              <p className="font-medium text-amber-900">Welcome Bonus</p>
-              <p className="text-amber-700">+100 coins for first game</p>
+              <p className="font-extrabold text-twt-ink">Welcome Bonus</p>
+              <p className="text-sm text-twt-ink/70">+100 coins for first game</p>
             </div>
           </div>
         </div>
-      </div>
+      </section>
     </div>
   )
 }

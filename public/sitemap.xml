@@ -2,3296 +2,2762 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://theworldtruth.com/</loc>
-    <lastmod>2026-10-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://theworldtruth.com/truthle/</loc>
-    <lastmod>2026-10-30</lastmod>
+    <loc>https://theworldtruth.com/challenge/</loc>
     <changefreq>daily</changefreq>
-    <priority>1.0</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/true-false/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/truthle/shop/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/truthle-vs-worldle/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/charts/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/discoveries/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/quiz/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://theworldtruth.com/map/democracy-score/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/map/corruption-index/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/map/press-freedom/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/map/crypto-adoption/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/map/gdp-per-capita/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/map/gdp-per-capita-ppp/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/map/human-development-index/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/map/women-s-legal-rights/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/map/billionaires-per-capita/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/map/millionaires-per-capita/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/map/startup-unicorns/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/map/tourist-arrivals/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/map/mcdonald-s-per-capita/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/map/starbucks-per-capita/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/map/ev-adoption/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/map/renewable-energy/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/map/government-debt-to-gdp/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/map/gdp-growth-rate/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/map/inflation-rate/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/map/corporate-tax-rate/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/map/top-income-tax-rate/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/map/vat-sales-tax-rate/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/map/unemployment-rate/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/map/youth-unemployment-rate/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/map/fdi-inflows-gdp/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/map/trade-balance-gdp/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/map/exports-gdp/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/map/current-account-balance/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/map/central-bank-interest-rate/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/map/gini-index-inequality/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/map/economic-freedom-index/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/map/big-mac-price-usd/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/map/life-expectancy/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/map/average-male-height/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/map/obesity-rate/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/map/average-penis-size/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/map/average-breast-size/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/map/fertility-rate/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/map/alcohol-consumption/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/map/suicide-rate/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/map/hiv-prevalence/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/map/plastic-surgery-rate/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/map/sleep-duration/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/map/diabetes-rate/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/map/air-pollution/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/map/avg-sexual-partners/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/map/age-of-first-sex/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/map/divorce-rate/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/map/lgbt-acceptance/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/map/dating-app-usage/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/map/onlyfans-creators/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/map/porn-consumption/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/map/consanguinity-rate/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/map/ethnic-diversity/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/map/median-age/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/map/urban-population/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/map/twin-birth-rate/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/map/immigration-rate/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/map/illegal-immigration-rate/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/map/net-migration-rate/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/map/refugees-hosted/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/map/average-iq/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/map/literacy-rate/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/map/pisa-math-score/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/map/nobel-prizes-per-capita/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/map/chess-grandmasters/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/map/english-proficiency/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/map/happiness-index/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/map/work-hours-week/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/map/internet-users/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/map/coffee-consumption/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/map/screen-time/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/map/video-game-players/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/map/tattoo-rate/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/map/pizza-consumption/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/map/chocolate-consumption/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/map/tea-consumption/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/map/beer-consumption/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/map/wine-consumption/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/map/metal-bands-per-capita/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/map/vegetarian-rate/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/map/left-handed-rate/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/map/homicide-rate/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/map/safety-index/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/map/gun-ownership/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/map/peace-index/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/map/car-ownership/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/map/bicycle-usage/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/map/average-commute/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/map/traffic-index/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/map/co2-per-capita/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/map/recycling-rate/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/map/forest-coverage/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/map/major-religion/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/map/military-spending-gdp/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/map/cannabis-legal/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/map/drug-policy-score/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/map/gambling-legal/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/map/passport-power/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/map/smoking-rate/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/map/religion-very-important/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/map/child-marriage-rate/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/map/marriage-age/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/map/polyamory-rate/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/map/prostitution-legal/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/map/teen-pregnancy-rate/</loc>
-    <lastmod>2026-10-30</lastmod>
+    <loc>https://theworldtruth.com/charts/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://theworldtruth.com/country/afghanistan/</loc>
-    <lastmod>2026-10-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://theworldtruth.com/country/albania/</loc>
-    <lastmod>2026-10-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://theworldtruth.com/country/algeria/</loc>
-    <lastmod>2026-10-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://theworldtruth.com/country/andorra/</loc>
-    <lastmod>2026-10-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://theworldtruth.com/country/angola/</loc>
-    <lastmod>2026-10-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://theworldtruth.com/country/argentina/</loc>
-    <lastmod>2026-10-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://theworldtruth.com/country/armenia/</loc>
-    <lastmod>2026-10-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://theworldtruth.com/country/australia/</loc>
-    <lastmod>2026-10-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://theworldtruth.com/country/austria/</loc>
-    <lastmod>2026-10-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://theworldtruth.com/country/azerbaijan/</loc>
-    <lastmod>2026-10-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://theworldtruth.com/country/bahrain/</loc>
-    <lastmod>2026-10-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://theworldtruth.com/country/bangladesh/</loc>
-    <lastmod>2026-10-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://theworldtruth.com/country/belarus/</loc>
-    <lastmod>2026-10-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://theworldtruth.com/country/belgium/</loc>
-    <lastmod>2026-10-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://theworldtruth.com/country/benin/</loc>
-    <lastmod>2026-10-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://theworldtruth.com/country/bhutan/</loc>
-    <lastmod>2026-10-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://theworldtruth.com/country/bolivia/</loc>
-    <lastmod>2026-10-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://theworldtruth.com/country/bosnia-and-herzegovina/</loc>
-    <lastmod>2026-10-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://theworldtruth.com/country/botswana/</loc>
-    <lastmod>2026-10-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://theworldtruth.com/country/brazil/</loc>
-    <lastmod>2026-10-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://theworldtruth.com/country/brunei/</loc>
-    <lastmod>2026-10-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://theworldtruth.com/country/bulgaria/</loc>
-    <lastmod>2026-10-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://theworldtruth.com/country/burkina-faso/</loc>
-    <lastmod>2026-10-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://theworldtruth.com/country/burundi/</loc>
-    <lastmod>2026-10-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://theworldtruth.com/country/cambodia/</loc>
-    <lastmod>2026-10-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://theworldtruth.com/country/cameroon/</loc>
-    <lastmod>2026-10-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://theworldtruth.com/country/canada/</loc>
-    <lastmod>2026-10-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://theworldtruth.com/country/central-african-republic/</loc>
-    <lastmod>2026-10-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://theworldtruth.com/country/chad/</loc>
-    <lastmod>2026-10-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://theworldtruth.com/country/chile/</loc>
-    <lastmod>2026-10-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://theworldtruth.com/country/china/</loc>
-    <lastmod>2026-10-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://theworldtruth.com/country/colombia/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/country/dr-congo/</loc>
-    <lastmod>2026-10-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://theworldtruth.com/country/congo/</loc>
-    <lastmod>2026-10-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://theworldtruth.com/country/costa-rica/</loc>
-    <lastmod>2026-10-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://theworldtruth.com/country/cote-d-ivoire/</loc>
-    <lastmod>2026-10-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://theworldtruth.com/country/croatia/</loc>
-    <lastmod>2026-10-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://theworldtruth.com/country/cuba/</loc>
-    <lastmod>2026-10-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://theworldtruth.com/country/cyprus/</loc>
-    <lastmod>2026-10-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://theworldtruth.com/country/czechia/</loc>
-    <lastmod>2026-10-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://theworldtruth.com/country/denmark/</loc>
-    <lastmod>2026-10-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://theworldtruth.com/country/djibouti/</loc>
-    <lastmod>2026-10-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://theworldtruth.com/country/dominican-republic/</loc>
-    <lastmod>2026-10-30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/country/dr-congo/</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://theworldtruth.com/country/ecuador/</loc>
-    <lastmod>2026-10-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://theworldtruth.com/country/egypt/</loc>
-    <lastmod>2026-10-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://theworldtruth.com/country/el-salvador/</loc>
-    <lastmod>2026-10-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://theworldtruth.com/country/equatorial-guinea/</loc>
-    <lastmod>2026-10-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://theworldtruth.com/country/eritrea/</loc>
-    <lastmod>2026-10-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://theworldtruth.com/country/estonia/</loc>
-    <lastmod>2026-10-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://theworldtruth.com/country/eswatini/</loc>
-    <lastmod>2026-10-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://theworldtruth.com/country/ethiopia/</loc>
-    <lastmod>2026-10-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://theworldtruth.com/country/finland/</loc>
-    <lastmod>2026-10-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://theworldtruth.com/country/france/</loc>
-    <lastmod>2026-10-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://theworldtruth.com/country/gabon/</loc>
-    <lastmod>2026-10-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://theworldtruth.com/country/gambia/</loc>
-    <lastmod>2026-10-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://theworldtruth.com/country/georgia/</loc>
-    <lastmod>2026-10-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://theworldtruth.com/country/germany/</loc>
-    <lastmod>2026-10-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://theworldtruth.com/country/ghana/</loc>
-    <lastmod>2026-10-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://theworldtruth.com/country/greece/</loc>
-    <lastmod>2026-10-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://theworldtruth.com/country/guatemala/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/country/guinea/</loc>
-    <lastmod>2026-10-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://theworldtruth.com/country/guinea-bissau/</loc>
-    <lastmod>2026-10-30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/country/guinea/</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://theworldtruth.com/country/guyana/</loc>
-    <lastmod>2026-10-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://theworldtruth.com/country/haiti/</loc>
-    <lastmod>2026-10-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://theworldtruth.com/country/honduras/</loc>
-    <lastmod>2026-10-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://theworldtruth.com/country/hungary/</loc>
-    <lastmod>2026-10-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://theworldtruth.com/country/iceland/</loc>
-    <lastmod>2026-10-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://theworldtruth.com/country/india/</loc>
-    <lastmod>2026-10-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://theworldtruth.com/country/indonesia/</loc>
-    <lastmod>2026-10-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://theworldtruth.com/country/iran/</loc>
-    <lastmod>2026-10-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://theworldtruth.com/country/iraq/</loc>
-    <lastmod>2026-10-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://theworldtruth.com/country/ireland/</loc>
-    <lastmod>2026-10-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://theworldtruth.com/country/israel/</loc>
-    <lastmod>2026-10-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://theworldtruth.com/country/italy/</loc>
-    <lastmod>2026-10-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://theworldtruth.com/country/jamaica/</loc>
-    <lastmod>2026-10-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://theworldtruth.com/country/japan/</loc>
-    <lastmod>2026-10-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://theworldtruth.com/country/jordan/</loc>
-    <lastmod>2026-10-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://theworldtruth.com/country/kazakhstan/</loc>
-    <lastmod>2026-10-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://theworldtruth.com/country/kenya/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/country/north-korea/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/country/south-korea/</loc>
-    <lastmod>2026-10-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://theworldtruth.com/country/kuwait/</loc>
-    <lastmod>2026-10-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://theworldtruth.com/country/kyrgyzstan/</loc>
-    <lastmod>2026-10-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://theworldtruth.com/country/laos/</loc>
-    <lastmod>2026-10-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://theworldtruth.com/country/latvia/</loc>
-    <lastmod>2026-10-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://theworldtruth.com/country/lebanon/</loc>
-    <lastmod>2026-10-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://theworldtruth.com/country/lesotho/</loc>
-    <lastmod>2026-10-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://theworldtruth.com/country/liberia/</loc>
-    <lastmod>2026-10-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://theworldtruth.com/country/libya/</loc>
-    <lastmod>2026-10-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://theworldtruth.com/country/lithuania/</loc>
-    <lastmod>2026-10-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://theworldtruth.com/country/luxembourg/</loc>
-    <lastmod>2026-10-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://theworldtruth.com/country/madagascar/</loc>
-    <lastmod>2026-10-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://theworldtruth.com/country/malawi/</loc>
-    <lastmod>2026-10-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://theworldtruth.com/country/malaysia/</loc>
-    <lastmod>2026-10-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://theworldtruth.com/country/mali/</loc>
-    <lastmod>2026-10-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://theworldtruth.com/country/mauritania/</loc>
-    <lastmod>2026-10-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://theworldtruth.com/country/mauritius/</loc>
-    <lastmod>2026-10-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://theworldtruth.com/country/mexico/</loc>
-    <lastmod>2026-10-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://theworldtruth.com/country/moldova/</loc>
-    <lastmod>2026-10-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://theworldtruth.com/country/mongolia/</loc>
-    <lastmod>2026-10-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://theworldtruth.com/country/montenegro/</loc>
-    <lastmod>2026-10-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://theworldtruth.com/country/morocco/</loc>
-    <lastmod>2026-10-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://theworldtruth.com/country/mozambique/</loc>
-    <lastmod>2026-10-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://theworldtruth.com/country/myanmar/</loc>
-    <lastmod>2026-10-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://theworldtruth.com/country/namibia/</loc>
-    <lastmod>2026-10-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://theworldtruth.com/country/nepal/</loc>
-    <lastmod>2026-10-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://theworldtruth.com/country/netherlands/</loc>
-    <lastmod>2026-10-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://theworldtruth.com/country/new-zealand/</loc>
-    <lastmod>2026-10-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://theworldtruth.com/country/nicaragua/</loc>
-    <lastmod>2026-10-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://theworldtruth.com/country/niger/</loc>
-    <lastmod>2026-10-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://theworldtruth.com/country/nigeria/</loc>
-    <lastmod>2026-10-30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/country/north-korea/</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://theworldtruth.com/country/norway/</loc>
-    <lastmod>2026-10-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://theworldtruth.com/country/oman/</loc>
-    <lastmod>2026-10-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://theworldtruth.com/country/pakistan/</loc>
-    <lastmod>2026-10-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://theworldtruth.com/country/panama/</loc>
-    <lastmod>2026-10-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://theworldtruth.com/country/papua-new-guinea/</loc>
-    <lastmod>2026-10-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://theworldtruth.com/country/paraguay/</loc>
-    <lastmod>2026-10-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://theworldtruth.com/country/peru/</loc>
-    <lastmod>2026-10-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://theworldtruth.com/country/philippines/</loc>
-    <lastmod>2026-10-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://theworldtruth.com/country/poland/</loc>
-    <lastmod>2026-10-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://theworldtruth.com/country/portugal/</loc>
-    <lastmod>2026-10-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://theworldtruth.com/country/qatar/</loc>
-    <lastmod>2026-10-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://theworldtruth.com/country/romania/</loc>
-    <lastmod>2026-10-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://theworldtruth.com/country/russia/</loc>
-    <lastmod>2026-10-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://theworldtruth.com/country/rwanda/</loc>
-    <lastmod>2026-10-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://theworldtruth.com/country/saudi-arabia/</loc>
-    <lastmod>2026-10-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://theworldtruth.com/country/senegal/</loc>
-    <lastmod>2026-10-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://theworldtruth.com/country/serbia/</loc>
-    <lastmod>2026-10-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://theworldtruth.com/country/sierra-leone/</loc>
-    <lastmod>2026-10-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://theworldtruth.com/country/singapore/</loc>
-    <lastmod>2026-10-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://theworldtruth.com/country/slovakia/</loc>
-    <lastmod>2026-10-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://theworldtruth.com/country/slovenia/</loc>
-    <lastmod>2026-10-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://theworldtruth.com/country/somalia/</loc>
-    <lastmod>2026-10-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://theworldtruth.com/country/south-africa/</loc>
-    <lastmod>2026-10-30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/country/south-korea/</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://theworldtruth.com/country/south-sudan/</loc>
-    <lastmod>2026-10-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://theworldtruth.com/country/spain/</loc>
-    <lastmod>2026-10-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://theworldtruth.com/country/sri-lanka/</loc>
-    <lastmod>2026-10-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://theworldtruth.com/country/sudan/</loc>
-    <lastmod>2026-10-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://theworldtruth.com/country/suriname/</loc>
-    <lastmod>2026-10-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://theworldtruth.com/country/sweden/</loc>
-    <lastmod>2026-10-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://theworldtruth.com/country/switzerland/</loc>
-    <lastmod>2026-10-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://theworldtruth.com/country/syria/</loc>
-    <lastmod>2026-10-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://theworldtruth.com/country/taiwan/</loc>
-    <lastmod>2026-10-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://theworldtruth.com/country/tajikistan/</loc>
-    <lastmod>2026-10-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://theworldtruth.com/country/tanzania/</loc>
-    <lastmod>2026-10-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://theworldtruth.com/country/thailand/</loc>
-    <lastmod>2026-10-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://theworldtruth.com/country/timor-leste/</loc>
-    <lastmod>2026-10-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://theworldtruth.com/country/togo/</loc>
-    <lastmod>2026-10-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://theworldtruth.com/country/trinidad-and-tobago/</loc>
-    <lastmod>2026-10-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://theworldtruth.com/country/tunisia/</loc>
-    <lastmod>2026-10-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://theworldtruth.com/country/turkey/</loc>
-    <lastmod>2026-10-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://theworldtruth.com/country/turkmenistan/</loc>
-    <lastmod>2026-10-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://theworldtruth.com/country/uganda/</loc>
-    <lastmod>2026-10-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://theworldtruth.com/country/ukraine/</loc>
-    <lastmod>2026-10-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://theworldtruth.com/country/united-arab-emirates/</loc>
-    <lastmod>2026-10-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://theworldtruth.com/country/united-kingdom/</loc>
-    <lastmod>2026-10-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://theworldtruth.com/country/united-states/</loc>
-    <lastmod>2026-10-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://theworldtruth.com/country/uruguay/</loc>
-    <lastmod>2026-10-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://theworldtruth.com/country/uzbekistan/</loc>
-    <lastmod>2026-10-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://theworldtruth.com/country/venezuela/</loc>
-    <lastmod>2026-10-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://theworldtruth.com/country/vietnam/</loc>
-    <lastmod>2026-10-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://theworldtruth.com/country/yemen/</loc>
-    <lastmod>2026-10-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://theworldtruth.com/country/zambia/</loc>
-    <lastmod>2026-10-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://theworldtruth.com/country/zimbabwe/</loc>
-    <lastmod>2026-10-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://theworldtruth.com/discoveries/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/map/age-of-first-sex/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/map/air-pollution/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/map/alcohol-consumption/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/map/average-breast-size/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/map/average-commute/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/map/average-iq/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/map/average-male-height/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/map/average-penis-size/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/map/avg-sexual-partners/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/map/beer-consumption/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/map/bicycle-usage/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/map/big-mac-price-usd/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/map/billionaires-per-capita/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/map/cannabis-legal/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/map/car-ownership/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/map/central-bank-interest-rate/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/map/chess-grandmasters/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/map/child-marriage-rate/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/map/chocolate-consumption/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/map/co2-per-capita/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/map/coffee-consumption/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/map/consanguinity-rate/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/map/corporate-tax-rate/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/map/corruption-index/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/map/crypto-adoption/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/map/current-account-balance/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/map/dating-app-usage/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/map/democracy-score/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/map/diabetes-rate/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/map/divorce-rate/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/map/drug-policy-score/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/map/economic-freedom-index/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/map/english-proficiency/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/map/ethnic-diversity/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/map/ev-adoption/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/map/exports-gdp/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/map/fdi-inflows-gdp/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/map/fertility-rate/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/map/forest-coverage/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/map/gambling-legal/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/map/gdp-growth-rate/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/map/gdp-per-capita-ppp/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/map/gdp-per-capita/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/map/gini-index-inequality/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/map/government-debt-to-gdp/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/map/gun-ownership/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/map/happiness-index/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/map/hiv-prevalence/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/map/homicide-rate/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/map/human-development-index/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/map/illegal-immigration-rate/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/map/immigration-rate/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/map/inflation-rate/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/map/internet-users/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/map/left-handed-rate/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/map/lgbt-acceptance/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/map/life-expectancy/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/map/literacy-rate/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/map/major-religion/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/map/marriage-age/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/map/mcdonald-s-per-capita/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/map/median-age/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/map/metal-bands-per-capita/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/map/military-spending-gdp/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/map/millionaires-per-capita/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/map/net-migration-rate/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/map/nobel-prizes-per-capita/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/map/obesity-rate/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/map/onlyfans-creators/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/map/passport-power/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/map/peace-index/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/map/pisa-math-score/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/map/pizza-consumption/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/map/plastic-surgery-rate/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/map/polyamory-rate/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/map/porn-consumption/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/map/press-freedom/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/map/prostitution-legal/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/map/recycling-rate/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/map/refugees-hosted/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/map/religion-very-important/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/map/renewable-energy/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/map/safety-index/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/map/screen-time/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/map/sleep-duration/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/map/smoking-rate/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/map/starbucks-per-capita/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/map/startup-unicorns/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/map/suicide-rate/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/map/tattoo-rate/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/map/tea-consumption/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/map/teen-pregnancy-rate/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/map/top-income-tax-rate/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/map/tourist-arrivals/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/map/trade-balance-gdp/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/map/traffic-index/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/map/twin-birth-rate/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/map/unemployment-rate/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/map/urban-population/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/map/vat-sales-tax-rate/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/map/vegetarian-rate/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/map/video-game-players/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/map/wine-consumption/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/map/women-s-legal-rights/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/map/work-hours-week/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/map/youth-unemployment-rate/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/privacy/</loc>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/quiz/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/rewards/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/true-false/</loc>
+    <changefreq>daily</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
     <loc>https://theworldtruth.com/true-false/claims/</loc>
-    <lastmod>2026-10-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://theworldtruth.com/true-false/claims/united-states-vs-china-democracy-score/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/true-false/claims/india-vs-germany-democracy-score/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/true-false/claims/germany-vs-brazil-democracy-score/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/true-false/claims/china-vs-india-corruption-index/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/true-false/claims/japan-vs-united-kingdom-corruption-index/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/true-false/claims/united-kingdom-vs-russia-corruption-index/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/true-false/claims/india-vs-japan-press-freedom/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/true-false/claims/germany-vs-france-press-freedom/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/true-false/claims/france-vs-canada-press-freedom/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/true-false/claims/japan-vs-germany-crypto-adoption/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/true-false/claims/brazil-vs-australia-crypto-adoption/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/true-false/claims/germany-vs-united-kingdom-gdp-per-capita/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/true-false/claims/france-vs-russia-gdp-per-capita/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/true-false/claims/russia-vs-mexico-gdp-per-capita/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/true-false/claims/united-kingdom-vs-france-gdp-per-capita-ppp/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/true-false/claims/brazil-vs-canada-gdp-per-capita-ppp/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/true-false/claims/canada-vs-italy-gdp-per-capita-ppp/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/true-false/claims/france-vs-brazil-human-development-index/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/true-false/claims/russia-vs-australia-human-development-index/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/true-false/claims/australia-vs-spain-human-development-index/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/true-false/claims/brazil-vs-russia-women-s-legal-rights/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/true-false/claims/canada-vs-mexico-women-s-legal-rights/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/true-false/claims/mexico-vs-south-korea-women-s-legal-rights/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/true-false/claims/russia-vs-canada-billionaires-per-capita/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/true-false/claims/australia-vs-italy-billionaires-per-capita/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/true-false/claims/italy-vs-nigeria-billionaires-per-capita/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/true-false/claims/canada-vs-australia-millionaires-per-capita/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/true-false/claims/mexico-vs-spain-millionaires-per-capita/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/true-false/claims/spain-vs-sweden-millionaires-per-capita/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/true-false/claims/mexico-vs-italy-startup-unicorns/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/true-false/claims/spain-vs-nigeria-startup-unicorns/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/true-false/claims/nigeria-vs-turkey-startup-unicorns/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/true-false/claims/mexico-vs-italy-tourist-arrivals/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/true-false/claims/spain-vs-south-africa-tourist-arrivals/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/true-false/claims/south-africa-vs-egypt-tourist-arrivals/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/true-false/claims/italy-vs-spain-mcdonald-s-per-capita/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/true-false/claims/south-korea-vs-sweden-mcdonald-s-per-capita/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/true-false/claims/sweden-vs-egypt-mcdonald-s-per-capita/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/true-false/claims/south-korea-vs-south-africa-starbucks-per-capita/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/true-false/claims/sweden-vs-argentina-starbucks-per-capita/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/true-false/claims/argentina-vs-netherlands-starbucks-per-capita/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/true-false/claims/south-korea-vs-south-africa-ev-adoption/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/true-false/claims/sweden-vs-argentina-ev-adoption/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/true-false/claims/argentina-vs-netherlands-ev-adoption/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/true-false/claims/south-africa-vs-sweden-renewable-energy/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/true-false/claims/turkey-vs-egypt-renewable-energy/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/true-false/claims/egypt-vs-poland-renewable-energy/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/true-false/claims/south-africa-vs-sweden-government-debt-to-gdp/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/true-false/claims/turkey-vs-egypt-government-debt-to-gdp/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/true-false/claims/egypt-vs-poland-government-debt-to-gdp/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/true-false/claims/sweden-vs-turkey-gdp-growth-rate/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/true-false/claims/argentina-vs-indonesia-gdp-growth-rate/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/true-false/claims/indonesia-vs-united-states-gdp-growth-rate/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/true-false/claims/turkey-vs-argentina-inflation-rate/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/true-false/claims/egypt-vs-netherlands-inflation-rate/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/true-false/claims/netherlands-vs-china-inflation-rate/</loc>
-    <lastmod>2026-10-30</lastmod>
+    <loc>https://theworldtruth.com/true-false/claims/argentina-vs-china-child-marriage-rate/</loc>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://theworldtruth.com/true-false/claims/argentina-vs-egypt-corporate-tax-rate/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/true-false/claims/indonesia-vs-poland-corporate-tax-rate/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/true-false/claims/poland-vs-india-corporate-tax-rate/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/true-false/claims/egypt-vs-indonesia-top-income-tax-rate/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/true-false/claims/netherlands-vs-united-states-top-income-tax-rate/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/true-false/claims/united-states-vs-japan-top-income-tax-rate/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/true-false/claims/indonesia-vs-netherlands-vat-sales-tax-rate/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/true-false/claims/poland-vs-china-vat-sales-tax-rate/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/true-false/claims/china-vs-germany-vat-sales-tax-rate/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/true-false/claims/netherlands-vs-poland-unemployment-rate/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/true-false/claims/united-states-vs-india-unemployment-rate/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/true-false/claims/india-vs-united-kingdom-unemployment-rate/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/true-false/claims/poland-vs-united-states-youth-unemployment-rate/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/true-false/claims/china-vs-japan-youth-unemployment-rate/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/true-false/claims/japan-vs-france-youth-unemployment-rate/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/true-false/claims/united-states-vs-china-fdi-inflows-gdp/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/true-false/claims/india-vs-germany-fdi-inflows-gdp/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/true-false/claims/germany-vs-brazil-fdi-inflows-gdp/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/true-false/claims/china-vs-india-trade-balance-gdp/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/true-false/claims/japan-vs-united-kingdom-trade-balance-gdp/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/true-false/claims/united-kingdom-vs-russia-trade-balance-gdp/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/true-false/claims/india-vs-japan-exports-gdp/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/true-false/claims/germany-vs-france-exports-gdp/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/true-false/claims/france-vs-canada-exports-gdp/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/true-false/claims/japan-vs-germany-current-account-balance/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/true-false/claims/united-kingdom-vs-brazil-current-account-balance/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/true-false/claims/brazil-vs-australia-current-account-balance/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/true-false/claims/germany-vs-united-kingdom-central-bank-interest-rate/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/true-false/claims/france-vs-russia-central-bank-interest-rate/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/true-false/claims/russia-vs-mexico-central-bank-interest-rate/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/true-false/claims/united-kingdom-vs-france-gini-index-inequality/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/true-false/claims/brazil-vs-canada-gini-index-inequality/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/true-false/claims/canada-vs-italy-gini-index-inequality/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/true-false/claims/france-vs-brazil-economic-freedom-index/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/true-false/claims/russia-vs-australia-economic-freedom-index/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/true-false/claims/australia-vs-spain-economic-freedom-index/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/true-false/claims/russia-vs-canada-big-mac-price-usd/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/true-false/claims/australia-vs-italy-big-mac-price-usd/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/true-false/claims/italy-vs-south-africa-big-mac-price-usd/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/true-false/claims/russia-vs-canada-life-expectancy/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/true-false/claims/australia-vs-italy-life-expectancy/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/true-false/claims/italy-vs-nigeria-life-expectancy/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/true-false/claims/canada-vs-australia-average-male-height/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/true-false/claims/mexico-vs-spain-average-male-height/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/true-false/claims/spain-vs-south-africa-average-male-height/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/true-false/claims/australia-vs-mexico-obesity-rate/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/true-false/claims/italy-vs-south-korea-obesity-rate/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/true-false/claims/south-korea-vs-sweden-obesity-rate/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/true-false/claims/spain-vs-south-korea-fertility-rate/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/true-false/claims/nigeria-vs-sweden-fertility-rate/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/true-false/claims/sweden-vs-egypt-fertility-rate/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/true-false/claims/south-korea-vs-nigeria-alcohol-consumption/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/true-false/claims/south-africa-vs-turkey-alcohol-consumption/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/true-false/claims/turkey-vs-indonesia-alcohol-consumption/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/true-false/claims/nigeria-vs-south-africa-suicide-rate/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/true-false/claims/sweden-vs-argentina-suicide-rate/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/true-false/claims/argentina-vs-netherlands-suicide-rate/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/true-false/claims/sweden-vs-turkey-plastic-surgery-rate/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/true-false/claims/argentina-vs-indonesia-plastic-surgery-rate/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/true-false/claims/indonesia-vs-united-states-plastic-surgery-rate/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/true-false/claims/turkey-vs-argentina-sleep-duration/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/true-false/claims/egypt-vs-netherlands-sleep-duration/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/true-false/claims/netherlands-vs-china-sleep-duration/</loc>
-    <lastmod>2026-10-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://theworldtruth.com/true-false/claims/argentina-vs-egypt-diabetes-rate/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/true-false/claims/indonesia-vs-poland-diabetes-rate/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/true-false/claims/poland-vs-india-diabetes-rate/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/true-false/claims/egypt-vs-indonesia-air-pollution/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/true-false/claims/netherlands-vs-united-states-air-pollution/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/true-false/claims/united-states-vs-japan-air-pollution/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/true-false/claims/poland-vs-united-states-divorce-rate/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/true-false/claims/china-vs-japan-divorce-rate/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/true-false/claims/japan-vs-france-divorce-rate/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/true-false/claims/united-states-vs-china-lgbt-acceptance/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/true-false/claims/india-vs-germany-lgbt-acceptance/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/true-false/claims/germany-vs-brazil-lgbt-acceptance/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/true-false/claims/france-vs-brazil-median-age/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/true-false/claims/russia-vs-australia-median-age/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/true-false/claims/australia-vs-spain-median-age/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/true-false/claims/brazil-vs-russia-urban-population/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/true-false/claims/canada-vs-mexico-urban-population/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/true-false/claims/mexico-vs-south-korea-urban-population/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/true-false/claims/russia-vs-canada-twin-birth-rate/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/true-false/claims/australia-vs-italy-twin-birth-rate/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/true-false/claims/italy-vs-nigeria-twin-birth-rate/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/true-false/claims/canada-vs-australia-immigration-rate/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/true-false/claims/mexico-vs-spain-immigration-rate/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/true-false/claims/spain-vs-south-africa-immigration-rate/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/true-false/claims/mexico-vs-italy-net-migration-rate/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/true-false/claims/spain-vs-nigeria-net-migration-rate/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/true-false/claims/nigeria-vs-turkey-net-migration-rate/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/true-false/claims/nigeria-vs-south-africa-refugees-hosted/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/true-false/claims/sweden-vs-argentina-refugees-hosted/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/true-false/claims/argentina-vs-netherlands-refugees-hosted/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/true-false/claims/spain-vs-south-korea-average-iq/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/true-false/claims/nigeria-vs-sweden-average-iq/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/true-false/claims/sweden-vs-egypt-average-iq/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/true-false/claims/south-korea-vs-nigeria-literacy-rate/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/true-false/claims/south-africa-vs-turkey-literacy-rate/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/true-false/claims/turkey-vs-indonesia-literacy-rate/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/true-false/claims/germany-vs-united-kingdom-pisa-math-score/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/true-false/claims/france-vs-russia-pisa-math-score/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/true-false/claims/russia-vs-mexico-pisa-math-score/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/true-false/claims/turkey-vs-argentina-nobel-prizes-per-capita/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/true-false/claims/egypt-vs-poland-nobel-prizes-per-capita/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/true-false/claims/poland-vs-india-nobel-prizes-per-capita/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/true-false/claims/spain-vs-sweden-chess-grandmasters/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/true-false/claims/turkey-vs-egypt-chess-grandmasters/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/true-false/claims/egypt-vs-united-states-chess-grandmasters/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/true-false/claims/russia-vs-mexico-english-proficiency/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/true-false/claims/italy-vs-south-korea-english-proficiency/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/true-false/claims/south-korea-vs-sweden-english-proficiency/</loc>
-    <lastmod>2026-10-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://theworldtruth.com/true-false/claims/argentina-vs-egypt-happiness-index/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/true-false/claims/indonesia-vs-poland-happiness-index/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/true-false/claims/poland-vs-india-happiness-index/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/true-false/claims/poland-vs-united-states-work-hours-week/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/true-false/claims/china-vs-japan-work-hours-week/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/true-false/claims/japan-vs-france-work-hours-week/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/true-false/claims/united-states-vs-china-internet-users/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/true-false/claims/india-vs-germany-internet-users/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/true-false/claims/germany-vs-brazil-internet-users/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/true-false/claims/japan-vs-united-kingdom-coffee-consumption/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/true-false/claims/united-kingdom-vs-russia-coffee-consumption/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/true-false/claims/poland-vs-united-states-screen-time/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/true-false/claims/china-vs-japan-screen-time/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/true-false/claims/japan-vs-france-screen-time/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/true-false/claims/united-states-vs-china-video-game-players/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/true-false/claims/india-vs-germany-video-game-players/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/true-false/claims/germany-vs-brazil-video-game-players/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/true-false/claims/china-vs-india-tattoo-rate/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/true-false/claims/japan-vs-united-kingdom-tattoo-rate/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/true-false/claims/united-kingdom-vs-russia-tattoo-rate/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/true-false/claims/mexico-vs-italy-pizza-consumption/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/true-false/claims/spain-vs-south-africa-pizza-consumption/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/true-false/claims/south-africa-vs-argentina-pizza-consumption/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/true-false/claims/italy-vs-spain-chocolate-consumption/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/true-false/claims/south-korea-vs-sweden-chocolate-consumption/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/true-false/claims/sweden-vs-netherlands-chocolate-consumption/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/true-false/claims/germany-vs-united-kingdom-tea-consumption/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/true-false/claims/france-vs-russia-tea-consumption/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/true-false/claims/russia-vs-mexico-tea-consumption/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/true-false/claims/russia-vs-canada-beer-consumption/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/true-false/claims/australia-vs-italy-beer-consumption/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/true-false/claims/italy-vs-nigeria-beer-consumption/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/true-false/claims/italy-vs-spain-wine-consumption/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/true-false/claims/south-korea-vs-sweden-wine-consumption/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/true-false/claims/sweden-vs-indonesia-wine-consumption/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/true-false/claims/australia-vs-mexico-metal-bands-per-capita/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/true-false/claims/italy-vs-south-korea-metal-bands-per-capita/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/true-false/claims/south-korea-vs-turkey-metal-bands-per-capita/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/true-false/claims/russia-vs-canada-vegetarian-rate/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/true-false/claims/australia-vs-italy-vegetarian-rate/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/true-false/claims/italy-vs-nigeria-vegetarian-rate/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/true-false/claims/australia-vs-mexico-homicide-rate/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/true-false/claims/italy-vs-south-korea-homicide-rate/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/true-false/claims/south-korea-vs-sweden-homicide-rate/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/true-false/claims/mexico-vs-italy-safety-index/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/true-false/claims/spain-vs-nigeria-safety-index/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/true-false/claims/nigeria-vs-turkey-safety-index/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/true-false/claims/germany-vs-united-kingdom-gun-ownership/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/true-false/claims/france-vs-russia-gun-ownership/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/true-false/claims/russia-vs-mexico-gun-ownership/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/true-false/claims/spain-vs-south-korea-peace-index/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/true-false/claims/nigeria-vs-sweden-peace-index/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/true-false/claims/sweden-vs-egypt-peace-index/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/true-false/claims/south-korea-vs-nigeria-car-ownership/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/true-false/claims/south-africa-vs-turkey-car-ownership/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/true-false/claims/turkey-vs-indonesia-car-ownership/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/true-false/claims/nigeria-vs-south-africa-bicycle-usage/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/true-false/claims/sweden-vs-argentina-bicycle-usage/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/true-false/claims/argentina-vs-netherlands-bicycle-usage/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/true-false/claims/south-africa-vs-sweden-average-commute/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/true-false/claims/turkey-vs-egypt-average-commute/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/true-false/claims/egypt-vs-poland-average-commute/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/true-false/claims/sweden-vs-turkey-traffic-index/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/true-false/claims/argentina-vs-indonesia-traffic-index/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/true-false/claims/indonesia-vs-united-states-traffic-index/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/true-false/claims/turkey-vs-argentina-co2-per-capita/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/true-false/claims/egypt-vs-netherlands-co2-per-capita/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/true-false/claims/netherlands-vs-china-co2-per-capita/</loc>
-    <lastmod>2026-10-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://theworldtruth.com/true-false/claims/argentina-vs-egypt-recycling-rate/</loc>
-    <lastmod>2026-10-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://theworldtruth.com/true-false/claims/indonesia-vs-poland-recycling-rate/</loc>
-    <lastmod>2026-10-30</lastmod>
+    <loc>https://theworldtruth.com/true-false/claims/argentina-vs-indonesia-gdp-growth-rate/</loc>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://theworldtruth.com/true-false/claims/poland-vs-india-recycling-rate/</loc>
-    <lastmod>2026-10-30</lastmod>
+    <loc>https://theworldtruth.com/true-false/claims/argentina-vs-indonesia-plastic-surgery-rate/</loc>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://theworldtruth.com/true-false/claims/egypt-vs-indonesia-forest-coverage/</loc>
-    <lastmod>2026-10-30</lastmod>
+    <loc>https://theworldtruth.com/true-false/claims/argentina-vs-indonesia-traffic-index/</loc>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://theworldtruth.com/true-false/claims/netherlands-vs-united-states-forest-coverage/</loc>
-    <lastmod>2026-10-30</lastmod>
+    <loc>https://theworldtruth.com/true-false/claims/argentina-vs-netherlands-bicycle-usage/</loc>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://theworldtruth.com/true-false/claims/united-states-vs-japan-forest-coverage/</loc>
-    <lastmod>2026-10-30</lastmod>
+    <loc>https://theworldtruth.com/true-false/claims/argentina-vs-netherlands-ev-adoption/</loc>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://theworldtruth.com/true-false/claims/netherlands-vs-poland-military-spending-gdp/</loc>
-    <lastmod>2026-10-30</lastmod>
+    <loc>https://theworldtruth.com/true-false/claims/argentina-vs-netherlands-refugees-hosted/</loc>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://theworldtruth.com/true-false/claims/united-states-vs-india-military-spending-gdp/</loc>
-    <lastmod>2026-10-30</lastmod>
+    <loc>https://theworldtruth.com/true-false/claims/argentina-vs-netherlands-starbucks-per-capita/</loc>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://theworldtruth.com/true-false/claims/india-vs-united-kingdom-military-spending-gdp/</loc>
-    <lastmod>2026-10-30</lastmod>
+    <loc>https://theworldtruth.com/true-false/claims/argentina-vs-netherlands-suicide-rate/</loc>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://theworldtruth.com/true-false/claims/united-states-vs-china-drug-policy-score/</loc>
-    <lastmod>2026-10-30</lastmod>
+    <loc>https://theworldtruth.com/true-false/claims/australia-vs-italy-beer-consumption/</loc>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://theworldtruth.com/true-false/claims/india-vs-germany-drug-policy-score/</loc>
-    <lastmod>2026-10-30</lastmod>
+    <loc>https://theworldtruth.com/true-false/claims/australia-vs-italy-big-mac-price-usd/</loc>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://theworldtruth.com/true-false/claims/germany-vs-brazil-drug-policy-score/</loc>
-    <lastmod>2026-10-30</lastmod>
+    <loc>https://theworldtruth.com/true-false/claims/australia-vs-italy-billionaires-per-capita/</loc>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://theworldtruth.com/true-false/claims/united-kingdom-vs-russia-gambling-legal/</loc>
-    <lastmod>2026-10-30</lastmod>
+    <loc>https://theworldtruth.com/true-false/claims/australia-vs-italy-life-expectancy/</loc>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://theworldtruth.com/true-false/claims/india-vs-japan-passport-power/</loc>
-    <lastmod>2026-10-30</lastmod>
+    <loc>https://theworldtruth.com/true-false/claims/australia-vs-italy-twin-birth-rate/</loc>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://theworldtruth.com/true-false/claims/france-vs-canada-passport-power/</loc>
-    <lastmod>2026-10-30</lastmod>
+    <loc>https://theworldtruth.com/true-false/claims/australia-vs-italy-vegetarian-rate/</loc>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://theworldtruth.com/true-false/claims/japan-vs-germany-smoking-rate/</loc>
-    <lastmod>2026-10-30</lastmod>
+    <loc>https://theworldtruth.com/true-false/claims/australia-vs-mexico-homicide-rate/</loc>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://theworldtruth.com/true-false/claims/united-kingdom-vs-brazil-smoking-rate/</loc>
-    <lastmod>2026-10-30</lastmod>
+    <loc>https://theworldtruth.com/true-false/claims/australia-vs-mexico-metal-bands-per-capita/</loc>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://theworldtruth.com/true-false/claims/brazil-vs-australia-smoking-rate/</loc>
-    <lastmod>2026-10-30</lastmod>
+    <loc>https://theworldtruth.com/true-false/claims/australia-vs-mexico-obesity-rate/</loc>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://theworldtruth.com/true-false/claims/germany-vs-united-kingdom-religion-very-important/</loc>
-    <lastmod>2026-10-30</lastmod>
+    <loc>https://theworldtruth.com/true-false/claims/australia-vs-spain-economic-freedom-index/</loc>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://theworldtruth.com/true-false/claims/france-vs-russia-religion-very-important/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/true-false/claims/russia-vs-mexico-religion-very-important/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/true-false/claims/mexico-vs-nigeria-child-marriage-rate/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/true-false/claims/south-africa-vs-argentina-child-marriage-rate/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/true-false/claims/argentina-vs-china-child-marriage-rate/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/true-false/claims/france-vs-brazil-marriage-age/</loc>
-    <lastmod>2026-10-30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://theworldtruth.com/true-false/claims/russia-vs-australia-marriage-age/</loc>
-    <lastmod>2026-10-30</lastmod>
+    <loc>https://theworldtruth.com/true-false/claims/australia-vs-spain-human-development-index/</loc>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://theworldtruth.com/true-false/claims/australia-vs-spain-marriage-age/</loc>
-    <lastmod>2026-10-30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/true-false/claims/australia-vs-spain-median-age/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/true-false/claims/brazil-vs-australia-crypto-adoption/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/true-false/claims/brazil-vs-australia-current-account-balance/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/true-false/claims/brazil-vs-australia-smoking-rate/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/true-false/claims/brazil-vs-canada-gdp-per-capita-ppp/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/true-false/claims/brazil-vs-canada-gini-index-inequality/</loc>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://theworldtruth.com/true-false/claims/brazil-vs-russia-polyamory-rate/</loc>
-    <lastmod>2026-10-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://theworldtruth.com/true-false/claims/canada-vs-mexico-polyamory-rate/</loc>
-    <lastmod>2026-10-30</lastmod>
+    <loc>https://theworldtruth.com/true-false/claims/brazil-vs-russia-urban-population/</loc>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://theworldtruth.com/true-false/claims/mexico-vs-south-korea-polyamory-rate/</loc>
-    <lastmod>2026-10-30</lastmod>
+    <loc>https://theworldtruth.com/true-false/claims/brazil-vs-russia-women-s-legal-rights/</loc>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://theworldtruth.com/true-false/claims/russia-vs-canada-prostitution-legal/</loc>
-    <lastmod>2026-10-30</lastmod>
+    <loc>https://theworldtruth.com/true-false/claims/canada-vs-australia-average-male-height/</loc>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://theworldtruth.com/true-false/claims/italy-vs-nigeria-prostitution-legal/</loc>
-    <lastmod>2026-10-30</lastmod>
+    <loc>https://theworldtruth.com/true-false/claims/canada-vs-australia-immigration-rate/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/true-false/claims/canada-vs-australia-millionaires-per-capita/</loc>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://theworldtruth.com/true-false/claims/canada-vs-australia-teen-pregnancy-rate/</loc>
-    <lastmod>2026-10-30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/true-false/claims/canada-vs-italy-gdp-per-capita-ppp/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/true-false/claims/canada-vs-italy-gini-index-inequality/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/true-false/claims/canada-vs-mexico-polyamory-rate/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/true-false/claims/canada-vs-mexico-urban-population/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/true-false/claims/canada-vs-mexico-women-s-legal-rights/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/true-false/claims/china-vs-germany-vat-sales-tax-rate/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/true-false/claims/china-vs-india-corruption-index/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/true-false/claims/china-vs-india-tattoo-rate/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/true-false/claims/china-vs-india-trade-balance-gdp/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/true-false/claims/china-vs-japan-divorce-rate/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/true-false/claims/china-vs-japan-screen-time/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/true-false/claims/china-vs-japan-work-hours-week/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/true-false/claims/china-vs-japan-youth-unemployment-rate/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/true-false/claims/egypt-vs-indonesia-air-pollution/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/true-false/claims/egypt-vs-indonesia-forest-coverage/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/true-false/claims/egypt-vs-indonesia-top-income-tax-rate/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/true-false/claims/egypt-vs-netherlands-co2-per-capita/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/true-false/claims/egypt-vs-netherlands-inflation-rate/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/true-false/claims/egypt-vs-netherlands-sleep-duration/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/true-false/claims/egypt-vs-poland-average-commute/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/true-false/claims/egypt-vs-poland-government-debt-to-gdp/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/true-false/claims/egypt-vs-poland-nobel-prizes-per-capita/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/true-false/claims/egypt-vs-poland-renewable-energy/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/true-false/claims/egypt-vs-united-states-chess-grandmasters/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/true-false/claims/france-vs-brazil-economic-freedom-index/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/true-false/claims/france-vs-brazil-human-development-index/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/true-false/claims/france-vs-brazil-marriage-age/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/true-false/claims/france-vs-brazil-median-age/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/true-false/claims/france-vs-canada-exports-gdp/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/true-false/claims/france-vs-canada-passport-power/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/true-false/claims/france-vs-canada-press-freedom/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/true-false/claims/france-vs-russia-central-bank-interest-rate/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/true-false/claims/france-vs-russia-gdp-per-capita/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/true-false/claims/france-vs-russia-gun-ownership/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/true-false/claims/france-vs-russia-pisa-math-score/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/true-false/claims/france-vs-russia-religion-very-important/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/true-false/claims/france-vs-russia-tea-consumption/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/true-false/claims/germany-vs-brazil-democracy-score/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/true-false/claims/germany-vs-brazil-drug-policy-score/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/true-false/claims/germany-vs-brazil-fdi-inflows-gdp/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/true-false/claims/germany-vs-brazil-internet-users/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/true-false/claims/germany-vs-brazil-lgbt-acceptance/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/true-false/claims/germany-vs-brazil-video-game-players/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/true-false/claims/germany-vs-france-exports-gdp/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/true-false/claims/germany-vs-france-press-freedom/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/true-false/claims/germany-vs-united-kingdom-central-bank-interest-rate/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/true-false/claims/germany-vs-united-kingdom-gdp-per-capita/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/true-false/claims/germany-vs-united-kingdom-gun-ownership/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/true-false/claims/germany-vs-united-kingdom-pisa-math-score/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/true-false/claims/germany-vs-united-kingdom-religion-very-important/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/true-false/claims/germany-vs-united-kingdom-tea-consumption/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/true-false/claims/india-vs-germany-democracy-score/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/true-false/claims/india-vs-germany-drug-policy-score/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/true-false/claims/india-vs-germany-fdi-inflows-gdp/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/true-false/claims/india-vs-germany-internet-users/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/true-false/claims/india-vs-germany-lgbt-acceptance/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/true-false/claims/india-vs-germany-video-game-players/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/true-false/claims/india-vs-japan-exports-gdp/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/true-false/claims/india-vs-japan-passport-power/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/true-false/claims/india-vs-japan-press-freedom/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/true-false/claims/india-vs-united-kingdom-military-spending-gdp/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/true-false/claims/india-vs-united-kingdom-unemployment-rate/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/true-false/claims/indonesia-vs-netherlands-vat-sales-tax-rate/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/true-false/claims/indonesia-vs-poland-corporate-tax-rate/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/true-false/claims/indonesia-vs-poland-diabetes-rate/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/true-false/claims/indonesia-vs-poland-happiness-index/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/true-false/claims/indonesia-vs-poland-recycling-rate/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/true-false/claims/indonesia-vs-united-states-gdp-growth-rate/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/true-false/claims/indonesia-vs-united-states-plastic-surgery-rate/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/true-false/claims/indonesia-vs-united-states-traffic-index/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/true-false/claims/italy-vs-nigeria-beer-consumption/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/true-false/claims/italy-vs-nigeria-billionaires-per-capita/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/true-false/claims/italy-vs-nigeria-life-expectancy/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/true-false/claims/italy-vs-nigeria-prostitution-legal/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/true-false/claims/italy-vs-nigeria-twin-birth-rate/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/true-false/claims/italy-vs-nigeria-vegetarian-rate/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/true-false/claims/italy-vs-south-africa-big-mac-price-usd/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/true-false/claims/italy-vs-south-korea-english-proficiency/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/true-false/claims/italy-vs-south-korea-homicide-rate/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/true-false/claims/italy-vs-south-korea-metal-bands-per-capita/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/true-false/claims/italy-vs-south-korea-obesity-rate/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/true-false/claims/italy-vs-spain-chocolate-consumption/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/true-false/claims/italy-vs-spain-wine-consumption/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/true-false/claims/japan-vs-france-divorce-rate/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/true-false/claims/japan-vs-france-screen-time/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/true-false/claims/japan-vs-france-work-hours-week/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/true-false/claims/japan-vs-france-youth-unemployment-rate/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/true-false/claims/japan-vs-germany-crypto-adoption/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/true-false/claims/japan-vs-germany-current-account-balance/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/true-false/claims/japan-vs-germany-smoking-rate/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/true-false/claims/japan-vs-united-kingdom-coffee-consumption/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/true-false/claims/japan-vs-united-kingdom-corruption-index/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/true-false/claims/japan-vs-united-kingdom-tattoo-rate/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/true-false/claims/japan-vs-united-kingdom-trade-balance-gdp/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/true-false/claims/mexico-vs-italy-net-migration-rate/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/true-false/claims/mexico-vs-italy-pizza-consumption/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/true-false/claims/mexico-vs-italy-safety-index/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/true-false/claims/mexico-vs-italy-startup-unicorns/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/true-false/claims/mexico-vs-italy-tourist-arrivals/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/true-false/claims/mexico-vs-nigeria-child-marriage-rate/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/true-false/claims/mexico-vs-south-korea-polyamory-rate/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/true-false/claims/mexico-vs-south-korea-urban-population/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/true-false/claims/mexico-vs-south-korea-women-s-legal-rights/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/true-false/claims/mexico-vs-spain-average-male-height/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/true-false/claims/mexico-vs-spain-immigration-rate/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/true-false/claims/mexico-vs-spain-millionaires-per-capita/</loc>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://theworldtruth.com/true-false/claims/mexico-vs-spain-teen-pregnancy-rate/</loc>
-    <lastmod>2026-10-30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/true-false/claims/netherlands-vs-china-co2-per-capita/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/true-false/claims/netherlands-vs-china-inflation-rate/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/true-false/claims/netherlands-vs-china-sleep-duration/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/true-false/claims/netherlands-vs-poland-military-spending-gdp/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/true-false/claims/netherlands-vs-poland-unemployment-rate/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/true-false/claims/netherlands-vs-united-states-air-pollution/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/true-false/claims/netherlands-vs-united-states-forest-coverage/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/true-false/claims/netherlands-vs-united-states-top-income-tax-rate/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/true-false/claims/nigeria-vs-south-africa-bicycle-usage/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/true-false/claims/nigeria-vs-south-africa-refugees-hosted/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/true-false/claims/nigeria-vs-south-africa-suicide-rate/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/true-false/claims/nigeria-vs-sweden-average-iq/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/true-false/claims/nigeria-vs-sweden-fertility-rate/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/true-false/claims/nigeria-vs-sweden-peace-index/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/true-false/claims/nigeria-vs-turkey-net-migration-rate/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/true-false/claims/nigeria-vs-turkey-safety-index/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/true-false/claims/nigeria-vs-turkey-startup-unicorns/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/true-false/claims/poland-vs-china-vat-sales-tax-rate/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/true-false/claims/poland-vs-india-corporate-tax-rate/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/true-false/claims/poland-vs-india-diabetes-rate/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/true-false/claims/poland-vs-india-happiness-index/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/true-false/claims/poland-vs-india-nobel-prizes-per-capita/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/true-false/claims/poland-vs-india-recycling-rate/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/true-false/claims/poland-vs-united-states-divorce-rate/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/true-false/claims/poland-vs-united-states-screen-time/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/true-false/claims/poland-vs-united-states-work-hours-week/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/true-false/claims/poland-vs-united-states-youth-unemployment-rate/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/true-false/claims/russia-vs-australia-economic-freedom-index/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/true-false/claims/russia-vs-australia-human-development-index/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/true-false/claims/russia-vs-australia-marriage-age/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/true-false/claims/russia-vs-australia-median-age/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/true-false/claims/russia-vs-canada-beer-consumption/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/true-false/claims/russia-vs-canada-big-mac-price-usd/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/true-false/claims/russia-vs-canada-billionaires-per-capita/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/true-false/claims/russia-vs-canada-life-expectancy/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/true-false/claims/russia-vs-canada-prostitution-legal/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/true-false/claims/russia-vs-canada-twin-birth-rate/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/true-false/claims/russia-vs-canada-vegetarian-rate/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/true-false/claims/russia-vs-mexico-central-bank-interest-rate/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/true-false/claims/russia-vs-mexico-english-proficiency/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/true-false/claims/russia-vs-mexico-gdp-per-capita/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/true-false/claims/russia-vs-mexico-gun-ownership/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/true-false/claims/russia-vs-mexico-pisa-math-score/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/true-false/claims/russia-vs-mexico-religion-very-important/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/true-false/claims/russia-vs-mexico-tea-consumption/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/true-false/claims/south-africa-vs-argentina-child-marriage-rate/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/true-false/claims/south-africa-vs-argentina-pizza-consumption/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/true-false/claims/south-africa-vs-egypt-tourist-arrivals/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/true-false/claims/south-africa-vs-sweden-average-commute/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/true-false/claims/south-africa-vs-sweden-government-debt-to-gdp/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/true-false/claims/south-africa-vs-sweden-renewable-energy/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/true-false/claims/south-africa-vs-turkey-alcohol-consumption/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/true-false/claims/south-africa-vs-turkey-car-ownership/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/true-false/claims/south-africa-vs-turkey-literacy-rate/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/true-false/claims/south-africa-vs-turkey-mcdonald-s-per-capita/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/true-false/claims/south-korea-vs-nigeria-alcohol-consumption/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/true-false/claims/south-korea-vs-nigeria-car-ownership/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/true-false/claims/south-korea-vs-nigeria-literacy-rate/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/true-false/claims/south-korea-vs-south-africa-ev-adoption/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/true-false/claims/south-korea-vs-south-africa-starbucks-per-capita/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/true-false/claims/south-korea-vs-sweden-chocolate-consumption/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/true-false/claims/south-korea-vs-sweden-english-proficiency/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/true-false/claims/south-korea-vs-sweden-homicide-rate/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/true-false/claims/south-korea-vs-sweden-obesity-rate/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/true-false/claims/south-korea-vs-sweden-wine-consumption/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/true-false/claims/south-korea-vs-turkey-metal-bands-per-capita/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/true-false/claims/spain-vs-nigeria-net-migration-rate/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/true-false/claims/spain-vs-nigeria-safety-index/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/true-false/claims/spain-vs-nigeria-startup-unicorns/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/true-false/claims/spain-vs-south-africa-average-male-height/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/true-false/claims/spain-vs-south-africa-immigration-rate/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/true-false/claims/spain-vs-south-africa-pizza-consumption/</loc>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://theworldtruth.com/true-false/claims/spain-vs-south-africa-teen-pregnancy-rate/</loc>
-    <lastmod>2026-10-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/true-false/claims/spain-vs-south-africa-tourist-arrivals/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/true-false/claims/spain-vs-south-korea-average-iq/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/true-false/claims/spain-vs-south-korea-fertility-rate/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/true-false/claims/spain-vs-south-korea-mcdonald-s-per-capita/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/true-false/claims/spain-vs-south-korea-peace-index/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/true-false/claims/spain-vs-sweden-chess-grandmasters/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/true-false/claims/spain-vs-sweden-millionaires-per-capita/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/true-false/claims/sweden-vs-argentina-bicycle-usage/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/true-false/claims/sweden-vs-argentina-ev-adoption/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/true-false/claims/sweden-vs-argentina-refugees-hosted/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/true-false/claims/sweden-vs-argentina-starbucks-per-capita/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/true-false/claims/sweden-vs-argentina-suicide-rate/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/true-false/claims/sweden-vs-egypt-average-iq/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/true-false/claims/sweden-vs-egypt-fertility-rate/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/true-false/claims/sweden-vs-egypt-peace-index/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/true-false/claims/sweden-vs-indonesia-wine-consumption/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/true-false/claims/sweden-vs-netherlands-chocolate-consumption/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/true-false/claims/sweden-vs-turkey-gdp-growth-rate/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/true-false/claims/sweden-vs-turkey-plastic-surgery-rate/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/true-false/claims/sweden-vs-turkey-traffic-index/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/true-false/claims/turkey-vs-argentina-co2-per-capita/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/true-false/claims/turkey-vs-argentina-inflation-rate/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/true-false/claims/turkey-vs-argentina-nobel-prizes-per-capita/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/true-false/claims/turkey-vs-argentina-sleep-duration/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/true-false/claims/turkey-vs-egypt-average-commute/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/true-false/claims/turkey-vs-egypt-chess-grandmasters/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/true-false/claims/turkey-vs-egypt-government-debt-to-gdp/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/true-false/claims/turkey-vs-egypt-renewable-energy/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/true-false/claims/turkey-vs-indonesia-alcohol-consumption/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/true-false/claims/turkey-vs-indonesia-car-ownership/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/true-false/claims/turkey-vs-indonesia-literacy-rate/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/true-false/claims/turkey-vs-indonesia-mcdonald-s-per-capita/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/true-false/claims/united-kingdom-vs-brazil-current-account-balance/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/true-false/claims/united-kingdom-vs-brazil-smoking-rate/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/true-false/claims/united-kingdom-vs-france-gdp-per-capita-ppp/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/true-false/claims/united-kingdom-vs-france-gini-index-inequality/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/true-false/claims/united-kingdom-vs-russia-coffee-consumption/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/true-false/claims/united-kingdom-vs-russia-corruption-index/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/true-false/claims/united-kingdom-vs-russia-gambling-legal/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/true-false/claims/united-kingdom-vs-russia-tattoo-rate/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/true-false/claims/united-kingdom-vs-russia-trade-balance-gdp/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/true-false/claims/united-states-vs-china-democracy-score/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/true-false/claims/united-states-vs-china-drug-policy-score/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/true-false/claims/united-states-vs-china-fdi-inflows-gdp/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/true-false/claims/united-states-vs-china-internet-users/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/true-false/claims/united-states-vs-china-lgbt-acceptance/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/true-false/claims/united-states-vs-china-video-game-players/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/true-false/claims/united-states-vs-india-military-spending-gdp/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/true-false/claims/united-states-vs-india-unemployment-rate/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/true-false/claims/united-states-vs-japan-air-pollution/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/true-false/claims/united-states-vs-japan-forest-coverage/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/true-false/claims/united-states-vs-japan-top-income-tax-rate/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/truthle-vs-worldle/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/truthle/</loc>
+    <changefreq>daily</changefreq>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://theworldtruth.com/truthle/shop/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
   </url>
 </urlset>

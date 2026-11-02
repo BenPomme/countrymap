@@ -1,5 +1,10 @@
 import type { Metadata } from 'next'
 import { allCountrySlugs, findCountryBySlug } from '@/lib/seo/catalog'
+import { countrySlug } from '@/lib/seo/slugs'
+import { VARIABLES } from '@/lib/constants/variables'
+import '@/lib/constants/extraVariables'
+
+const statisticCount = Object.keys(VARIABLES).length
 
 export async function generateStaticParams() {
   return allCountrySlugs().map((slug) => ({ slug }))
@@ -29,11 +34,16 @@ export async function generateMetadata({
   )
 
   const title = `${country.name} Statistics & Rankings | The World Truth Map`
-  const description = `${flag} See how ${country.name} ranks globally across 90 statistics: GDP, happiness, crime, health, lifestyle & more. Compare ${country.name} with other countries.`
+  const canonicalSlug = countrySlug(country.name)
+  const canonical = `https://theworldtruth.com/country/${canonicalSlug}/`
+  const description = `${flag} See how ${country.name} ranks globally across ${statisticCount} statistics: GDP, happiness, crime, health, lifestyle and more. Compare ${country.name} with other countries.`
 
   return {
     title,
     description,
+    alternates: {
+      canonical,
+    },
     keywords: [
       `${country.name} statistics`,
       `${country.name} rankings`,
@@ -49,8 +59,8 @@ export async function generateMetadata({
     ],
     openGraph: {
       title: `${flag} ${country.name} - Country Statistics & World Rankings`,
-      description: `How does ${country.name} rank globally? See rankings for GDP, happiness, safety, health & 80+ more statistics.`,
-      url: `https://theworldtruth.com/country/${slug}`,
+      description: `How does ${country.name} rank globally? See rankings for GDP, happiness, safety, health and ${statisticCount} statistics.`,
+      url: canonical,
       siteName: 'The World Truth Map',
       locale: 'en_US',
       type: 'website',
@@ -58,7 +68,7 @@ export async function generateMetadata({
     twitter: {
       card: 'summary_large_image',
       title: `${flag} ${country.name} Statistics & Rankings`,
-      description: `How does ${country.name} rank? GDP, happiness, crime & 80+ stats compared globally.`,
+      description: `How does ${country.name} rank? GDP, happiness, crime and ${statisticCount} statistics compared globally.`,
     },
   }
 }

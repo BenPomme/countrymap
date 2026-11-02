@@ -1,93 +1,127 @@
 rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
-    // Truthle daily attempts
+    function signedIn() {
+      return request.auth != null;
+    }
+
+    function isOwner(userId) {
+      return signedIn() && request.auth.uid == userId;
+    }
+
+    // Truthle daily attempts remain client-created once per user and day.
     match /truthle/daily/{date}/{odp} {
-      // Users can only create their own attempt (once per day)
-      allow create: if request.auth != null
-                    && request.auth.uid == odp
+      allow create: if isOwner(odp)
                     && !exists(/databases/$(database)/documents/truthle/daily/$(date)/$(odp));
-
-      // Users can read their own attempt
-      allow read: if request.auth != null && request.auth.uid == odp;
-
-      // No updates or deletes allowed
+      allow read: if isOwner(odp);
       allow update, delete: if false;
     }
 
-    // Daily stats (for future leaderboard)
+    // Aggregate daily stats are readable to signed-in players and server-owned.
     match /truthle/stats/{date} {
-      // Anyone authenticated can read stats
-      allow read: if request.auth != null;
-
-      // Only cloud functions can write stats
+      allow read: if signedIn();
       allow write: if false;
     }
 
-    // Truthle rewarded retry attempts (iOS extra run)
+    // Retry history is written by saveTruthleRetryAttempt and is read-only to its owner.
     match /users/{userId}/truthle_retries/{date} {
-      // Users can read/write their own retry attempts
-      allow read, write: if request.auth != null && request.auth.uid == userId;
-    }
-
-    // User wallets (coin balances from offer completions)
-    match /users/{userId}/wallet/{document=**} {
-      // Users can read their own wallet
-      allow read: if request.auth != null && request.auth.uid == userId;
-
-      // Only cloud functions can write (via Admin SDK)
+      allow read: if isOwner(userId);
       allow write: if false;
     }
 
-    // Offertoro postbacks (for duplicate detection)
-    // Only cloud functions can read/write (via Admin SDK)
+    // Cloud wallet balances move only through claimTruthleWallet or server credits.
+    match /users/{userId}/wallet/{document=**} {
+      allow read: if isOwner(userId);
+      allow write: if false;
+    }
+
+    // Profile data remains user-owned for the existing account flow.
+    match /users/{userId}/profile/{document=**} {
+      allow read, write: if isOwner(userId);
+    }
+
+    // Entitlements and redemptions are server-owned records.
+    match /truthle_retry_entitlements/{document=**} {
+      allow read: if signedIn() && resource.data.userId == request.auth.uid;
+      allow write: if false;
+    }
+
+    match /redemptions/{document=**} {
+      allow read: if signedIn() && resource.data.userId == request.auth.uid;
+      allow write: if false;
+    }
+
+    // Reminder opt-in accepts only user-editable fields. Provider state, token hashes and
+    // unsubscribe metadata can only be changed by Cloud Functions with Admin SDK access.
+    match /email_subscribers/{userId} {
+      allow read: if isOwner(userId);
+      allow create: if isOwner(userId)
+                    && request.resource.data.keys().hasAll(['email', 'enabled', 'updatedAt'])
+                    && request.resource.data.keys().hasOnly(['email', 'displayName', 'enabled', 'updatedAt'])
+                    && request.resource.data.email is string
+                    && request.resource.data.email == request.auth.token.email
+                    && request.resource.data.enabled is bool
+                    && request.resource.data.updatedAt == request.time
+                    && (!('displayName' in request.resource.data)
+                        || request.resource.data.displayName == null
+                        || request.resource.data.displayName is string);
+      allow update: if isOwner(userId)
+                    && request.resource.data.diff(resource.data).affectedKeys()
+                         .hasOnly(['email', 'displayName', 'enabled', 'updatedAt'])
+                    && request.resource.data.email is string
+                    && request.resource.data.email == request.auth.token.email
+                    && request.resource.data.enabled is bool
+                    && request.resource.data.updatedAt == request.time
+                    && (!('displayName' in request.resource.data)
+                        || request.resource.data.displayName == null
+                        || request.resource.data.displayName is string);
+      allow delete: if false;
+    }
+
+    match /email_templates/{document=**} {
+      allow read: if signedIn();
+      allow write: if false;
+    }
+
+    // Commerce, entitlement, message, and unsubscribe ledgers are server-only.
     match /offertoro_postbacks/{document=**} {
       allow read, write: if false;
     }
-
-    // Rewarded retry entitlements (granted by cloud functions)
-    match /truthle_retry_entitlements/{document=**} {
-      allow read: if request.auth != null && resource.data.userId == request.auth.uid;
-      allow write: if false;
-    }
-
-    // Ad reward events for idempotency
     match /ad_reward_events/{document=**} {
       allow read, write: if false;
     }
-
-    // Redemptions (reward claims)
-    match /redemptions/{document=**} {
-      // Users can read their own redemptions
-      allow read: if request.auth != null && resource.data.userId == request.auth.uid;
-
-      // Only cloud functions can write
-      allow write: if false;
+    match /truthle_paid_retries/{document=**} {
+      allow read, write: if false;
     }
-
-    // User profiles (email signup data)
-    match /users/{userId}/profile/{document=**} {
-      // Users can read and write their own profile
-      allow read, write: if request.auth != null && request.auth.uid == userId;
+    match /truthle_retry_receipts/{document=**} {
+      allow read, write: if false;
     }
-
-    // Email subscribers (daily reminder opt-in)
-    match /email_subscribers/{userId} {
-      // Users can read and write their own subscription
-      allow read, write: if request.auth != null && request.auth.uid == userId;
+    match /truthle_retry_usage/{document=**} {
+      allow read, write: if false;
     }
-
-    // Mail collection (for sending emails via Firebase Extension)
-    // Only cloud functions can read/write (via Admin SDK)
+    match /wallet_claim_receipts/{document=**} {
+      allow read, write: if false;
+    }
+    match /stripe_retry_grants/{document=**} {
+      allow read, write: if false;
+    }
+    match /stripe_checkout_sessions/{document=**} {
+      allow read, write: if false;
+    }
+    match /truthle_share_promos/{document=**} {
+      allow read, write: if false;
+    }
+    match /truthle_share_claims/{document=**} {
+      allow read, write: if false;
+    }
     match /mail/{document=**} {
       allow read, write: if false;
     }
-
-    // Email templates (for Firebase Extension)
-    // Only admins can write, anyone can read
-    match /email_templates/{document=**} {
-      allow read: if request.auth != null;
-      allow write: if false;
+    match /mail_delivery_receipts/{document=**} {
+      allow read, write: if false;
+    }
+    match /email_unsubscribe_tokens/{document=**} {
+      allow read, write: if false;
     }
   }
 }

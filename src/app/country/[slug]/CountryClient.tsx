@@ -2,14 +2,21 @@
 
 import { useRef } from 'react'
 import Link from 'next/link'
-import { ArrowLeft, Trophy, TrendingDown, Share2, Globe, BarChart3 } from 'lucide-react'
+import { ArrowLeft, BarChart3, Globe, TrendingDown, Trophy } from 'lucide-react'
 import { countries } from '@/lib/data/loadCountries'
 import { VARIABLES } from '@/lib/constants/variables'
-import { findCountryBySlug } from '@/lib/seo/catalog'
-import { variableSlug, countrySlug } from '@/lib/seo/slugs'
+import { findCountryBySlug, ranksHighFirst } from '@/lib/seo/catalog'
+import { getMetricProvenance } from '@/lib/seo/provenance'
+import { variableSlug } from '@/lib/seo/slugs'
 import { getNestedValue } from '@/lib/utils'
-import type { Country } from '@/types/country'
+import type { Country, VariableConfig } from '@/types/country'
+import {
+  findRankPosition,
+  isFiniteRankValue,
+  type RankPosition,
+} from '@/components/map/rankingPresentation'
 import VisualShare from '@/components/share/VisualShare'
+import { absoluteSiteUrl } from '@/components/share/shareState'
 import { AdBanner, AdSidebar } from '@/components/ads'
 import { AD_SLOTS } from '@/lib/constants/ads'
 import ContextualOffers from '@/components/affiliate/ContextualOffers'
@@ -18,89 +25,87 @@ interface RankedStat {
   variableId: string
   name: string
   value: number
-  rank: number
+  rankMin: number
+  rankMax: number
   total: number
-  percentile: number
+  rangeLabel: string
+  rankLabel: string
+  directionLabel: string
   formattedValue: string
-  higherIsBetter: boolean
   icon: string
+  provenance: ReturnType<typeof getMetricProvenance>
 }
 
-// Get all countries with value for a variable
+const CATEGORY_ICONS: Record<string, string> = {
+  governance: '🏛️',
+  economy: '💰',
+  health: '🏥',
+  sex: '❤️',
+  demographics: '👥',
+  education: '🎓',
+  lifestyle: '🍕',
+  safety: '🛡️',
+  transport: '🚗',
+  environment: '🌍',
+  religion: '🙏',
+}
+
+// Get all countries with a stored value for a variable.
 function getCountryRankings(variableId: string): { country: Country; value: number }[] {
-  return countries
-    .map(country => ({
-      country,
-      value: getNestedValue(country as unknown as Record<string, unknown>, variableId) as number
-    }))
-    .filter(item => item.value !== null && item.value !== undefined && !isNaN(item.value))
+  return countries.flatMap((country) => {
+    const value = getNestedValue(country as unknown as Record<string, unknown>, variableId)
+    return isFiniteRankValue(value) ? [{ country, value }] : []
+  })
 }
 
-// Get rank and percentile for a country on a variable
-function getCountryRank(country: Country, variableId: string): { rank: number; total: number; percentile: number } | null {
-  const rankings = getCountryRankings(variableId)
+// Rank only against countries that have a stored value for this metric.
+function getCountryRank(
+  country: Country,
+  config: VariableConfig,
+  rankings: { country: Country; value: number }[],
+): RankPosition | null {
   if (rankings.length === 0) return null
 
-  const variable = VARIABLES[variableId as keyof typeof VARIABLES]
-  const higherIsBetter = variable?.higherIsBetter ?? true
-
-  // Sort: if higher is better, sort descending; otherwise ascending
-  rankings.sort((a, b) => higherIsBetter ? b.value - a.value : a.value - b.value)
-
-  const index = rankings.findIndex(r => r.country.iso3 === country.iso3)
-  if (index === -1) return null
-
-  return {
-    rank: index + 1,
-    total: rankings.length,
-    percentile: Math.round(((rankings.length - index) / rankings.length) * 100)
-  }
+  const order = ranksHighFirst(config) ? 'highest-first' : 'lowest-first'
+  return findRankPosition(
+    rankings,
+    (item) => item.value,
+    (item) => item.country.iso3 === country.iso3,
+    order,
+  )
 }
 
-// Get all stats for a country with rankings
 function getAllCountryStats(country: Country): RankedStat[] {
   const stats: RankedStat[] = []
 
   for (const [variableId, config] of Object.entries(VARIABLES)) {
     if (config.type !== 'numeric') continue
 
-    const value = getNestedValue(country as unknown as Record<string, unknown>, variableId) as number
-    if (value === null || value === undefined || isNaN(value)) continue
+    const value = getNestedValue(country as unknown as Record<string, unknown>, variableId)
+    if (!isFiniteRankValue(value)) continue
 
-    const rankData = getCountryRank(country, variableId)
+    const rankData = getCountryRank(country, config, getCountryRankings(variableId))
     if (!rankData) continue
-
-    const categoryIcons: Record<string, string> = {
-      governance: '🏛️',
-      economy: '💰',
-      health: '🏥',
-      sex: '❤️',
-      demographics: '👥',
-      education: '🎓',
-      lifestyle: '🍕',
-      safety: '🛡️',
-      transport: '🚗',
-      environment: '🌍',
-      religion: '🙏',
-    }
 
     stats.push({
       variableId,
       name: config.name,
       value,
-      rank: rankData.rank,
+      rankMin: rankData.rankMin,
+      rankMax: rankData.rankMax,
       total: rankData.total,
-      percentile: rankData.percentile,
+      rangeLabel: rankData.rangeLabel,
+      rankLabel: rankData.rankLabel,
+      directionLabel: rankData.directionLabel,
       formattedValue: config.format(value),
-      higherIsBetter: config.higherIsBetter,
-      icon: categoryIcons[config.category] || '📊'
+      icon: CATEGORY_ICONS[config.category] || '📊',
+      provenance: getMetricProvenance(variableId),
     })
   }
 
   return stats
 }
 
-// Get flag emoji from ISO2 code
 function getFlagEmoji(iso2: string): string {
   const codePoints = iso2
     .toUpperCase()
@@ -109,27 +114,85 @@ function getFlagEmoji(iso2: string): string {
   return String.fromCodePoint(...codePoints)
 }
 
+function rankTone(stat: RankedStat): string {
+  if (stat.rankMin <= 10) return 'bg-twt-butter text-twt-ink'
+  if (stat.rankMax >= stat.total * 0.75) return 'bg-twt-coral/15 text-twt-coral'
+  return 'bg-twt-ink/5 text-twt-ink'
+}
+
+function ProvenanceDetails({ provenance }: { provenance: RankedStat['provenance'] }) {
+  return (
+    <details className="mt-3 text-xs leading-5 text-twt-ink/70">
+      <summary className="cursor-pointer font-bold text-twt-blue underline decoration-twt-blue/30 underline-offset-4">
+        Source and notes
+      </summary>
+      <dl className="mt-2 grid gap-1 sm:grid-cols-2">
+        <div>
+          <dt className="font-bold text-twt-ink">Source</dt>
+          <dd>
+            {provenance.sourceName ? (
+              provenance.sourceUrl ? (
+                <a
+                  href={provenance.sourceUrl}
+                  target="_blank"
+                  rel="noreferrer noopener"
+                  className="underline decoration-twt-blue/30 underline-offset-2 hover:text-twt-blue"
+                >
+                  {provenance.sourceName}
+                </a>
+              ) : (
+                provenance.sourceName
+              )
+            ) : (
+              'Unknown'
+            )}
+          </dd>
+        </div>
+        <div>
+          <dt className="font-bold text-twt-ink">Vintage</dt>
+          <dd>{provenance.year ? provenance.year : 'Unknown'}</dd>
+        </div>
+        <div>
+          <dt className="font-bold text-twt-ink">Coverage</dt>
+          <dd>{provenance.coverage !== undefined ? `${provenance.coverage}%` : 'Unknown'}</dd>
+        </div>
+      </dl>
+      {provenance.limitations.length > 0 && (
+        <ul className="mt-2 list-disc space-y-1 pl-4">
+          {provenance.limitations.map((limitation: string) => (
+            <li key={limitation}>{limitation}</li>
+          ))}
+        </ul>
+      )}
+    </details>
+  )
+}
+
 export default function CountryClient({ slug }: { slug: string }) {
   const shareRef = useRef<HTMLDivElement>(null)
   const country = findCountryBySlug(slug)
   const stats = country ? getAllCountryStats(country) : []
+  const sortedStats = [...stats].sort((a, b) =>
+    a.rankMin - b.rankMin || a.rankMax - b.rankMax || a.name.localeCompare(b.name)
+  )
   const topStats = stats
-    .filter(s => s.rank <= Math.ceil(s.total * 0.15))
-    .sort((a, b) => a.rank - b.rank)
+    .filter(stat => stat.rankMin <= Math.ceil(stat.total * 0.15))
+    .sort((a, b) => a.rankMin - b.rankMin || a.rankMax - b.rankMax || a.name.localeCompare(b.name))
     .slice(0, 10)
   const bottomStats = stats
-    .filter(s => s.rank >= Math.floor(s.total * 0.85))
-    .sort((a, b) => b.rank - a.rank)
+    .filter(stat => stat.rankMax >= Math.floor(stat.total * 0.85))
+    .sort((a, b) => b.rankMax - a.rankMax || b.rankMin - a.rankMin || a.name.localeCompare(b.name))
     .slice(0, 10)
 
   if (!country) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
-        <div className="text-center">
-          <div className="text-6xl mb-4">🌍</div>
-          <h1 className="text-2xl font-bold text-gray-800 mb-2">Country not found</h1>
-          <Link href="/" className="text-blue-600 hover:underline">
-            ← Back to map
+      <div className="twt-shell flex items-center justify-center px-4 py-16">
+        <div className="twt-panel max-w-lg p-6 text-center sm:p-8">
+          <div className="text-6xl" aria-hidden="true">🌍</div>
+          <h1 className="twt-display mt-4 text-3xl">Country not found</h1>
+          <p className="twt-prose mt-3">This country profile is not available. The map is still available.</p>
+          <Link href="/#explore" className="twt-button mt-6">
+            Back to the map
           </Link>
         </div>
       </div>
@@ -137,258 +200,268 @@ export default function CountryClient({ slug }: { slug: string }) {
   }
 
   const flag = getFlagEmoji(country.iso2)
+  const topStat = topStats[0]
+  const quickFacts: { label: string; value: string }[] = []
+
+  if (country.population !== null) {
+    quickFacts.push({
+      label: 'Population',
+      value: `${(country.population / 1000000).toFixed(1)}M`,
+    })
+  }
+  if (country.poverty.gdpPerCapita !== null) {
+    quickFacts.push({
+      label: 'GDP per capita',
+      value: `$${(country.poverty.gdpPerCapita / 1000).toFixed(1)}k`,
+    })
+  }
+  if (country.lifestyle.happinessIndex !== null) {
+    quickFacts.push({
+      label: 'Happiness',
+      value: `${country.lifestyle.happinessIndex.toFixed(1)}/10`,
+    })
+  }
+  if (country.democracy.score !== null) {
+    quickFacts.push({
+      label: 'Democracy',
+      value: `${country.democracy.score}/100`,
+    })
+  }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50">
-      {/* Header */}
-      <header className="bg-white shadow-sm sticky top-0 z-10">
-        <div className="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between">
-          <Link href="/" className="flex items-center gap-2 text-gray-600 hover:text-gray-900">
-            <ArrowLeft className="w-5 h-5" />
-            <span>Back to Map</span>
+    <div className="twt-shell pb-16">
+      <main className="twt-container py-6 sm:py-10">
+        <nav aria-label="Breadcrumb" className="flex flex-wrap items-center gap-2 text-sm font-bold text-twt-ink/65">
+          <Link href="/#explore" className="inline-flex items-center gap-1.5 hover:text-twt-blue">
+            <ArrowLeft className="h-4 w-4" aria-hidden="true" />
+            Explore the map
           </Link>
-          <div className="flex items-center gap-3">
-            <Link href="/truthle" className="text-green-600 hover:text-green-700 font-medium">
-              Play Truthle
-            </Link>
-            <VisualShare
-              targetRef={shareRef as React.RefObject<HTMLElement>}
-              title={`${country.name} Country Stats`}
-              description={`${flag} ${country.name} ranks #${topStats[0]?.rank || '?'} in ${topStats[0]?.name || 'the world'}! See all country rankings at The World Truth Map.`}
-              className="!bg-blue-500 hover:!bg-blue-600"
-            />
-          </div>
-        </div>
-      </header>
+          <span aria-hidden="true">/</span>
+          <span aria-current="page">{country.name}</span>
+        </nav>
 
-      {/* Main Content */}
-      <main className="max-w-6xl mx-auto px-4 py-8">
-        <AdBanner slotId={AD_SLOTS.countryPageBanner} className="mb-6" />
-        <div className="mb-6 flex flex-col md:flex-row md:items-start gap-3">
-          <Link href="/truthle" className="shrink-0 inline-flex items-center justify-center px-4 py-2 rounded-lg bg-emerald-600 text-white font-semibold shadow-sm hover:bg-emerald-700">🎯 Test yourself: play today&apos;s Truthle</Link>
-          <div className="flex-1"><ContextualOffers slug={slug} category="travel" name={country.name} /></div>
-        </div>
-        {/* Country Header Card */}
-        <div ref={shareRef} className="bg-white rounded-2xl shadow-lg p-8 mb-8">
-          <div className="flex items-center gap-6 mb-6">
-            <div className="text-7xl">{flag}</div>
+        <AdBanner slotId={AD_SLOTS.countryPageBanner} className="mt-6" />
+
+        <section ref={shareRef} className="twt-panel mt-6 overflow-hidden">
+          <div className="grid gap-8 p-5 sm:p-8 lg:grid-cols-[minmax(0,1fr)_20rem]">
             <div>
-              <h1 className="text-4xl font-bold text-gray-900 mb-2">{country.name}</h1>
-              <div className="flex items-center gap-4 text-gray-600">
-                <span className="flex items-center gap-1">
-                  <Globe className="w-4 h-4" />
-                  {country.region}
-                </span>
-                <span className="flex items-center gap-1">
-                  <BarChart3 className="w-4 h-4" />
-                  {stats.length} statistics available
-                </span>
+              <p className="twt-kicker">Country profile</p>
+              <div className="mt-3 flex items-start gap-4 sm:items-center sm:gap-6">
+                <div className="text-5xl sm:text-7xl" aria-hidden="true">{flag}</div>
+                <div>
+                  <h1 className="twt-display text-4xl leading-none sm:text-6xl">{country.name}</h1>
+                  <div className="mt-4 flex flex-wrap items-center gap-x-5 gap-y-2 text-sm font-semibold text-twt-ink/65">
+                    <span className="inline-flex items-center gap-1.5">
+                      <Globe className="h-4 w-4" aria-hidden="true" />
+                      {country.region}
+                    </span>
+                    <span className="inline-flex items-center gap-1.5">
+                      <BarChart3 className="h-4 w-4" aria-hidden="true" />
+                      {stats.length} metrics with values
+                    </span>
+                  </div>
+                </div>
+              </div>
+
+              <p className="twt-prose mt-6">
+                A data portrait of {country.name}, built from the metrics stored in The World Truth.
+                Each placing compares only countries with a stored value for that metric.
+              </p>
+              {topStat && (
+                <p className="mt-3 text-sm font-semibold leading-6 text-twt-ink/65">
+                  Top stored placing: {topStat.name}, {topStat.rankLabel}. {topStat.directionLabel}
+                </p>
+              )}
+
+              <div className="mt-6 flex flex-wrap items-center gap-3">
+                <Link href="/truthle/" className="twt-button">
+                  Play today&apos;s Truthle
+                </Link>
+                <VisualShare
+                  targetRef={shareRef as React.RefObject<HTMLElement>}
+                  title={`${country.name} Country Stats`}
+                  description={topStat
+                    ? `${flag} ${country.name}: ${topStat.name}, ${topStat.rankLabel}. ${topStat.directionLabel} See all country rankings at The World Truth Map.`
+                    : `${flag} ${country.name} country data portrait. Explore stored country metrics at The World Truth Map.`}
+                  url={absoluteSiteUrl(`/country/${slug}/`)}
+                  sourceName={topStat ? topStat.provenance.sourceName?.trim() || 'Unknown' : 'Multiple sources; see country page'}
+                  sourceVintage={topStat ? topStat.provenance.year?.trim() || 'Unknown' : 'Vintages vary; some Unknown'}
+                  sourceUrl={topStat?.provenance.sourceUrl}
+                  contentId={`country_${slug}`}
+                  placement="country_header"
+                  className="!rounded-full !border-2 !border-twt-ink !bg-twt-blue !px-4 !py-2 !font-extrabold !text-white hover:!bg-twt-ink"
+                />
               </div>
             </div>
-          </div>
 
-          {/* Quick Stats Grid */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            {country.population && (
-              <div className="bg-gray-50 rounded-xl p-4">
-                <div className="text-sm text-gray-500 mb-1">Population</div>
-                <div className="text-xl font-bold text-gray-900">
-                  {(country.population / 1000000).toFixed(1)}M
-                </div>
-              </div>
-            )}
-            {(country.poverty as any)?.gdpPerCapita && (
-              <div className="bg-gray-50 rounded-xl p-4">
-                <div className="text-sm text-gray-500 mb-1">GDP per Capita</div>
-                <div className="text-xl font-bold text-gray-900">
-                  ${((country.poverty as any).gdpPerCapita / 1000).toFixed(1)}k
-                </div>
-              </div>
-            )}
-            {(country.lifestyle as any)?.happinessIndex && (
-              <div className="bg-gray-50 rounded-xl p-4">
-                <div className="text-sm text-gray-500 mb-1">Happiness</div>
-                <div className="text-xl font-bold text-gray-900">
-                  {(country.lifestyle as any).happinessIndex.toFixed(1)}/10
-                </div>
-              </div>
-            )}
-            {country.democracy?.score && (
-              <div className="bg-gray-50 rounded-xl p-4">
-                <div className="text-sm text-gray-500 mb-1">Democracy</div>
-                <div className="text-xl font-bold text-gray-900">
-                  {country.democracy.score}/100
-                </div>
-              </div>
-            )}
+            <div className="rounded-2xl border-2 border-twt-ink bg-twt-butter/45 p-4 sm:p-5">
+              <p className="twt-kicker !text-twt-ink">Quick figures</p>
+              {quickFacts.length > 0 ? (
+                <dl className="mt-4 grid grid-cols-2 gap-3">
+                  {quickFacts.map(fact => (
+                    <div key={fact.label} className="rounded-xl border border-twt-ink/15 bg-white/75 p-3">
+                      <dt className="text-xs font-bold uppercase tracking-[0.08em] text-twt-ink/60">{fact.label}</dt>
+                      <dd className="twt-display mt-1 text-xl">{fact.value}</dd>
+                    </div>
+                  ))}
+                </dl>
+              ) : (
+                <p className="mt-3 text-sm leading-6 text-twt-ink/70">No quick figures are stored for this country.</p>
+              )}
+              <p className="mt-4 text-xs leading-5 text-twt-ink/65">
+                Source, vintage and coverage for each metric are listed with the full table below.
+              </p>
+            </div>
           </div>
+        </section>
+
+        <div className="mt-6">
+          <ContextualOffers slug={slug} category="travel" name={country.name} />
         </div>
 
-        {/* Rankings Grid */}
-        <div className="grid md:grid-cols-2 gap-8 mb-8">
-          {/* Top Rankings */}
-          <div className="bg-white rounded-2xl shadow-lg p-6">
-            <div className="flex items-center gap-3 mb-6">
-              <div className="w-12 h-12 bg-yellow-100 rounded-xl flex items-center justify-center">
-                <Trophy className="w-6 h-6 text-yellow-600" />
+        <div className="mt-10 grid gap-6 lg:grid-cols-2">
+          <section className="twt-panel p-5 sm:p-6" aria-labelledby="strong-placings-heading">
+            <div className="flex items-center gap-3">
+              <div className="flex h-11 w-11 items-center justify-center rounded-full border-2 border-twt-ink bg-twt-butter">
+                <Trophy className="h-5 w-5" aria-hidden="true" />
               </div>
               <div>
-                <h2 className="text-xl font-bold text-gray-900">Top Rankings</h2>
-                <p className="text-sm text-gray-500">What {country.name} excels at</p>
+                <p className="twt-kicker">High placings</p>
+                <h2 id="strong-placings-heading" className="twt-display text-2xl">Where {country.name} ranks high</h2>
               </div>
             </div>
+            <p className="mt-4 text-sm leading-6 text-twt-ink/65">
+              These are the strongest placings among metrics with a stored value.
+            </p>
 
             {topStats.length > 0 ? (
-              <div className="space-y-3">
-                {topStats.map((stat, i) => (
-                  <div key={stat.variableId} className="flex items-center gap-3 p-3 bg-gradient-to-r from-yellow-50 to-transparent rounded-xl">
-                    <div className="w-8 h-8 bg-yellow-100 rounded-lg flex items-center justify-center text-sm font-bold text-yellow-700">
-                      #{stat.rank}
+              <ol className="mt-5 space-y-3">
+                {topStats.map(stat => (
+                  <li key={stat.variableId} className="flex items-start gap-3 rounded-xl border border-twt-ink/10 bg-twt-paper/60 p-3">
+                    <span className="flex min-w-12 items-center justify-center rounded-full bg-twt-butter px-2 py-1 text-sm font-extrabold">
+                      {stat.rangeLabel}
+                    </span>
+                    <div className="min-w-0 flex-1">
+                      <Link
+                        href={`/map/${variableSlug(stat.name)}/`}
+                        className="font-bold text-twt-ink underline decoration-twt-ink/20 underline-offset-4 hover:text-twt-blue"
+                      >
+                        <span aria-hidden="true">{stat.icon} </span>{stat.name}
+                      </Link>
+                      <p className="mt-1 text-sm text-twt-ink/65">
+                        {stat.formattedValue} · rank {stat.rangeLabel} of {stat.total} with a value
+                      </p>
+                      <p className="mt-0.5 text-xs leading-5 text-twt-ink/55">{stat.directionLabel}</p>
                     </div>
-                    <div className="flex-1 min-w-0">
-                      <div className="font-medium text-gray-900 truncate">
-                        {stat.icon}{' '}
-                        <a className="hover:underline" href={`/map/${variableSlug(stat.name)}/`}>{stat.name}</a>
-                      </div>
-                      <div className="text-sm text-gray-500">
-                        {stat.formattedValue}
-                      </div>
-                    </div>
-                    <div className="text-xs text-gray-400">
-                      of {stat.total}
-                    </div>
-                  </div>
+                  </li>
                 ))}
-              </div>
+              </ol>
             ) : (
-              <p className="text-gray-500 text-center py-8">No standout rankings found</p>
+              <p className="mt-5 rounded-xl bg-twt-paper p-4 text-sm text-twt-ink/65">No high placings are available.</p>
             )}
-          </div>
+          </section>
 
-          {/* Bottom Rankings */}
-          <div className="bg-white rounded-2xl shadow-lg p-6">
-            <div className="flex items-center gap-3 mb-6">
-              <div className="w-12 h-12 bg-red-100 rounded-xl flex items-center justify-center">
-                <TrendingDown className="w-6 h-6 text-red-600" />
+          <section className="twt-panel p-5 sm:p-6" aria-labelledby="low-placings-heading">
+            <div className="flex items-center gap-3">
+              <div className="flex h-11 w-11 items-center justify-center rounded-full border-2 border-twt-ink bg-twt-coral/15 text-twt-coral">
+                <TrendingDown className="h-5 w-5" aria-hidden="true" />
               </div>
               <div>
-                <h2 className="text-xl font-bold text-gray-900">Lowest Rankings</h2>
-                <p className="text-sm text-gray-500">Where {country.name} ranks last</p>
+                <p className="twt-kicker">Low placings</p>
+                <h2 id="low-placings-heading" className="twt-display text-2xl">Where {country.name} ranks low</h2>
               </div>
             </div>
+            <p className="mt-4 text-sm leading-6 text-twt-ink/65">
+              These are the lowest placings among metrics with a stored value.
+            </p>
 
             {bottomStats.length > 0 ? (
-              <div className="space-y-3">
-                {bottomStats.map((stat, i) => (
-                  <div key={stat.variableId} className="flex items-center gap-3 p-3 bg-gradient-to-r from-red-50 to-transparent rounded-xl">
-                    <div className="w-8 h-8 bg-red-100 rounded-lg flex items-center justify-center text-sm font-bold text-red-700">
-                      #{stat.rank}
+              <ol className="mt-5 space-y-3">
+                {bottomStats.map(stat => (
+                  <li key={stat.variableId} className="flex items-start gap-3 rounded-xl border border-twt-ink/10 bg-twt-paper/60 p-3">
+                    <span className="flex min-w-12 items-center justify-center rounded-full bg-twt-coral/15 px-2 py-1 text-sm font-extrabold text-twt-coral">
+                      {stat.rangeLabel}
+                    </span>
+                    <div className="min-w-0 flex-1">
+                      <Link
+                        href={`/map/${variableSlug(stat.name)}/`}
+                        className="font-bold text-twt-ink underline decoration-twt-ink/20 underline-offset-4 hover:text-twt-blue"
+                      >
+                        <span aria-hidden="true">{stat.icon} </span>{stat.name}
+                      </Link>
+                      <p className="mt-1 text-sm text-twt-ink/65">
+                        {stat.formattedValue} · rank {stat.rangeLabel} of {stat.total} with a value
+                      </p>
+                      <p className="mt-0.5 text-xs leading-5 text-twt-ink/55">{stat.directionLabel}</p>
                     </div>
-                    <div className="flex-1 min-w-0">
-                      <div className="font-medium text-gray-900 truncate">
-                        {stat.icon}{' '}
-                        <a className="hover:underline" href={`/map/${variableSlug(stat.name)}/`}>{stat.name}</a>
-                      </div>
-                      <div className="text-sm text-gray-500">
-                        {stat.formattedValue}
-                      </div>
-                    </div>
-                    <div className="text-xs text-gray-400">
-                      of {stat.total}
-                    </div>
-                  </div>
+                  </li>
                 ))}
-              </div>
+              </ol>
             ) : (
-              <p className="text-gray-500 text-center py-8">No low rankings found</p>
+              <p className="mt-5 rounded-xl bg-twt-paper p-4 text-sm text-twt-ink/65">No low placings are available.</p>
             )}
-          </div>
+          </section>
         </div>
 
-        {/* All Stats Table */}
-        <div className="bg-white rounded-2xl shadow-lg p-6">
-          <h2 className="text-xl font-bold text-gray-900 mb-6">All Statistics</h2>
-
-          <div className="overflow-x-auto">
-            <table className="w-full">
-              <thead>
-                <tr className="border-b border-gray-200">
-                  <th className="text-left py-3 px-4 font-medium text-gray-600">Statistic</th>
-                  <th className="text-right py-3 px-4 font-medium text-gray-600">Value</th>
-                  <th className="text-right py-3 px-4 font-medium text-gray-600">Rank</th>
-                  <th className="text-right py-3 px-4 font-medium text-gray-600 hidden md:table-cell">Percentile</th>
-                </tr>
-              </thead>
-              <tbody>
-                {stats.sort((a, b) => a.rank - b.rank).map(stat => (
-                  <tr key={stat.variableId} className="border-b border-gray-100 hover:bg-gray-50">
-                    <td className="py-3 px-4">
-                      <span className="mr-2">{stat.icon}</span>
-                      <a className="hover:underline" href={`/map/${variableSlug(stat.name)}/`}>{stat.name}</a>
-                    </td>
-                    <td className="py-3 px-4 text-right font-medium">{stat.formattedValue}</td>
-                    <td className="py-3 px-4 text-right">
-                      <span className={`inline-flex items-center px-2 py-1 rounded-full text-xs font-medium ${
-                        stat.rank <= 10 ? 'bg-yellow-100 text-yellow-800' :
-                        stat.rank <= stat.total * 0.25 ? 'bg-green-100 text-green-800' :
-                        stat.rank >= stat.total * 0.75 ? 'bg-red-100 text-red-800' :
-                        'bg-gray-100 text-gray-800'
-                      }`}>
-                        #{stat.rank}/{stat.total}
-                      </span>
-                    </td>
-                    <td className="py-3 px-4 text-right hidden md:table-cell">
-                      <div className="flex items-center justify-end gap-2">
-                        <div className="w-24 h-2 bg-gray-200 rounded-full overflow-hidden">
-                          <div
-                            className={`h-full rounded-full ${
-                              stat.percentile >= 75 ? 'bg-green-500' :
-                              stat.percentile >= 50 ? 'bg-blue-500' :
-                              stat.percentile >= 25 ? 'bg-yellow-500' :
-                              'bg-red-500'
-                            }`}
-                            style={{ width: `${stat.percentile}%` }}
-                          />
-                        </div>
-                        <span className="text-sm text-gray-500 w-10">{stat.percentile}%</span>
-                      </div>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+        <section className="mt-10" aria-labelledby="all-statistics-heading">
+          <div className="max-w-3xl">
+            <p className="twt-kicker">Stored data</p>
+            <h2 id="all-statistics-heading" className="twt-display mt-2 text-3xl sm:text-4xl">All statistics</h2>
+            <p className="twt-prose mt-3">
+              Values are sorted by each metric&apos;s placing. A rank compares only countries with a finite stored value for that same metric.
+              Tied values share a rank range, and each entry states whether rank 1 is the highest or lowest stored value.
+              Open the source note to see what is known about source, vintage, coverage and limitations.
+            </p>
           </div>
-        </div>
+
+          {sortedStats.length > 0 ? (
+            <div className="mt-6 grid gap-3">
+              {sortedStats.map(stat => (
+                <article key={stat.variableId} className="twt-panel p-4 sm:p-5">
+                  <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+                    <div className="min-w-0">
+                      <Link
+                        href={`/map/${variableSlug(stat.name)}/`}
+                        className="font-bold text-twt-ink underline decoration-twt-ink/20 underline-offset-4 hover:text-twt-blue"
+                      >
+                        <span aria-hidden="true">{stat.icon} </span>{stat.name}
+                      </Link>
+                      <p className="mt-1 text-sm text-twt-ink/60">Country value: {stat.formattedValue}</p>
+                      <p className="mt-1 text-xs leading-5 text-twt-ink/55">{stat.directionLabel}</p>
+                    </div>
+                    <span className={`inline-flex w-fit items-center rounded-full px-3 py-1 text-sm font-extrabold ${rankTone(stat)}`}>
+                      {stat.rangeLabel} of {stat.total}
+                    </span>
+                  </div>
+                  <ProvenanceDetails provenance={stat.provenance} />
+                </article>
+              ))}
+            </div>
+          ) : (
+            <div className="twt-panel mt-6 bg-twt-paper p-5">
+              <h3 className="twt-display text-2xl">No stored statistics</h3>
+              <p className="mt-2 text-sm leading-6 text-twt-ink/70">
+                No numeric metric with a finite stored value is available for this country. Source, vintage and coverage are unknown.
+              </p>
+            </div>
+          )}
+        </section>
 
         <div className="mt-8 flex justify-center">
           <AdSidebar slotId={AD_SLOTS.countryDetail} size="square" />
         </div>
 
-        {/* CTA */}
-        <div className="mt-8 text-center">
-          <p className="text-gray-600 mb-4">How well do you know world facts?</p>
-          <Link
-            href="/truthle"
-            className="inline-flex items-center gap-2 px-6 py-3 bg-green-600 text-white font-medium rounded-xl hover:bg-green-700 transition-colors"
-          >
-            Play Truthle - Daily World Quiz
-          </Link>
-        </div>
-      </main>
-
-      {/* Footer */}
-      <footer className="bg-white border-t border-gray-200 mt-12">
-        <div className="max-w-6xl mx-auto px-4 py-6 text-center text-gray-500 text-sm">
-          <p>© {new Date().getFullYear()} The World Truth Map. Data from various public sources.</p>
-          <p className="mt-2">
-            <Link href="/" className="text-blue-600 hover:underline">Explore the Map</Link>
-            {' · '}
-            <Link href="/charts" className="text-blue-600 hover:underline">Charts</Link>
-            {' · '}
-            <Link href="/discoveries" className="text-blue-600 hover:underline">Discoveries</Link>
+        <section className="twt-panel mt-10 bg-twt-ink p-6 text-white sm:p-8">
+          <p className="twt-kicker !text-twt-butter">Daily quiz</p>
+          <h2 className="twt-display mt-2 text-3xl sm:text-4xl">How well do you know world facts?</h2>
+          <p className="mt-3 max-w-2xl text-base leading-7 text-white/75">
+            Test yourself with today&apos;s Truthle and earn game coins while you play.
           </p>
-        </div>
-      </footer>
+          <Link href="/truthle/" className="twt-button mt-5 !border-white">
+            Play Truthle
+          </Link>
+        </section>
+      </main>
     </div>
   )
 }

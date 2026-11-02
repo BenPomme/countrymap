@@ -1,26 +1,35 @@
 'use client'
 
-import { useState, useMemo, useRef } from 'react'
-import Link from 'next/link'
+import { Suspense, useCallback, useEffect, useId, useMemo, useRef, useState } from 'react'
+import { useRouter, useSearchParams } from 'next/navigation'
 import {
-  Globe,
-  Home,
-  BarChart2,
-  Sparkles,
-  Search,
-  Filter,
-  TrendingUp,
-  TrendingDown,
   ArrowUpRight,
-  ChevronDown,
-  Lightbulb,
+  Filter,
+  RotateCcw,
+  Search,
   Shuffle,
+  SlidersHorizontal,
+  Sparkles,
+  TrendingDown,
+  TrendingUp,
   X,
 } from 'lucide-react'
-import CoinBalance from '@/components/truthle/CoinBalance'
 import correlationsData from '../../../data/correlations.json'
 import { VisualShare } from '@/components/share'
+import { resolveShareProvenance } from '@/components/share/provenance'
+import { absoluteSiteUrl, metricShareContentId } from '@/components/share/shareState'
+import { useDialogFocus } from '@/components/share/useDialogFocus'
 import { useEmbeddedAppMode } from '@/lib/useEmbeddedAppMode'
+import {
+  DEFAULT_DISCOVERY_STATE,
+  discoveryStateHref,
+  filterAndSortDiscoveries,
+  findDiscoveryPair,
+  normalizeDiscoveryState,
+  parseDiscoveryState,
+  serializeDiscoveryState,
+  type DiscoveryState,
+} from './discoveryState'
 
 interface Correlation {
   var1: string
@@ -37,510 +46,499 @@ interface Correlation {
   direction: 'positive' | 'negative'
 }
 
-const CATEGORY_COLORS: Record<string, string> = {
-  governance: 'bg-blue-100 text-blue-700 border-blue-200',
-  economy: 'bg-green-100 text-green-700 border-green-200',
-  health: 'bg-red-100 text-red-700 border-red-200',
-  sex: 'bg-pink-100 text-pink-700 border-pink-200',
-  demographics: 'bg-purple-100 text-purple-700 border-purple-200',
-  education: 'bg-indigo-100 text-indigo-700 border-indigo-200',
-  lifestyle: 'bg-orange-100 text-orange-700 border-orange-200',
-  safety: 'bg-yellow-100 text-yellow-700 border-yellow-200',
-  transport: 'bg-cyan-100 text-cyan-700 border-cyan-200',
-  environment: 'bg-emerald-100 text-emerald-700 border-emerald-200',
+const CATEGORY_LABELS: Record<string, string> = {
+  governance: 'Governance',
+  economy: 'Economy',
+  health: 'Health',
+  sex: 'Relationships',
+  demographics: 'Demographics',
+  education: 'Education',
+  lifestyle: 'Lifestyle',
+  safety: 'Safety',
+  transport: 'Transport',
+  environment: 'Environment',
+  religion: 'Religion',
 }
 
-const CATEGORY_ICONS: Record<string, string> = {
-  governance: '🏛️',
-  economy: '💰',
-  health: '🏥',
-  sex: '❤️',
-  demographics: '👥',
-  education: '🎓',
-  lifestyle: '🍕',
-  safety: '🛡️',
-  transport: '🚗',
-  environment: '🌍',
+const STRENGTH_LABELS: Record<Correlation['strength'], string> = {
+  very_strong: 'Very strong',
+  strong: 'Strong',
+  moderate: 'Moderate',
 }
 
-const STRENGTH_CONFIG = {
-  very_strong: { label: 'Very Strong', color: 'bg-purple-600', minR: 0.8 },
-  strong: { label: 'Strong', color: 'bg-blue-500', minR: 0.6 },
-  moderate: { label: 'Moderate', color: 'bg-gray-400', minR: 0.4 },
+const DISCOVERIES_HERO = {
+  eyebrow: 'Data discoveries',
+  title: 'Find the connections hiding in country data',
+  intro: `Explore ${correlationsData.stats.total.toLocaleString('en-US')} measured associations from ${correlationsData.metadata.totalPairsTested.toLocaleString('en-US')} tested pairs across ${correlationsData.metadata.totalVariables} variables. Open any pair to inspect its sample and share an exact link.`,
 }
 
-type SortOption = 'interesting' | 'strength' | 'sample'
-type StrengthFilter = 'all' | 'very_strong' | 'strong'
+function statesEqual(left: DiscoveryState, right: DiscoveryState): boolean {
+  return serializeDiscoveryState(left) === serializeDiscoveryState(right)
+}
 
-export default function DiscoveriesPage() {
-  const [searchQuery, setSearchQuery] = useState('')
-  const [selectedCategory, setSelectedCategory] = useState<string | null>(null)
-  const [strengthFilter, setStrengthFilter] = useState<StrengthFilter>('all')
-  const [sortBy, setSortBy] = useState<SortOption>('interesting')
-  const [directionFilter, setDirectionFilter] = useState<'all' | 'positive' | 'negative'>('all')
-  const [crossCategoryOnly, setCrossCategoryOnly] = useState(false)
-  const [showFilters, setShowFilters] = useState(false)
-  const [selectedCorrelation, setSelectedCorrelation] = useState<Correlation | null>(null)
-  const cardRef = useRef<HTMLDivElement>(null)
+function DiscoveriesLoading() {
+  return (
+    <div className="twt-shell min-h-screen bg-[#fff9e8] text-[#192947]">
+      <main className="twt-container mx-auto max-w-6xl px-4 py-8 md:py-12">
+        <header className="mb-8 max-w-3xl">
+          <p className="twt-kicker text-xs font-black uppercase tracking-[0.2em] text-[#294cc4]">
+            {DISCOVERIES_HERO.eyebrow}
+          </p>
+          <h1 className="twt-display mt-2 max-w-3xl text-4xl font-black leading-[0.98] tracking-tight md:text-6xl">
+            {DISCOVERIES_HERO.title}
+          </h1>
+          <p className="twt-prose mt-4 max-w-2xl text-base leading-7 text-[#192947]/72 md:text-lg">
+            {DISCOVERIES_HERO.intro}
+          </p>
+        </header>
+        <section
+          role="status"
+          aria-live="polite"
+          aria-busy="true"
+          className="twt-panel rounded-[28px] border border-[#192947]/12 bg-white p-6 shadow-sm md:p-8"
+        >
+          <p className="text-xl font-black">Loading the discovery explorer</p>
+          <p className="mt-2 max-w-xl text-sm leading-6 text-[#192947]/65">
+            Preparing measured associations, filters and sample details. Your selected pair will appear here.
+          </p>
+          <div className="mt-6 space-y-3" aria-hidden="true">
+            <div className="h-10 w-2/3 rounded-xl bg-[#e7dfc8]" />
+            <div className="h-56 rounded-2xl bg-[#f4efe2]" />
+          </div>
+        </section>
+      </main>
+    </div>
+  )
+}
+
+function DiscoveriesContent() {
+  const router = useRouter()
+  const searchParams = useSearchParams()
   const embeddedMode = useEmbeddedAppMode()
+  const dialogTitleId = useId()
+  const dialogDescriptionId = useId()
+  const [showFilters, setShowFilters] = useState(false)
+  const [shareDialogOpen, setShareDialogOpen] = useState(false)
+  const firstUrlCheckRef = useRef(true)
+  const stateRef = useRef<DiscoveryState>(DEFAULT_DISCOVERY_STATE)
 
   const correlations = correlationsData.correlations as Correlation[]
   const metadata = correlationsData.metadata
   const stats = correlationsData.stats
 
-  // Get unique categories
   const categories = useMemo(() => {
-    const cats = new Set<string>()
-    correlations.forEach((c) => {
-      cats.add(c.categories[0])
-      cats.add(c.categories[1])
+    const values = new Set<string>()
+    correlations.forEach((correlation) => {
+      values.add(correlation.categories[0])
+      values.add(correlation.categories[1])
     })
-    return Array.from(cats).sort()
+    return Array.from(values).sort()
   }, [correlations])
 
-  // Filter and sort correlations
-  const filteredCorrelations = useMemo(() => {
-    let filtered = correlations
+  const options = useMemo(
+    () => ({
+      categories,
+      pairs: correlations.map(
+        (correlation) => [correlation.var1, correlation.var2] as const,
+      ),
+    }),
+    [categories, correlations],
+  )
 
-    // Search filter
-    if (searchQuery) {
-      const query = searchQuery.toLowerCase()
-      filtered = filtered.filter(
-        (c) =>
-          c.var1Name.toLowerCase().includes(query) ||
-          c.var2Name.toLowerCase().includes(query) ||
-          c.categoryNames[0].toLowerCase().includes(query) ||
-          c.categoryNames[1].toLowerCase().includes(query)
-      )
+  const [state, setState] = useState<DiscoveryState>(() =>
+    parseDiscoveryState(searchParams, options),
+  )
+
+  useEffect(() => {
+    const nextState = parseDiscoveryState(searchParams, options)
+    stateRef.current = nextState
+    setState((current) => (statesEqual(current, nextState) ? current : nextState))
+    setShareDialogOpen(false)
+  }, [options, searchParams])
+
+  useEffect(() => {
+    if (!firstUrlCheckRef.current) return
+    firstUrlCheckRef.current = false
+    const rawQuery = searchParams.toString()
+    if (!rawQuery) return
+    const canonical = serializeDiscoveryState(parseDiscoveryState(searchParams, options))
+    if (rawQuery !== canonical) {
+      router.replace(discoveryStateHref(parseDiscoveryState(searchParams, options)), {
+        scroll: false,
+      })
     }
+  }, [options, router, searchParams])
 
-    // Category filter
-    if (selectedCategory) {
-      filtered = filtered.filter(
-        (c) => c.categories[0] === selectedCategory || c.categories[1] === selectedCategory
-      )
-    }
+  const commitState = useCallback(
+    (patch: Partial<DiscoveryState>, history: 'push' | 'replace' = 'push') => {
+      const nextState = normalizeDiscoveryState({ ...stateRef.current, ...patch }, options)
+      if (statesEqual(stateRef.current, nextState)) return
+      stateRef.current = nextState
+      setState(nextState)
+      const href = discoveryStateHref(nextState)
+      if (history === 'replace') router.replace(href, { scroll: false })
+      else router.push(href, { scroll: false })
+    },
+    [options, router],
+  )
 
-    // Strength filter
-    if (strengthFilter === 'very_strong') {
-      filtered = filtered.filter((c) => c.strength === 'very_strong')
-    } else if (strengthFilter === 'strong') {
-      filtered = filtered.filter((c) => c.strength === 'very_strong' || c.strength === 'strong')
-    }
+  const filteredCorrelations = useMemo(
+    () => filterAndSortDiscoveries(correlations, state),
+    [correlations, state],
+  )
 
-    // Direction filter
-    if (directionFilter === 'positive') {
-      filtered = filtered.filter((c) => c.direction === 'positive')
-    } else if (directionFilter === 'negative') {
-      filtered = filtered.filter((c) => c.direction === 'negative')
-    }
+  const selectedCorrelation = useMemo(
+    () => findDiscoveryPair(correlations, state.pair),
+    [correlations, state.pair],
+  )
 
-    // Cross-category filter
-    if (crossCategoryOnly) {
-      filtered = filtered.filter((c) => c.crossCategory)
-    }
+  const closePair = useCallback(() => {
+    commitState({ pair: null })
+  }, [commitState])
 
-    // Sort
-    switch (sortBy) {
-      case 'strength':
-        filtered = [...filtered].sort((a, b) => Math.abs(b.coefficient) - Math.abs(a.coefficient))
-        break
-      case 'sample':
-        filtered = [...filtered].sort((a, b) => b.sampleSize - a.sampleSize)
-        break
-      case 'interesting':
-      default:
-        filtered = [...filtered].sort((a, b) => b.interestingScore - a.interestingScore)
-        break
-    }
+  const dialogRef = useDialogFocus(Boolean(selectedCorrelation), closePair, {
+    suspended: shareDialogOpen,
+  })
 
-    return filtered
-  }, [correlations, searchQuery, selectedCategory, strengthFilter, directionFilter, crossCategoryOnly, sortBy])
+  const openPair = (correlation: Correlation) => {
+    commitState({ pair: { x: correlation.var1, y: correlation.var2 } })
+  }
 
-  // Get a random interesting correlation
-  const getRandomCorrelation = () => {
-    const interesting = correlations.filter((c) => c.crossCategory && c.strength !== 'moderate')
-    const random = interesting[Math.floor(Math.random() * interesting.length)]
-    setSelectedCorrelation(random)
+  const openRandomDiscovery = () => {
+    const pool = filteredCorrelations.length > 0 ? filteredCorrelations : correlations
+    const random = pool[Math.floor(Math.random() * pool.length)]
+    if (random) openPair(random)
   }
 
   const clearFilters = () => {
-    setSearchQuery('')
-    setSelectedCategory(null)
-    setStrengthFilter('all')
-    setDirectionFilter('all')
-    setCrossCategoryOnly(false)
-    setSortBy('interesting')
+    commitState({
+      q: '',
+      category: null,
+      strength: DEFAULT_DISCOVERY_STATE.strength,
+      direction: DEFAULT_DISCOVERY_STATE.direction,
+      cross: false,
+      sort: DEFAULT_DISCOVERY_STATE.sort,
+    })
   }
 
-  const hasActiveFilters = searchQuery || selectedCategory || strengthFilter !== 'all' || directionFilter !== 'all' || crossCategoryOnly
-  const featuredCorrelations = filteredCorrelations.slice(0, 3)
+  const activeFilterCount = [
+    state.category,
+    state.strength !== 'all',
+    state.direction !== 'all',
+    state.cross,
+    state.sort !== 'interesting',
+  ].filter(Boolean).length
+  const hasActiveFilters = activeFilterCount > 0 || state.q.length > 0
+
+  const selectedProvenance = useMemo(
+    () =>
+      selectedCorrelation
+        ? resolveShareProvenance([selectedCorrelation.var1, selectedCorrelation.var2])
+        : resolveShareProvenance([]),
+    [selectedCorrelation],
+  )
+  const selectedUrl = absoluteSiteUrl(discoveryStateHref(state))
+  const selectedContentId = selectedCorrelation
+    ? metricShareContentId('discovery_correlation', [
+        selectedCorrelation.var1,
+        selectedCorrelation.var2,
+      ])
+    : undefined
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-600 via-indigo-600 to-blue-500 flex flex-col">
-      {/* Header */}
-      {!embeddedMode && (
-      <header className="bg-white/10 backdrop-blur-sm px-4 md:px-6 py-3 md:py-4">
-        <div className="max-w-6xl mx-auto flex items-center justify-between">
-          <Link href="/" className="flex items-center gap-2 md:gap-3">
-            <Globe className="w-6 h-6 md:w-8 md:h-8 text-white" />
-            <div>
-              <h1 className="text-base md:text-xl font-bold text-white">The World Truth Map</h1>
-            </div>
-          </Link>
-          <nav className="flex items-center gap-2 md:gap-4">
-            <Link
-              href="/"
-              className="flex items-center gap-2 px-3 py-2 text-sm text-white/80 hover:text-white hover:bg-white/10 rounded-md transition-colors"
-            >
-              <Home className="w-4 h-4" />
-              <span className="hidden sm:inline">Map</span>
-            </Link>
-            <Link
-              href="/charts"
-              className="flex items-center gap-2 px-3 py-2 text-sm text-white/80 hover:text-white hover:bg-white/10 rounded-md transition-colors"
-            >
-              <BarChart2 className="w-4 h-4" />
-              <span className="hidden sm:inline">Charts</span>
-            </Link>
-            <Link
-              href="/quiz"
-              className="flex items-center gap-2 px-3 py-2 text-sm text-white/80 hover:text-white hover:bg-white/10 rounded-md transition-colors"
-            >
-              <Lightbulb className="w-4 h-4" />
-              <span className="hidden sm:inline">Quiz</span>
-            </Link>
-            <CoinBalance size="sm" />
-          </nav>
-        </div>
-      </header>
-      )}
-
-      {/* Hero Section */}
-      <div className={embeddedMode ? 'px-4 pt-6 pb-8 text-center text-white' : 'px-4 py-8 md:py-12 text-center text-white'}>
-        <div className="max-w-4xl mx-auto">
-          <div className="flex items-center justify-center gap-2 mb-4">
-            <Sparkles className={`${embeddedMode ? 'w-7 h-7' : 'w-8 h-8'} text-yellow-300`} />
-            <h1 className={`${embeddedMode ? 'text-[2rem]' : 'text-3xl md:text-4xl'} font-bold`}>Data Discoveries</h1>
-            <Sparkles className={`${embeddedMode ? 'w-7 h-7' : 'w-8 h-8'} text-yellow-300`} />
+    <div className="twt-shell min-h-screen bg-[#fff9e8] text-[#192947]">
+      <main
+        className={`twt-container mx-auto max-w-6xl px-4 ${embeddedMode ? 'py-4' : 'py-8 md:py-12'}`}
+      >
+        <header className="mb-8 grid gap-5 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-end">
+          <div>
+            <p className="twt-kicker flex items-center gap-2 text-xs font-black uppercase tracking-[0.2em] text-[#294cc4]">
+              <Sparkles className="h-4 w-4" aria-hidden="true" />
+              {DISCOVERIES_HERO.eyebrow}
+            </p>
+            <h1 className="twt-display mt-2 max-w-3xl text-4xl font-black leading-[0.98] tracking-tight md:text-6xl">
+              {DISCOVERIES_HERO.title}
+            </h1>
+            <p className="twt-prose mt-4 max-w-2xl text-base leading-7 text-[#192947]/72 md:text-lg">
+              {DISCOVERIES_HERO.intro}
+            </p>
           </div>
-          <p className={`${embeddedMode ? 'mx-auto max-w-2xl text-base text-white/75' : 'text-lg text-white/80'} mb-6`}>
-            Explore {stats.total.toLocaleString()} surprising correlations found across {metadata.totalVariables} variables
-          </p>
-
-          {/* Quick Stats */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-3 max-w-2xl mx-auto mb-6">
-            <div className="bg-white/10 rounded-lg p-3">
-              <div className="text-2xl font-bold text-purple-200">{stats.veryStrong}</div>
-              <div className="text-xs text-white/60">Very Strong</div>
-            </div>
-            <div className="bg-white/10 rounded-lg p-3">
-              <div className="text-2xl font-bold text-blue-200">{stats.strong}</div>
-              <div className="text-xs text-white/60">Strong</div>
-            </div>
-            <div className="bg-white/10 rounded-lg p-3">
-              <div className="text-2xl font-bold text-green-200">{stats.crossCategory}</div>
-              <div className="text-xs text-white/60">Cross-Category</div>
-            </div>
-            <div className="bg-white/10 rounded-lg p-3">
-              <div className="text-2xl font-bold text-yellow-200">{metadata.totalPairsTested.toLocaleString()}</div>
-              <div className="text-xs text-white/60">Pairs Tested</div>
-            </div>
-          </div>
-
-          {/* Random Discovery Button */}
           <button
-            onClick={getRandomCorrelation}
-            className="inline-flex items-center gap-2 px-6 py-3 bg-white text-purple-600 font-semibold rounded-xl hover:bg-yellow-300 hover:text-purple-700 transition-all shadow-lg"
+            type="button"
+            onClick={openRandomDiscovery}
+            className="twt-button inline-flex items-center justify-center gap-2 justify-self-start rounded-full bg-[#294cc4] px-5 py-3 font-bold text-white hover:bg-[#1f3ca0] lg:justify-self-end"
           >
-            <Shuffle className="w-5 h-5" />
-            Show Random Discovery
+            <Shuffle className="h-4 w-4" aria-hidden="true" />
+            Random discovery
           </button>
-        </div>
-      </div>
+        </header>
 
-      {/* Main Content */}
-      <div className="flex-1 bg-gray-50 rounded-t-3xl px-4 py-6">
-        <div className="max-w-6xl mx-auto">
-          {/* Search and Filters */}
-          <div className={`bg-white rounded-xl shadow-sm p-4 mb-6 ${embeddedMode ? 'sticky top-4 z-10 border border-white/70 shadow-[0_20px_45px_rgba(88,28,135,0.08)] backdrop-blur' : ''}`}>
-            <div className="flex flex-col md:flex-row gap-4">
-              {/* Search */}
-              <div className="relative flex-1">
-                <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
-                <input
-                  type="text"
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                  placeholder="Search variables..."
-                  className="w-full pl-10 pr-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
-                />
-              </div>
-
-              {/* Filter Toggle */}
-              <button
-                onClick={() => setShowFilters(!showFilters)}
-                className={`flex items-center gap-2 px-4 py-2 rounded-lg border transition-colors ${
-                  hasActiveFilters
-                    ? 'bg-purple-100 border-purple-300 text-purple-700'
-                    : 'border-gray-200 text-gray-600 hover:bg-gray-50'
-                }`}
-              >
-                <Filter className="w-4 h-4" />
-                Filters
-                {hasActiveFilters && (
-                  <span className="bg-purple-600 text-white text-xs px-1.5 py-0.5 rounded-full">
-                    {[selectedCategory, strengthFilter !== 'all', directionFilter !== 'all', crossCategoryOnly].filter(Boolean).length}
-                  </span>
-                )}
-                <ChevronDown className={`w-4 h-4 transition-transform ${showFilters ? 'rotate-180' : ''}`} />
-              </button>
-
-              {/* Clear Filters */}
-              {hasActiveFilters && (
-                <button
-                  onClick={clearFilters}
-                  className="flex items-center gap-1 px-3 py-2 text-sm text-gray-500 hover:text-gray-700"
-                >
-                  <X className="w-4 h-4" />
-                  Clear
-                </button>
-              )}
+        <section aria-label="Correlation overview" className="mb-7 grid grid-cols-2 gap-3 md:grid-cols-4">
+          {[
+            { label: 'Tested pairs', value: metadata.totalPairsTested.toLocaleString(), tone: 'bg-[#192947] text-white' },
+            { label: 'Correlations', value: stats.total.toLocaleString(), tone: 'bg-[#294cc4] text-white' },
+            { label: 'Cross category', value: stats.crossCategory.toLocaleString(), tone: 'bg-[#246e55] text-white' },
+            { label: 'Very strong', value: stats.veryStrong.toLocaleString(), tone: 'bg-[#ffda62] text-[#192947]' },
+          ].map((item) => (
+            <div key={item.label} className={`rounded-2xl p-4 ${item.tone}`}>
+              <p className="text-2xl font-black">{item.value}</p>
+              <p className="mt-1 text-xs font-bold uppercase tracking-[0.12em] opacity-75">{item.label}</p>
             </div>
+          ))}
+        </section>
 
-            {/* Expanded Filters */}
-            {showFilters && (
-              <div className="mt-4 pt-4 border-t border-gray-100 grid grid-cols-1 md:grid-cols-4 gap-4">
-                {/* Category Filter */}
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">Category</label>
-                  <select
-                    value={selectedCategory || ''}
-                    onChange={(e) => setSelectedCategory(e.target.value || null)}
-                    className="w-full px-3 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
-                  >
-                    <option value="">All Categories</option>
-                    {categories.map((cat) => (
-                      <option key={cat} value={cat}>
-                        {CATEGORY_ICONS[cat]} {cat.charAt(0).toUpperCase() + cat.slice(1)}
-                      </option>
-                    ))}
-                  </select>
-                </div>
-
-                {/* Strength Filter */}
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">Strength</label>
-                  <select
-                    value={strengthFilter}
-                    onChange={(e) => setStrengthFilter(e.target.value as StrengthFilter)}
-                    className="w-full px-3 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
-                  >
-                    <option value="all">All (|r| &ge; 0.4)</option>
-                    <option value="strong">Strong+ (|r| &ge; 0.6)</option>
-                    <option value="very_strong">Very Strong (|r| &ge; 0.8)</option>
-                  </select>
-                </div>
-
-                {/* Direction Filter */}
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">Direction</label>
-                  <select
-                    value={directionFilter}
-                    onChange={(e) => setDirectionFilter(e.target.value as 'all' | 'positive' | 'negative')}
-                    className="w-full px-3 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
-                  >
-                    <option value="all">All Directions</option>
-                    <option value="positive">Positive Only</option>
-                    <option value="negative">Negative Only</option>
-                  </select>
-                </div>
-
-                {/* Sort By */}
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">Sort By</label>
-                  <select
-                    value={sortBy}
-                    onChange={(e) => setSortBy(e.target.value as SortOption)}
-                    className="w-full px-3 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
-                  >
-                    <option value="interesting">Most Interesting</option>
-                    <option value="strength">Strongest First</option>
-                    <option value="sample">Most Data Points</option>
-                  </select>
-                </div>
-
-                {/* Cross-Category Toggle */}
-                <div className="md:col-span-4">
-                  <label className="flex items-center gap-2 cursor-pointer">
-                    <input
-                      type="checkbox"
-                      checked={crossCategoryOnly}
-                      onChange={(e) => setCrossCategoryOnly(e.target.checked)}
-                      className="w-4 h-4 text-purple-600 rounded focus:ring-purple-500"
-                    />
-                    <span className="text-sm text-gray-700">Cross-category correlations only</span>
-                    <span className="text-xs text-gray-500">(more surprising discoveries)</span>
-                  </label>
-                </div>
-              </div>
+        <section className="twt-panel mb-6 rounded-[24px] border border-[#192947]/12 bg-white p-4 shadow-sm md:p-5">
+          <div className="flex flex-col gap-3 md:flex-row md:items-center">
+            <label className="relative flex-1">
+              <span className="sr-only">Search discoveries</span>
+              <Search className="pointer-events-none absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2 text-[#192947]/40" aria-hidden="true" />
+              <input
+                type="search"
+                value={state.q}
+                onChange={(event) => commitState({ q: event.target.value }, 'replace')}
+                placeholder="Search measures or categories"
+                className="w-full rounded-xl border border-[#192947]/20 bg-[#fff9e8] py-2.5 pl-10 pr-4 text-[#192947] outline-none focus-visible:ring-2 focus-visible:ring-[#294cc4]"
+              />
+            </label>
+            <button
+              type="button"
+              aria-expanded={showFilters}
+              aria-controls="discovery-filters"
+              onClick={() => setShowFilters((open) => !open)}
+              className={`inline-flex items-center justify-center gap-2 rounded-xl border px-4 py-2.5 font-bold ${
+                activeFilterCount > 0
+                  ? 'border-[#294cc4]/40 bg-[#294cc4]/8 text-[#294cc4]'
+                  : 'border-[#192947]/20 bg-white text-[#192947]'
+              }`}
+            >
+              <Filter className="h-4 w-4" aria-hidden="true" />
+              Filters
+              {activeFilterCount > 0 && (
+                <span className="rounded-full bg-[#294cc4] px-2 py-0.5 text-xs text-white">{activeFilterCount}</span>
+              )}
+            </button>
+            {hasActiveFilters && (
+              <button
+                type="button"
+                onClick={clearFilters}
+                className="inline-flex items-center justify-center gap-1.5 rounded-xl px-3 py-2.5 text-sm font-bold text-[#192947]/60 hover:bg-[#fff9e8] hover:text-[#192947]"
+              >
+                <RotateCcw className="h-4 w-4" aria-hidden="true" />
+                Clear
+              </button>
             )}
           </div>
 
-          {embeddedMode && featuredCorrelations.length > 0 && !hasActiveFilters && (
-            <div className="mb-6">
-              <div className="mb-3 flex items-center justify-between">
-                <h2 className="text-sm font-semibold uppercase tracking-[0.18em] text-purple-700">Featured Finds</h2>
-                <span className="text-xs text-gray-500">Top-ranked surprises</span>
-              </div>
-              <div className="grid grid-cols-1 gap-4">
-                {featuredCorrelations.map((correlation, index) => (
-                  <CorrelationCard
-                    key={`featured-${correlation.var1}-${correlation.var2}`}
-                    correlation={correlation}
-                    rank={index + 1}
-                    onSelect={() => setSelectedCorrelation(correlation)}
-                    featured
-                  />
-                ))}
-              </div>
+          {showFilters && (
+            <div id="discovery-filters" className="mt-5 grid gap-4 border-t border-[#192947]/10 pt-5 sm:grid-cols-2 lg:grid-cols-4">
+              <label className="text-sm font-bold">
+                Category
+                <select
+                  value={state.category || ''}
+                  onChange={(event) => commitState({ category: event.target.value || null })}
+                  className="mt-2 w-full rounded-xl border border-[#192947]/20 bg-[#fff9e8] px-3 py-2.5 font-normal"
+                >
+                  <option value="">All categories</option>
+                  {categories.map((category) => (
+                    <option key={category} value={category}>{CATEGORY_LABELS[category] || category}</option>
+                  ))}
+                </select>
+              </label>
+              <label className="text-sm font-bold">
+                Strength
+                <select
+                  value={state.strength}
+                  onChange={(event) => commitState({ strength: event.target.value as DiscoveryState['strength'] })}
+                  className="mt-2 w-full rounded-xl border border-[#192947]/20 bg-[#fff9e8] px-3 py-2.5 font-normal"
+                >
+                  <option value="all">All listed correlations</option>
+                  <option value="strong">Strong and very strong</option>
+                  <option value="very_strong">Very strong only</option>
+                </select>
+              </label>
+              <label className="text-sm font-bold">
+                Direction
+                <select
+                  value={state.direction}
+                  onChange={(event) => commitState({ direction: event.target.value as DiscoveryState['direction'] })}
+                  className="mt-2 w-full rounded-xl border border-[#192947]/20 bg-[#fff9e8] px-3 py-2.5 font-normal"
+                >
+                  <option value="all">Both directions</option>
+                  <option value="positive">Positive only</option>
+                  <option value="negative">Negative only</option>
+                </select>
+              </label>
+              <label className="text-sm font-bold">
+                Sort by
+                <select
+                  value={state.sort}
+                  onChange={(event) => commitState({ sort: event.target.value as DiscoveryState['sort'] })}
+                  className="mt-2 w-full rounded-xl border border-[#192947]/20 bg-[#fff9e8] px-3 py-2.5 font-normal"
+                >
+                  <option value="interesting">Most interesting</option>
+                  <option value="strength">Strongest first</option>
+                  <option value="sample">Most data points</option>
+                </select>
+              </label>
+              <label className="flex items-center gap-2 text-sm font-bold sm:col-span-2 lg:col-span-4">
+                <input
+                  type="checkbox"
+                  checked={state.cross}
+                  onChange={(event) => commitState({ cross: event.target.checked })}
+                  className="h-4 w-4 rounded border-[#192947]/30 text-[#294cc4] focus:ring-[#294cc4]"
+                />
+                Cross category pairs only
+                <span className="font-normal text-[#192947]/55">Compare measures from different categories</span>
+              </label>
             </div>
           )}
+        </section>
 
-          {/* Results Count */}
-          <div className="flex items-center justify-between mb-4">
-            <div className="text-sm text-gray-600">
-              Showing <span className="font-semibold text-purple-600">{filteredCorrelations.length}</span> correlations
-            </div>
-          </div>
-
-          {/* Correlation Cards Grid */}
-          <div className={`grid ${embeddedMode ? 'grid-cols-1 gap-4' : 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4'}`}>
-            {(embeddedMode && !hasActiveFilters ? filteredCorrelations.slice(3, 53) : filteredCorrelations.slice(0, 50)).map((correlation, index) => (
-              <CorrelationCard
-                key={`${correlation.var1}-${correlation.var2}`}
-                correlation={correlation}
-                rank={embeddedMode && !hasActiveFilters ? index + 4 : index + 1}
-                onSelect={() => setSelectedCorrelation(correlation)}
-              />
-            ))}
-          </div>
-
-          {filteredCorrelations.length > 50 && (
-            <div className="text-center text-gray-500 mt-6">
-              Showing 50 of {filteredCorrelations.length} correlations. Use filters to narrow down.
-            </div>
-          )}
-
-          {filteredCorrelations.length === 0 && (
-            <div className="text-center py-12">
-              <div className="text-6xl mb-4">🔍</div>
-              <h3 className="text-xl font-semibold text-gray-700 mb-2">No correlations found</h3>
-              <p className="text-gray-500">Try adjusting your filters or search query</p>
-            </div>
-          )}
+        <div className="mb-5 flex flex-wrap items-center justify-between gap-2">
+          <p className="text-sm font-bold text-[#192947]/65">
+            {filteredCorrelations.length.toLocaleString()} of {stats.total.toLocaleString()} discoveries shown
+          </p>
+          <p className="flex items-center gap-1.5 text-xs text-[#192947]/50">
+            <SlidersHorizontal className="h-3.5 w-3.5" aria-hidden="true" />
+            Filters and the open pair stay in the page URL
+          </p>
         </div>
-      </div>
 
-      {/* Selected Correlation Modal */}
+        {filteredCorrelations.length === 0 ? (
+          <div className="rounded-[28px] border border-dashed border-[#192947]/20 bg-white/65 p-10 text-center">
+            <p className="text-xl font-black">No discoveries match these filters.</p>
+            <p className="mt-2 text-[#192947]/65">Clear the filters or try a broader search.</p>
+            <button
+              type="button"
+              onClick={clearFilters}
+              className="mt-5 inline-flex items-center gap-2 rounded-full bg-[#294cc4] px-5 py-2.5 font-bold text-white"
+            >
+              <RotateCcw className="h-4 w-4" aria-hidden="true" />
+              Reset filters
+            </button>
+          </div>
+        ) : (
+          <div className="grid gap-4 md:grid-cols-2">
+            {filteredCorrelations.map((correlation) => {
+              const positive = correlation.direction === 'positive'
+              return (
+                <button
+                  key={`${correlation.var1}-${correlation.var2}`}
+                  type="button"
+                  onClick={() => openPair(correlation)}
+                  className="group rounded-[24px] border border-[#192947]/12 bg-white p-5 text-left shadow-sm transition-[border-color,transform] hover:-translate-y-0.5 hover:border-[#294cc4]/50 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#294cc4] motion-reduce:transform-none motion-reduce:transition-none"
+                >
+                  <div className="mb-3 flex flex-wrap items-center gap-2">
+                    <span className="rounded-full bg-[#fff9e8] px-2.5 py-1 text-[11px] font-black uppercase tracking-[0.1em] text-[#192947]/65">
+                      {CATEGORY_LABELS[correlation.categories[0]] || correlation.categoryNames[0]}
+                    </span>
+                    <span className="rounded-full bg-[#fff9e8] px-2.5 py-1 text-[11px] font-black uppercase tracking-[0.1em] text-[#192947]/65">
+                      {CATEGORY_LABELS[correlation.categories[1]] || correlation.categoryNames[1]}
+                    </span>
+                  </div>
+                  <div className="flex items-start justify-between gap-4">
+                    <h2 className="text-lg font-black leading-snug">
+                      {correlation.var1Name} and {correlation.var2Name}
+                    </h2>
+                    <span className={`inline-flex shrink-0 items-center gap-1 rounded-full px-2.5 py-1 text-sm font-black ${positive ? 'bg-[#246e55]/10 text-[#246e55]' : 'bg-[#dc654e]/12 text-[#a63f2d]'}`}>
+                      {positive ? <TrendingUp className="h-3.5 w-3.5" aria-hidden="true" /> : <TrendingDown className="h-3.5 w-3.5" aria-hidden="true" />}
+                      {correlation.coefficient.toFixed(2)}
+                    </span>
+                  </div>
+                  <div className="mt-4 flex items-center justify-between gap-3 text-xs font-bold text-[#192947]/55">
+                    <span>{STRENGTH_LABELS[correlation.strength]} | {correlation.sampleSize} countries</span>
+                    <span className="inline-flex items-center gap-1 text-[#294cc4]">
+                      Inspect
+                      <ArrowUpRight className="h-3.5 w-3.5" aria-hidden="true" />
+                    </span>
+                  </div>
+                </button>
+              )
+            })}
+          </div>
+        )}
+      </main>
+
       {selectedCorrelation && (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center p-4 z-50" onClick={() => setSelectedCorrelation(null)}>
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
           <div
-            ref={cardRef}
-            className="bg-white rounded-2xl shadow-2xl max-w-lg w-full p-6"
-            onClick={(e) => e.stopPropagation()}
+            className="absolute inset-0 bg-[#192947]/70"
+            aria-hidden="true"
+            onClick={closePair}
+          />
+          <div
+            ref={dialogRef}
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby={dialogTitleId}
+            aria-describedby={dialogDescriptionId}
+            aria-hidden={shareDialogOpen || undefined}
+            tabIndex={-1}
+            className="relative max-h-[92vh] w-full max-w-2xl overflow-y-auto rounded-[28px] border border-[#192947]/15 bg-[#fff9e8] p-5 text-[#192947] shadow-2xl md:p-7"
           >
-            <div className="flex justify-between items-start mb-4">
-              <div className="flex items-center gap-2">
-                <span className="text-2xl">{CATEGORY_ICONS[selectedCorrelation.categories[0]]}</span>
-                <span className="text-gray-400">×</span>
-                <span className="text-2xl">{CATEGORY_ICONS[selectedCorrelation.categories[1]]}</span>
+            <div className="mb-5 flex items-start justify-between gap-4">
+              <div>
+                <p className="text-xs font-black uppercase tracking-[0.16em] text-[#294cc4]">
+                  Discovery detail
+                </p>
+                <h2 id={dialogTitleId} className="mt-2 text-2xl font-black leading-tight md:text-3xl">
+                  {selectedCorrelation.var1Name} and {selectedCorrelation.var2Name}
+                </h2>
               </div>
               <button
-                onClick={() => setSelectedCorrelation(null)}
-                className="text-gray-400 hover:text-gray-600"
+                type="button"
+                onClick={closePair}
+                aria-label="Close discovery"
+                className="rounded-full p-2 text-[#192947]/60 hover:bg-[#192947]/10 hover:text-[#192947] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#294cc4]"
               >
-                <X className="w-6 h-6" />
+                <X className="h-5 w-5" aria-hidden="true" />
               </button>
             </div>
 
-            <h2 className="text-xl font-bold text-gray-800 mb-2">
-              {selectedCorrelation.var1Name} vs {selectedCorrelation.var2Name}
-            </h2>
-
-            <div className="flex items-center gap-3 mb-4">
-              <div
-                className={`flex items-center gap-1 px-3 py-1 rounded-full text-white text-sm font-medium ${
-                  selectedCorrelation.direction === 'positive' ? 'bg-green-500' : 'bg-red-500'
-                }`}
-              >
-                {selectedCorrelation.direction === 'positive' ? (
-                  <TrendingUp className="w-4 h-4" />
-                ) : (
-                  <TrendingDown className="w-4 h-4" />
-                )}
-                r = {selectedCorrelation.coefficient > 0 ? '+' : ''}{selectedCorrelation.coefficient.toFixed(3)}
+            <div id={dialogDescriptionId} className="grid gap-4 sm:grid-cols-3">
+              <div className="rounded-2xl bg-[#294cc4] p-4 text-white sm:col-span-2">
+                <p className="text-4xl font-black">r = {selectedCorrelation.coefficient.toFixed(2)}</p>
+                <p className="mt-2 text-sm text-white/80">
+                  {selectedCorrelation.direction === 'positive' ? 'Positive' : 'Negative'} {STRENGTH_LABELS[selectedCorrelation.strength].toLowerCase()} correlation in this dataset.
+                </p>
               </div>
-              <span
-                className={`px-2 py-1 rounded text-xs font-medium ${
-                  selectedCorrelation.strength === 'very_strong'
-                    ? 'bg-purple-100 text-purple-700'
-                    : selectedCorrelation.strength === 'strong'
-                    ? 'bg-blue-100 text-blue-700'
-                    : 'bg-gray-100 text-gray-700'
-                }`}
-              >
-                {STRENGTH_CONFIG[selectedCorrelation.strength].label}
-              </span>
+              <div className="rounded-2xl border border-[#192947]/12 bg-white p-4">
+                <p className="text-3xl font-black">{selectedCorrelation.sampleSize}</p>
+                <p className="mt-1 text-xs font-bold uppercase tracking-[0.12em] text-[#192947]/55">Countries with both values</p>
+              </div>
             </div>
 
-            <div className="flex gap-2 mb-4">
-              <span className={`px-2 py-1 rounded-full text-xs border ${CATEGORY_COLORS[selectedCorrelation.categories[0]]}`}>
-                {selectedCorrelation.categoryNames[0]}
-              </span>
-              <span className={`px-2 py-1 rounded-full text-xs border ${CATEGORY_COLORS[selectedCorrelation.categories[1]]}`}>
-                {selectedCorrelation.categoryNames[1]}
-              </span>
-              {selectedCorrelation.crossCategory && (
-                <span className="px-2 py-1 rounded-full text-xs bg-yellow-100 text-yellow-700 border border-yellow-200">
-                  Cross-Category
-                </span>
-              )}
+            <div className="mt-5 space-y-3 text-sm leading-6 text-[#192947]/72">
+              <p>
+                The pair crosses {selectedCorrelation.crossCategory ? 'different' : 'the same'} categories: {CATEGORY_LABELS[selectedCorrelation.categories[0]] || selectedCorrelation.categoryNames[0]} and {CATEGORY_LABELS[selectedCorrelation.categories[1]] || selectedCorrelation.categoryNames[1]}.
+              </p>
+              <p className="rounded-xl border border-[#dc654e]/20 bg-[#dc654e]/8 p-3 text-[#7f3022]">
+                This is a measured association, not evidence that one measure causes the other.
+              </p>
             </div>
 
-            <p className="text-gray-600 mb-4">
-              {selectedCorrelation.direction === 'positive' ? (
-                <>
-                  Countries with higher <strong>{selectedCorrelation.var1Name}</strong> tend to have higher{' '}
-                  <strong>{selectedCorrelation.var2Name}</strong>.
-                </>
-              ) : (
-                <>
-                  Countries with higher <strong>{selectedCorrelation.var1Name}</strong> tend to have lower{' '}
-                  <strong>{selectedCorrelation.var2Name}</strong>.
-                </>
-              )}
-            </p>
-
-            <div className="text-sm text-gray-500 mb-6">
-              Based on data from {selectedCorrelation.sampleSize} countries
-            </div>
-
-            <div className="flex gap-3">
-              <Link
-                href={`/charts?chart=correlation&x=${selectedCorrelation.var1}&y=${selectedCorrelation.var2}`}
-                className="flex-1 flex items-center justify-center gap-2 px-4 py-3 bg-purple-600 text-white font-medium rounded-lg hover:bg-purple-700 transition-colors"
-              >
-                <BarChart2 className="w-4 h-4" />
-                View Scatter Plot
-                <ArrowUpRight className="w-4 h-4" />
-              </Link>
+            <div className="mt-6 flex flex-col gap-3 sm:flex-row">
               <VisualShare
-                targetRef={cardRef}
-                title="Correlation Discovery"
-                description={`${selectedCorrelation.var1Name} vs ${selectedCorrelation.var2Name} (r=${selectedCorrelation.coefficient.toFixed(2)})`}
-                className="px-4 py-3 border border-gray-200 text-gray-700 font-medium rounded-lg hover:bg-gray-50 transition-colors"
+                title={`${selectedCorrelation.var1Name} and ${selectedCorrelation.var2Name}`}
+                description={`${selectedCorrelation.direction === 'positive' ? 'Positive' : 'Negative'} correlation of ${selectedCorrelation.coefficient.toFixed(2)} across ${selectedCorrelation.sampleSize} countries in this dataset.`}
+                url={selectedUrl}
+                stat={`r = ${selectedCorrelation.coefficient.toFixed(2)}`}
+                detail={`${selectedCorrelation.sampleSize} countries compared`}
+                sourceName={selectedProvenance.sourceName}
+                sourceVintage={selectedProvenance.sourceVintage}
+                sourceUrl={selectedProvenance.sourceUrl}
+                contentId={selectedContentId}
+                placement="discoveries_detail"
+                onOpenChange={setShareDialogOpen}
+                className="w-full sm:w-auto"
               />
+              <button
+                type="button"
+                onClick={closePair}
+                className="inline-flex items-center justify-center rounded-full border border-[#192947]/20 bg-white px-5 py-2 font-bold hover:bg-[#ffda62]/30"
+              >
+                Keep browsing
+              </button>
             </div>
           </div>
         </div>
@@ -549,83 +547,10 @@ export default function DiscoveriesPage() {
   )
 }
 
-// Correlation Card Component
-function CorrelationCard({
-  correlation,
-  rank,
-  onSelect,
-  featured = false,
-}: {
-  correlation: Correlation
-  rank: number
-  onSelect: () => void
-  featured?: boolean
-}) {
-  const isTopTen = rank <= 10
-
+export default function DiscoveriesPage() {
   return (
-    <button
-      onClick={onSelect}
-      className={`text-left rounded-xl border p-4 transition-all hover:border-purple-300 hover:shadow-md ${
-        featured
-          ? 'bg-gradient-to-br from-purple-600 via-indigo-600 to-blue-500 text-white shadow-[0_20px_45px_rgba(88,28,135,0.18)]'
-          : `bg-white shadow-sm ${isTopTen ? 'border-purple-200' : 'border-gray-100'}`
-      }`}
-    >
-      {/* Header */}
-      <div className="flex items-start justify-between mb-3">
-        <div className="flex items-center gap-2">
-          <span className="text-lg">{CATEGORY_ICONS[correlation.categories[0]]}</span>
-          <span className={featured ? 'text-white/40' : 'text-gray-300'}>×</span>
-          <span className="text-lg">{CATEGORY_ICONS[correlation.categories[1]]}</span>
-        </div>
-        {isTopTen && (
-          <span className={`${featured ? 'bg-white/20 text-white' : 'bg-gradient-to-r from-purple-600 to-pink-600 text-white'} text-xs font-bold px-2 py-1 rounded`}>
-            #{rank}
-          </span>
-        )}
-      </div>
-
-      {/* Variables */}
-      <h3 className={`mb-1 line-clamp-1 font-semibold ${featured ? 'text-white' : 'text-gray-800'}`}>{correlation.var1Name}</h3>
-      <h3 className={`mb-3 line-clamp-1 font-semibold ${featured ? 'text-white' : 'text-gray-800'}`}>vs {correlation.var2Name}</h3>
-
-      {/* Correlation Value */}
-      <div className="flex items-center gap-2 mb-3">
-        <div
-          className={`flex items-center gap-1 px-2 py-1 rounded text-sm font-mono font-bold ${
-            correlation.direction === 'positive'
-              ? featured ? 'bg-white/15 text-white' : 'bg-green-100 text-green-700'
-              : featured ? 'bg-white/15 text-white' : 'bg-red-100 text-red-700'
-          }`}
-        >
-          {correlation.direction === 'positive' ? (
-            <TrendingUp className="w-3 h-3" />
-          ) : (
-            <TrendingDown className="w-3 h-3" />
-          )}
-          {correlation.coefficient > 0 ? '+' : ''}{correlation.coefficient.toFixed(3)}
-        </div>
-        <span
-          className={`px-2 py-1 rounded text-xs font-medium ${
-            correlation.strength === 'very_strong'
-              ? featured ? 'bg-white/15 text-white' : 'bg-purple-100 text-purple-700'
-              : correlation.strength === 'strong'
-              ? featured ? 'bg-white/15 text-white' : 'bg-blue-100 text-blue-700'
-              : featured ? 'bg-white/15 text-white' : 'bg-gray-100 text-gray-600'
-          }`}
-        >
-          {STRENGTH_CONFIG[correlation.strength].label}
-        </span>
-      </div>
-
-      {/* Footer */}
-      <div className={`flex items-center justify-between text-xs ${featured ? 'text-white/75' : 'text-gray-500'}`}>
-        <span>n = {correlation.sampleSize}</span>
-        {correlation.crossCategory && (
-          <span className={featured ? 'font-medium text-yellow-200' : 'text-yellow-600 font-medium'}>Cross-Category</span>
-        )}
-      </div>
-    </button>
+    <Suspense fallback={<DiscoveriesLoading />}>
+      <DiscoveriesContent />
+    </Suspense>
   )
 }
