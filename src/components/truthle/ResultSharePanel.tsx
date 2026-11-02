@@ -139,7 +139,7 @@ export default function ResultSharePanel({
     } catch (error) {
       trackEvent('share_error', { game, puzzle_day: day, method, status: clipboardFailureStatus(error) })
       setFallbackText(text)
-      setStatus('Your browser did not confirm a copy. Select the message below and copy it manually.', 'error')
+      setStatus('Copy failed. Select the message below.', 'error')
     } finally {
       setBusyAction(null)
     }
@@ -148,7 +148,7 @@ export default function ResultSharePanel({
   const sharePlainResult = async () => {
     if (busyAction) return
     if (!navigator.share) {
-      await copyText(plainText, 'clipboard', 'Result copied. Paste it into a message when you are ready.')
+      await copyText(plainText, 'clipboard', 'Result copied. Paste it when ready.')
       return
     }
 
@@ -159,15 +159,15 @@ export default function ResultSharePanel({
       await navigator.share({ title: `${GAME_TITLES[game]} ${day}`, text: plainText, url: shareUrl })
       recordShareAction()
       trackEvent('share_handoff', { game, puzzle_day: day, method: 'native', status: 'handed_off' })
-      setStatus('Share sheet closed. This page cannot confirm delivery; check the other app if you want to verify it was sent.', 'success')
+      setStatus('Share sheet finished. Delivery is not confirmed.', 'success')
     } catch (error) {
       const kind = shareFailureKind(error)
       trackEvent(kind === 'cancel' ? 'share_cancel' : 'share_error', { game, puzzle_day: day, method: 'native', status: kind })
       if (kind === 'cancel') {
-        setStatus('Share cancelled. Nothing was sent. Your result is still here.', 'neutral')
+        setStatus('Share cancelled. Nothing was sent.', 'neutral')
       } else {
         setFallbackText(plainText)
-        setStatus('Your browser could not open the share sheet. Use the message below, or try again.', 'error')
+        setStatus('Share failed. Copy the message below or try again.', 'error')
       }
     } finally {
       setBusyAction(null)
@@ -177,7 +177,7 @@ export default function ResultSharePanel({
   const shareGift = async () => {
     if (!giftText || !giftUrl || busyAction) return
     if (!navigator.share) {
-      await copyText(giftText, 'clipboard_gift', 'Gift message copied. Send the message when you are ready.')
+      await copyText(giftText, 'clipboard_gift', 'Gift message copied. Send it when ready.')
       return
     }
 
@@ -188,15 +188,15 @@ export default function ResultSharePanel({
       await navigator.share({ title: `Free Extra Attempt for ${GAME_TITLES[game]}`, text: giftText, url: giftUrl })
       recordShareAction()
       trackEvent('share_handoff', { game, puzzle_day: day, method: 'native_gift', status: 'handed_off' })
-      setStatus('Share sheet closed. This page cannot confirm delivery. The prepared gift remains available here.', 'success')
+      setStatus('Share sheet finished. Delivery is not confirmed. The prepared gift is still here.', 'success')
     } catch (error) {
       const kind = shareFailureKind(error)
       trackEvent(kind === 'cancel' ? 'share_cancel' : 'share_error', { game, puzzle_day: day, method: 'native_gift', status: kind })
       if (kind === 'cancel') {
-        setStatus('Gift share cancelled. Nothing was sent and your prepared gift was kept.', 'neutral')
+        setStatus('Gift share cancelled. Nothing was sent. The prepared gift is still here.', 'neutral')
       } else {
         setFallbackText(giftText)
-        setStatus('Your browser could not open the gift share sheet. The prepared gift is still here.', 'error')
+        setStatus('Gift share failed. Copy the gift message below. The prepared gift is still here.', 'error')
       }
     } finally {
       setBusyAction(null)
@@ -210,7 +210,7 @@ export default function ResultSharePanel({
       if (!opened) {
         trackEvent('share_error', { game, puzzle_day: day, method, status: 'blocked' })
         setFallbackText(text)
-        setStatus('Your browser blocked the WhatsApp tab. Use the message below instead.', 'error')
+        setStatus('WhatsApp did not open. Copy the message below instead.', 'error')
         return
       }
       try {
@@ -221,11 +221,11 @@ export default function ResultSharePanel({
       recordShareAction()
       trackEvent('share_handoff', { game, puzzle_day: day, method, status: 'opened' })
       setFallbackText('')
-      setStatus('WhatsApp opened in a new tab. This page cannot confirm whether the message was sent.', 'neutral')
+      setStatus('WhatsApp opened. Delivery is not confirmed.', 'neutral')
     } catch {
       trackEvent('share_error', { game, puzzle_day: day, method, status: 'blocked' })
       setFallbackText(text)
-      setStatus('WhatsApp could not be opened. Use the message below instead.', 'error')
+      setStatus('WhatsApp did not open. Copy the message below instead.', 'error')
     }
   }
 
@@ -233,7 +233,7 @@ export default function ResultSharePanel({
     if (cardBlob) return cardBlob
     if (cardBusy) return null
     setCardBusy(true)
-    setStatus('Building your square result image...', 'pending')
+    setStatus('Preparing image...', 'pending')
     try {
       const blob = await generateResultCard(result, shareUrl)
       setCardBlob(blob)
@@ -242,7 +242,7 @@ export default function ResultSharePanel({
     } catch {
       trackEvent('share_error', { game, puzzle_day: day, method: 'image', status: 'generation' })
       setFallbackText(plainText)
-      setStatus('The image could not be created in this browser. Use the result text below or try again.', 'error')
+      setStatus('Image could not be prepared. Copy the result below or try again.', 'error')
       return null
     } finally {
       setCardBusy(false)
@@ -253,7 +253,7 @@ export default function ResultSharePanel({
     if (busyAction) return
     if (!cardBlob) {
       const prepared = await prepareImage()
-      if (prepared) setStatus('Image ready. Tap Share image again to open your share sheet.', 'pending')
+      if (prepared) setStatus('Image ready. Tap Share image again to open the share sheet.', 'pending')
       return
     }
 
@@ -269,7 +269,7 @@ export default function ResultSharePanel({
     }
     if (!file || !canShareFile) {
       setFallbackText(plainText)
-      setStatus('This browser cannot attach an image to a share sheet. Download the PNG or use the result text below.', 'error')
+      setStatus('This browser cannot share the image. Download the PNG or copy the result below.', 'error')
       return
     }
 
@@ -279,15 +279,15 @@ export default function ResultSharePanel({
       await navigator.share({ title: `${GAME_TITLES[game]} ${day}`, text: plainText, url: shareUrl, files: [file] })
       recordShareAction()
       trackEvent('share_handoff', { game, puzzle_day: day, method: 'native_image', status: 'handed_off' })
-      setStatus('Image share sheet closed. This page cannot confirm delivery. The PNG remains available here.', 'success')
+      setStatus('Image share finished. Delivery is not confirmed. The PNG is still available here.', 'success')
     } catch (error) {
       const kind = shareFailureKind(error)
       trackEvent(kind === 'cancel' ? 'share_cancel' : 'share_error', { game, puzzle_day: day, method: 'native_image', status: kind })
       if (kind === 'cancel') {
-        setStatus('Image share cancelled. Nothing was sent and the image is still ready here.', 'neutral')
+        setStatus('Image share cancelled. Nothing was sent. The image is still ready here.', 'neutral')
       } else {
         setFallbackText(plainText)
-        setStatus('The image could not be shared. Download the PNG or use the result text below.', 'error')
+        setStatus('Image share failed. Download the PNG or copy the result below.', 'error')
       }
     } finally {
       setBusyAction(null)
@@ -301,11 +301,11 @@ export default function ResultSharePanel({
 
     try {
       triggerDownload(blob, shareCardFileName(game, day))
-      setStatus('PNG download started. This page cannot confirm where your browser saved it.', 'neutral')
+      setStatus('PNG download started. This page cannot confirm where it was saved.', 'neutral')
     } catch {
       setFallbackText(plainText)
       trackEvent('share_error', { game, puzzle_day: day, method: 'image_download', status: 'download' })
-      setStatus('The PNG download could not start. Use the result text below instead.', 'error')
+      setStatus('PNG download failed. Copy the result below instead.', 'error')
     }
   }
 
@@ -319,7 +319,7 @@ export default function ResultSharePanel({
       const createdCode = normalizeGiftCode(created?.code)
       if (!created || !createdCode || !isGiftUsableForDay(created.expiresAt, day)) {
         trackEvent('reward_mint', { game, puzzle_day: day, status: 'failed' })
-        setStatus('The friend gift or its expiry could not be confirmed. Choose a gift action to try again.', 'error')
+        setStatus('The friend gift or its expiry could not be confirmed. Choose a gift option to try again.', 'error')
         return
       }
 
@@ -327,10 +327,10 @@ export default function ResultSharePanel({
       setNow(Date.now())
       trackEvent('reward_mint', { game, puzzle_day: day, status: 'success' })
       const nextAction = intent === 'share' ? 'Share gift' : 'Copy gift'
-      setStatus(`Friend gift prepared. Tap ${nextAction} to continue. Nothing has been sent or copied yet.`, 'success')
+      setStatus(`Friend gift ready. Tap ${nextAction} to continue. Nothing has been sent or copied.`, 'success')
     } catch {
       trackEvent('reward_mint', { game, puzzle_day: day, status: 'failed' })
-      setStatus('The friend gift could not be prepared. Choose a gift action to try again.', 'error')
+      setStatus('Friend gift could not be prepared. Choose a gift option to try again.', 'error')
     } finally {
       setGiftBusy(false)
     }
@@ -340,35 +340,25 @@ export default function ResultSharePanel({
 
   return (
     <section className="twt-panel mx-auto w-full max-w-2xl p-5 text-left sm:p-6" aria-labelledby="share-result-heading">
-      <p className="twt-kicker">Share first</p>
-      <h3 id="share-result-heading" className="twt-display mt-1 text-2xl font-black text-[#192947]">Send today&apos;s challenge</h3>
-      <p className="mt-1 text-sm text-[#59647a]">Your scorecard never includes today&apos;s answers. Every share opens the same game and day.</p>
+      <p className="twt-kicker">Optional sharing</p>
+      <h3 id="share-result-heading" className="twt-display mt-1 text-2xl font-black text-[#192947]">Share your result</h3>
+      <p className="mt-1 text-sm text-[#59647a]">Every share opens the same game and day, without today&apos;s answers.</p>
 
-      <div className="mt-4 grid gap-2 sm:grid-cols-2">
-        <button type="button" onClick={() => void sharePlainResult()} disabled={busyAction !== null} className="twt-button min-h-11">
+      <button type="button" onClick={() => openWhatsApp(plainText, 'whatsapp')} className="twt-button mt-4 min-h-12 w-full">
+        Send on WhatsApp
+      </button>
+      <div className="mt-2 grid grid-cols-2 gap-2">
+        <button type="button" onClick={() => void sharePlainResult()} disabled={busyAction !== null} className="twt-button-secondary min-h-11">
           {busyAction === 'native' ? 'Opening share sheet...' : 'Share result'}
         </button>
         <button
           type="button"
-          onClick={() => void copyText(plainText, 'clipboard', 'Result copied. Paste it into a message when you are ready.')}
+          onClick={() => void copyText(plainText, 'clipboard', 'Result copied. Paste it when ready.')}
           disabled={busyAction !== null}
           className="twt-button-secondary min-h-11"
         >
           Copy result
         </button>
-        <button type="button" onClick={() => openWhatsApp(plainText, 'whatsapp')} className="twt-button-secondary min-h-11">
-          Share on WhatsApp
-        </button>
-        <button type="button" onClick={() => void shareImage()} disabled={cardBusy || busyAction !== null} className="twt-button-secondary min-h-11">
-          {cardBusy ? 'Building image...' : cardBlob ? 'Share image' : 'Prepare image'}
-        </button>
-      </div>
-
-      <div className="mt-2 flex flex-wrap items-center gap-3 text-xs">
-        <button type="button" onClick={() => void downloadImage()} disabled={cardBusy} className="font-semibold text-[#294cc4] underline">
-          Download PNG
-        </button>
-        {cardBlob && <span className="text-[#59647a]">Square image ready</span>}
       </div>
 
       <p role="status" aria-live="polite" className={`mt-3 min-h-5 text-sm ${messageClass(messageTone)}`}>
@@ -389,25 +379,39 @@ export default function ResultSharePanel({
         </div>
       )}
 
-      <div className="mt-5 border-t border-[#d8d2c2] pt-5">
-        <h4 className="font-black text-[#192947]">Friend Extra Attempt</h4>
-        <p className="mt-1 text-sm text-[#59647a]">Create one single-use gift for a friend and today only. Choose a gift action to mint it. Nothing is minted when you open your result.</p>
+      <details className="mt-4 border-t border-[#d8d2c2] pt-1">
+        <summary className="cursor-pointer py-3 text-sm font-black text-[#192947]">Image and download options</summary>
+        <p className="text-sm text-[#59647a]">Create a square image for a share sheet, or download a PNG.</p>
+        <div className="mt-3 grid gap-2 sm:grid-cols-2">
+          <button type="button" onClick={() => void shareImage()} disabled={cardBusy || busyAction !== null} className="twt-button-secondary min-h-11">
+            {cardBusy ? 'Preparing image...' : cardBlob ? 'Share image' : 'Prepare image'}
+          </button>
+          <button type="button" onClick={() => void downloadImage()} disabled={cardBusy} className="twt-button-secondary min-h-11">
+            Download PNG
+          </button>
+        </div>
+        {cardBlob && <p className="mt-2 text-xs text-[#59647a]">Square image ready</p>}
+      </details>
+
+      <details className="border-t border-[#d8d2c2]">
+        <summary className="cursor-pointer py-3 text-sm font-black text-[#192947]">Friend gift: one free Extra Attempt</summary>
+        <p className="text-sm leading-6 text-[#59647a]">Prepare one single-use gift for a friend, for today&apos;s challenge only. It expires at 23:59:59 UTC today. Your account cannot use it. Choose an option below to prepare it.</p>
 
         {!promo || giftExpired ? (
           <div className="mt-3">
             {storedGiftExpired && !giftExpired && (
-              <p className="mb-2 text-sm text-[#a33f2c]">A stored friend gift is no longer usable. Choose a gift action to prepare a new one.</p>
+              <p className="mb-2 text-sm text-[#a33f2c]">A stored friend gift is no longer usable. Choose a gift option to prepare a new one.</p>
             )}
-            {giftExpired && <p className="mb-2 text-sm text-[#a33f2c]">The prepared gift expired. It was not sent by this page.</p>}
+            {giftExpired && <p className="mb-2 text-sm text-[#a33f2c]">The prepared gift has expired. Prepare a new gift for today.</p>}
             <div className="grid gap-2 sm:grid-cols-2">
               <button type="button" onClick={() => void prepareGift('share')} disabled={giftBusy || busyAction !== null} className="twt-button-secondary min-h-11">
-                {giftBusy ? 'Preparing gift...' : 'Share new friend gift'}
+                {giftBusy ? 'Preparing gift...' : 'Prepare gift to share'}
               </button>
               <button type="button" onClick={() => void prepareGift('copy')} disabled={giftBusy || busyAction !== null} className="twt-button-secondary min-h-11">
-                {giftBusy ? 'Preparing gift...' : 'Copy new friend gift'}
+                {giftBusy ? 'Preparing gift...' : 'Prepare gift to copy'}
               </button>
             </div>
-            <p className="mt-2 text-xs text-[#59647a]">The gift is shown here first. You choose how to send or copy it in a second step.</p>
+            <p className="mt-2 text-xs text-[#59647a]">The prepared gift appears here first. You choose how to send or copy it next.</p>
           </div>
         ) : (
           <>
@@ -418,7 +422,7 @@ export default function ResultSharePanel({
               </button>
               <button
                 type="button"
-                onClick={() => giftText && void copyText(giftText, 'clipboard_gift', 'Gift copied. Send the message when you are ready.')}
+                onClick={() => giftText && void copyText(giftText, 'clipboard_gift', 'Gift message copied. Send it when ready.')}
                 disabled={busyAction !== null}
                 className="twt-button-secondary min-h-11"
               >
@@ -430,7 +434,7 @@ export default function ResultSharePanel({
             </div>
           </>
         )}
-      </div>
+      </details>
     </section>
   )
 }

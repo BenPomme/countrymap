@@ -648,7 +648,7 @@ export default function TruthleGame({ countries }: TruthleGameProps) {
   }, [day, embeddedMode, retryPending, retryRequesting, truthleDay])
 
   const handleVerifiedCheckout = useCallback((credits: number) => {
-    setRetryMessage(`${credits} Extra Attempt ${credits === 1 ? 'credit is' : 'credits are'} verified. Use it below when you are ready.`)
+    setRetryMessage(`${credits} Extra Attempt ${credits === 1 ? 'is' : 'credits are'} ready. Use ${credits === 1 ? 'it' : 'them'} below when you are ready.`)
     void refreshRetryStatus(day)
   }, [day, refreshRetryStatus])
 
@@ -801,17 +801,6 @@ export default function TruthleGame({ countries }: TruthleGameProps) {
 
       {phase === 'result' && result && (
         <div className="space-y-4">
-          {hasResultBreakdown && (
-            <ResultSharePanel
-              game="truthle"
-              day={day}
-              score={result.score}
-              correct={resultCorrect}
-              total={resultTotal}
-              streak={result.streak}
-            />
-          )}
-
           {hasResultBreakdown ? (
             <ResultScorecard
               game="truthle"
@@ -829,6 +818,17 @@ export default function TruthleGame({ countries }: TruthleGameProps) {
               <p className="mt-2 text-sm font-semibold text-[#246e55]">Round streak: {result.streak} {result.streak === 1 ? 'day' : 'days'}</p>
               <p className="twt-prose mt-2">This saved result did not include an answer breakdown. Its score and streak are shown without guessing the missing details.</p>
             </section>
+          )}
+
+          {hasResultBreakdown && (
+            <ResultSharePanel
+              game="truthle"
+              day={day}
+              score={result.score}
+              correct={resultCorrect}
+              total={resultTotal}
+              streak={result.streak}
+            />
           )}
 
           <section className="twt-panel p-5 text-left sm:p-6" aria-labelledby="coin-result-heading">
@@ -922,7 +922,7 @@ export default function TruthleGame({ countries }: TruthleGameProps) {
 
             {retryMessage && <p className="mt-3 text-sm leading-6 text-[#49556b]" role="status" aria-live="polite">{retryMessage}</p>}
             <p className="mt-3 text-xs leading-5 text-[#59647a]">
-              After checkout, the trusted verification banner checks the payment server before an attempt is added. A gift code you created cannot be used for your own Extra Attempt.
+              After checkout, your Extra Attempt appears here only when the payment is confirmed. A gift code you created cannot be used for your own Extra Attempt.
             </p>
           </section>
 

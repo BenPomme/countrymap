@@ -578,15 +578,6 @@ export default function TrueFalseGame({ countries }: { countries: Country[] }) {
     <>
       <CheckoutBanner game="true-false" onVerified={checkoutVerified} />
       <div className="mx-auto flex w-full max-w-2xl flex-col gap-4">
-        <ResultSharePanel
-          game="true-false"
-          day={day}
-          score={score}
-          correct={score}
-          total={questions.length}
-          streak={completionStreak}
-        />
-
         <ResultScorecard
           game="true-false"
           day={day}
@@ -597,6 +588,15 @@ export default function TrueFalseGame({ countries }: { countries: Country[] }) {
           secondaryNote={isExtra
             ? 'This Extra Attempt does not replace your first saved result or add another streak day.'
             : 'Your one free first run is saved for this UTC day.'}
+        />
+
+        <ResultSharePanel
+          game="true-false"
+          day={day}
+          score={score}
+          correct={score}
+          total={questions.length}
+          streak={completionStreak}
         />
 
         <RewardsTeaser />

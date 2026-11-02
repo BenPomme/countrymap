@@ -14,7 +14,9 @@ Date: 2026-11-02. Scope: the existing GA4 and Google Ads identifiers are unchang
 
 ## Prerelease gate: exact GA4 property
 
-Before preview approval, the coordinator must verify the exact GA4 property and web data stream used by the preview. No GA4 account setting change is made by this task or authorized before preview review.
+Before production approval, the coordinator must verify the exact existing GA4 property and web data stream. Local previews deliberately disable analytics. No GA4 account setting change is made by this task or authorized before preview review.
+
+Authenticated read-only inspection on 2 November confirmed that the existing World Truth stream has Enhanced measurement enabled, including page loads, history page changes, scrolls, outbound clicks, site search, form interactions, video engagement and file downloads. Email redaction is enabled and URL query-parameter redaction is disabled. No setting was changed. Account evidence remains in the private local folder.
 
 The verification must record the current Enhanced measurement master switch and every individual setting: page views, scrolls, outbound clicks, site search, video engagement, file downloads and form interactions. It must also record the observed requests or DebugView events for consent denied, GPC, an external referrer with a private path, a Stripe return and a normal consented page. This inspection must show whether any automatic event can carry a full external URL or a private path. If it can, the property change is a separate reviewed action with before and after evidence. No wrapper behavior is accepted as a substitute for this verification.
 
@@ -36,7 +38,8 @@ The verification must record the current Enhanced measurement master switch and 
 ### Seven-day return cohort
 
 - Cohort day D is a UTC day. The denominator is users with at least one `game_complete` on D.
-- A returning user is a denominator user with at least one measured site event during D+1 through D+7 inclusive. The observation window closes at 23:59:59 UTC on D+7.
+- A returning player is a denominator user with at least one further `game_complete` during D+1 through D+7 inclusive. The observation window closes at 23:59:59 UTC on D+7. A page view alone does not count as return play.
+- This measures return play within seven days, rather than activity on day seven alone. Keep the cohort and observation window explicit in reports.
 - Report the cohort only after its full window closes. Use GA4 user-scoped reporting for consenting users only, and state that the result does not represent non-consenting or cross-device activity.
 
 ### Affiliate clicks, transactions and commissions
