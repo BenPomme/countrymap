@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import AffiliateShelf from '@/components/affiliate/AffiliateShelf'
+import DailyAmazonPicks from '@/components/affiliate/DailyAmazonPicks'
 import {
   FRIEND_GIFT_TERMS,
   getAmazonStorefrontLabel,
@@ -41,6 +41,12 @@ export default function RewardsPage() {
             Start with today&apos;s game, spend coins in the shop, or share a one-use Extra Attempt code with a friend. The sponsored picks below are available whatever your score.
           </p>
         </section>
+
+        <DailyAmazonPicks
+          placement="rewards-hub"
+          heading={`Everyday ${storefront} search picks`}
+          intro={`Ordinary ${storefront} search recommendations. They are available whatever your score and are not verified discounts.`}
+        />
 
         <section aria-labelledby="available-now-heading">
           <div className="mb-4">
@@ -89,12 +95,6 @@ export default function RewardsPage() {
             </p>
           </article>
         </section>
-
-        <AffiliateShelf
-          placement="rewards-hub"
-          heading={`Everyday ${storefront} search picks`}
-          intro={`Ordinary ${storefront} search recommendations. They are available whatever your score and are not verified discounts.`}
-        />
 
         <section className="twt-panel bg-white p-6" aria-labelledby="coin-note-heading">
           <h2 id="coin-note-heading" className="twt-display text-2xl">Truthle Coins</h2>

@@ -13,6 +13,14 @@ export function amazonSearchUrl(query: string): string | null {
   return `https://www.${AMAZON_DOMAIN}/s?k=${encodeURIComponent(query)}&tag=${encodeURIComponent(AMAZON_ASSOCIATE_TAG)}`
 }
 
+export function amazonDealsUrl(
+  domain: string = AMAZON_DOMAIN,
+  associateTag: string = AMAZON_ASSOCIATE_TAG,
+): string | null {
+  if (!domain || !associateTag) return null
+  return `https://www.${domain}/gp/goldbox?tag=${encodeURIComponent(associateTag)}`
+}
+
 export function bookingSearchUrl(query?: string): string | null {
   if (!BOOKING_AID) return null
   const ss = query ? `&ss=${encodeURIComponent(query)}` : ''

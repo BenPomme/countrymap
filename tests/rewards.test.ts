@@ -15,9 +15,20 @@ import { parseChallengeSearch } from '../src/app/challenge/challengeState'
 import {
   COMMISSION_DISCLOSURE,
   FRIEND_GIFT_TERMS,
+  getAffiliateContentId,
   getAmazonStorefrontLabel,
+  getAvailableOrdinaryPicks,
   getOrdinaryPicks,
+  type OrdinaryPick,
 } from '../src/lib/affiliate/rewards'
+import { getMillisecondsUntilNextUtcDay } from '../src/lib/affiliate/dailyUnlocks'
+import { filterEventParams } from '../src/lib/analytics/events'
+import {
+  AMAZON_ASSOCIATE_TAG,
+  AMAZON_DOMAIN,
+  amazonDealsUrl,
+  amazonSearchUrl,
+} from '../src/lib/constants/affiliates'
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..')
 const ownedSourcePaths = [
@@ -296,6 +307,76 @@ test('ordinary Amazon picks are identical at zero and full score', () => {
   assert.equal(FRIEND_GIFT_TERMS.some((term) => /self-use/i.test(term)), false)
 })
 
+test('Amazon search and deals links preserve the configured marketplace and tag', () => {
+  const search = new URL(amazonSearchUrl('world atlas') ?? '')
+  assert.equal(search.protocol, 'https:')
+  assert.equal(search.hostname, `www.${AMAZON_DOMAIN}`)
+  assert.equal(search.pathname, '/s')
+  assert.equal(search.searchParams.get('k'), 'world atlas')
+  assert.equal(search.searchParams.get('tag'), AMAZON_ASSOCIATE_TAG)
+
+  const deals = new URL(amazonDealsUrl('amazon.com', 'curious-minds-20') ?? '')
+  assert.equal(deals.protocol, 'https:')
+  assert.equal(deals.hostname, 'www.amazon.com')
+  assert.equal(deals.pathname, '/gp/goldbox')
+  assert.equal(deals.searchParams.get('tag'), 'curious-minds-20')
+
+  const configuredDeals = new URL(amazonDealsUrl() ?? '')
+  assert.equal(configuredDeals.hostname, `www.${AMAZON_DOMAIN}`)
+  assert.equal(configuredDeals.pathname, '/gp/goldbox')
+  assert.equal(configuredDeals.searchParams.get('tag'), AMAZON_ASSOCIATE_TAG)
+  assert.equal(amazonDealsUrl('amazon.com', ''), null)
+  assert.equal(amazonDealsUrl('', 'curious-minds-20'), null)
+})
+
+test('affiliate cards filter missing links before applying the display limit', () => {
+  const picks: OrdinaryPick[] = [
+    { label: 'Missing', query: 'missing', href: null },
+    { label: 'World atlases', query: 'world atlas', href: 'https://www.amazon.co.uk/s?k=world+atlas&tag=worldtruth-21' },
+    { label: 'Empty', query: 'empty', href: '' },
+    { label: 'Travel guides', query: 'travel guide', href: 'https://www.amazon.co.uk/s?k=travel+guide&tag=worldtruth-21' },
+  ]
+
+  assert.deepEqual(
+    getAvailableOrdinaryPicks(picks, 2).map((pick) => pick.label),
+    ['World atlases', 'Travel guides'],
+  )
+  assert.deepEqual(getAvailableOrdinaryPicks(picks, 0), [])
+  assert.deepEqual(getAvailableOrdinaryPicks(picks, Number.NaN), [])
+  assert.deepEqual(getAvailableOrdinaryPicks(picks.filter((pick) => !pick.href), 4), [])
+})
+
+test('affiliate content IDs are stable and safe for the analytics allowlist', () => {
+  assert.equal(getAffiliateContentId('World atlas'), 'amazon_world-atlas')
+  assert.equal(getAffiliateContentId('World atlas'), getAffiliateContentId('World atlas'))
+  assert.equal(getAffiliateContentId('RFID-blocking passport holders'), 'amazon_rfid-blocking-passport-holders')
+  assert.equal(getAffiliateContentId('<script>alert(1)</script>'), 'amazon_script-alert-1-script')
+  assert.equal(getAffiliateContentId('   '), undefined)
+  assert.equal(getAffiliateContentId('東京'), undefined)
+  assert.match(getAffiliateContentId('World atlas') ?? '', /^[A-Za-z0-9]+(?:[._-][A-Za-z0-9]+)*$/)
+})
+
+test('Amazon deals use the stable allowlisted analytics content ID', () => {
+  assert.deepEqual(
+    filterEventParams('affiliate_click', {
+      partner: 'amazon',
+      placement: 'home-hero',
+      content_id: 'amazon_daily_deals',
+    }),
+    {
+      partner: 'amazon',
+      placement: 'home-hero',
+      content_id: 'amazon_daily_deals',
+    },
+  )
+})
+
+test('UTC shelf refresh waits for the next UTC midnight', () => {
+  assert.equal(getMillisecondsUntilNextUtcDay(new Date('2026-11-02T00:00:00.000Z')), 24 * 60 * 60 * 1000)
+  assert.equal(getMillisecondsUntilNextUtcDay(new Date('2026-11-02T23:59:59.500Z')), 500)
+  assert.equal(getMillisecondsUntilNextUtcDay(new Date('invalid')), 24 * 60 * 60 * 1000)
+})
+
 test('owned source contains no discontinued merchant or bonus offer', () => {
   const allSource = collectSourceFiles('src').map((file) => readFileSync(file, 'utf8')).join('\n')
   const prohibited = /\bLIEN\b|\bLIENETCIE\b|\bLIEN\s*&\s*CIE\b|\bTRUTHLE10\b|10\s*%\s*off|partner\s+bonus|5\s*\/\s*5\s+bonus|five\s+of\s+five/gi
@@ -327,8 +408,25 @@ test('challenge page keeps link opening free of mint, consume and archive promis
   assert.match(rewardsSource, /href: '\/true-false\/'/)
   assert.match(rewardsSource, /href: '\/truthle\/shop\/'/)
   assert.match(rewardsSource, /FRIEND_GIFT_TERMS/)
-  assert.match(rewardsSource, /AffiliateShelf/)
+  assert.match(rewardsSource, /DailyAmazonPicks/)
+  assert.match(rewardsSource, /placement="rewards-hub"/)
+  assert.doesNotMatch(rewardsSource, /<AffiliateShelf/)
   assert.doesNotMatch(rewardsSource, /unavailable|coming soon|future partner|booking|vpn|LIENETCIE|TRUTHLE10/i)
+})
+
+test('affiliate shelves keep sponsored links and consent-aware event paths', () => {
+  const shelfSource = readSource('src/components/affiliate/AffiliateShelf.tsx')
+  const contextualSource = readSource('src/components/affiliate/ContextualOffers.tsx')
+
+  assert.match(shelfSource, /rel="sponsored nofollow noopener noreferrer"/)
+  assert.match(shelfSource, /target="_blank"/)
+  assert.match(shelfSource, /trackEvent\('affiliate_click'/)
+  assert.match(shelfSource, /amazon_daily_deals/)
+  assert.match(shelfSource, /amazonDealsUrl\(\)/)
+  assert.match(contextualSource, /<AmazonDealsAction placement="map-context"/)
+  assert.match(contextualSource, /rel="sponsored nofollow noopener noreferrer"/)
+  assert.doesNotMatch(shelfSource, /fetch\(|sendBeacon|gtag\(/)
+  assert.doesNotMatch(contextualSource, /fetch\(|sendBeacon|gtag\(/)
 })
 
 test('email preferences remain disabled and are not mounted', () => {

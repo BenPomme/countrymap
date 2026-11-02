@@ -36,8 +36,37 @@ export interface OrdinaryPick extends UnlockPick {
   href: string | null
 }
 
+export interface AvailableOrdinaryPick extends UnlockPick {
+  href: string
+}
+
 export function getAmazonPicks(picks: UnlockPick[]): OrdinaryPick[] {
   return picks.map((pick) => ({ ...pick, href: amazonSearchUrl(pick.query) }))
+}
+
+/** Removes unavailable links and keeps the requested number of usable cards. */
+export function getAvailableOrdinaryPicks(
+  picks: OrdinaryPick[],
+  limit = 4,
+): AvailableOrdinaryPick[] {
+  const safeLimit = Number.isFinite(limit) ? Math.max(0, Math.floor(limit)) : 0
+
+  return picks
+    .filter((pick): pick is AvailableOrdinaryPick => typeof pick.href === 'string' && pick.href.length > 0)
+    .slice(0, safeLimit)
+}
+
+/** A stable, sanitized identifier for an affiliate search query. */
+export function getAffiliateContentId(query: string): string | undefined {
+  const slug = query
+    .toLowerCase()
+    .normalize('NFKD')
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-+|-+$/g, '')
+    .slice(0, 80)
+    .replace(/-+$/g, '')
+
+  return slug ? `amazon_${slug}` : undefined
 }
 
 /**

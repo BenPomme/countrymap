@@ -30,8 +30,23 @@ const ROTATION: UnlockTheme[] = [
   { key: 'press', picks: PRESS_PICKS },
 ]
 
+const DAY_MS = 24 * 60 * 60 * 1000
+
 /** Selects a deterministic set of ordinary picks for a UTC day. */
 export function getDailyUnlockTheme(date: string): UnlockTheme {
   const n = date.split('').reduce((a, c) => a + c.charCodeAt(0), 0)
   return ROTATION[n % ROTATION.length]
+}
+
+/** Milliseconds until the next UTC midnight, used by the mounted shelf refresh. */
+export function getMillisecondsUntilNextUtcDay(now: Date = new Date()): number {
+  const current = now.getTime()
+  if (!Number.isFinite(current)) return DAY_MS
+
+  const nextUtcDay = Date.UTC(
+    now.getUTCFullYear(),
+    now.getUTCMonth(),
+    now.getUTCDate() + 1,
+  )
+  return Math.max(1, nextUtcDay - current)
 }

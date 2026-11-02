@@ -34,6 +34,7 @@ import ResultScorecard from '@/components/truthle/ResultScorecard'
 import ResultSharePanel from '@/components/truthle/ResultSharePanel'
 import UtcCountdown from '@/components/truthle/UtcCountdown'
 import RewardsTeaser from '@/components/truthle/RewardsTeaser'
+import DailyUnlockCard from '@/components/affiliate/DailyUnlockCard'
 import { AdSidebar } from '@/components/ads'
 import { AD_SLOTS } from '@/lib/constants/ads'
 import { useEmbeddedAppMode } from '@/lib/useEmbeddedAppMode'
@@ -874,6 +875,12 @@ export default function TruthleGame({ countries }: TruthleGameProps) {
           </section>
 
           <RewardsTeaser />
+
+          <DailyUnlockCard
+            game="truthle"
+            date={day}
+            perfect={resultTotal > 0 && resultCorrect === resultTotal}
+          />
 
           {result.scoreDetail && (
             <section className="twt-panel p-5 text-left" aria-label="Score detail">
