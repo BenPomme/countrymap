@@ -38,10 +38,6 @@ function track(name: string, params: Record<string, string | number | boolean>):
   }
 }
 
-function formatQuestionCount(count: number): string {
-  return `${count} ${count === 1 ? 'question' : 'questions'}`
-}
-
 export default function QuizPage() {
   const [gameState, setGameState] = useState<GameState>('start')
   const [questions, setQuestions] = useState<QuizQuestion[]>([])
@@ -72,7 +68,7 @@ export default function QuizPage() {
       setQuestions([])
       setGameState('start')
       setStartNotice(
-        'Quiz questions are waiting for measures that pass the current provenance check. Explore charts or discoveries for now.',
+        'No sourced questions are available right now. Explore charts or discoveries for now.',
       )
       return
     }
@@ -80,7 +76,7 @@ export default function QuizPage() {
     setStartNotice('')
     setRoundNote(
       eligible.length < QUESTION_LIMIT
-        ? `This round has ${formatQuestionCount(eligible.length)} from measures that pass the current provenance check.`
+        ? `This round has ${eligible.length} sourced ${eligible.length === 1 ? 'question' : 'questions'}.`
         : '',
     )
     setQuestions(eligible)
@@ -222,6 +218,18 @@ export default function QuizPage() {
     }
   }, [quizMetricIds])
 
+  const currentProvenance = useMemo(() => {
+    if (!currentQuestion) return null
+    const metricId = quizMetricId(currentQuestion.id)
+    if (!metricId) return null
+
+    try {
+      return getMetricProvenance(metricId)
+    } catch {
+      return null
+    }
+  }, [currentQuestion])
+
   if (gameState === 'start') {
     return (
       <div className="twt-shell min-h-screen bg-[#fff9e8] text-[#192947]">
@@ -236,7 +244,7 @@ export default function QuizPage() {
                 How well do you know the world?
               </h1>
               <p className="twt-prose mt-5 max-w-xl text-base leading-7 text-[#192947]/72 md:text-lg">
-                Answer up to 20 country data questions. Every answer uses a measure that passes the current provenance check, so the game stays useful as well as playful.
+                Answer up to 20 questions from sourced country data. Every answer shows its source, year, coverage and known limits.
               </p>
 
               {startNotice && (
@@ -261,8 +269,8 @@ export default function QuizPage() {
                 </div>
                 <div className="rounded-2xl bg-[#fff9e8] p-4">
                   <Compass className="h-5 w-5 text-[#246e55]" aria-hidden="true" />
-                  <p className="mt-3 font-black">Real data</p>
-                  <p className="mt-1 text-sm text-[#192947]/60">with provenance filters</p>
+                  <p className="mt-3 font-black">Sourced data</p>
+                  <p className="mt-1 text-sm text-[#192947]/60">source notes after each answer</p>
                 </div>
               </div>
 
@@ -290,9 +298,9 @@ export default function QuizPage() {
             <aside className="flex flex-col justify-between rounded-[32px] bg-[#192947] p-6 text-white md:p-8">
               <div>
                 <p className="text-xs font-black uppercase tracking-[0.2em] text-[#ffda62]">Before you start</p>
-                <h2 className="mt-4 text-2xl font-black leading-tight">Questions come from the eligible quiz pool.</h2>
+                <h2 className="mt-4 text-2xl font-black leading-tight">Questions from sourced country data</h2>
                 <p className="mt-3 text-sm leading-6 text-white/70">
-                  If fewer than 20 questions pass the provenance check, the round uses the number available and says so before play.
+                  A short round shows its question count before the first question. Every answer shows its source, year, coverage and known limits.
                 </p>
               </div>
               <div className="mt-8 space-y-3 text-sm font-bold">
@@ -464,7 +472,7 @@ export default function QuizPage() {
               {currentQuestion?.difficulty}
             </span>
             {currentQuestion && (
-              <span className="ml-auto text-xs font-semibold text-[#192947]/45">Provenance eligible</span>
+              <span className="ml-auto text-xs font-semibold text-[#192947]/45">Sourced data</span>
             )}
           </div>
 
@@ -509,6 +517,43 @@ export default function QuizPage() {
               <p className="font-semibold leading-6">{currentQuestion?.explanation}</p>
               {currentQuestion?.funFact && (
                 <p className="mt-2 text-sm leading-6 text-[#192947]/65">{currentQuestion.funFact}</p>
+              )}
+              {currentProvenance && (
+                <div className="mt-4 border-t border-[#294cc4]/15 pt-3 text-xs leading-5 text-[#192947]/65">
+                  <p>
+                    <span className="font-black text-[#192947]">Source:</span>{' '}
+                    {currentProvenance.sourceUrl ? (
+                      <a
+                        href={currentProvenance.sourceUrl}
+                        target="_blank"
+                        rel="nofollow noopener"
+                        className="underline decoration-[#294cc4]/40 underline-offset-2 hover:text-[#294cc4]"
+                      >
+                        {currentProvenance.sourceName ?? 'Unknown'}
+                      </a>
+                    ) : (
+                      currentProvenance.sourceName ?? 'Unknown'
+                    )}
+                  </p>
+                  <p className="mt-1">
+                    <span className="font-black text-[#192947]">Year:</span>{' '}
+                    {currentProvenance.year ?? 'Unknown'}
+                  </p>
+                  <p className="mt-1">
+                    <span className="font-black text-[#192947]">Coverage:</span>{' '}
+                    {currentProvenance.coverage !== undefined ? `${currentProvenance.coverage}%` : 'Unknown'}
+                  </p>
+                  {currentProvenance.limitations.length > 0 && (
+                    <div className="mt-2">
+                      <p className="font-black text-[#192947]">Known limits:</p>
+                      <ul className="mt-1 list-disc space-y-1 pl-5">
+                        {currentProvenance.limitations.map((limitation) => (
+                          <li key={limitation}>{limitation}</li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
+                </div>
               )}
             </div>
           )}

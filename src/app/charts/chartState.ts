@@ -12,8 +12,8 @@ export interface ChartState {
 
 export const DEFAULT_CHART_STATE: ChartState = {
   chart: 'correlation',
-  x: 'health.penisSize',
-  y: 'democracy.score',
+  x: 'freedom.pressFreedom',
+  y: 'lifestyle.happinessIndex',
   color: 'religion',
   metric: 'democracy.score',
 }
