@@ -37,18 +37,13 @@ export default function ClaimPage({ params }: { params: { slug: string } }) {
     ],
   }
   return (
-    <div className="min-h-screen bg-gradient-to-b from-sky-50 to-white">
+    <div className="twt-shell min-h-screen bg-[#fff9e8]">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqLd) }} />
-      <header className="bg-white shadow-sm">
-        <div className="max-w-3xl mx-auto px-4 py-3 flex justify-between text-sm">
-          <Link href="/" className="font-bold text-gray-900">The World Truth</Link>
-          <nav className="flex gap-3">
-            <Link href="/true-false/" className="text-sky-700 font-semibold">Daily True or False</Link>
-            <Link href="/true-false/claims/">All claims</Link>
-          </nav>
-        </div>
-      </header>
       <main className="max-w-3xl mx-auto px-4 py-8">
+        <nav aria-label="Claim navigation" className="mb-5 flex gap-3 text-sm">
+          <Link href="/true-false/" className="text-sky-700 font-semibold">Daily True or False</Link>
+          <Link href="/true-false/claims/">All claims</Link>
+        </nav>
         <p className="text-xs uppercase tracking-widest text-sky-600 font-semibold">True or False?</p>
         <h1 className="text-3xl font-extrabold mt-2 text-gray-900">{c.text}</h1>
         <details className="mt-6 bg-white rounded-2xl shadow p-5">

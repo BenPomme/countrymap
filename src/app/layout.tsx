@@ -5,6 +5,7 @@ import Analytics from '@/components/Analytics'
 import AdSenseLoader from '@/components/ads/AdSenseLoader'
 import ConsentManager from '@/components/analytics/ConsentManager'
 import AppBridgeLifecycle from '@/components/bridge/AppBridgeLifecycle'
+import SiteChrome from '@/components/site/SiteChrome'
 import SiteFooter from '@/components/site/SiteFooter'
 import SiteHeader from '@/components/site/SiteHeader'
 import { VARIABLES } from '@/lib/constants/variables'
@@ -197,9 +198,9 @@ export default function RootLayout({
         />
       </head>
       <body className="min-h-screen font-sans antialiased">
-        <SiteHeader />
+        <SiteChrome><SiteHeader /></SiteChrome>
         {children}
-        <SiteFooter />
+        <SiteChrome><SiteFooter /></SiteChrome>
         <Suspense fallback={null}>
           <AppBridgeLifecycle />
         </Suspense>
