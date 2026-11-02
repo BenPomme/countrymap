@@ -695,13 +695,8 @@ export async function createRetryCheckout(
  * reused after a lost response and the local claim receipt prevents duplicate adds.
  */
 export async function syncCloudCoins(): Promise<number> {
-  try {
-    const claim = await commerceService.claimWallet()
-    return claim.applied ? claim.coins : 0
-  } catch {
-    console.error('Error claiming cloud coins')
-    return 0
-  }
+  const claim = await commerceService.claimWallet()
+  return claim.applied ? claim.coins : 0
 }
 
 export async function claimTruthleWallet({ requestId }: { requestId: string }): Promise<{

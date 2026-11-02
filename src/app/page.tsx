@@ -224,6 +224,9 @@ export default function HomePage() {
   const [copyState, setCopyState] = useState<'idle' | 'copied' | 'error'>('idle')
   const copyResetTimer = useRef<number | null>(null)
   const mapContainerRef = useRef<HTMLDivElement>(null)
+  const mobileFiltersPanelRef = useRef<HTMLDivElement>(null)
+  const mobileFiltersTriggerRef = useRef<HTMLButtonElement>(null)
+  const [isMobileViewport, setIsMobileViewport] = useState(false)
   const embeddedMode = useEmbeddedAppMode()
 
   useEffect(() => {
@@ -274,6 +277,90 @@ export default function HomePage() {
       }
     }
   }, [])
+
+  useEffect(() => {
+    const mediaQuery = window.matchMedia('(max-width: 767px)')
+    const updateViewport = () => setIsMobileViewport(mediaQuery.matches)
+
+    updateViewport()
+    mediaQuery.addEventListener('change', updateViewport)
+    return () => mediaQuery.removeEventListener('change', updateViewport)
+  }, [])
+
+  useEffect(() => {
+    const panel = mobileFiltersPanelRef.current
+    if (!panel) return
+
+    const hideClosedMobilePanel = isMobileViewport && !showMobileFilters
+    panel.toggleAttribute('inert', hideClosedMobilePanel)
+    if (hideClosedMobilePanel) {
+      panel.setAttribute('aria-hidden', 'true')
+    } else {
+      panel.removeAttribute('aria-hidden')
+    }
+  }, [isMobileViewport, showMobileFilters])
+
+  useEffect(() => {
+    if (!showMobileFilters || !isMobileViewport) return
+
+    const panel = mobileFiltersPanelRef.current
+    if (!panel) return
+    const returnFocusTarget = mobileFiltersTriggerRef.current
+
+    const focusableSelector = [
+      'a[href]',
+      'button:not([disabled])',
+      'input:not([disabled])',
+      'select:not([disabled])',
+      'textarea:not([disabled])',
+      '[tabindex]:not([tabindex="-1"])',
+    ].join(',')
+    const getFocusable = () =>
+      Array.from(panel.querySelectorAll<HTMLElement>(focusableSelector)).filter(
+        (element) => element.getClientRects().length > 0
+      )
+
+    const focusTimer = window.setTimeout(() => {
+      const closeButton = panel.querySelector<HTMLElement>('[aria-label="Close filters"]')
+      ;(closeButton ?? getFocusable()[0] ?? panel).focus()
+    }, 0)
+
+    const handlePanelKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        event.preventDefault()
+        setShowMobileFilters(false)
+        return
+      }
+
+      if (event.key !== 'Tab') return
+      const focusable = getFocusable()
+      if (focusable.length === 0) {
+        event.preventDefault()
+        panel.focus()
+        return
+      }
+
+      const first = focusable[0]
+      const last = focusable[focusable.length - 1]
+      const activeElement = document.activeElement
+      if (event.shiftKey && (activeElement === first || !panel.contains(activeElement))) {
+        event.preventDefault()
+        last.focus()
+      } else if (!event.shiftKey && (activeElement === last || !panel.contains(activeElement))) {
+        event.preventDefault()
+        first.focus()
+      }
+    }
+
+    document.addEventListener('keydown', handlePanelKeyDown)
+    return () => {
+      window.clearTimeout(focusTimer)
+      document.removeEventListener('keydown', handlePanelKeyDown)
+      if (returnFocusTarget?.isConnected) {
+        returnFocusTarget.focus()
+      }
+    }
+  }, [isMobileViewport, showMobileFilters])
 
   const copyMapLink = async () => {
     try {
@@ -568,9 +655,15 @@ export default function HomePage() {
               )}
 
               <div
+                id="map-filters-panel"
+                ref={mobileFiltersPanelRef}
+                role={isMobileViewport && showMobileFilters ? 'dialog' : undefined}
+                aria-modal={isMobileViewport && showMobileFilters ? true : undefined}
+                aria-labelledby={isMobileViewport && showMobileFilters ? 'filter-panel-heading' : undefined}
+                tabIndex={-1}
                 className={`
                   fixed inset-y-0 left-0 z-50 transform motion-safe:transition-transform motion-safe:duration-300 motion-safe:ease-in-out md:relative md:inset-auto md:z-auto md:translate-x-0
-                  ${showMobileFilters ? 'translate-x-0' : '-translate-x-full'}
+                  ${showMobileFilters ? 'visible translate-x-0' : 'invisible -translate-x-full md:visible'}
                   ${embeddedMode ? 'w-[min(92vw,360px)]' : 'w-[min(92vw,340px)] md:w-auto'}
                 `}
               >
@@ -598,10 +691,13 @@ export default function HomePage() {
                 />
 
                 <button
+                  ref={mobileFiltersTriggerRef}
                   type="button"
                   onClick={() => setShowMobileFilters(true)}
                   className="absolute bottom-4 left-4 z-30 inline-flex h-12 w-12 items-center justify-center rounded-full border-2 border-twt-ink bg-twt-butter text-twt-ink shadow-lg md:hidden"
                   aria-label="Open map filters"
+                  aria-controls="map-filters-panel"
+                  aria-expanded={showMobileFilters}
                 >
                   <SlidersHorizontal className="h-5 w-5" aria-hidden="true" />
                 </button>

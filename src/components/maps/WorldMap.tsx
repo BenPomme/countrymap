@@ -13,7 +13,11 @@ import { cn, getNestedValue } from '@/lib/utils'
 import { VARIABLES, MAJOR_RELIGIONS } from '@/lib/constants/variables'
 import { useEmbeddedAppMode } from '@/lib/useEmbeddedAppMode'
 import MapTooltip from './MapTooltip'
-import MapLegend from './MapLegend'
+import MapLegend, {
+  CATEGORY_COLORS,
+  MISSING_VALUE_COLOR,
+  NUMERIC_COLOR_RANGE,
+} from './MapLegend'
 
 const geoUrl = '/geo/world-110m.json'
 
@@ -54,18 +58,6 @@ const numericToIso3: Record<string, string> = {
   '704': 'VNM', '887': 'YEM', '894': 'ZMB', '716': 'ZWE',
 }
 
-const religionColors: Record<string, string> = {
-  'Christianity': '#3b82f6',
-  'Islam': '#22c55e',
-  'Hinduism': '#f97316',
-  'Buddhism': '#eab308',
-  'Judaism': '#8b5cf6',
-  'Folk/Traditional': '#ec4899',
-  'None/Unaffiliated': '#6b7280',
-  'Other': '#94a3b8',
-  'Unknown': '#d1d5db',
-}
-
 interface WorldMapProps {
   countries: Country[]
   filteredCountries: Country[]
@@ -101,19 +93,19 @@ export default function WorldMap({
   const colorScale = useMemo(() => {
     if (variableConfig.type === 'categorical') {
       return scaleOrdinal<string>()
-        .domain(MAJOR_RELIGIONS as unknown as string[])
-        .range(MAJOR_RELIGIONS.map((r) => religionColors[r] || '#d1d5db'))
+        .domain([...MAJOR_RELIGIONS, 'Unknown'])
+        .range([
+          ...MAJOR_RELIGIONS.map((religion) => CATEGORY_COLORS[religion] ?? MISSING_VALUE_COLOR),
+          MISSING_VALUE_COLOR,
+        ])
     }
 
     const domain = variableConfig.domain || [0, 100]
-    const colors = variableConfig.higherIsBetter
-      ? ['#dc2626', '#22c55e'] // Dark red to green (higher is better, greener = better)
-      : ['#22c55e', '#dc2626'] // Green to dark red (lower is better)
 
     return scaleLinear<string>()
       .domain(domain)
-      .range(colors)
-  }, [colorVariable, variableConfig])
+      .range([...NUMERIC_COLOR_RANGE])
+  }, [variableConfig])
 
   const getCountryColor = useCallback(
     (iso3: string) => {
@@ -128,10 +120,10 @@ export default function WorldMap({
         colorVariable
       )
 
-      if (value === null || value === undefined) return '#d1d5db'
+      if (value === null || value === undefined) return MISSING_VALUE_COLOR
 
       if (variableConfig.type === 'categorical') {
-        return religionColors[value as string] || '#d1d5db'
+        return CATEGORY_COLORS[value as string] ?? MISSING_VALUE_COLOR
       }
 
       return (colorScale as ReturnType<typeof scaleLinear<string>>)(value as number)

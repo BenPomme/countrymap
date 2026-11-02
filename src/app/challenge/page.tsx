@@ -62,10 +62,10 @@ export default function ChallengePage() {
       if (parsed.codeRejected) {
         setCodeNotice('The friend code in this link has an invalid format. It was not saved.')
       } else if (parsed.code && remembered) {
-        setCodeNotice('The friend code is saved for this browser tab. It is applied only at checkout when you request an Extra Attempt.')
+        setCodeNotice('Friend code saved. It is checked when you request an Extra Attempt.')
       } else if (parsed.code) {
         setCodeInput(parsed.code)
-        setCodeNotice('This browser could not save the friend code. Enter it below before you continue.')
+        setCodeNotice('The friend code could not be saved. Enter it below before you continue.')
       }
     }
 
@@ -89,38 +89,30 @@ export default function ChallengePage() {
     const remembered = rememberChallenge({ game: state.game, day: state.day, code })
     if (remembered) {
       setCodeInput('')
-      setCodeNotice('The friend code is saved for this browser tab. It is applied only at checkout when you request an Extra Attempt.')
+      setCodeNotice('Friend code saved. It is checked when you request an Extra Attempt.')
     } else {
-      setCodeNotice('This browser could not save the code. Check browser storage settings and try again.')
+      setCodeNotice('The code could not be saved. Try again.')
     }
   }
 
   const game = state?.game ? GAME_DETAILS[state.game] : null
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-sky-50 via-white to-emerald-50 text-[#192947]">
-      <header className="border-b border-[#d7e4e8] bg-white/90">
-        <div className="mx-auto flex max-w-3xl items-center justify-between gap-4 px-4 py-4">
-          <Link href="/" className="text-sm font-semibold text-[#294cc4] hover:underline">The World Truth</Link>
-          <Link href="/rewards/" className="text-sm font-semibold hover:underline">Rewards and codes</Link>
-        </div>
-      </header>
-
-      <main className="mx-auto max-w-3xl px-4 py-10">
-        <section className="rounded-3xl border border-[#c9dce2] bg-white p-6 shadow-sm md:p-9" aria-live="polite">
+    <main id="main-content" className="twt-container max-w-3xl py-10 sm:py-14">
+        <section className="twt-panel bg-white p-6 md:p-9" aria-live="polite">
           {!state ? (
             <div>
-              <p className="text-xs font-bold uppercase tracking-[0.16em] text-[#294cc4]">Challenge link</p>
-              <h1 className="mt-2 text-3xl font-black">Checking this challenge link...</h1>
-              <p className="mt-3 text-sm leading-6 text-[#43516b]">No code is being created or used while this page loads.</p>
+              <p className="twt-kicker">Challenge link</p>
+              <h1 className="twt-display mt-2 text-3xl">Checking this challenge link...</h1>
+              <p className="mt-3 text-sm leading-6 text-twt-ink/70">No code is used when you open this page.</p>
             </div>
           ) : state.status === 'invalid' ? (
             <div>
-              <p className="text-xs font-bold uppercase tracking-[0.16em] text-[#a33b2c]">Link status</p>
-              <h1 className="mt-2 text-3xl font-black">This challenge link is not recognised</h1>
-              <p className="mt-3 text-sm leading-6 text-[#43516b]">
+              <p className="text-xs font-bold uppercase tracking-[0.16em] text-twt-coral">Link status</p>
+              <h1 className="twt-display mt-2 text-3xl">This challenge link is not recognised</h1>
+              <p className="mt-3 text-sm leading-6 text-twt-ink/70">
                 {state.invalidReason === 'day'
-                  ? 'The puzzle day is missing or invalid. A valid link uses a real UTC date in YYYY-MM-DD format.'
+                  ? 'The puzzle day is missing or invalid. A valid link includes a real UTC date.'
                   : 'The game is missing or unsupported. Use a challenge link for Truthle or True or False: World.'}
               </p>
               {state.codeRejected && (
@@ -132,38 +124,38 @@ export default function ChallengePage() {
             </div>
           ) : state.status === 'past' && game ? (
             <div>
-              <p className="text-xs font-bold uppercase tracking-[0.16em] text-[#6b5a31]">Past puzzle day</p>
-              <h1 className="mt-2 text-3xl font-black">This puzzle day has passed</h1>
-              <p className="mt-3 text-sm leading-6 text-[#43516b]">
+              <p className="text-xs font-bold uppercase tracking-[0.16em] text-twt-ink/60">Past puzzle day</p>
+              <h1 className="twt-display mt-2 text-3xl">This puzzle day has passed</h1>
+              <p className="mt-3 text-sm leading-6 text-twt-ink/70">
                 {state.day} was a previous UTC puzzle day. Past daily puzzles are not playable from this link.
               </p>
               <Link
                 href={game.href}
-                className="mt-5 inline-flex rounded-xl bg-[#192947] px-5 py-3 text-sm font-bold text-white hover:bg-[#294cc4]"
+                className="twt-button mt-5"
               >
                 Play today&apos;s {game.label}
               </Link>
             </div>
           ) : state.status === 'future' && game ? (
             <div>
-              <p className="text-xs font-bold uppercase tracking-[0.16em] text-[#294cc4]">Future puzzle day</p>
-              <h1 className="mt-2 text-3xl font-black">This puzzle day has not opened yet</h1>
-              <p className="mt-3 text-sm leading-6 text-[#43516b]">
+              <p className="twt-kicker">Future puzzle day</p>
+              <h1 className="twt-display mt-2 text-3xl">This puzzle day has not opened yet</h1>
+              <p className="mt-3 text-sm leading-6 text-twt-ink/70">
                 {state.day} is a future UTC puzzle day. This daily challenge cannot be played before then.
               </p>
               <Link
                 href={game.href}
-                className="mt-5 inline-flex rounded-xl bg-[#192947] px-5 py-3 text-sm font-bold text-white hover:bg-[#294cc4]"
+                className="twt-button mt-5"
               >
                 Play today&apos;s {game.label}
               </Link>
             </div>
           ) : game && state.day ? (
             <div>
-              <p className="text-xs font-bold uppercase tracking-[0.16em] text-emerald-800">Current puzzle day</p>
-              <h1 className="mt-2 text-3xl font-black">{game.label} challenge is ready</h1>
-              <p className="mt-3 text-sm leading-6 text-[#43516b]">
-                {state.day} UTC. {game.description} Continue to the game, or save an optional friend Extra Attempt code for this browser tab.
+              <p className="twt-kicker !text-twt-green">Current puzzle day</p>
+              <h1 className="twt-display mt-2 text-3xl">{game.label} challenge is ready</h1>
+              <p className="mt-3 text-sm leading-6 text-twt-ink/70">
+                This round is for {state.day} UTC. {game.description}
               </p>
 
               {codeNotice && (
@@ -174,17 +166,17 @@ export default function ChallengePage() {
 
               <Link
                 href={game.href}
-                className="mt-5 inline-flex rounded-xl bg-[#192947] px-5 py-3 text-sm font-bold text-white hover:bg-[#294cc4]"
+                className="twt-button mt-5"
               >
                 Continue to {game.label}
               </Link>
 
-              <form onSubmit={saveEnteredCode} className="mt-8 rounded-2xl border border-[#d7c9a6] bg-[#fffdf6] p-4">
-                <label htmlFor="friend-code" className="block text-sm font-bold text-[#192947]">
+              <form onSubmit={saveEnteredCode} className="mt-8 rounded-2xl border-2 border-twt-ink/10 bg-twt-paper p-4">
+                <label htmlFor="friend-code" className="block text-sm font-bold text-twt-ink">
                   Friend Extra Attempt code
                 </label>
-                <p className="mt-1 text-xs leading-5 text-[#5f6b7c]">
-                  Optional. Enter the code from the friend who shared it. Codes are not checked on this page.
+                <p className="mt-1 text-xs leading-5 text-twt-ink/65">
+                  Optional. Enter the code from the friend who shared it.
                 </p>
                 <div className="mt-3 flex flex-col gap-2 sm:flex-row">
                   <input
@@ -197,14 +189,14 @@ export default function ChallengePage() {
                     autoCapitalize="characters"
                     spellCheck={false}
                     placeholder="WT-ABC123"
-                    className="min-w-0 flex-1 rounded-xl border border-[#c9b98f] bg-white px-3 py-2 text-sm uppercase tracking-wide text-[#192947] outline-none focus:border-[#294cc4]"
+                    className="min-w-0 flex-1 rounded-xl border border-twt-ink/25 bg-white px-3 py-2 text-sm uppercase tracking-wide text-twt-ink outline-none focus:border-twt-blue"
                   />
-                  <button type="submit" className="rounded-xl bg-[#294cc4] px-4 py-2 text-sm font-bold text-white hover:bg-[#192947]">
-                    Save code for this tab
+                  <button type="submit" className="rounded-xl bg-twt-blue px-4 py-2 text-sm font-bold text-white hover:bg-twt-ink">
+                    Save code
                   </button>
                 </div>
-                <p className="mt-3 text-xs leading-5 text-[#5f6b7c]">
-                  The code is applied only at checkout when an Extra Attempt is requested. It can still be rejected if it expired or was already used. Opening this page does not use it.
+                <p className="mt-3 text-xs leading-5 text-twt-ink/65">
+                  The code is checked when you request an Extra Attempt. It can still be rejected if it expired or was already used. Opening this page does not use it.
                 </p>
               </form>
             </div>
@@ -215,7 +207,6 @@ export default function ChallengePage() {
             </div>
           )}
         </section>
-      </main>
-    </div>
+    </main>
   )
 }

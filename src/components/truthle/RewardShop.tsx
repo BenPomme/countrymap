@@ -37,6 +37,22 @@ import { useEmbeddedAppMode } from '@/lib/useEmbeddedAppMode'
 const OFFERTORO_ENABLED = !!process.env.NEXT_PUBLIC_OFFERTORO_PUBID
 
 type TabType = 'earn' | 'all' | 'badges' | 'themes' | 'powerups' | 'profile' | 'achievements'
+type WalletSyncStatus = 'idle' | 'syncing' | 'synced' | 'error'
+
+export async function syncCloudWalletForShop({
+  syncCloud = syncCloudCoins,
+  readCoins = getCoins,
+}: {
+  syncCloud?: typeof syncCloudCoins
+  readCoins?: typeof getCoins
+} = {}): Promise<{ status: 'synced' | 'error'; coins: number }> {
+  try {
+    await syncCloud()
+    return { status: 'synced', coins: readCoins() }
+  } catch {
+    return { status: 'error', coins: readCoins() }
+  }
+}
 
 const REWARD_RARITY_STYLES: Record<VirtualReward['rarity'], string> = {
   common: 'bg-twt-ink/10 text-twt-ink',
@@ -74,45 +90,57 @@ export default function RewardShop() {
   const [loadStatus, setLoadStatus] = useState<'loading' | 'ready' | 'error'>('loading')
   const [loadError, setLoadError] = useState<string | null>(null)
   const [loadAttempt, setLoadAttempt] = useState(0)
+  const [walletSyncStatus, setWalletSyncStatus] = useState<WalletSyncStatus>('idle')
+  const [syncAttempt, setSyncAttempt] = useState(0)
 
-  // Load state on mount and sync cloud coins
+  // Load saved state before attempting the independent cloud wallet sync.
   useEffect(() => {
     let cancelled = false
     setLoadStatus('loading')
     setLoadError(null)
 
-    async function loadState() {
-      try {
-        const state = getLocalState()
-        if (cancelled) return
+    try {
+      const state = getLocalState()
+      if (cancelled) return
 
-        setCoins(state.coins)
-        setOwnedItems(state.ownedItems)
-        setUnlockedAchievements(state.unlockedAchievements || [])
-        setEquippedItems(getEquippedItems())
-
-        // Sync coins from cloud (offer wall earnings)
-        const cloudCoins = await syncCloudCoins()
-        if (cancelled) return
-
-        if (cloudCoins > 0) {
-          setCoins(getCoins()) // Refresh after sync
-        }
-        setLoadStatus('ready')
-      } catch {
-        if (cancelled) return
-        console.error('Failed to load reward shop state')
-        setLoadError('Your saved coins and rewards could not be loaded. No purchase was made.')
-        setLoadStatus('error')
-      }
+      setCoins(state.coins)
+      setOwnedItems(state.ownedItems)
+      setUnlockedAchievements(state.unlockedAchievements || [])
+      setEquippedItems(getEquippedItems())
+      setLoadStatus('ready')
+    } catch {
+      if (cancelled) return
+      console.error('Failed to load reward shop state')
+      setLoadError('Your saved coins and rewards could not be loaded. No purchase was made.')
+      setLoadStatus('error')
     }
-
-    loadState()
 
     return () => {
       cancelled = true
     }
   }, [loadAttempt])
+
+  useEffect(() => {
+    if (loadStatus !== 'ready') return
+
+    let cancelled = false
+    setWalletSyncStatus('syncing')
+
+    async function syncWallet() {
+      const result = await syncCloudWalletForShop()
+      if (cancelled) return
+
+      setCoins(result.coins)
+      setWalletSyncStatus(result.status)
+      if (result.status === 'error') console.error('Cloud coin sync unavailable')
+    }
+
+    void syncWallet()
+
+    return () => {
+      cancelled = true
+    }
+  }, [loadStatus, syncAttempt])
 
   // Filter achievements based on search/filters
   const filteredAchievements = useMemo(() => {
@@ -270,7 +298,7 @@ export default function RewardShop() {
           <p className="twt-kicker">Rewards shop</p>
           <h1 className="twt-display mt-2 text-3xl sm:text-4xl">Loading your coins and saved rewards</h1>
           <p className="twt-prose mt-3">
-            Checking this device, then your linked account balance. Purchases remain disabled until loading finishes.
+            Loading the coins and rewards saved on this device. Purchases remain disabled until that save is ready.
           </p>
         </div>
       </div>
@@ -309,13 +337,37 @@ export default function RewardShop() {
         <div
           className="flex w-fit items-center gap-2 rounded-full border-2 border-twt-ink bg-twt-butter px-4 py-2 shadow-[3px_3px_0_#192947]"
           aria-live="polite"
-          aria-label={`${coins.toLocaleString()} Truthle Coins`}
+          aria-label={`${coins.toLocaleString()} Truthle Coins saved on this device${walletSyncStatus === 'error' ? ', cloud sync paused' : ''}`}
         >
           <span className="text-xl" aria-hidden="true">🪙</span>
           <span className="text-xl font-extrabold text-twt-ink">{coins.toLocaleString()}</span>
           <span className="text-sm font-bold text-twt-ink/70">coins</span>
         </div>
       </div>
+
+      {walletSyncStatus === 'syncing' && (
+        <p className="mb-6 rounded-xl border-2 border-twt-blue/25 bg-twt-blue/5 px-4 py-3 text-sm font-semibold text-twt-ink/75" role="status">
+          Syncing cloud coin earnings. Your saved balance is available now.
+        </p>
+      )}
+
+      {walletSyncStatus === 'error' && (
+        <div className="mb-6 flex flex-col gap-3 rounded-xl border-2 border-twt-coral/35 bg-twt-coral/10 px-4 py-3 sm:flex-row sm:items-center sm:justify-between" role="status" aria-live="polite">
+          <div>
+            <h2 className="font-extrabold text-twt-ink">Cloud coin sync paused</h2>
+            <p className="mt-1 text-sm leading-6 text-twt-ink/75">
+              Your saved local balance of {coins.toLocaleString()} coins and your rewards are still available. New cloud coins may be missing until sync succeeds.
+            </p>
+          </div>
+          <button
+            type="button"
+            className="twt-button-secondary shrink-0"
+            onClick={() => setSyncAttempt(attempt => attempt + 1)}
+          >
+            Retry sync
+          </button>
+        </div>
+      )}
 
       <div className="twt-panel mb-6 bg-twt-butter/35 p-4 sm:p-5">
         <h2 className="font-extrabold text-twt-ink">Virtual rewards only</h2>

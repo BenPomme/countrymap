@@ -15,10 +15,11 @@ export const VPN_DISCLOSURE =
   'We may earn a commission if you subscribe through this sponsored VPN link.'
 
 export const FRIEND_GIFT_TERMS = [
-  'Each player can create one friend code per UTC day.',
+  'Each account can create one friend code per UTC day.',
   'Each friend code can be used once.',
-  'A friend code expires at 23:59:59 UTC on the day it was created.',
-  'Opening a challenge link does not use a friend code. The code is checked only when an Extra Attempt is requested.',
+  'A friend code expires at 23:59:59 UTC on the UTC day it was created.',
+  'The account that created a code cannot redeem it.',
+  'Opening a challenge link does not reserve or use a code. The code is checked only when an Extra Attempt is requested.',
 ] as const
 
 export function getAmazonStorefrontLabel(domain: string = AMAZON_DOMAIN): string {

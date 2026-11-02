@@ -75,7 +75,7 @@ export default function FilterPanel({
     <div className={containerClassName ?? "w-72 md:w-72 bg-white border-r border-gray-200 h-full overflow-y-auto"}>
       <div className="p-4 border-b border-gray-200">
         <div className="flex items-center justify-between mb-2">
-          <h2 className="font-semibold text-lg flex items-center gap-2">
+          <h2 id="filter-panel-heading" className="font-semibold text-lg flex items-center gap-2">
             <Filter className="w-5 h-5" />
             Filters
           </h2>
@@ -91,10 +91,12 @@ export default function FilterPanel({
             {/* Mobile Close Button */}
             {onClose && (
               <button
+                type="button"
                 onClick={onClose}
+                aria-label="Close filters"
                 className="md:hidden p-1 text-gray-400 hover:text-gray-600"
               >
-                <X className="w-5 h-5" />
+                <X className="w-5 h-5" aria-hidden="true" />
               </button>
             )}
           </div>
