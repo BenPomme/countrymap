@@ -2,88 +2,58 @@
 
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
-import type { Country } from '@/types/country'
 import TruthleGame from '@/components/truthle/TruthleGame'
-import CoinBalance from '@/components/truthle/CoinBalance'
-import AccountButton from '@/components/truthle/AccountButton'
 import { AdBanner } from '@/components/ads'
 import { AD_SLOTS } from '@/lib/constants/ads'
 import { countries } from '@/lib/data/loadCountries'
+import { variableEntries } from '@/lib/seo/catalog'
 import { useEmbeddedAppMode } from '@/lib/useEmbeddedAppMode'
 
 export default function TruthlePage() {
   const embeddedMode = useEmbeddedAppMode()
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-emerald-50 to-white">
-      {/* Header */}
+    <div className="twt-shell min-h-screen">
       {!embeddedMode && (
-      <header className="bg-white shadow-sm">
-        <div className="max-w-4xl mx-auto px-4 py-3 flex justify-between items-center">
-          <Link href="/" className="text-gray-600 hover:text-gray-900 flex items-center gap-2">
-            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
-            </svg>
-            <span className="text-sm font-medium">World Truth Map</span>
-          </Link>
-          <nav className="flex items-center gap-3 text-sm">
-            <Link href="/charts" className="text-gray-600 hover:text-gray-900 hidden sm:block">Charts</Link>
-            <Link href="/discoveries" className="text-gray-600 hover:text-gray-900 hidden sm:block">Discoveries</Link>
-            <Link href="/quiz" className="text-gray-600 hover:text-gray-900 hidden sm:block">Quiz</Link>
-            <CoinBalance size="sm" />
-            <AccountButton />
-          </nav>
-        </div>
-      </header>
+        <AdBanner slotId={AD_SLOTS.truthleBanner} hideOnMobile={false} className="bg-[#f4efe2] border-b border-[#d8d2c2]" />
       )}
 
-      {/* Ad Banner */}
-      {!embeddedMode && (
-        <AdBanner slotId={AD_SLOTS.truthleBanner} hideOnMobile={false} className="bg-gray-50 border-b border-gray-100" />
-      )}
-
-      {/* Main content */}
-      <main className={`max-w-4xl mx-auto ${embeddedMode ? 'py-4' : 'py-8'}`}>
+      <main className={`twt-container ${embeddedMode ? 'py-4' : 'py-6 sm:py-10'}`}>
         <TrueFalsePromo />
         <TruthleGame countries={countries} />
-      </main>
-
-      {/* Footer */}
-      {!embeddedMode && (
-      <footer className="mt-auto py-6 text-center text-sm text-gray-500">
-        <p>
-          Truthle is part of{' '}
-          <Link href="/" className="text-emerald-600 hover:underline">
+        <p className="mx-auto mt-8 max-w-2xl text-center text-sm text-[#59647a]">
+          Truthle uses the same country data as{' '}
+          <Link href="/" className="font-semibold text-[#294cc4] underline">
             The World Truth Map
           </Link>
+          . Browse all {variableEntries.length} statistics at your own pace.
         </p>
-        <p className="mt-1">
-          Compare countries across 89 statistics •{' '}
-          <Link href="/discoveries" className="text-emerald-600 hover:underline">
-            Explore 1,300+ correlations
-          </Link>
-        </p>
-      </footer>
-      )}
+      </main>
     </div>
   )
 }
 
 function TrueFalsePromo() {
   const [hidden, setHidden] = useState(false)
+
   useEffect(() => {
-    const on = (e: Event) => {
-      const st = (e as CustomEvent<string>).detail
-      setHidden(st === 'playing' || st === 'answered')
+    const onState = (event: Event) => {
+      const state = (event as CustomEvent<string>).detail
+      setHidden(state === 'playing' || state === 'answered')
     }
-    window.addEventListener('truthle:state', on)
-    return () => window.removeEventListener('truthle:state', on)
+    window.addEventListener('truthle:state', onState)
+    return () => window.removeEventListener('truthle:state', onState)
   }, [])
+
   if (hidden) return null
+
   return (
-    <div className="max-w-lg mx-auto px-4 mb-4">
-      <Link href="/true-false" className="block text-center py-2.5 rounded-xl bg-sky-50 border border-sky-200 text-sky-800 font-semibold hover:bg-sky-100">
-        ✅❌ New: True or False: World — 5 daily claims →
+    <div className="mx-auto mb-4 max-w-2xl">
+      <Link
+        href="/true-false/"
+        className="block rounded-xl border border-[#b9c8e8] bg-[#eef3ff] px-4 py-2.5 text-center font-semibold text-[#192947] hover:bg-[#e3ebff]"
+      >
+        New: True or False World. Try today&apos;s daily claims.
       </Link>
     </div>
   )

@@ -1,15 +1,16 @@
 'use client'
 
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import { trackEvent } from '@/lib/analytics/events'
-import { buildChallengeUrl, getRememberedChallenge, rememberChallenge } from '@/lib/truthle/gifts'
+import { buildChallengeUrl, normalizeGiftCode } from '@/lib/truthle/gifts'
 import { createTruthleSharePromo, getStoredSharePromo, recordShare, type SharePromo } from '@/lib/truthle/storage'
 import SharePromoCard from './SharePromoCard'
 import { generateResultCard } from './shareCardImage'
 import {
   buildShareCopy,
+  clipboardFailureStatus,
   GAME_TITLES,
-  isGiftUsable,
+  isGiftUsableForDay,
   shareCardFileName,
   shareFailureKind,
   type ShareResultData,
@@ -52,7 +53,6 @@ export default function ResultSharePanel({
   onFirstShare,
 }: ResultSharePanelProps) {
   const result = useMemo<ShareResultData>(() => ({ game, day, score, correct, total, streak }), [game, day, score, correct, total, streak])
-  const shareUrl = buildChallengeUrl({ game, day })
 
   const [promo, setPromo] = useState<SharePromo | null>(null)
   const [now, setNow] = useState(Date.now())
@@ -63,17 +63,36 @@ export default function ResultSharePanel({
   const [message, setMessage] = useState('')
   const [messageTone, setMessageTone] = useState<MessageTone>('neutral')
   const [fallbackText, setFallbackText] = useState('')
+  const [storedGiftExpired, setStoredGiftExpired] = useState(false)
+  const fallbackRef = useRef<HTMLTextAreaElement>(null)
 
   useEffect(() => {
+    setCardBlob(null)
+    setFallbackText('')
+    setMessage('')
+    setMessageTone('neutral')
+  }, [result])
+
+  useEffect(() => {
+    setPromo(null)
+    setStoredGiftExpired(false)
+    setFallbackText('')
     const stored = getStoredSharePromo()
-    if (!stored || !isGiftUsable(stored.expiresAt)) return
-    try {
-      const remembered = getRememberedChallenge(game) as { code?: string; day?: string } | null
-      if (remembered?.code === stored.code && (!remembered.day || remembered.day === day)) setPromo(stored)
-    } catch {
-      // A failed read must not create or replace a gift.
-    }
-  }, [day, game])
+    if (!stored) return
+    const storedCode = normalizeGiftCode(stored.code)
+    if (!storedCode) return
+    if (isGiftUsableForDay(stored.expiresAt, day)) setPromo({ ...stored, code: storedCode })
+    else setStoredGiftExpired(true)
+  }, [day])
+
+  useEffect(() => {
+    if (!fallbackText) return
+    const timer = window.setTimeout(() => {
+      fallbackRef.current?.focus()
+      fallbackRef.current?.select()
+    }, 0)
+    return () => window.clearTimeout(timer)
+  }, [fallbackText])
 
   useEffect(() => {
     if (!promo) return
@@ -81,8 +100,12 @@ export default function ResultSharePanel({
     return () => window.clearInterval(timer)
   }, [promo])
 
+  const shareUrl = useMemo(() => buildChallengeUrl({ game, day }), [day, game])
   const plainText = useMemo(() => buildShareCopy(result, shareUrl), [result, shareUrl])
-  const giftUrl = promo ? buildChallengeUrl({ game, day, code: promo.code }) : null
+  const giftUrl = useMemo(
+    () => (promo ? buildChallengeUrl({ game, day, code: promo.code }) : null),
+    [day, game, promo],
+  )
   const giftText = promo && giftUrl
     ? buildShareCopy(result, giftUrl, { code: promo.code, expiresAt: promo.expiresAt })
     : null
@@ -106,14 +129,15 @@ export default function ResultSharePanel({
     setBusyAction(method)
     setFallbackText('')
     setStatus('Copying...', 'pending')
+    trackEvent('share_intent', { game, puzzle_day: day, method })
     try {
       if (!navigator.clipboard?.writeText) throw new Error('Clipboard unavailable')
       await navigator.clipboard.writeText(text)
       trackEvent('share_copy', { game, puzzle_day: day, method, status: 'success' })
       recordShareAction()
       setStatus(successMessage, 'success')
-    } catch {
-      trackEvent('share_error', { game, puzzle_day: day, method, status: 'clipboard' })
+    } catch (error) {
+      trackEvent('share_error', { game, puzzle_day: day, method, status: clipboardFailureStatus(error) })
       setFallbackText(text)
       setStatus('Your browser did not confirm a copy. Select the message below and copy it manually.', 'error')
     } finally {
@@ -181,13 +205,27 @@ export default function ResultSharePanel({
 
   const openWhatsApp = (text: string, method: 'whatsapp' | 'whatsapp_gift') => {
     trackEvent('share_intent', { game, puzzle_day: day, method })
-    const opened = window.open(`https://wa.me/?text=${encodeURIComponent(text)}`, '_blank', 'noopener,noreferrer')
-    if (opened) {
+    try {
+      const opened = window.open(`https://wa.me/?text=${encodeURIComponent(text)}`, '_blank')
+      if (!opened) {
+        trackEvent('share_error', { game, puzzle_day: day, method, status: 'blocked' })
+        setFallbackText(text)
+        setStatus('Your browser blocked the WhatsApp tab. Use the message below instead.', 'error')
+        return
+      }
+      try {
+        opened.opener = null
+      } catch {
+        // The handoff already opened even if this browser restricts opener changes.
+      }
+      recordShareAction()
+      trackEvent('share_handoff', { game, puzzle_day: day, method, status: 'opened' })
       setFallbackText('')
       setStatus('WhatsApp opened in a new tab. This page cannot confirm whether the message was sent.', 'neutral')
-    } else {
+    } catch {
+      trackEvent('share_error', { game, puzzle_day: day, method, status: 'blocked' })
       setFallbackText(text)
-      setStatus('Your browser blocked the WhatsApp tab. Use the message below instead.', 'error')
+      setStatus('WhatsApp could not be opened. Use the message below instead.', 'error')
     }
   }
 
@@ -197,7 +235,7 @@ export default function ResultSharePanel({
     setCardBusy(true)
     setStatus('Building your square result image...', 'pending')
     try {
-      const blob = await generateResultCard(result)
+      const blob = await generateResultCard(result, shareUrl)
       setCardBlob(blob)
       setStatus('Image ready. Tap Share image or Download PNG.', 'success')
       return blob
@@ -219,8 +257,15 @@ export default function ResultSharePanel({
       return
     }
 
-    const file = new File([cardBlob], shareCardFileName(game, day), { type: 'image/png' })
-    if (!navigator.share || !navigator.canShare?.({ files: [file] })) {
+    let file: File | null = null
+    let canShareFile = false
+    try {
+      file = new File([cardBlob], shareCardFileName(game, day), { type: 'image/png' })
+      canShareFile = Boolean(navigator.share && navigator.canShare?.({ files: [file] }))
+    } catch {
+      trackEvent('share_error', { game, puzzle_day: day, method: 'native_image', status: 'unavailable' })
+    }
+    if (!file || !canShareFile) {
       setFallbackText(plainText)
       setStatus('This browser cannot attach an image to a share sheet. Download the PNG or use the result text below.', 'error')
       return
@@ -229,7 +274,7 @@ export default function ResultSharePanel({
     trackEvent('share_intent', { game, puzzle_day: day, method: 'native_image' })
     setBusyAction('native_image')
     try {
-      await navigator.share({ title: `${GAME_TITLES[game]} ${day}`, text: plainText, files: [file] })
+      await navigator.share({ title: `${GAME_TITLES[game]} ${day}`, text: plainText, url: shareUrl, files: [file] })
       recordShareAction()
       trackEvent('share_handoff', { game, puzzle_day: day, method: 'native_image', status: 'handed_off' })
       setStatus('Image share sheet closed. This page cannot confirm delivery. The PNG remains available here.', 'success')
@@ -262,37 +307,34 @@ export default function ResultSharePanel({
     }
   }
 
-  const prepareGift = async () => {
-    if (giftBusy) return
+  const prepareGift = async (intent: 'share' | 'copy') => {
+    if (giftBusy || busyAction) return
     setGiftBusy(true)
     setFallbackText('')
     setStatus('Preparing one friend Extra Attempt for today...', 'pending')
     try {
       const created = await createTruthleSharePromo()
-      if (!created?.code || !isGiftUsable(created.expiresAt)) {
+      const createdCode = normalizeGiftCode(created?.code)
+      if (!created || !createdCode || !isGiftUsableForDay(created.expiresAt, day)) {
         trackEvent('reward_mint', { game, puzzle_day: day, status: 'failed' })
-        setStatus('The friend gift or its expiry could not be confirmed. Tap Prepare friend gift to try again.', 'error')
+        setStatus('The friend gift or its expiry could not be confirmed. Choose a gift action to try again.', 'error')
         return
       }
 
-      setPromo(created)
+      setPromo({ ...created, code: createdCode })
       setNow(Date.now())
       trackEvent('reward_mint', { game, puzzle_day: day, status: 'success' })
-      try {
-        rememberChallenge({ game, day, code: created.code })
-      } catch {
-        // The code remains visible if session storage is unavailable.
-      }
-      setStatus('Friend gift prepared. A second tap is required before anything is sent or copied.', 'success')
+      const nextAction = intent === 'share' ? 'Share gift' : 'Copy gift'
+      setStatus(`Friend gift prepared. Tap ${nextAction} to continue. Nothing has been sent or copied yet.`, 'success')
     } catch {
       trackEvent('reward_mint', { game, puzzle_day: day, status: 'failed' })
-      setStatus('The friend gift could not be prepared. Tap Prepare friend gift to try again.', 'error')
+      setStatus('The friend gift could not be prepared. Choose a gift action to try again.', 'error')
     } finally {
       setGiftBusy(false)
     }
   }
 
-  const giftExpired = promo ? !isGiftUsable(promo.expiresAt, now) : false
+  const giftExpired = promo ? !isGiftUsableForDay(promo.expiresAt, day, now) : false
 
   return (
     <section className="twt-panel mx-auto w-full max-w-2xl p-5 text-left sm:p-6" aria-labelledby="share-result-heading">
@@ -347,14 +389,23 @@ export default function ResultSharePanel({
 
       <div className="mt-5 border-t border-[#d8d2c2] pt-5">
         <h4 className="font-black text-[#192947]">Friend Extra Attempt</h4>
-        <p className="mt-1 text-sm text-[#59647a]">Create one single-use gift for today only when you are ready. Nothing is minted when you open your result.</p>
+        <p className="mt-1 text-sm text-[#59647a]">Create one single-use gift for a friend and today only. Choose a gift action to mint it. Nothing is minted when you open your result.</p>
 
         {!promo || giftExpired ? (
           <div className="mt-3">
+            {storedGiftExpired && !giftExpired && (
+              <p className="mb-2 text-sm text-[#a33f2c]">A stored friend gift is no longer usable. Choose a gift action to prepare a new one.</p>
+            )}
             {giftExpired && <p className="mb-2 text-sm text-[#a33f2c]">The prepared gift expired. It was not sent by this page.</p>}
-            <button type="button" onClick={() => void prepareGift()} disabled={giftBusy} className="twt-button-secondary min-h-11">
-              {giftBusy ? 'Preparing gift...' : giftExpired ? 'Prepare a new friend gift' : 'Prepare friend gift'}
-            </button>
+            <div className="grid gap-2 sm:grid-cols-2">
+              <button type="button" onClick={() => void prepareGift('share')} disabled={giftBusy || busyAction !== null} className="twt-button-secondary min-h-11">
+                {giftBusy ? 'Preparing gift...' : 'Share new friend gift'}
+              </button>
+              <button type="button" onClick={() => void prepareGift('copy')} disabled={giftBusy || busyAction !== null} className="twt-button-secondary min-h-11">
+                {giftBusy ? 'Preparing gift...' : 'Copy new friend gift'}
+              </button>
+            </div>
+            <p className="mt-2 text-xs text-[#59647a]">The gift is shown here first. You choose how to send or copy it in a second step.</p>
           </div>
         ) : (
           <>

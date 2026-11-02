@@ -26,7 +26,7 @@ export default function SiteHeader() {
         <nav aria-label="Primary" className="w-full overflow-x-auto sm:w-auto">
           <ul className="flex min-w-max items-center gap-1 sm:gap-2">
             {PRIMARY_LINKS.map((item) => (
-              <li key={item.href}>
+              <li key={item.href} className={item.href === '/discoveries/' ? 'hidden sm:block' : undefined}>
                 <Link href={item.href} className="twt-header-link">
                   {item.label}
                 </Link>

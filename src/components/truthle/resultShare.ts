@@ -54,7 +54,7 @@ export function buildShareCopy(
 
 export function formatGiftExpiry(expiresAt: string): string {
   const parsed = new Date(expiresAt)
-  if (Number.isNaN(parsed.getTime())) return expiresAt
+  if (Number.isNaN(parsed.getTime())) return 'Expiry unavailable'
   return `${parsed.toISOString().replace('.000Z', 'Z')} (UTC)`
 }
 
@@ -103,9 +103,47 @@ export function shareFailureKind(error: unknown): 'cancel' | 'error' {
   return error instanceof Error && error.name === 'AbortError' ? 'cancel' : 'error'
 }
 
+export function clipboardFailureStatus(error: unknown): 'denied' | 'unavailable' | 'failed' {
+  const name = error instanceof Error ? error.name : ''
+  if (name === 'NotAllowedError' || name === 'SecurityError') return 'denied'
+  if (name === 'NotFoundError' || name === 'NotSupportedError') return 'unavailable'
+  return 'failed'
+}
+
 export function isGiftUsable(expiresAt: string, now = Date.now()): boolean {
   const timestamp = new Date(expiresAt).getTime()
   return Number.isFinite(timestamp) && timestamp > now
+}
+
+export function isGiftUsableForDay(expiresAt: string, day: string, now = Date.now()): boolean {
+  if (!isGiftUsable(expiresAt, now)) return false
+  const currentDay = new Date(now).toISOString().slice(0, 10)
+  return currentDay === day
+}
+
+export interface CheckoutStatusLike {
+  status: 'pending' | 'fulfilled' | 'expired' | 'failed'
+  credits: number
+}
+
+export type CheckoutAttemptOutcome =
+  | { kind: 'fulfilled'; credits: number }
+  | { kind: 'pending' }
+  | { kind: 'expired' }
+  | { kind: 'failed' }
+
+export function checkoutAttemptOutcome(result: CheckoutStatusLike | null | undefined): CheckoutAttemptOutcome {
+  if (!result || typeof result.credits !== 'number' || !Number.isFinite(result.credits)) {
+    return { kind: 'failed' }
+  }
+  if (result.status === 'fulfilled') {
+    const credits = Math.floor(result.credits)
+    return credits > 0 ? { kind: 'fulfilled', credits } : { kind: 'failed' }
+  }
+  if (result.status === 'pending' || result.status === 'expired' || result.status === 'failed') {
+    return { kind: result.status }
+  }
+  return { kind: 'failed' }
 }
 
 export function shareCardFileName(game: GameKey, day: string): string {

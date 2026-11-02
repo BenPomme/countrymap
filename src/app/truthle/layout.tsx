@@ -3,8 +3,8 @@ import type { Metadata } from 'next'
 import { MONETIZE_COPY } from '@/lib/truthle/monetizeCopy'
 
 export const metadata: Metadata = {
-  title: { absolute: 'Truthle — Free Daily World Facts Quiz | Extra Attempt & Friend Codes' },
-  description: '5 country-stat questions a day, free, one try. Share for a friend Extra Attempt code, or buy Extra Attempt (€0.99) for another run today.',
+  title: { absolute: 'Truthle - Free Daily World Facts Quiz | Sourced Questions' },
+  description: 'Up to five sourced country and world statistics questions each day, with one free attempt. Source notes, honest limits and an optional EUR0.99 Extra Attempt.',
   keywords: [
     'truthle',
     'daily quiz',
@@ -16,12 +16,10 @@ export const metadata: Metadata = {
     'daily challenge',
     'geography game',
     'country trivia',
-    'quiz rewards',
-    'streak bonus',
   ],
   openGraph: {
     title: 'Truthle - Daily World Facts Quiz',
-    description: 'Can you ace today\'s 5 world facts questions? Play Truthle - same questions for everyone, one attempt per day!',
+    description: 'Play up to five sourced questions about countries and world statistics. Same daily set, one free attempt and source notes after each answer.',
     url: 'https://theworldtruth.com/truthle/',
     siteName: 'The World Truth',
     images: [
@@ -36,7 +34,7 @@ export const metadata: Metadata = {
   twitter: {
     card: 'summary_large_image',
     title: 'Truthle - Daily World Facts Quiz',
-    description: 'Can you beat today\'s 5 questions? Same quiz for everyone, one chance per day!',
+    description: 'Up to five sourced world facts questions, the same for everyone. Source notes appear after you answer.',
     images: ['https://theworldtruth.com/og/truthle.png'],
   },
   alternates: {
@@ -54,23 +52,22 @@ export default function TruthleLayout({
       {children}
       <SeoAbout
         h1="Truthle: the free daily world facts quiz"
-        intro="Truthle is a free daily quiz with 5 questions about countries and world statistics. Everyone gets the same questions each day, and you get one free attempt. Questions are built from the country data on The World Truth Map."
+        intro="Truthle is a free daily quiz built from sourced country and world statistics. Everyone gets the same eligible questions each day, and you get one free attempt. The number of questions can be up to five, depending on how many sourced questions are available."
         steps={[
           'Read each question about a country or world statistic.',
-          'Pick your answer. You see if you were right and the real figure right away.',
-          'Finish all 5 to get your score, streak and result squares.',
-          'Share your result. Sharing also gives you a free Extra Attempt code for a friend.',
-          'Come back tomorrow for a new set. Want another run today? Extra Attempt (€0.99) gives one more full run; your first score stays on the leaderboard.',
+          'Pick your answer. You see whether you were right, the real figure and any available source notes.',
+          'Finish the eligible set to get your score, correct count and streak.',
+          'Share your result without spoiling answers. A friend gift is prepared only when you explicitly ask for one.',
+          'Come back after 00:00 UTC for the next set. A one-time EUR0.99 Extra Attempt gives one more optional run today.',
         ]}
         faqs={[
-          { q: 'What is Truthle?', a: 'Truthle is a free daily world facts quiz from The World Truth: 5 questions per day about countries and world statistics, the same for everyone.' },
-          { q: 'Is Truthle like Wordle?', a: 'It borrows the Wordle format: one puzzle per day, the same for everyone, with a shareable result grid. But Truthle is not a word game. You answer 5 questions about country statistics instead of guessing a word.' },
-          { q: 'Is Truthle the same as Trustle or Truthling?', a: 'No. Truthle (theworldtruth.com/truthle) is a separate game about world facts and country data. Trustle, Truthling and other similarly named games are unrelated products.' },
-          { q: 'How many questions are in Truthle?', a: '5 questions per day. A new set unlocks every day.' },
-          { q: 'Is Truthle free?', a: 'Yes. Every daily game is free with one attempt. An optional Extra Attempt costs €0.99, or a friend can share a free Extra Attempt code with you.' },
-          { q: 'What is a Truthle Extra Attempt code?', a: 'When you share your Truthle result, you get a code that gives a friend a free Extra Attempt (one more run of today\'s quiz). If you want another run yourself, an optional paid Extra Attempt is €0.99, one-time — no subscription.' },
+          { q: 'What is Truthle?', a: 'Truthle is a free daily world facts quiz from The World Truth. It uses sourced country and world statistics, with the same eligible set for everyone each UTC day.' },
+          { q: 'Is Truthle like Wordle?', a: 'It borrows the one-puzzle-per-day and spoiler-free sharing format. Truthle is not a word game: you answer questions about country statistics instead of guessing a word.' },
+          { q: 'How many questions are in Truthle?', a: 'Up to five sourced questions each day. Some days may have fewer. If no eligible sourced questions can be built, the round is shown as unavailable instead of inventing questions.' },
+          { q: 'Where do the questions and sources come from?', a: 'Questions use the country datasets behind The World Truth Map. After you answer, Truthle shows the available source, year, coverage and known limitations for that question. If a detail is not recorded, the page says so.' },
+          { q: 'Is Truthle free?', a: 'Yes. The daily set is free with one attempt. An optional Extra Attempt costs EUR0.99 once, with no subscription. A friend code is validated by the server at checkout and is never confirmed by the page alone.' },
+          { q: 'What happens if I already played today?', a: 'Your saved result and streak remain available. You can share without spoiling answers or, when eligible, use an existing Extra Attempt. Your primary score is kept separately from a retry run.' },
           ...MONETIZE_COPY.en.faq,
-          { q: 'Where does the data come from?', a: 'Questions use the country datasets behind The World Truth Map. Each map page lists its source.' },
         ]}
       />
     </>

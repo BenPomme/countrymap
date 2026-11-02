@@ -35,9 +35,9 @@ export default function OfferWall({ onClose }: OfferWallProps) {
   if (!OFFERTORO_PUBID) {
     return (
       <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-6 text-center">
-        <p className="text-yellow-800 font-medium">Offer Wall Not Configured</p>
+        <p className="text-yellow-800 font-medium">Offers unavailable</p>
         <p className="text-yellow-600 text-sm mt-2">
-          Set NEXT_PUBLIC_OFFERTORO_PUBID in your environment variables.
+          Offers are temporarily unavailable. Please try again later.
         </p>
       </div>
     )
@@ -92,7 +92,7 @@ export default function OfferWall({ onClose }: OfferWallProps) {
       {/* Info banner */}
       <div className="bg-amber-50 px-4 py-2 text-sm text-amber-800 flex items-center gap-2">
         <span>💡</span>
-        <span>Complete offers below to earn coins. Rewards are credited within minutes.</span>
+        <span>Coin awards depend on the offer provider. The World Truth cannot guarantee an award.</span>
       </div>
 
       {/* Offer wall iframe */}

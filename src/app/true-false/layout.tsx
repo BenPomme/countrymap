@@ -4,16 +4,16 @@ import { getAllClaims } from '@/lib/seo/claims'
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: 'Play True or False: World — Free Daily Country Stats Quiz',
-  description: 'Play now: 5 true-or-false claims about countries and world stats, the same for everyone today. Free, no signup. Then browse hundreds of answered claims by topic.',
+  title: 'Play True or False: World | Free Daily Country Stats Quiz',
+  description: 'Play a short daily set of true-or-false claims about countries and world stats, the same for everyone in UTC. Free, no signup. Then browse answered claims by topic.',
   openGraph: {
-    title: 'True or False: World — Can you get 5/5 today?',
-    description: '5 claims about the world. True or false? Same for everyone, new every day.',
+    title: 'True or False: World | Can you get every call right today?',
+    description: 'A short set of claims about the world. True or false? Same for everyone, new every UTC day.',
     url: 'https://theworldtruth.com/true-false/',
     siteName: 'The World Truth',
     images: [{ url: 'https://theworldtruth.com/og/true-false.png', width: 1200, height: 630 }],
   },
-  twitter: { card: 'summary_large_image', title: 'True or False: World — Can you get 5/5 today?', description: '5 claims about the world. True or false? New every day.', images: ['https://theworldtruth.com/og/true-false.png'] },
+  twitter: { card: 'summary_large_image', title: 'True or False: World | Can you get every call right today?', description: 'A short set of claims about the world. True or false? New every UTC day.', images: ['https://theworldtruth.com/og/true-false.png'] },
   alternates: { canonical: 'https://theworldtruth.com/true-false/' },
 }
 
@@ -31,16 +31,16 @@ export default function Layout({ children }: { children: React.ReactNode }) {
       {children}
       <SeoAbout
         h1="True or False: World, a free daily country stats quiz"
-        intro="Five claims about countries and world stats. Same set for everyone today. Call each one true or false, see the real numbers, and share your score."
+        intro="A short daily set of claims about countries and world stats. Same set for everyone in UTC. Call each one true or false, see the recorded figures and source details, then share your score."
         steps={[
           'Read the claim, for example a comparison between two countries.',
-          'Tap True or False. The real figures appear right after.',
-          'Finish all 5 for your score and streak, then share it.',
+          'Tap True or False. The recorded figures and provenance appear right after.',
+          'Finish the set for your score and streak, then share it.',
         ]}
         faqs={[
-          { q: 'Is True or False: World free?', a: 'Yes. One free run per day, no signup. Share for a friend code, or buy an Extra Attempt (€0.99) for another shot.' },
-          { q: 'How often do the claims change?', a: 'Every day. Everyone gets the same 5 claims.' },
-          { q: 'Where can I see past claims?', a: `The claims archive has ${claims.length} answered claims grouped by topic, each with its data source.` },
+          { q: 'Is True or False: World free?', a: 'Yes. One free first run per UTC day, no signup. You can share a friend code or get an Extra Attempt for another try.' },
+          { q: 'How often do the claims change?', a: 'Every UTC day. Everyone gets the same eligible set for that day.' },
+          { q: 'Where can I see past claims?', a: `The claims archive has ${claims.length} answered claims grouped by topic. Source details are shown where recorded. Many archived metrics have unknown provenance.` },
         ]}
       >
         <h2 className="mt-8 text-xl font-bold text-gray-900">Browse answered claims by topic</h2>

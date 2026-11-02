@@ -1,12 +1,11 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import {
   signUpWithEmail,
   signInWithEmail,
   linkAnonymousToEmail,
   resetPassword,
-  subscribeToReminders,
   auth
 } from '@/lib/firebase/config'
 import { claimEmailSignupBonus, hasClaimedEmailBonus } from '@/lib/truthle/storage'
@@ -27,12 +26,13 @@ export default function AuthModal({ isOpen, onClose, onSuccess, initialTab = 'si
   const [password, setPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
   const [displayName, setDisplayName] = useState('')
-  const [enableReminders, setEnableReminders] = useState(false)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [success, setSuccess] = useState<string | null>(null)
   const [bonusClaimed, setBonusClaimed] = useState(false)
   const [isAnonymous, setIsAnonymous] = useState(false)
+  const dialogRef = useRef<HTMLDivElement>(null)
+  const previousFocusRef = useRef<HTMLElement | null>(null)
 
   useEffect(() => {
     // Check if current user is anonymous
@@ -48,12 +48,26 @@ export default function AuthModal({ isOpen, onClose, onSuccess, initialTab = 'si
     }
   }, [isOpen])
 
+  useEffect(() => {
+    if (!isOpen || typeof document === 'undefined') return
+    if (document.activeElement instanceof HTMLElement) previousFocusRef.current = document.activeElement
+    const timer = window.setTimeout(() => {
+      const initial = dialogRef.current?.querySelector<HTMLElement>('[data-autofocus]')
+      initial?.focus()
+    }, 0)
+    return () => {
+      window.clearTimeout(timer)
+      const previous = previousFocusRef.current
+      previousFocusRef.current = null
+      if (previous?.isConnected) previous.focus()
+    }
+  }, [isOpen])
+
   const resetForm = () => {
     setEmail('')
     setPassword('')
     setConfirmPassword('')
     setDisplayName('')
-    setEnableReminders(false)
     setError(null)
     setSuccess(null)
   }
@@ -80,12 +94,7 @@ export default function AuthModal({ isOpen, onClose, onSuccess, initialTab = 'si
 
     setLoading(true)
     try {
-      const user = await signUpWithEmail(email, password, displayName || undefined)
-
-      // Subscribe to reminders if checked
-      if (enableReminders) {
-        await subscribeToReminders(user.uid, email, displayName || null, true)
-      }
+      await signUpWithEmail(email, password, displayName || undefined)
 
       // Claim signup bonus
       if (!hasClaimedEmailBonus()) {
@@ -161,12 +170,7 @@ export default function AuthModal({ isOpen, onClose, onSuccess, initialTab = 'si
 
     setLoading(true)
     try {
-      const user = await linkAnonymousToEmail(email, password, displayName || undefined)
-
-      // Subscribe to reminders if checked
-      if (enableReminders) {
-        await subscribeToReminders(user.uid, email, displayName || null, true)
-      }
+      await linkAnonymousToEmail(email, password, displayName || undefined)
 
       // Claim signup bonus
       if (!hasClaimedEmailBonus()) {
@@ -221,23 +225,66 @@ export default function AuthModal({ isOpen, onClose, onSuccess, initialTab = 'si
     }
   }
 
+  const handleDialogKeyDown = (event: React.KeyboardEvent<HTMLDivElement>) => {
+    if (event.key === 'Escape') {
+      event.preventDefault()
+      if (!loading) onClose()
+      return
+    }
+    if (event.key !== 'Tab') return
+
+    const dialog = dialogRef.current
+    if (!dialog) return
+    const focusable = Array.from(dialog.querySelectorAll<HTMLElement>(
+      'button:not([disabled]), input:not([disabled]):not([type="hidden"]), a[href], select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])',
+    )).filter((element) => element.getClientRects().length > 0)
+    if (focusable.length === 0) {
+      event.preventDefault()
+      dialog.focus()
+      return
+    }
+
+    const first = focusable[0]
+    const last = focusable[focusable.length - 1]
+    if (!dialog.contains(document.activeElement)) {
+      event.preventDefault()
+      first.focus()
+    } else if (event.shiftKey && document.activeElement === first) {
+      event.preventDefault()
+      last.focus()
+    } else if (!event.shiftKey && document.activeElement === last) {
+      event.preventDefault()
+      first.focus()
+    }
+  }
+
   if (!isOpen) return null
 
   const showBonusBadge = !bonusClaimed && (activeTab === 'signup' || activeTab === 'link')
 
   return (
     <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
-      <div className="bg-white rounded-2xl w-full max-w-md max-h-[90vh] overflow-y-auto shadow-xl">
+      <div
+        ref={dialogRef}
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="auth-modal-title"
+        tabIndex={-1}
+        onKeyDown={handleDialogKeyDown}
+        className="bg-white rounded-2xl w-full max-w-md max-h-[90vh] overflow-y-auto shadow-xl"
+      >
         {/* Header */}
         <div className="flex items-center justify-between p-4 border-b">
-          <h2 className="text-xl font-bold text-gray-900">
+          <h2 id="auth-modal-title" className="text-xl font-bold text-gray-900">
             {activeTab === 'signup' && 'Create Account'}
             {activeTab === 'signin' && 'Sign In'}
             {activeTab === 'link' && 'Link Account'}
             {activeTab === 'forgot' && 'Reset Password'}
           </h2>
           <button
+            type="button"
             onClick={onClose}
+            aria-label="Close account dialog"
             className="p-2 hover:bg-gray-100 rounded-full transition-colors"
           >
             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -361,6 +408,7 @@ export default function AuthModal({ isOpen, onClose, onSuccess, initialTab = 'si
             </label>
             <input
               type="email"
+              data-autofocus
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               placeholder="you@example.com"
@@ -403,26 +451,6 @@ export default function AuthModal({ isOpen, onClose, onSuccess, initialTab = 'si
                 className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent"
               />
             </div>
-          )}
-
-          {/* Daily Reminders Checkbox (signup/link only) */}
-          {(activeTab === 'signup' || activeTab === 'link') && (
-            <label className="flex items-start gap-3 cursor-pointer">
-              <input
-                type="checkbox"
-                checked={enableReminders}
-                onChange={(e) => setEnableReminders(e.target.checked)}
-                className="mt-1 w-4 h-4 text-blue-600 rounded focus:ring-blue-500"
-              />
-              <div>
-                <div className="text-sm font-medium text-gray-700">
-                  Send me daily reminders
-                </div>
-                <div className="text-xs text-gray-500">
-                  Get a friendly email reminder to play Truthle each day
-                </div>
-              </div>
-            </label>
           )}
 
           {/* Submit Button */}

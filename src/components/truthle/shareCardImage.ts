@@ -4,7 +4,11 @@ import { GAME_TITLES } from './resultShare'
 const WIDTH = 1080
 const HEIGHT = 1080
 
-export function drawShareCard(context: CanvasRenderingContext2D, data: ShareResultData): void {
+export function drawShareCard(
+  context: CanvasRenderingContext2D,
+  data: ShareResultData,
+  challengeUrl?: string,
+): void {
   context.fillStyle = '#fff9e8'
   context.fillRect(0, 0, WIDTH, HEIGHT)
 
@@ -46,11 +50,12 @@ export function drawShareCard(context: CanvasRenderingContext2D, data: ShareResu
   context.stroke()
 
   context.fillStyle = '#192947'
-  context.font = '700 34px Arial, sans-serif'
-  context.fillText('Same daily challenge. Fresh questions at 00:00 UTC.', 64, 890)
+  context.font = '700 30px Arial, sans-serif'
+  context.fillText('Same daily challenge. Fresh questions at 00:00 UTC.', 64, 884)
   context.fillStyle = '#294cc4'
-  context.font = '700 32px Arial, sans-serif'
-  context.fillText('theworldtruth.com', 64, 970)
+  context.font = '700 24px Arial, sans-serif'
+  const destination = (challengeUrl || 'https://theworldtruth.com/challenge/').replace(/^https?:\/\//, '')
+  context.fillText(destination, 64, 970)
 
   context.fillStyle = '#ffda62'
   context.fillRect(864, 884, 152, 96)
@@ -59,14 +64,14 @@ export function drawShareCard(context: CanvasRenderingContext2D, data: ShareResu
   context.fillText('PLAY', 900, 943)
 }
 
-export async function generateResultCard(data: ShareResultData): Promise<Blob> {
+export async function generateResultCard(data: ShareResultData, challengeUrl?: string): Promise<Blob> {
   const canvas = document.createElement('canvas')
   canvas.width = WIDTH
   canvas.height = HEIGHT
   const context = canvas.getContext('2d')
   if (!context) throw new Error('Canvas is not available')
 
-  drawShareCard(context, data)
+  drawShareCard(context, data, challengeUrl)
 
   return new Promise((resolve, reject) => {
     canvas.toBlob((blob) => {

@@ -467,7 +467,7 @@ export default function HomePage() {
 
             <div className="border-b border-twt-ink/10 bg-white/70 py-3">
               <div className="twt-container flex flex-wrap items-center justify-between gap-3 text-xs font-semibold text-twt-ink/70">
-                <p>One feature fact, then the full map. Source and vintage stay beside the claim.</p>
+                <p>Browse {variableEntries.length} map topics.</p>
                 <Link href="/discoveries/" className="inline-flex items-center gap-1 text-twt-blue hover:underline">
                   Browse discoveries
                   <ArrowUpRight className="h-3.5 w-3.5" aria-hidden="true" />
