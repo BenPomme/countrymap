@@ -521,7 +521,7 @@ export function calculateScore(
     message = 'Excellent! You could be a diplomat!'
   } else if (finalScore >= 70) {
     grade = 'B'
-    message = 'Great job! You know more than most!'
+    message = 'Great job! Keep exploring the data.'
   } else if (finalScore >= 60) {
     grade = 'C'
     message = 'Not bad! Keep exploring the world!'
