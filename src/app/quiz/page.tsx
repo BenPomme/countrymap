@@ -335,8 +335,8 @@ export default function QuizPage() {
                   <p className="mt-2 max-w-xl text-sm leading-6 text-white/72 md:text-base">{message}</p>
                 </div>
                 <div className="rounded-2xl bg-[#ffda62] px-5 py-3 text-center text-[#192947]">
-                  <p className="text-4xl font-black">{score}%</p>
-                  <p className="text-xs font-black uppercase tracking-[0.12em]">Final score</p>
+                  <p className="text-4xl font-black">{score} points</p>
+                  <p className="text-xs font-black uppercase tracking-[0.12em]">Final points</p>
                 </div>
               </div>
             </div>
@@ -382,9 +382,9 @@ export default function QuizPage() {
                 <VisualShare
                   targetRef={resultsRef}
                   title={`Quiz result: grade ${grade}`}
-                  description={`I scored ${score}% on The Truth Quiz with ${correctAnswers} of ${questions.length} correct and a max streak of ${maxStreak}. Can you beat it?`}
+                  description={`I earned ${score} quiz points on The Truth Quiz with ${correctAnswers} of ${questions.length} correct and a max streak of ${maxStreak}. Can you beat it?`}
                   url={absoluteSiteUrl('/quiz')}
-                  stat={`${score}%`}
+                  stat={`${score} points`}
                   detail={`${correctAnswers} of ${questions.length} correct`}
                   sourceName={shareProvenance.sourceName}
                   sourceVintage={shareProvenance.sourceVintage}
