@@ -89,12 +89,43 @@ const correlationPresets = [
   { x: 'health.obesityRate', y: 'poverty.gdpPerCapita', label: 'Obesity vs wealth' },
 ]
 
+const CHARTS_HERO = {
+  eyebrow: 'Explore the data',
+  title: 'Charts that make country data visible',
+  intro: 'Compare two measures, rank a whole catalogue or inspect broad patterns. Every chart link keeps its exact selection.',
+}
+
 function ChartsLoading() {
   return (
-    <div className="twt-shell min-h-screen bg-[#fff9e8] px-4 py-12 text-[#192947]">
-      <div className="mx-auto max-w-5xl animate-pulse rounded-3xl bg-white/70 p-8 motion-reduce:animate-none">
-        Loading charts...
-      </div>
+    <div className="twt-shell min-h-screen bg-[#fff9e8] text-[#192947]">
+      <main className="twt-container mx-auto max-w-6xl px-4 py-8 md:py-12">
+        <header className="mb-7 max-w-3xl">
+          <p className="twt-kicker text-xs font-black uppercase tracking-[0.2em] text-[#294cc4]">
+            {CHARTS_HERO.eyebrow}
+          </p>
+          <h1 className="twt-display mt-2 max-w-3xl text-4xl font-black leading-[0.98] tracking-tight md:text-6xl">
+            {CHARTS_HERO.title}
+          </h1>
+          <p className="twt-prose mt-4 max-w-2xl text-base leading-7 text-[#192947]/72 md:text-lg">
+            {CHARTS_HERO.intro}
+          </p>
+        </header>
+        <section
+          role="status"
+          aria-live="polite"
+          aria-busy="true"
+          className="twt-panel rounded-[28px] border border-[#192947]/12 bg-white p-6 shadow-sm md:p-8"
+        >
+          <p className="text-xl font-black">Loading the chart explorer</p>
+          <p className="mt-2 max-w-xl text-sm leading-6 text-[#192947]/65">
+            Preparing country rankings, scatter plots and correlation controls. Your selected chart will appear here.
+          </p>
+          <div className="mt-6 space-y-3" aria-hidden="true">
+            <div className="h-10 w-2/3 rounded-xl bg-[#e7dfc8]" />
+            <div className="h-56 rounded-2xl bg-[#f4efe2]" />
+          </div>
+        </section>
+      </main>
     </div>
   )
 }
@@ -304,13 +335,13 @@ function ChartsContent() {
         <header className="mb-7 grid gap-5 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-end">
           <div>
             <p className="twt-kicker text-xs font-black uppercase tracking-[0.2em] text-[#294cc4]">
-              Explore the data
+              {CHARTS_HERO.eyebrow}
             </p>
             <h1 className="twt-display mt-2 max-w-3xl text-4xl font-black leading-[0.98] tracking-tight md:text-6xl">
-              Charts that make country data visible
+              {CHARTS_HERO.title}
             </h1>
             <p className="twt-prose mt-4 max-w-2xl text-base leading-7 text-[#192947]/72 md:text-lg">
-              Compare two measures, rank a whole catalogue or inspect broad patterns. Every chart link keeps its exact selection.
+              {CHARTS_HERO.intro}
             </p>
           </div>
           <VisualShare

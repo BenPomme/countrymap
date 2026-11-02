@@ -1,6 +1,5 @@
 import test, { before, mock } from 'node:test'
 import assert from 'node:assert/strict'
-import { registerHooks } from 'node:module'
 import {
   getCompletionStreak,
   getDisplayStreak,
@@ -18,6 +17,37 @@ import {
   type CommerceTransport,
   type WalletClaimResponse,
 } from '../src/lib/truthle/commerce'
+
+type ModuleHookContext = Record<string, unknown>
+
+type ResolveResult = {
+  url: string
+  format?: string | null
+  shortCircuit?: boolean
+}
+
+type LoadResult = {
+  format?: string | null
+  source?: string | ArrayBuffer | Uint8Array | null
+  shortCircuit?: boolean
+}
+
+type ModuleHooks = {
+  resolve?: (
+    specifier: string,
+    context: ModuleHookContext,
+    nextResolve: (specifier: string, context?: ModuleHookContext) => ResolveResult,
+  ) => ResolveResult
+  load?: (
+    url: string,
+    context: ModuleHookContext,
+    nextLoad: (url: string, context?: ModuleHookContext) => LoadResult,
+  ) => LoadResult
+}
+
+type NodeModuleApi = {
+  registerHooks(hooks: ModuleHooks): void
+}
 
 class MemoryStorage implements CommerceStorage {
   private readonly data = new Map<string, string>()
@@ -85,25 +115,41 @@ const stubSources = new Map([
   ],
 ])
 
-registerHooks({
-  resolve(specifier, context, nextResolve) {
-    if (specifier === '@/lib/firebase/config') {
-      return { url: 'core-persistence:firebase-config', shortCircuit: true }
-    }
-    if (specifier === 'firebase/firestore') {
-      return { url: 'core-persistence:firebase-firestore', shortCircuit: true }
-    }
-    if (specifier === 'firebase/functions') {
-      return { url: 'core-persistence:firebase-functions', shortCircuit: true }
-    }
-    return nextResolve(specifier, context)
-  },
-  load(url, context, nextLoad) {
-    const source = stubSources.get(url)
-    if (source) return { format: 'module', source, shortCircuit: true }
-    return nextLoad(url, context)
-  },
-})
+function hasRegisterHooks(value: unknown): value is NodeModuleApi {
+  return (
+    typeof value === 'object'
+    && value !== null
+    && 'registerHooks' in value
+    && typeof value.registerHooks === 'function'
+  )
+}
+
+async function installFirebaseModuleHooks(): Promise<void> {
+  const runtimeModule: unknown = await import('node:module')
+  if (!hasRegisterHooks(runtimeModule)) {
+    throw new Error('This test requires Node.js 22.15 or newer with module.registerHooks')
+  }
+
+  runtimeModule.registerHooks({
+    resolve(specifier, context, nextResolve) {
+      if (specifier === '@/lib/firebase/config') {
+        return { url: 'core-persistence:firebase-config', shortCircuit: true }
+      }
+      if (specifier === 'firebase/firestore') {
+        return { url: 'core-persistence:firebase-firestore', shortCircuit: true }
+      }
+      if (specifier === 'firebase/functions') {
+        return { url: 'core-persistence:firebase-functions', shortCircuit: true }
+      }
+      return nextResolve(specifier, context)
+    },
+    load(url, context, nextLoad) {
+      const source = stubSources.get(url)
+      if (source) return { format: 'module', source, shortCircuit: true }
+      return nextLoad(url, context)
+    },
+  })
+}
 
 const browserStorage = new MemoryStorage()
 Object.defineProperty(globalThis, 'window', {
@@ -122,6 +168,7 @@ Object.defineProperty(globalThis, '__corePersistenceFirebase', {
 let storage: typeof import('../src/lib/truthle/storage')
 
 before(async () => {
+  await installFirebaseModuleHooks()
   storage = await import('../src/lib/truthle/storage')
 })
 
@@ -397,7 +444,7 @@ test('failed cloud sync preserves the durable wallet request id', async () => {
   const consoleError = mock.method(console, 'error', () => {})
 
   try {
-    await storage.syncCloudCoins()
+    await assert.rejects(storage.syncCloudCoins(), /Commerce request failed/)
   } finally {
     consoleError.mock.restore()
   }

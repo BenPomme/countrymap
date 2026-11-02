@@ -10,6 +10,7 @@ import {
 } from '../src/lib/analytics/consent'
 import {
   filterEventParams,
+  sanitizeAnalyticsReferrer,
   sanitizeAnalyticsUrl,
   trackEvent,
   trackPageView,
@@ -239,7 +240,7 @@ test('event filtering accepts safe transaction ids and rejects arbitrary identif
   assert.equal(filterEventParams('not_allowed', { game: 'truthle' }), null)
 })
 
-test('page locations and referrers lose queries, fragments and credentials', () => {
+test('page locations keep public paths while referrers keep only safe origins', () => {
   withBrowser(
     {
       stored: storedChoice(true, false),
@@ -254,7 +255,7 @@ test('page locations and referrers lose queries, fragments and credentials', () 
           'page_view',
           {
             page_location: 'https://theworldtruth.com/country/france/',
-            page_referrer: 'https://www.google.com/search',
+            page_referrer: 'https://www.google.com',
           },
         ],
       ])
@@ -267,6 +268,25 @@ test('page locations and referrers lose queries, fragments and credentials', () 
   assert.equal(
     sanitizeAnalyticsUrl('https://theworldtruth.com/path/?email=a%40b.test#fragment'),
     'https://theworldtruth.com/path/'
+  )
+
+  assert.equal(
+    sanitizeAnalyticsReferrer('https://www.google.com/search?q=person%40example.com&uid=123#result'),
+    'https://www.google.com'
+  )
+  assert.equal(
+    sanitizeAnalyticsReferrer(
+      'https://checkout.stripe.com/c/pay/cs_live_SECRET?session_id=cs_live_SECRET#private'
+    ),
+    'https://checkout.stripe.com'
+  )
+  assert.equal(
+    sanitizeAnalyticsReferrer('https://checkout.stripe.com.evil.example/private-path/?uid=123'),
+    'https://checkout.stripe.com.evil.example'
+  )
+  assert.equal(
+    sanitizeAnalyticsReferrer('https://user:pass@checkout.stripe.com/c/pay/cs_live_SECRET'),
+    undefined
   )
 })
 

@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-**The World Truth Map** is a Next.js 14 interactive world map visualization that displays country-level statistics across the current variable catalogue (health, demographics, economy, governance, sex/relationships, lifestyle, transport, environment, and more). The current checkout has 164 countries and 94 variables: 93 numeric and 1 categorical. Coverage varies by metric; 10,680 of 15,416 country/catalogue cells have a stored value (69.3%).
+**The World Truth Map** is a Next.js 14 interactive world map visualization that displays country-level statistics across the current variable catalogue (health, demographics, economy, governance, sex/relationships, lifestyle, transport, environment, and more). Topic and coverage counts change with the data, so derive them from the initialized app catalogue. `src/lib/data/loadCountries.ts` imports `src/lib/constants/extraVariables.ts`, which extends `VARIABLES`; counting `VARIABLES` before that import omits the extra topics.
 
 **Live Site:** https://theworldtruth.com
 
@@ -12,7 +12,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - **Interactive Map** (`/`) - Choropleth map with filtering and variable selection
 - **Truthle** (`/truthle`) - Daily world facts quiz (flagship feature, Wordle-style)
 - **Charts** (`/charts`) - Correlation explorer and country rankings
-- **Discoveries** (`/discoveries`) - Browse the 1,321 correlations stored in `data/correlations.json`
+- **Discoveries** (`/discoveries`) - Browse correlations stored in `data/correlations.json`
 - **Quiz** (`/quiz`) - Random 20-question knowledge test
 
 ## Build & Development Commands
@@ -299,7 +299,7 @@ Computes Pearson correlations between the numeric variables listed in `scripts/c
 - Runs automatically during `npm run build`
 - Outputs to `data/correlations.json`
 - Filters to |r| >= 0.4 (moderate+)
-- Current stored result: 1,321 correlations (74 very strong, 451 strong, 796 moderate)
+- Read current correlation and strength bucket counts from the generated `data/correlations.json`; do not copy snapshot counts into documentation.
 
 ## Adding New Data Variables
 
@@ -318,7 +318,7 @@ Computes Pearson correlations between the numeric variables listed in `scripts/c
 1. Update meta tags in page's `layout.tsx`
 2. Update `public/sitemap.xml` with new pages
 3. Update keywords in `src/app/layout.tsx`
-4. Derive any count in descriptions from `Object.keys(VARIABLES).length`, the current data, or the generated correlation output instead of copying a stale number
+4. Derive any count in descriptions from the initialized catalogue after `src/lib/constants/extraVariables.ts` extends `VARIABLES`, from the current data, or from the generated correlation output instead of copying a stale number
 5. Check JSON-LD structured data in root layout
 
 ### Current Pages in Sitemap

@@ -1,7 +1,14 @@
 import type { Metadata } from 'next'
 import { VARIABLES } from '@/lib/constants/variables'
 import { mapLongform } from '@/lib/seo/mapLongform'
-import { getVariableBySlug, variableEntries, rankCountries, ranksHighFirst, topCountry } from '@/lib/seo/catalog'
+import { getMetricProvenance } from '@/lib/seo/provenance'
+import {
+  countries,
+  getVariableBySlug,
+  rankCountries,
+  variableEntries,
+} from '@/lib/seo/catalog'
+import { buildMapCardCopy, mapOgAssetPath } from '../../../../scripts/og-card-helpers'
 
 export const dynamicParams = false
 
@@ -20,44 +27,35 @@ export async function generateMetadata({
   }
 
   const config = VARIABLES[entry.id]
-  const leader = topCountry(entry.id)
   const ranked = rankCountries(entry.id)
-  const higher = ranksHighFirst(config)
-  const lname = config.name.toLowerCase().replace(/mcdonald's/g, "McDonald's")
-  const question = `Which country has the ${higher ? 'highest' : 'lowest'} ${lname}?`
-  const answer = leader
-    ? `${leader.country.name} ranks #1 for ${lname} at ${leader.formatted}, among ${ranked.length} countries.`
-    : `Compare ${lname} across countries on The World Truth Map.`
-
   const lf = mapLongform(entry.slug)
-  const title = lf?.title ?? `${question} ${config.name} by Country`
-  const ogTitle = lf?.ogTitle ?? question
-  const desc = lf?.description ?? answer
-  const og = `https://theworldtruth.com/og/map/${entry.slug}.png`
+  const card = buildMapCardCopy({
+    config,
+    ranked,
+    totalCountryCount: countries.length,
+    provenance: getMetricProvenance(entry.id),
+    longform: lf,
+  })
+  const canonical = `https://theworldtruth.com/map/${entry.slug}/`
+  const og = `https://theworldtruth.com${mapOgAssetPath(entry.slug)}`
 
   return {
-    title,
-    description: desc,
-    keywords: [
-      `${config.name} by country`,
-      `which country has the ${higher ? 'highest' : 'lowest'} ${config.name}`,
-      `${config.name} map`,
-      `${config.name} ranking`,
-      'world statistics',
-    ],
-    alternates: { canonical: `https://theworldtruth.com/map/${entry.slug}/` },
+    title: card.title,
+    description: card.description,
+    keywords: card.keywords,
+    alternates: { canonical },
     openGraph: {
-      title: ogTitle,
-      description: desc,
-      url: `https://theworldtruth.com/map/${entry.slug}/`,
+      title: card.ogTitle,
+      description: card.description,
+      url: canonical,
       siteName: 'The World Truth Map',
       type: 'article',
       images: [{ url: og, width: 1200, height: 630, alt: `${config.name} world map` }],
     },
     twitter: {
       card: 'summary_large_image',
-      title: ogTitle,
-      description: desc,
+      title: card.ogTitle,
+      description: card.description,
       images: [og],
     },
   }

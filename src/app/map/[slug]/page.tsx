@@ -55,6 +55,16 @@ export default function StatPage({ params }: { params: { slug: string } }) {
   const lf = mapLongform(entry.slug)
   const dataNoun = config.type === 'categorical' ? 'a reported category' : 'a reported value'
   const rankingRows = buildRankingRows(config, ranked)
+  const heroTitle = `${config.name} by Country`
+  const heroDescription = config.description.replace(/[\u2013\u2014]/g, '-')
+  const heroIntro = /[.!?]$/.test(heroDescription)
+    ? heroDescription
+    : `${heroDescription}.`
+  const compactFactLine = mainFact.rankLabel
+    ? `${mainFact.rankLabel}. ${higher ? 'Highest values rank first.' : 'Lowest values rank first.'}`
+    : config.type === 'categorical' && !mainFact.empty
+      ? `${mainFact.value} ${mainFact.valueLabel.toLowerCase()}.`
+      : undefined
   const baseFaqs = [
     {
       q: question,
@@ -102,70 +112,64 @@ export default function StatPage({ params }: { params: { slug: string } }) {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqLd) }} />
 
       <main className="twt-container mx-auto max-w-6xl px-4 pb-24 pt-8 md:pb-12 md:pt-10">
-        <section aria-labelledby="stat-title" className="grid gap-6 lg:grid-cols-[minmax(0,1.25fr)_minmax(20rem,0.75fr)] lg:items-end">
-          <div>
+        <section aria-labelledby="stat-title" className="grid gap-4 md:gap-6 lg:grid-cols-[minmax(0,1.25fr)_minmax(20rem,0.75fr)] lg:items-end">
+          <div className="min-w-0">
             <p className="twt-kicker inline-flex rounded-full border border-[#294cc4]/20 bg-white px-3 py-1 text-[11px] font-black uppercase tracking-[0.16em] text-[#294cc4]">
               {config.category}
             </p>
-            <h1 id="stat-title" className="twt-display mt-4 max-w-4xl text-4xl font-black leading-[1.02] tracking-[-0.03em] text-[#192947] md:text-6xl">
-              {lf?.h1 ?? question}
+            <h1 id="stat-title" className="twt-display mt-3 max-w-4xl text-[2.125rem] font-black leading-[1.02] tracking-[-0.03em] text-[#192947] sm:text-5xl lg:text-6xl">
+              {heroTitle}
             </h1>
-            <p className="mt-5 max-w-3xl text-base leading-7 text-[#192947]/70 md:text-lg md:leading-8">
-              {lf?.intro ?? mainFact.detail}
+            <p className="mt-3 max-w-2xl text-sm leading-6 text-[#192947]/70 sm:text-base md:text-lg md:leading-7">
+              {heroIntro}
             </p>
           </div>
 
           <aside
-            aria-label="Main reported fact"
-            className="rounded-[1.75rem] border-2 border-[#192947] bg-[#ffda62] p-5 shadow-[8px_8px_0_rgba(25,41,71,0.12)] md:p-6"
+            aria-label="Main reported fact and source"
+            className="min-w-0 rounded-[1.5rem] border-2 border-[#192947] bg-[#ffda62] p-4 shadow-[5px_5px_0_rgba(25,41,71,0.12)] md:rounded-[1.75rem] md:p-6 md:shadow-[8px_8px_0_rgba(25,41,71,0.12)]"
           >
-            <p className="twt-kicker text-[10px] font-black uppercase tracking-[0.18em] text-[#192947]/60">
-              Reported fact
-            </p>
-            <p className="mt-2 text-xs font-black uppercase tracking-[0.14em] text-[#192947]/65">
+            <p className="text-[10px] font-black uppercase tracking-[0.16em] text-[#192947]/60">
               {mainFact.label}
             </p>
-            <div className="mt-2 flex flex-wrap items-baseline gap-x-3 gap-y-1">
-              <p className="twt-display text-3xl font-black leading-none text-[#192947] md:text-4xl">
+            <div className="mt-1.5 flex flex-wrap items-baseline gap-x-3 gap-y-0.5">
+              <p className="twt-display text-[1.7rem] font-black leading-[1.04] text-[#192947] md:text-4xl">
                 {mainFact.lead}
               </p>
-              <p className="text-xl font-black tabular-nums text-[#192947] md:text-2xl">
+              <p className="text-lg font-black tabular-nums leading-tight text-[#192947] md:text-2xl">
                 {mainFact.value}
               </p>
             </div>
-            <p className="mt-1 text-[11px] font-bold text-[#192947]/55">{mainFact.valueLabel}</p>
-            {mainFact.rankLabel && (
+            {compactFactLine && (
               <p className="mt-1 text-xs font-black leading-5 text-[#192947]/70">
-                {mainFact.rankLabel}. {mainFact.directionLabel}
+                {compactFactLine}
               </p>
             )}
-            <p className="mt-4 text-sm font-semibold leading-6 text-[#192947]/75">{mainFact.detail}</p>
-            {mainFact.countryHref && (
-              <Link
-                href={mainFact.countryHref}
-                className="mt-3 inline-flex min-h-9 items-center rounded-sm text-sm font-black text-[#294cc4] underline decoration-2 underline-offset-4 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#294cc4]"
-              >
-                View country profile
-              </Link>
-            )}
-            <p className="mt-4 border-t border-[#192947]/20 pt-3 text-xs leading-5 text-[#192947]/65">
-              {note ? (
-                <>
-                  Source:{' '}
+            <dl className="mt-3 grid grid-cols-[4.25rem_minmax(0,1fr)] gap-x-2 gap-y-1 border-t border-[#192947]/20 pt-2.5 text-[11px] leading-4 text-[#192947]/70">
+              <dt className="font-black uppercase tracking-[0.12em]">Source</dt>
+              <dd className="min-w-0 font-bold text-[#192947]">
+                {note ? (
                   <a
                     href={note.url}
                     target="_blank"
                     rel="nofollow noopener noreferrer"
-                    className="font-bold underline decoration-[#192947]/30 underline-offset-2 hover:decoration-[#192947] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#294cc4]"
+                    className="break-words underline decoration-[#192947]/30 underline-offset-2 hover:decoration-[#192947] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#294cc4]"
                   >
                     {note.source}
                   </a>
-                  . Data vintage: {note.vintage}.
-                </>
-              ) : (
-                'Source and data vintage: Unknown.'
-              )}
-            </p>
+                ) : (
+                  <span className="text-[#a83b28]">Unknown</span>
+                )}
+              </dd>
+              <dt className="font-black uppercase tracking-[0.12em]">Vintage</dt>
+              <dd className="min-w-0 font-semibold text-[#192947]">
+                {note?.vintage || <span className="text-[#a83b28]">Unknown</span>}
+              </dd>
+              <dt className="font-black uppercase tracking-[0.12em]">Coverage</dt>
+              <dd className="min-w-0 font-semibold">
+                {rankingRows.length} of {countries.length} countries with {dataNoun}
+              </dd>
+            </dl>
           </aside>
         </section>
 
@@ -216,8 +220,10 @@ export default function StatPage({ params }: { params: { slug: string } }) {
 
         {lf && (
           <article className="twt-prose mt-10 rounded-[1.5rem] border-2 border-[#192947]/15 bg-white p-6 text-[#192947]/80 shadow-sm md:p-8">
+            <h2 className="twt-display text-2xl font-black leading-tight text-[#192947] md:text-3xl">{lf.h1}</h2>
+            <p className="mt-3 leading-7">{lf.intro}</p>
             {lf.sections.map((sec) => (
-              <section key={sec.h2} className="mb-7 last:mb-0">
+              <section key={sec.h2} className="mb-7 mt-7 last:mb-0">
                 <h2 className="twt-display text-2xl font-black leading-tight text-[#192947] md:text-3xl">{sec.h2}</h2>
                 {sec.paragraphs.map((para) => <p key={para} className="mt-3 leading-7">{para}</p>)}
                 {sec.bullets && (

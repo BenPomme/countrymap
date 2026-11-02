@@ -116,13 +116,6 @@ export default function Analytics() {
         {`
           window.dataLayer = window.dataLayer || [];
           window.gtag = window.gtag || function(){ window.dataLayer.push(arguments); };
-          window.gtag = (function(previousGtag) {
-            return function() {
-              var args = arguments;
-              if (args[0] === 'event' && args[2] && args[2].outbound === true) return;
-              return previousGtag.apply(this, args);
-            };
-          })(window.gtag);
           window.gtag('consent', 'default', {
             analytics_storage: 'denied',
             ad_storage: 'denied',

@@ -66,16 +66,47 @@ const STRENGTH_LABELS: Record<Correlation['strength'], string> = {
   moderate: 'Moderate',
 }
 
+const DISCOVERIES_HERO = {
+  eyebrow: 'Data discoveries',
+  title: 'Find the connections hiding in country data',
+  intro: `Explore ${correlationsData.stats.total.toLocaleString('en-US')} measured associations from ${correlationsData.metadata.totalPairsTested.toLocaleString('en-US')} tested pairs across ${correlationsData.metadata.totalVariables} variables. Open any pair to inspect its sample and share an exact link.`,
+}
+
 function statesEqual(left: DiscoveryState, right: DiscoveryState): boolean {
   return serializeDiscoveryState(left) === serializeDiscoveryState(right)
 }
 
 function DiscoveriesLoading() {
   return (
-    <div className="twt-shell min-h-screen bg-[#fff9e8] px-4 py-12 text-[#192947]">
-      <div className="mx-auto max-w-6xl animate-pulse rounded-3xl bg-white/70 p-8 motion-reduce:animate-none">
-        Loading discoveries...
-      </div>
+    <div className="twt-shell min-h-screen bg-[#fff9e8] text-[#192947]">
+      <main className="twt-container mx-auto max-w-6xl px-4 py-8 md:py-12">
+        <header className="mb-8 max-w-3xl">
+          <p className="twt-kicker text-xs font-black uppercase tracking-[0.2em] text-[#294cc4]">
+            {DISCOVERIES_HERO.eyebrow}
+          </p>
+          <h1 className="twt-display mt-2 max-w-3xl text-4xl font-black leading-[0.98] tracking-tight md:text-6xl">
+            {DISCOVERIES_HERO.title}
+          </h1>
+          <p className="twt-prose mt-4 max-w-2xl text-base leading-7 text-[#192947]/72 md:text-lg">
+            {DISCOVERIES_HERO.intro}
+          </p>
+        </header>
+        <section
+          role="status"
+          aria-live="polite"
+          aria-busy="true"
+          className="twt-panel rounded-[28px] border border-[#192947]/12 bg-white p-6 shadow-sm md:p-8"
+        >
+          <p className="text-xl font-black">Loading the discovery explorer</p>
+          <p className="mt-2 max-w-xl text-sm leading-6 text-[#192947]/65">
+            Preparing measured associations, filters and sample details. Your selected pair will appear here.
+          </p>
+          <div className="mt-6 space-y-3" aria-hidden="true">
+            <div className="h-10 w-2/3 rounded-xl bg-[#e7dfc8]" />
+            <div className="h-56 rounded-2xl bg-[#f4efe2]" />
+          </div>
+        </section>
+      </main>
     </div>
   )
 }
@@ -223,13 +254,13 @@ function DiscoveriesContent() {
           <div>
             <p className="twt-kicker flex items-center gap-2 text-xs font-black uppercase tracking-[0.2em] text-[#294cc4]">
               <Sparkles className="h-4 w-4" aria-hidden="true" />
-              Data discoveries
+              {DISCOVERIES_HERO.eyebrow}
             </p>
             <h1 className="twt-display mt-2 max-w-3xl text-4xl font-black leading-[0.98] tracking-tight md:text-6xl">
-              Find the connections hiding in country data
+              {DISCOVERIES_HERO.title}
             </h1>
             <p className="twt-prose mt-4 max-w-2xl text-base leading-7 text-[#192947]/72 md:text-lg">
-              Explore {stats.total.toLocaleString()} measured associations from {metadata.totalPairsTested.toLocaleString()} tested pairs across {metadata.totalVariables} variables. Open any pair to inspect its sample and share an exact link.
+              {DISCOVERIES_HERO.intro}
             </p>
           </div>
           <button

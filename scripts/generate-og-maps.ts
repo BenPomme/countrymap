@@ -1,5 +1,5 @@
 /**
- * Build 1200x630 choropleth OG images for every statistic.
+ * Build 1200x630 choropleth OG images for every statistic route.
  * Run: npx tsx scripts/generate-og-maps.ts
  */
 import * as fs from 'fs'
@@ -11,14 +11,31 @@ import { Resvg } from '@resvg/resvg-js'
 import { numericToIso3 } from '../src/lib/maps/iso3'
 import { VARIABLES } from '../src/lib/constants/variables'
 import '../src/lib/constants/extraVariables'
-import { variableSlug } from '../src/lib/seo/slugs'
+import {
+  rankCountries,
+  variableEntries,
+  type VariableEntry,
+} from '../src/lib/seo/catalog'
+import { getMetricProvenance } from '../src/lib/seo/provenance'
 import { getNestedValue } from '../src/lib/utils'
-import type { ColorVariable } from '../src/types/country'
+import type { VariableConfig } from '../src/types/country'
 import { mergeOverlay } from '../src/lib/data/mergeOverlay'
+import {
+  buildCategoryColorMap,
+  buildMapCardCopy,
+  escapeXml,
+  MAGAZINE_COLORS,
+  NUMERIC_BLUE_GRADIENT,
+  OG_CARD_HEIGHT,
+  OG_CARD_WIDTH,
+  wrapText,
+} from './og-card-helpers'
 
-const WIDTH = 1200
-const HEIGHT = 630
 const outDir = path.join(__dirname, '../public/og/map')
+const fontFiles = [
+  path.join(__dirname, '../public/fonts/bricolage-grotesque/BricolageGrotesque-Variable.ttf'),
+  path.join(__dirname, '../public/fonts/source-sans-3/SourceSans3-Variable.ttf'),
+]
 const countries = mergeOverlay(
   JSON.parse(fs.readFileSync(path.join(__dirname, '../data/countries.json'), 'utf8')) as { iso3: string }[],
   JSON.parse(fs.readFileSync(path.join(__dirname, '../data/stat-overlay.json'), 'utf8')) as Record<string, unknown>
@@ -30,61 +47,99 @@ const geojson = feature(topo, topo.objects[Object.keys(topo.objects)[0]]) as unk
   features: { id?: string | number; geometry: unknown; properties?: Record<string, unknown> }[]
 }
 
-function escapeXml(s: string): string {
-  return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;')
-}
+const projection = geoMercator().fitExtent(
+  [
+    [54, 168],
+    [OG_CARD_WIDTH - 54, 536],
+  ],
+  geojson as never
+)
+const pathGen = geoPath(projection)
 
-function colorFor(variableId: ColorVariable, value: unknown): string {
-  const config = VARIABLES[variableId]
-  if (value === null || value === undefined) return '#d1d5db'
-  if (config.type === 'categorical') return '#64748b'
+function colorResolver(config: VariableConfig): (value: unknown) => string {
+  if (config.type === 'categorical') {
+    const categoryColors = buildCategoryColorMap(config.categories ?? [])
+    return (value) => {
+      if (typeof value !== 'string' || value.trim() === '') {
+        return categoryColors.Unknown
+      }
+      return categoryColors[config.format(value)] || categoryColors.Unknown
+    }
+  }
+
   const domain = config.domain || [0, 100]
-  const colors = config.higherIsBetter ? ['#dc2626', '#22c55e'] : ['#22c55e', '#dc2626']
-  const scale = scaleLinear<string>().domain(domain).range(colors)
-  return scale(value as number) || '#d1d5db'
+  const scale = scaleLinear<string>()
+    .domain([domain[0], (domain[0] + domain[1]) / 2, domain[1]])
+    .range([...NUMERIC_BLUE_GRADIENT])
+    .clamp(true)
+
+  return (value) =>
+    typeof value === 'number' && Number.isFinite(value)
+      ? scale(value)
+      : MAGAZINE_COLORS.noData
 }
 
-function topLabel(variableId: ColorVariable): { title: string; subtitle: string } {
-  const config = VARIABLES[variableId]
-  let best: { name: string; formatted: string } | null = null
-  let bestVal = config.higherIsBetter ? -Infinity : Infinity
-  for (const country of countries) {
-    const value = getNestedValue(country, variableId)
-    if (typeof value !== 'number' || Number.isNaN(value)) continue
-    const better = config.higherIsBetter ? value > bestVal : value < bestVal
-    if (better) {
-      bestVal = value
-      best = {
-        name: String(country.name),
-        formatted: config.format(value),
+function fitHeading(question: string): { lines: string[]; fontSize: number; lineHeight: number } {
+  const candidates = [
+    { characters: 40, fontSize: 34 },
+    { characters: 48, fontSize: 31 },
+    { characters: 58, fontSize: 27 },
+    { characters: 68, fontSize: 23 },
+  ]
+
+  for (const candidate of candidates) {
+    const lines = wrapText(question, candidate.characters)
+    if (lines.length <= 2 || candidate === candidates[candidates.length - 1]) {
+      return {
+        lines,
+        fontSize: candidate.fontSize,
+        lineHeight: candidate.fontSize + 9,
       }
     }
   }
-  const question = `Which country has the ${config.higherIsBetter ? 'highest' : 'lowest'} ${config.name.toLowerCase()}?`
-  const subtitle = best ? `${best.name} · ${best.formatted}` : config.name
-  return { title: question, subtitle }
+
+  return { lines: [question], fontSize: 23, lineHeight: 32 }
 }
 
-fs.mkdirSync(outDir, { recursive: true })
-
-const projection = geoMercator()
-  .fitExtent(
-    [
-      [40, 90],
-      [WIDTH - 40, HEIGHT - 24],
-    ],
-    geojson as never
-  )
-const pathGen = geoPath(projection)
-
-let count = 0
-for (const [id, config] of Object.entries(VARIABLES)) {
-  const variableId = id as ColorVariable
-  const slug = variableSlug(config.name)
-  const { title, subtitle } = topLabel(variableId)
+function renderMapSvg(entry: VariableEntry): string {
+  const config = VARIABLES[entry.id]
+  const copy = buildMapCardCopy({
+    config,
+    ranked: rankCountries(entry.id),
+    totalCountryCount: countries.length,
+    provenance: getMetricProvenance(entry.id),
+  })
+  const heading = fitHeading(copy.question)
+  const headingMarkup = heading.lines
+    .map(
+      (line, lineIndex) =>
+        `<tspan x="68" dy="${lineIndex === 0 ? 0 : heading.lineHeight}">${escapeXml(line)}</tspan>`
+    )
+    .join('')
+  const leadMarkup = wrapText(copy.fact.lead, 22)
+    .map(
+      (line, lineIndex) =>
+        `<tspan x="876" dy="${lineIndex === 0 ? 0 : 26}">${escapeXml(line)}</tspan>`
+    )
+    .join('')
+  const valueMarkup = wrapText(`${copy.fact.value} | ${copy.fact.valueLabel}`, 38)
+    .map(
+      (line, lineIndex) =>
+        `<tspan x="876" dy="${lineIndex === 0 ? 0 : 18}">${escapeXml(line)}</tspan>`
+    )
+    .join('')
+  const sourceLines = wrapText(copy.sourceCaption, 125)
+  const sourceMarkup = sourceLines
+    .map(
+      (line, lineIndex) =>
+        `<tspan x="54" dy="${lineIndex === 0 ? 0 : 17}">${escapeXml(line)}</tspan>`
+    )
+    .join('')
+  const vintageY = 592 + Math.max(0, sourceLines.length - 1) * 17
+  const colors = colorResolver(config)
   const valueByIso3 = new Map<string, unknown>()
   for (const country of countries) {
-    valueByIso3.set(String(country.iso3), getNestedValue(country, variableId))
+    valueByIso3.set(String(country.iso3), getNestedValue(country, entry.id))
   }
 
   const paths: string[] = []
@@ -93,24 +148,46 @@ for (const [id, config] of Object.entries(VARIABLES)) {
     const iso3 = numericToIso3[rawId]
     const d = pathGen(feat as never)
     if (!d) continue
-    const fill = iso3 ? colorFor(variableId, valueByIso3.get(iso3)) : '#e5e7eb'
-    paths.push(`<path d="${d}" fill="${fill}" stroke="#ffffff" stroke-width="0.6"/>`)
+    const fill = iso3 ? colors(valueByIso3.get(iso3)) : MAGAZINE_COLORS.noData
+    paths.push(
+      `<path d="${d}" fill="${fill}" stroke="${MAGAZINE_COLORS.paper}" stroke-width="0.6"/>`
+    )
   }
 
-  const svg = `<?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" width="${WIDTH}" height="${HEIGHT}" viewBox="0 0 ${WIDTH} ${HEIGHT}">
-  <rect width="100%" height="100%" fill="#0f172a"/>
+  return `<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="${OG_CARD_WIDTH}" height="${OG_CARD_HEIGHT}" viewBox="0 0 ${OG_CARD_WIDTH} ${OG_CARD_HEIGHT}">
+  <rect width="${OG_CARD_WIDTH}" height="${OG_CARD_HEIGHT}" fill="${MAGAZINE_COLORS.paper}"/>
+  <rect width="${OG_CARD_WIDTH}" height="10" fill="${MAGAZINE_COLORS.blue}"/>
+  <rect x="40" y="38" width="10" height="104" fill="${MAGAZINE_COLORS.yellow}"/>
+  <text x="68" y="58" fill="${MAGAZINE_COLORS.blue}" font-family="Source Sans 3, sans-serif" font-size="15" font-weight="700" letter-spacing="2.4">THE WORLD TRUTH / WORLD MAP</text>
+  <text x="68" y="102" fill="${MAGAZINE_COLORS.ink}" font-family="Bricolage Grotesque, sans-serif" font-size="${heading.fontSize}" font-weight="800">${headingMarkup}</text>
+  <rect x="866" y="44" width="294" height="122" rx="12" fill="${MAGAZINE_COLORS.yellow}"/>
+  <rect x="854" y="32" width="294" height="122" rx="12" fill="${MAGAZINE_COLORS.white}" stroke="${MAGAZINE_COLORS.ink}" stroke-width="3"/>
+  <text x="876" y="58" fill="${MAGAZINE_COLORS.blue}" font-family="Source Sans 3, sans-serif" font-size="12" font-weight="700" letter-spacing="1.25">${escapeXml(copy.fact.label.toUpperCase())}</text>
+  <text x="876" y="88" fill="${MAGAZINE_COLORS.ink}" font-family="Bricolage Grotesque, sans-serif" font-size="23" font-weight="800">${leadMarkup}</text>
+  <text x="876" y="140" fill="${MAGAZINE_COLORS.ink}" font-family="Source Sans 3, sans-serif" font-size="15" font-weight="600">${valueMarkup}</text>
+  <rect x="44" y="166" width="1112" height="374" rx="16" fill="#f4eedc"/>
   <g>${paths.join('')}</g>
-  <rect x="0" y="0" width="${WIDTH}" height="86" fill="#0f172a" fill-opacity="0.82"/>
-  <text x="40" y="38" fill="#ffffff" font-family="Arial, Helvetica, sans-serif" font-size="26" font-weight="700">${escapeXml(title.slice(0, 88))}</text>
-  <text x="40" y="68" fill="#86efac" font-family="Arial, Helvetica, sans-serif" font-size="22">${escapeXml(subtitle)}</text>
-  <text x="40" y="${HEIGHT - 18}" fill="#94a3b8" font-family="Arial, Helvetica, sans-serif" font-size="16">theworldtruth.com</text>
+  <line x1="54" y1="552" x2="1146" y2="552" stroke="${MAGAZINE_COLORS.ink}" stroke-width="2"/>
+  <text x="1146" y="576" text-anchor="end" fill="${MAGAZINE_COLORS.blue}" font-family="Source Sans 3, sans-serif" font-size="15" font-weight="700">theworldtruth.com</text>
+  <text x="54" y="578" fill="${MAGAZINE_COLORS.ink}" font-family="Source Sans 3, sans-serif" font-size="13" font-weight="600">${sourceMarkup}</text>
+  <text x="54" y="${vintageY}" fill="${MAGAZINE_COLORS.ink}" font-family="Source Sans 3, sans-serif" font-size="13" font-weight="600">${escapeXml(copy.vintageCaption)}</text>
 </svg>`
+}
 
-  const png = new Resvg(svg, {
-    fitTo: { mode: 'width', value: WIDTH },
+fs.mkdirSync(outDir, { recursive: true })
+
+let count = 0
+for (const entry of variableEntries) {
+  const png = new Resvg(renderMapSvg(entry), {
+    fitTo: { mode: 'width', value: OG_CARD_WIDTH },
+    font: {
+      fontFiles,
+      loadSystemFonts: false,
+      defaultFontFamily: 'Source Sans 3',
+    },
   }).render().asPng()
-  fs.writeFileSync(path.join(outDir, `${slug}.png`), png)
+  fs.writeFileSync(path.join(outDir, `${entry.slug}.png`), png)
   count += 1
 }
 

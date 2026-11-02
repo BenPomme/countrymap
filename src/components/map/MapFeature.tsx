@@ -176,16 +176,16 @@ export default function MapFeature({
   }, [config.name, countries.length, filteredCountries.length, rankingRows.length, reportingNoun])
 
   return (
-    <section aria-labelledby="map-heading" className="mt-8">
-      <div className="mb-4 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+    <section aria-labelledby="map-heading" className="mt-5 md:mt-8">
+      <div className="mb-3 flex flex-col gap-2.5 sm:flex-row sm:items-end sm:justify-between">
         <div>
           <p className="twt-kicker text-[11px] font-black uppercase tracking-[0.18em] text-[#294cc4]">
-            Actual map
+            Map
           </p>
-          <h2 id="map-heading" className="twt-display mt-1 text-3xl font-black leading-tight text-[#192947] md:text-4xl">
+          <h2 id="map-heading" className="twt-display mt-1 text-2xl font-black leading-tight text-[#192947] md:text-4xl">
             Explore {config.name}
           </h2>
-          <p className="mt-2 text-sm font-semibold leading-6 text-[#192947]/65" aria-live="polite">
+          <p className="mt-1 text-xs font-semibold leading-5 text-[#192947]/65 sm:text-sm sm:leading-6" aria-live="polite">
             {filteredCountries.length} of {countries.length} countries match the filters. {filteredRankingRows.length} have a reported {reportingNoun}.
           </p>
         </div>

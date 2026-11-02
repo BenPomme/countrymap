@@ -128,13 +128,27 @@ export function filterEventParams(
 }
 
 export function sanitizeAnalyticsUrl(raw: string | null | undefined): string | undefined {
+  const url = parseSafeHttpUrl(raw)
+  if (!url) return undefined
+
+  return `${url.origin}${url.pathname}`
+}
+
+export function sanitizeAnalyticsReferrer(raw: string | null | undefined): string | undefined {
+  const url = parseSafeHttpUrl(raw)
+  if (!url) return undefined
+
+  return url.origin
+}
+
+function parseSafeHttpUrl(raw: string | null | undefined): URL | undefined {
   if (!raw) return undefined
 
   try {
     const url = new URL(raw)
     if (url.protocol !== 'https:' && url.protocol !== 'http:') return undefined
     if (url.username || url.password) return undefined
-    return `${url.origin}${url.pathname}`
+    return url
   } catch {
     return undefined
   }
@@ -143,13 +157,8 @@ export function sanitizeAnalyticsUrl(raw: string | null | undefined): string | u
 export function isIgnoredBillingReferrer(raw: string | null | undefined): boolean {
   if (!raw) return false
 
-  try {
-    const url = new URL(raw)
-    if (url.username || url.password) return false
-    return IGNORED_REFERRER_ORIGINS.has(url.origin)
-  } catch {
-    return false
-  }
+  const url = parseSafeHttpUrl(raw)
+  return url ? IGNORED_REFERRER_ORIGINS.has(url.origin) : false
 }
 
 export function getAnalyticsPageContext(): AnalyticsPageContext | null {
@@ -159,7 +168,7 @@ export function getAnalyticsPageContext(): AnalyticsPageContext | null {
   if (!pageLocation) return null
 
   const rawReferrer = window.document.referrer
-  const pageReferrer = sanitizeAnalyticsUrl(rawReferrer)
+  const pageReferrer = sanitizeAnalyticsReferrer(rawReferrer)
 
   return {
     page_location: pageLocation,

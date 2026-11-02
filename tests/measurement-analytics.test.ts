@@ -7,6 +7,7 @@ import {
   filterEventParams,
   isIgnoredBillingReferrer,
   queueAnalyticsPageContext,
+  sanitizeAnalyticsReferrer,
   trackEvent,
   trackPageView,
 } from '../src/lib/analytics/events'
@@ -23,6 +24,22 @@ type BrowserOptions = {
 
 function storedChoice(analytics: boolean, advertising: boolean): string {
   return JSON.stringify({ version: 1, analytics, advertising })
+}
+
+function assertPrivateTokensAbsent(calls: GtagCall[]): void {
+  const transmitted = JSON.stringify(calls)
+  for (const token of [
+    'RAW-GIFT',
+    'RAW-PRIVATE-PATH',
+    'cs_live_SECRET',
+    'session_id',
+    '/c/pay/',
+    '/private-path/',
+    'person%40example.com',
+    'user-123',
+  ]) {
+    assert.equal(transmitted.includes(token), false, `unexpected transmitted token: ${token}`)
+  }
 }
 
 function withBrowser(
@@ -78,7 +95,7 @@ test('tag config queues sanitized page context before GA and Ads config', () => 
           'set',
           {
             page_location: 'https://theworldtruth.com/truthle/',
-            page_referrer: 'https://checkout.stripe.com/c/pay/cs_live_SECRET',
+            page_referrer: 'https://checkout.stripe.com',
           },
         ],
         [
@@ -87,17 +104,14 @@ test('tag config queues sanitized page context before GA and Ads config', () => 
           {
             send_page_view: false,
             page_location: 'https://theworldtruth.com/truthle/',
-            page_referrer: 'https://checkout.stripe.com/c/pay/cs_live_SECRET',
+            page_referrer: 'https://checkout.stripe.com',
             ignore_referrer: true,
           },
         ],
         ['config', 'AW-TEST123', { send_page_view: false }],
       ])
 
-      const transmitted = JSON.stringify(calls)
-      assert.equal(transmitted.includes('RAW-GIFT'), false)
-      assert.equal(transmitted.includes('session_id'), false)
-      assert.equal(transmitted.includes('#claim'), false)
+      assertPrivateTokensAbsent(calls)
     }
   )
 })
@@ -123,7 +137,7 @@ test('navigation refreshes sanitized page context before a measured page view', 
         'set',
         {
           page_location: 'https://theworldtruth.com/country/france/',
-          page_referrer: 'https://www.google.com/search',
+          page_referrer: 'https://www.google.com',
         },
       ],
       [
@@ -131,7 +145,7 @@ test('navigation refreshes sanitized page context before a measured page view', 
         'page_view',
         {
           page_location: 'https://theworldtruth.com/country/france/',
-          page_referrer: 'https://www.google.com/search',
+          page_referrer: 'https://www.google.com',
         },
       ],
     ])
@@ -160,7 +174,7 @@ test('custom events replace raw gift and session URLs with clean context', () =>
           'set',
           {
             page_location: 'https://theworldtruth.com/challenge/',
-            page_referrer: 'https://www.google.com/search',
+            page_referrer: 'https://www.google.com',
           },
         ],
         [
@@ -171,16 +185,56 @@ test('custom events replace raw gift and session URLs with clean context', () =>
             content_id: 'freedom.pressFreedom',
             method: 'copy',
             page_location: 'https://theworldtruth.com/challenge/',
-            page_referrer: 'https://www.google.com/search',
+            page_referrer: 'https://www.google.com',
           },
         ],
       ])
 
-      const transmitted = JSON.stringify(calls)
-      assert.equal(transmitted.includes('RAW-GIFT'), false)
-      assert.equal(transmitted.includes('session_id'), false)
-      assert.equal(transmitted.includes('person%40example.com'), false)
-      assert.equal(transmitted.includes('user-123'), false)
+      assertPrivateTokensAbsent(calls)
+    }
+  )
+})
+
+test('external billing referrers send only origin in custom event payloads', () => {
+  withBrowser(
+    {
+      stored: storedChoice(true, false),
+      href: 'https://theworldtruth.com/challenge/?gift=RAW-GIFT&session_id=cs_live_SECRET#private',
+      referrer:
+        'https://checkout.stripe.com/c/pay/cs_live_SECRET?session_id=cs_live_SECRET#private-path',
+    },
+    (calls) => {
+      trackEvent('reward_copy', {
+        game: 'truthle',
+        content_id: 'freedom.pressFreedom',
+        method: 'copy',
+        code: 'RAW-GIFT',
+        email: 'person@example.com',
+        uid: 'user-123',
+      })
+
+      assert.deepEqual(calls, [
+        [
+          'set',
+          {
+            page_location: 'https://theworldtruth.com/challenge/',
+            page_referrer: 'https://checkout.stripe.com',
+          },
+        ],
+        [
+          'event',
+          'reward_copy',
+          {
+            game: 'truthle',
+            content_id: 'freedom.pressFreedom',
+            method: 'copy',
+            page_location: 'https://theworldtruth.com/challenge/',
+            page_referrer: 'https://checkout.stripe.com',
+          },
+        ],
+      ])
+
+      assertPrivateTokensAbsent(calls)
     }
   )
 })
@@ -210,10 +264,28 @@ test('only exact HTTPS Stripe billing origins are ignored for acquisition', () =
       assert.equal(JSON.stringify(calls).includes('ignore_referrer'), false)
       assert.equal(
         (calls[1]?.[2] as Record<string, unknown>).page_referrer,
-        'https://checkout.stripe.com.evil.example/pay'
+        'https://checkout.stripe.com.evil.example'
       )
     }
   )
+})
+
+test('credential-bearing referrers are ignored in config and event payloads', () => {
+  const referrer =
+    'https://worker:secret@checkout.stripe.com/c/pay/cs_live_SECRET?session_id=RAW-PRIVATE-PATH'
+
+  assert.equal(sanitizeAnalyticsReferrer(referrer), undefined)
+
+  withBrowser({ stored: storedChoice(true, false), referrer }, (calls) => {
+    configureGoogleTags((...args: unknown[]) => calls.push(args), {
+      analyticsMeasurementId: 'G-TEST123',
+    })
+    trackEvent('game_start', { game: 'truthle' })
+
+    assert.equal(JSON.stringify(calls).includes('page_referrer'), false)
+    assert.equal(JSON.stringify(calls).includes('ignore_referrer'), false)
+    assertPrivateTokensAbsent(calls)
+  })
 })
 
 test('denied, GPC and preview contexts queue no measurement', () => {
@@ -284,5 +356,4 @@ test('footer exposes the existing consent preference opener directly', () => {
   assert.match(footer, />\s*Privacy choices\s*</)
   assert.match(analytics, /queueAnalyticsPageContext\(gtag\)/)
   assert.match(analytics, /\[pageViewsAllowed, pathname, ready, tagId\]/)
-  assert.match(analytics, /args\[2\]\.outbound === true/)
 })
