@@ -25,15 +25,22 @@ import {
   absoluteSiteUrl,
   buildShareFilename,
   buildWhatsAppShareUrl,
+  clipboardFailureStatus,
+  FALLBACK_SHARE_CONTENT_ID,
   isNativeShareCancellation,
+  metricShareContentId,
+  nativeShareFailureKind,
   normalizeShareCopy,
   resolveShareContentId,
   sanitizeAnalyticsValue,
 } from '../src/components/share/shareState'
 import {
+  buildCardSourceLines,
   wrapExactText,
   wrapTextLines,
 } from '../src/components/share/shareCard'
+import { resolveShareProvenance } from '../src/components/share/provenance'
+import { sourceNote } from '../src/lib/seo/sourceNotes'
 import {
   normalizeAdFillState,
   shouldRenderAdBanner,
@@ -274,7 +281,16 @@ test('share helpers use canonical copy, truthful cancellation, and exact destina
   )
   assert.equal(resolveShareContentId(), 'shared_visual')
   assert.equal(resolveShareContentId('discovery_pair'), 'discovery_pair')
-  assert.equal(resolveShareContentId('chart?token=secret'), 'chart_token_secret')
+  assert.equal(resolveShareContentId('chart?token=secret'), FALLBACK_SHARE_CONTENT_ID)
+  assert.equal(resolveShareContentId('Alpha life and Beta wealth'), FALLBACK_SHARE_CONTENT_ID)
+  assert.equal(
+    metricShareContentId('chart_correlation', ['health.penisSize', 'democracy.score']),
+    'chart_correlation_health.penisSize_democracy.score',
+  )
+  assert.equal(
+    metricShareContentId('discovery_correlation', ['Alpha life', 'Beta wealth']),
+    FALLBACK_SHARE_CONTENT_ID,
+  )
 
   const whatsapp = buildWhatsAppShareUrl('A measured fact', 'https://theworldtruth.com/charts?x=a&y=b')
   assert.match(whatsapp, /^https:\/\/wa\.me\/\?text=/)
@@ -283,6 +299,13 @@ test('share helpers use canonical copy, truthful cancellation, and exact destina
   assert.equal(isNativeShareCancellation({ name: 'AbortError' }), true)
   assert.equal(isNativeShareCancellation({ name: 'NotAllowedError' }), false)
   assert.equal(isNativeShareCancellation(new Error('cancel')), false)
+  assert.equal(nativeShareFailureKind({ name: 'AbortError' }), 'cancelled')
+  assert.equal(nativeShareFailureKind({ name: 'NotAllowedError' }), 'denied')
+  assert.equal(nativeShareFailureKind({ name: 'NotSupportedError' }), 'unavailable')
+  assert.equal(nativeShareFailureKind(new Error('blocked')), 'failed')
+  assert.equal(clipboardFailureStatus({ name: 'NotAllowedError' }), 'denied')
+  assert.equal(clipboardFailureStatus({ name: 'NotSupportedError' }), 'unavailable')
+  assert.equal(clipboardFailureStatus(new Error('write failed')), 'failed')
 
   assert.equal(buildShareFilename('A / B: C'), 'a-b-c-theworldtruth.png')
   assert.equal(
@@ -309,6 +332,28 @@ test('exact share-card wrapping preserves every URL character or fails closed', 
   assert.deepEqual(wrapExactText(url, 400, 4, measure)?.join(''), url)
   assert.equal(wrapExactText(url, 100, 1, measure), null)
   assert.deepEqual(wrapExactText('short', 100, 1, measure), ['short'])
+})
+
+test('share cards keep the full source and vintage or fail closed', () => {
+  const measure = (value: string) => value.length * 10
+  const source = 'Reporters Without Borders (RSF) World Press Freedom Index 2026'
+  const vintage = 'RSF 2026 index (global scores, two decimals)'
+  assert.equal(buildCardSourceLines(source, vintage, measure, 1072).join(''), `Source: ${source} | Vintage: ${vintage}`)
+  assert.throws(() => buildCardSourceLines(source, vintage, measure, 100))
+})
+
+test('share provenance says Unknown when a measure has no verified vintage', () => {
+  const note = sourceNote('freedom.pressFreedom')
+  assert.ok(note)
+  const known = resolveShareProvenance(['freedom.pressFreedom'])
+  assert.equal(known.sourceName, note.source)
+  assert.equal(known.sourceVintage, note.vintage)
+
+  const mixed = resolveShareProvenance(['freedom.pressFreedom', 'not.a.measured.metric'])
+  assert.match(mixed.sourceVintage, /Unknown for one or more measures/)
+  assert.doesNotMatch(mixed.sourceVintage, /latest available release per source/i)
+  assert.equal(resolveShareProvenance([]).sourceVintage, 'Unknown')
+  assert.equal(resolveShareProvenance(['not.a.measured.metric']).sourceVintage, 'Unknown')
 })
 
 test('ad banner helper collapses disabled and unfilled placements', () => {

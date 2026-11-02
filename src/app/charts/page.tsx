@@ -22,7 +22,11 @@ import { AdBanner } from '@/components/ads'
 import { AD_SLOTS } from '@/lib/constants/ads'
 import { VisualShare } from '@/components/share'
 import { resolveShareProvenance } from '@/components/share/provenance'
-import { absoluteSiteUrl } from '@/components/share/shareState'
+import {
+  absoluteSiteUrl,
+  FALLBACK_SHARE_CONTENT_ID,
+  metricShareContentId,
+} from '@/components/share/shareState'
 import { useEmbeddedAppMode } from '@/lib/useEmbeddedAppMode'
 import {
   chartStateHref,
@@ -278,6 +282,18 @@ function ChartsContent() {
     () => resolveShareProvenance(shareDetails.metricIds),
     [shareDetails.metricIds],
   )
+  const shareContentId = useMemo(() => {
+    if (state.chart === 'correlation') {
+      return metricShareContentId('chart_correlation', [state.x, state.y])
+    }
+    if (state.chart === 'ranking') {
+      return metricShareContentId('chart_ranking', [state.metric])
+    }
+    if (state.chart === 'scatter') {
+      return metricShareContentId('chart_scatter', ['democracy.score', 'poverty.gdpPerCapita'])
+    }
+    return FALLBACK_SHARE_CONTENT_ID
+  }, [state.chart, state.metric, state.x, state.y])
   const shareUrl = absoluteSiteUrl(chartStateHref(state))
 
   return (
@@ -307,7 +323,7 @@ function ChartsContent() {
             sourceName={provenance.sourceName}
             sourceVintage={provenance.sourceVintage}
             sourceUrl={provenance.sourceUrl}
-            contentId={`chart_${state.chart}`}
+            contentId={shareContentId}
             placement="charts_header"
             className="justify-self-start lg:justify-self-end"
           />

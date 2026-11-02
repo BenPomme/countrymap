@@ -144,7 +144,9 @@ export function isIgnoredBillingReferrer(raw: string | null | undefined): boolea
   if (!raw) return false
 
   try {
-    return IGNORED_REFERRER_ORIGINS.has(new URL(raw).origin)
+    const url = new URL(raw)
+    if (url.username || url.password) return false
+    return IGNORED_REFERRER_ORIGINS.has(url.origin)
   } catch {
     return false
   }
@@ -230,13 +232,20 @@ export function trackEvent(name: string, params: EventParams = {}): void {
   const safeParams = filterEventParams(name, params)
   if (!safeParams) return
 
-  const context = getAnalyticsPageContext()
-  const eventParams =
-    context && rawPageNeedsSanitizing(context)
-      ? { ...safeParams, ...eventPageParameters(context) }
-      : safeParams
+  const gtag = getGtag()
+  if (!gtag) return
 
-  getGtag()?.('event', name, eventParams)
+  const context = getAnalyticsPageContext()
+  if (!context) return
+
+  if (!rawPageNeedsSanitizing(context)) {
+    gtag('event', name, safeParams)
+    return
+  }
+
+  const contextParams = eventPageParameters(context)
+  gtag('set', contextParams)
+  gtag('event', name, { ...safeParams, ...contextParams })
 }
 
 export function trackPageView(): boolean {

@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import { ArrowUpRight, Globe2 } from 'lucide-react'
+import { openConsentPreferences } from '@/lib/analytics/consent'
 
 const FOOTER_LINKS = [
   { href: '/#explore', label: 'Explore maps' },
@@ -35,6 +36,15 @@ export default function SiteFooter() {
               </Link>
             </li>
           ))}
+          <li>
+            <button
+              type="button"
+              onClick={openConsentPreferences}
+              className="twt-footer-link cursor-pointer border-0 bg-transparent p-0 font-[inherit] text-inherit focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-twt-blue"
+            >
+              Privacy choices
+            </button>
+          </li>
         </ul>
       </div>
 

@@ -53,7 +53,7 @@ function TrueFalsePromo() {
         href="/true-false/"
         className="block rounded-xl border border-[#b9c8e8] bg-[#eef3ff] px-4 py-2.5 text-center font-semibold text-[#192947] hover:bg-[#e3ebff]"
       >
-        New: True or False World. Try today&apos;s daily claims.
+        Also play True or False: World. Five sourced calls each day.
       </Link>
     </div>
   )

@@ -10,25 +10,36 @@ export interface ShareProvenance {
 
 const FALLBACK_PROVENANCE: ShareProvenance = {
   sourceName: 'The World Truth country dataset',
-  sourceVintage: 'Vintage not stated for this measure',
+  sourceVintage: 'Unknown',
 }
+
+const UNKNOWN_MEASURE = 'Unknown for one or more measures'
 
 export function resolveShareProvenance(
   metricIds: readonly string[],
   fallback: ShareProvenance = FALLBACK_PROVENANCE,
 ): ShareProvenance {
-  const notes = metricIds
-    .map((metricId) => sourceNote(metricId as ColorVariable))
-    .filter((note): note is NonNullable<typeof note> => Boolean(note))
+  if (metricIds.length === 0) return fallback
 
-  if (notes.length === 0) return fallback
+  const notes = metricIds.map((metricId) => sourceNote(metricId as ColorVariable))
+  const availableNotes = notes.filter((note): note is NonNullable<typeof note> => Boolean(note))
+  const hasUnknownMeasure = availableNotes.length !== notes.length
 
-  const sources = Array.from(new Set(notes.map((note) => note.source)))
-  const vintages = Array.from(new Set(notes.map((note) => note.vintage)))
+  if (availableNotes.length === 0) {
+    return { ...fallback, sourceVintage: 'Unknown' }
+  }
+
+  const sources = Array.from(
+    new Set(availableNotes.map((note) => normalizeShareCopy(note.source)).filter(Boolean)),
+  )
+  const vintages = Array.from(
+    new Set(availableNotes.map((note) => normalizeShareCopy(note.vintage)).filter(Boolean)),
+  )
+  const unknownSuffix = hasUnknownMeasure ? `; ${UNKNOWN_MEASURE}` : ''
 
   return {
-    sourceName: normalizeShareCopy(sources.join('; ')),
-    sourceVintage: normalizeShareCopy(vintages.join('; ')),
-    sourceUrl: notes.length === 1 ? notes[0].url : undefined,
+    sourceName: `${sources.join('; ') || fallback.sourceName}${unknownSuffix}`,
+    sourceVintage: `${vintages.join('; ') || 'Unknown'}${unknownSuffix}`,
+    sourceUrl: notes.length === 1 ? availableNotes[0].url : undefined,
   }
 }

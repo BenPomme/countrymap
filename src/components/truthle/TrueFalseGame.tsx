@@ -253,7 +253,7 @@ export default function TrueFalseGame({ countries }: { countries: Country[] }) {
       setLoadError('Saved progress could not be read safely. No new result was recorded.')
       setPhase('error')
     }
-  }, [day, reloadToken, selection])
+  }, [day, reloadToken, selection, questions.length])
 
   const loadRetryStatus = useCallback(async (showLoading = true): Promise<RetryView> => {
     const request = ++retryRequest.current
@@ -364,7 +364,7 @@ export default function TrueFalseGame({ countries }: { countries: Country[] }) {
     finish(results)
   }
 
-  const useExtra = async () => {
+  const startExtraAttempt = async () => {
     if (retryBusy) return
     setRetryBusy(true)
     setRetryNotice(null)
@@ -449,7 +449,7 @@ export default function TrueFalseGame({ countries }: { countries: Country[] }) {
       <>
         <CheckoutBanner game="true-false" onVerified={checkoutVerified} />
         <StatePanel kicker="Source check" title="No eligible claims today">
-          <p>Today's generated set has no questions with enough recorded provenance to present safely. Nothing was saved and no score was created.</p>
+          <p>Today&apos;s claims do not yet have enough verified source information. Please check back later or explore a map.</p>
           <p>Source details are shown where recorded. Many archived metrics still have unknown provenance.</p>
           <div className="mt-5 flex flex-col gap-3 sm:flex-row">
             <Link href="/true-false/claims/" className="twt-button text-center">
@@ -485,7 +485,7 @@ export default function TrueFalseGame({ countries }: { countries: Country[] }) {
             </div>
           )}
           <button type="button" onClick={start} className="twt-button mt-6 min-h-14 w-full text-lg">
-            Play today's set
+            Play today&apos;s set
           </button>
           <p className="mt-3 text-xs leading-5 text-[#59647a]">One free first run. An Extra Attempt may be available after you finish.</p>
         </section>
@@ -620,7 +620,7 @@ export default function TrueFalseGame({ countries }: { countries: Country[] }) {
                 Checking Extra Attempt availability...
               </button>
             ) : canUseExtra ? (
-              <button type="button" disabled={retryBusy} onClick={() => void useExtra()} className="twt-button min-h-12 w-full disabled:opacity-60">
+              <button type="button" disabled={retryBusy} onClick={() => void startExtraAttempt()} className="twt-button min-h-12 w-full disabled:opacity-60">
                 {retryBusy
                   ? 'Confirming Extra Attempt...'
                   : retryRecovery

@@ -194,17 +194,31 @@ export default function QuizPage() {
       }
     })
     const sourceNames = Array.from(
-      new Set(records.map((record) => record.sourceName).filter(Boolean) as string[]),
+      new Set(
+        records
+          .map((record) => record.sourceName?.trim())
+          .filter((value): value is string => Boolean(value)),
+      ),
     )
-    const years = Array.from(new Set(records.map((record) => record.year).filter(Boolean) as string[]))
+    const years = Array.from(
+      new Set(
+        records
+          .map((record) => record.year?.trim())
+          .filter((value): value is string => Boolean(value)),
+      ),
+    )
     const sourceUrls = Array.from(
       new Set(records.map((record) => record.sourceUrl).filter(Boolean) as string[]),
     )
+    const hasUnknownProvenance =
+      records.length !== quizMetricIds.length ||
+      records.some((record) => !record.sourceName?.trim() || !record.year?.trim())
+    const unknownSuffix = hasUnknownProvenance ? '; Unknown for one or more measures' : ''
 
     return {
-      sourceName: sourceNames.join('; ') || 'The World Truth country dataset',
-      sourceVintage: years.join('; ') || 'Vintage not stated for every measure',
-      sourceUrl: sourceUrls.length === 1 ? sourceUrls[0] : undefined,
+      sourceName: `${sourceNames.join('; ') || 'The World Truth country dataset'}${unknownSuffix}`,
+      sourceVintage: years.length > 0 ? `${years.join('; ')}${unknownSuffix}` : 'Unknown',
+      sourceUrl: !hasUnknownProvenance && sourceUrls.length === 1 ? sourceUrls[0] : undefined,
     }
   }, [quizMetricIds])
 

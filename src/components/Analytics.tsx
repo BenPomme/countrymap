@@ -4,7 +4,11 @@ import Script from 'next/script'
 import { usePathname } from 'next/navigation'
 import { useEffect, useRef, useState } from 'react'
 import { ANALYTICS_CONFIG, isTrackingEnabled } from '@/lib/constants/analytics'
-import { trackPageView } from '@/lib/analytics/events'
+import {
+  configureGoogleTags,
+  queueAnalyticsPageContext,
+  trackPageView,
+} from '@/lib/analytics/events'
 import { useConsent } from '@/lib/analytics/useConsent'
 
 const GOOGLE_TAG_SCRIPT_ID = 'twt-google-tag'
@@ -57,22 +61,37 @@ export default function Analytics() {
       scriptStarted.current = true
     }
 
-    if (analyticsAllowed && isTrackingEnabled('googleAnalytics') && !configuredAnalytics.current) {
-      gtag('config', ANALYTICS_CONFIG.googleAnalytics.measurementId, {
-        send_page_view: false,
+    const analyticsMeasurementId =
+      analyticsAllowed && isTrackingEnabled('googleAnalytics') && !configuredAnalytics.current
+        ? ANALYTICS_CONFIG.googleAnalytics.measurementId
+        : undefined
+    const adsConversionId =
+      advertisingAllowed && isTrackingEnabled('googleAds') && !configuredAds.current
+        ? ANALYTICS_CONFIG.googleAds.conversionId
+        : undefined
+
+    if (analyticsMeasurementId || adsConversionId) {
+      const configured = configureGoogleTags(gtag, {
+        analyticsMeasurementId,
+        adsConversionId,
       })
-      configuredAnalytics.current = true
-    }
-    if (advertisingAllowed && isTrackingEnabled('googleAds') && !configuredAds.current) {
-      gtag('config', ANALYTICS_CONFIG.googleAds.conversionId, {
-        send_page_view: false,
-      })
-      configuredAds.current = true
+      if (configured) {
+        if (analyticsMeasurementId) configuredAnalytics.current = true
+        if (adsConversionId) configuredAds.current = true
+      }
     }
   }, [advertisingAllowed, analyticsAllowed, ready, tagId])
 
   useEffect(() => {
     if (!ready) return
+    if (!tagId) {
+      lastPathname.current = null
+      return
+    }
+
+    const gtag = getGtag()
+    if (!gtag || !queueAnalyticsPageContext(gtag)) return
+
     if (!pageViewsAllowed) {
       lastPathname.current = null
       return
@@ -80,7 +99,7 @@ export default function Analytics() {
     if (lastPathname.current === pathname) return
     lastPathname.current = pathname
     trackPageView()
-  }, [pageViewsAllowed, pathname, ready])
+  }, [pageViewsAllowed, pathname, ready, tagId])
 
   useEffect(() => {
     if (!consent || tagId) return
@@ -97,6 +116,13 @@ export default function Analytics() {
         {`
           window.dataLayer = window.dataLayer || [];
           window.gtag = window.gtag || function(){ window.dataLayer.push(arguments); };
+          window.gtag = (function(previousGtag) {
+            return function() {
+              var args = arguments;
+              if (args[0] === 'event' && args[2] && args[2].outbound === true) return;
+              return previousGtag.apply(this, args);
+            };
+          })(window.gtag);
           window.gtag('consent', 'default', {
             analytics_storage: 'denied',
             ad_storage: 'denied',

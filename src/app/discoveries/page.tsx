@@ -17,7 +17,7 @@ import {
 import correlationsData from '../../../data/correlations.json'
 import { VisualShare } from '@/components/share'
 import { resolveShareProvenance } from '@/components/share/provenance'
-import { absoluteSiteUrl } from '@/components/share/shareState'
+import { absoluteSiteUrl, metricShareContentId } from '@/components/share/shareState'
 import { useDialogFocus } from '@/components/share/useDialogFocus'
 import { useEmbeddedAppMode } from '@/lib/useEmbeddedAppMode'
 import {
@@ -207,6 +207,12 @@ function DiscoveriesContent() {
     [selectedCorrelation],
   )
   const selectedUrl = absoluteSiteUrl(discoveryStateHref(state))
+  const selectedContentId = selectedCorrelation
+    ? metricShareContentId('discovery_correlation', [
+        selectedCorrelation.var1,
+        selectedCorrelation.var2,
+      ])
+    : undefined
 
   return (
     <div className="twt-shell min-h-screen bg-[#fff9e8] text-[#192947]">
@@ -490,7 +496,7 @@ function DiscoveriesContent() {
                 sourceName={selectedProvenance.sourceName}
                 sourceVintage={selectedProvenance.sourceVintage}
                 sourceUrl={selectedProvenance.sourceUrl}
-                contentId="discovery_pair"
+                contentId={selectedContentId}
                 placement="discoveries_detail"
                 onOpenChange={setShareDialogOpen}
                 className="w-full sm:w-auto"

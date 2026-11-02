@@ -37,6 +37,8 @@ extensions/
 
 # Generated choropleth OG images (created at build)
 public/og/map/*.png
+public/og/truthle.png
+public/og/true-false.png
 .write-test
 
 # Local audit, API receipts and worker artifacts

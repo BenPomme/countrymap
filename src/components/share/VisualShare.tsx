@@ -17,7 +17,8 @@ import { generateVisualShareCard } from './shareCard'
 import {
   buildShareFilename,
   buildWhatsAppShareUrl,
-  isNativeShareCancellation,
+  clipboardFailureStatus,
+  nativeShareFailureKind,
   normalizeShareCopy,
   resolveShareContentId,
   sanitizeAnalyticsValue,
@@ -79,7 +80,7 @@ export default function VisualShare({
   url,
   className = '',
   sourceName = 'The World Truth country dataset',
-  sourceVintage = 'Vintage not stated for this measure',
+  sourceVintage = 'Unknown',
   sourceUrl,
   stat,
   detail,
@@ -151,6 +152,9 @@ export default function VisualShare({
     showStatus('Building your share card.')
 
     try {
+      if (targetRef && !targetRef.current) {
+        throw new Error('The selected visual is not ready to capture')
+      }
       const destination = url || (typeof window !== 'undefined' ? window.location.href : '')
       const card = await withTimeout(
         generateVisualShareCard({
@@ -214,7 +218,54 @@ export default function VisualShare({
   }
 
   const handleCopy = async () => {
-    if (!imageBlob) return
+    const copyLink = async () => {
+      if (!resolvedUrl) {
+        const error = new Error('The share link is unavailable')
+        error.name = 'NotFoundError'
+        throw error
+      }
+      if (!navigator.clipboard?.writeText) {
+        const error = new Error('Text clipboard is unavailable')
+        error.name = 'NotSupportedError'
+        throw error
+      }
+      await navigator.clipboard.writeText(resolvedUrl)
+    }
+
+    const reportCopyFailure = (error: unknown) => {
+      const status = clipboardFailureStatus(error)
+      setCopyState('error')
+      showStatus(
+        status === 'denied'
+          ? 'Clipboard access was denied. Use Download or copy the address bar.'
+          : status === 'unavailable'
+            ? 'Clipboard copy is unavailable in this browser. Use Download or copy the address bar.'
+            : 'Could not copy. Use Download or copy the address bar.',
+      )
+      track('share_error', {
+        content_id: resolvedContentId,
+        placement: resolvedPlacement,
+        method: 'clipboard',
+        status,
+      })
+    }
+
+    if (!imageBlob) {
+      try {
+        await copyLink()
+        setCopyState('url')
+        showStatus('Link copied.', 3000)
+        track('share_copy', {
+          content_id: resolvedContentId,
+          placement: resolvedPlacement,
+          method: 'url_fallback',
+          status: 'success',
+        })
+      } catch (error) {
+        reportCopyFailure(error)
+      }
+      return
+    }
 
     try {
       if (!navigator.clipboard?.write || typeof ClipboardItem === 'undefined') {
@@ -231,8 +282,7 @@ export default function VisualShare({
       })
     } catch {
       try {
-        if (!navigator.clipboard?.writeText) throw new Error('Text clipboard is unavailable')
-        await navigator.clipboard.writeText(resolvedUrl)
+        await copyLink()
         setCopyState('url')
         showStatus('Link copied. The image was not copied.', 3000)
         track('share_copy', {
@@ -241,15 +291,8 @@ export default function VisualShare({
           method: 'url_fallback',
           status: 'success',
         })
-      } catch {
-        setCopyState('error')
-        showStatus('Could not copy. Use Download or copy the address bar.')
-        track('share_error', {
-          content_id: resolvedContentId,
-          placement: resolvedPlacement,
-          method: 'clipboard',
-          status: 'copy_failed',
-        })
+      } catch (error) {
+        reportCopyFailure(error)
       }
     }
   }
@@ -346,7 +389,8 @@ export default function VisualShare({
         status: 'success',
       })
     } catch (error) {
-      if (isNativeShareCancellation(error)) {
+      const failureKind = nativeShareFailureKind(error)
+      if (failureKind === 'cancelled') {
         showStatus('Share cancelled.')
         track('share_cancel', {
           content_id: resolvedContentId,
@@ -356,12 +400,18 @@ export default function VisualShare({
         })
         return
       }
-      showStatus('Native share did not complete. Try WhatsApp or Download.')
+      showStatus(
+        failureKind === 'denied'
+          ? 'Native sharing was not allowed. Try WhatsApp or Download.'
+          : failureKind === 'unavailable'
+            ? 'Native sharing is not available in this browser. Try WhatsApp or Download.'
+          : 'Native share did not complete. Try WhatsApp or Download.',
+      )
       track('share_error', {
         content_id: resolvedContentId,
         placement: resolvedPlacement,
         method: 'native',
-        status: 'failed',
+        status: failureKind,
       })
     }
   }
@@ -454,7 +504,7 @@ export default function VisualShare({
                   <button
                     type="button"
                     onClick={() => void handleCopy()}
-                    disabled={!imageBlob}
+                    disabled={!imageBlob && !resolvedUrl}
                     className="flex items-center justify-center gap-2 rounded-xl border border-[#192947]/20 bg-white px-4 py-3 font-bold text-[#192947] transition-colors hover:bg-[#ffda62]/30 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#294cc4] disabled:cursor-not-allowed disabled:opacity-50 motion-reduce:transition-none"
                   >
                     {copyState === 'image' || copyState === 'url' ? (
@@ -462,7 +512,13 @@ export default function VisualShare({
                     ) : (
                       <Copy className="h-5 w-5" aria-hidden="true" />
                     )}
-                    {copyState === 'image' ? 'Image copied' : copyState === 'url' ? 'Link copied' : 'Copy'}
+                    {copyState === 'image'
+                      ? 'Image copied'
+                      : copyState === 'url'
+                        ? 'Link copied'
+                        : imageBlob
+                          ? 'Copy'
+                          : 'Copy link'}
                   </button>
                   <button
                     type="button"

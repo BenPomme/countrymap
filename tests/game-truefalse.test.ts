@@ -149,14 +149,22 @@ test('recipient challenges and the recipient own gift remain separate', () => {
 test('primary scoring persists once per UTC day and survives reload', () => {
   const first = recordTF('2026-11-02', [true, false, true, true, true], false)
   assert.equal(first.played, 1)
-  assert.equal(first.wins, 1)
+  assert.equal(first.wins, 0)
   assert.equal(first.streak, 1)
   assert.deepEqual(loadTF(), first)
 
   const duplicate = recordTF('2026-11-02', [false, false, false, false, false], false)
   assert.equal(duplicate.played, 1)
-  assert.equal(duplicate.wins, 1)
+  assert.equal(duplicate.wins, 0)
   assert.deepEqual(duplicate.lastResults, [true, false, true, true, true])
+})
+
+test('a perfect 5/5 first run records exactly one win', () => {
+  const perfect = recordTF('2026-11-02', [true, true, true, true, true], false)
+  assert.equal(perfect.played, 1)
+  assert.equal(perfect.wins, 1)
+  assert.equal(perfect.streak, 1)
+  assert.deepEqual(loadTF(), perfect)
 })
 
 test('an extra attempt does not replace the first result or duplicate scoring', () => {

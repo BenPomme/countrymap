@@ -10,28 +10,26 @@ import { AD_SLOTS } from '@/lib/constants/ads'
 export default function TrueFalsePage() {
   const embedded = useEmbeddedAppMode()
   return (
-    <div className="min-h-screen bg-gradient-to-b from-sky-50 to-white">
+    <div className="twt-shell min-h-screen bg-[#fff9e8] text-[#192947]">
       {!embedded && (
-        <header className="bg-white shadow-sm">
-          <div className="max-w-4xl mx-auto px-4 py-3 flex justify-between items-center text-sm">
-            <Link href="/" className="text-gray-600 hover:text-gray-900 font-medium">← World Truth Map</Link>
-            <nav className="flex gap-3">
-              <Link href="/truthle" className="text-emerald-700 font-semibold">Truthle</Link>
-              <Link href="/quiz" className="text-gray-600 hidden sm:block">Quiz</Link>
-            </nav>
-          </div>
-        </header>
+        <AdBanner slotId={AD_SLOTS.truthleBanner} hideOnMobile={false} className="border-b border-[#d8d2c2] bg-[#f4efe2]" />
       )}
-      {!embedded && <AdBanner slotId={AD_SLOTS.truthleBanner} className="bg-gray-50 border-b border-gray-100" />}
-      <main className="max-w-4xl mx-auto py-6">
+      <main className={`twt-container mx-auto max-w-5xl ${embedded ? 'py-4' : 'py-6 sm:py-10'}`}>
         <TrueFalseGame countries={countries} />
+        {!embedded && (
+          <p className="mx-auto mt-8 max-w-xl text-center text-sm leading-6 text-[#59647a]">
+            Prefer multiple choice?{' '}
+            <Link href="/truthle/" className="font-semibold text-[#294cc4] underline">
+              Play Truthle
+            </Link>{' '}
+            or{' '}
+            <Link href="/" className="font-semibold text-[#294cc4] underline">
+              explore the country maps
+            </Link>
+            .
+          </p>
+        )}
       </main>
-      {!embedded && (
-        <footer className="py-6 text-center text-sm text-gray-500">
-          True or False: World is part of <Link href="/truthle" className="text-emerald-600 hover:underline">Truthle</Link> by{' '}
-          <Link href="/" className="text-emerald-600 hover:underline">The World Truth</Link>
-        </footer>
-      )}
     </div>
   )
 }

@@ -138,7 +138,7 @@ export default function DealQuiz({ slug, category = '', name = '', plain = false
       ) : plain ? (
         <div className="mt-3">
           <p className="text-gray-800">You scored <strong>{score}/{theme.questions.length}</strong>.</p>
-          <a href="/truthle/" className="mt-3 inline-block px-4 py-2 rounded-lg bg-amber-500 text-white font-medium hover:bg-amber-600">Then play today's Truthle →</a>
+          <a href="/truthle/" className="mt-3 inline-block px-4 py-2 rounded-lg bg-amber-500 text-white font-medium hover:bg-amber-600">Then play today&apos;s Truthle →</a>
           <button onClick={() => { setI(0); setScore(0); setChosen(null) }} className="ml-3 text-sm text-gray-500 underline">Play again</button>
         </div>
       ) : (

@@ -68,6 +68,7 @@ export function useDialogFocus(
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key === 'Escape') {
         event.preventDefault()
+        event.stopPropagation()
         onCloseRef.current()
         return
       }
@@ -81,17 +82,23 @@ export function useDialogFocus(
       }
       const first = items[0]
       const last = items[items.length - 1]
-      if (event.shiftKey && document.activeElement === first) {
+      const activeElement = document.activeElement
+      const focusIsInside = Boolean(dialog && activeElement && dialog.contains(activeElement))
+
+      if (!focusIsInside) {
+        event.preventDefault()
+        ;(event.shiftKey ? last : first).focus()
+      } else if (event.shiftKey && (activeElement === first || activeElement === dialog)) {
         event.preventDefault()
         last.focus()
-      } else if (!event.shiftKey && document.activeElement === last) {
+      } else if (!event.shiftKey && (activeElement === last || activeElement === dialog)) {
         event.preventDefault()
         first.focus()
       }
     }
 
-    document.addEventListener('keydown', handleKeyDown)
-    return () => document.removeEventListener('keydown', handleKeyDown)
+    document.addEventListener('keydown', handleKeyDown, true)
+    return () => document.removeEventListener('keydown', handleKeyDown, true)
   }, [isOpen, suspended])
 
   return dialogRef

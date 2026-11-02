@@ -2,6 +2,7 @@ import { normalizeShareCopy } from './shareState'
 
 export const VISUAL_SHARE_WIDTH = 1200
 export const VISUAL_SHARE_HEIGHT = 630
+const CARD_DISCLOSURE_MAX_LINES = 2
 
 export interface VisualShareCardInput {
   title: string
@@ -136,6 +137,20 @@ export function wrapExactText(
   return remaining ? null : lines
 }
 
+export function buildCardSourceLines(
+  sourceName: string,
+  sourceVintage: string,
+  measureText: (value: string) => number,
+  maxWidth = VISUAL_SHARE_WIDTH - 128,
+): string[] {
+  const disclosure = `Source: ${normalizeShareCopy(sourceName)} | Vintage: ${normalizeShareCopy(sourceVintage)}`
+  const lines = wrapExactText(disclosure, maxWidth, CARD_DISCLOSURE_MAX_LINES, measureText)
+  if (!lines) {
+    throw new Error('The full source and vintage are too long to render on the share card')
+  }
+  return lines
+}
+
 function wrapLines(
   context: CanvasRenderingContext2D,
   text: string,
@@ -264,7 +279,7 @@ function paintCard(
   const description = normalizeShareCopy(input.description)
   const url = normalizeShareCopy(input.url)
   const sourceName = normalizeShareCopy(input.sourceName || 'The World Truth')
-  const sourceVintage = normalizeShareCopy(input.sourceVintage || 'Country data')
+  const sourceVintage = normalizeShareCopy(input.sourceVintage || 'Unknown')
   const stat = input.stat ? normalizeShareCopy(input.stat) : ''
   const detail = input.detail ? normalizeShareCopy(input.detail) : ''
 
@@ -320,21 +335,16 @@ function paintCard(
   context.fillRect(0, 500, VISUAL_SHARE_WIDTH, 130)
   context.fillStyle = COLORS.yellow
   context.font = font(700, 19)
-  drawWrappedText(
-    context,
-    `Source: ${sourceName} | Vintage: ${sourceVintage}`,
-    64,
-    533,
-    1072,
-    21,
-    1,
+  const sourceLines = buildCardSourceLines(sourceName, sourceVintage, (value) =>
+    context.measureText(value).width,
   )
+  sourceLines.forEach((line, index) => context.fillText(line, 64, 529 + index * 20))
 
   context.fillStyle = COLORS.paper
   context.font = font(600, 18)
   const urlLines = wrapExactText(url, 1072, 2, (value) => context.measureText(value).width)
   if (!urlLines) throw new Error('The exact share link is too long to render')
-  urlLines.forEach((line, index) => context.fillText(line, 64, 570 + index * 22))
+  urlLines.forEach((line, index) => context.fillText(line, 64, 574 + index * 22))
 }
 
 export async function generateVisualShareCard(input: VisualShareCardInput): Promise<Blob> {
