@@ -1,8 +1,9 @@
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: 'The Truth Quiz | Test Your World Knowledge - 89 Statistics',
-  description: 'Can you guess which country has the highest IQ? Most billionaires? Best happiness? Challenge yourself with 20 questions from 89 country statistics.',
+  title: 'The Truth Quiz: Country Data Questions | The World Truth',
+  description:
+    'Play up to 20 country data questions drawn from measures that pass the current provenance check. Optional timer, streak bonuses and shareable results.',
   keywords: [
     'world quiz',
     'country quiz',
@@ -10,28 +11,28 @@ export const metadata: Metadata = {
     'trivia game',
     'world knowledge test',
     'country statistics quiz',
-    'fun facts quiz',
-    'IQ quiz',
-    'GDP quiz',
+    'country data quiz',
     'country facts',
   ],
   openGraph: {
-    title: 'The Truth Quiz - Can You Beat 20 World Statistics Questions?',
-    description: 'Which country has the highest IQ? Most crime? Best happiness? Test your knowledge across 89 statistics!',
+    title: 'The Truth Quiz: How Well Do You Know the World?',
+    description:
+      'Answer up to 20 country data questions from measures that pass the current provenance check. Add a timer or play without one.',
     url: 'https://theworldtruth.com/quiz/',
     images: [
       {
         url: '/og-image.png',
         width: 1200,
         height: 630,
-        alt: 'The Truth Quiz - Test Your World Knowledge',
+        alt: 'The Truth Quiz from The World Truth',
       },
     ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'The Truth Quiz 🧠 Can You Beat 20/20?',
-    description: 'Which country has the highest IQ? Most billionaires? Test your knowledge!',
+    title: 'The Truth Quiz',
+    description:
+      'Up to 20 country data questions from measures that pass the current provenance check. Share your result when the round ends.',
     images: ['/og-image.png'],
   },
   alternates: {

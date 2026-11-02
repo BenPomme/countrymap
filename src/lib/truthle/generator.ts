@@ -3,10 +3,18 @@ import { VARIABLES, VARIABLE_CATEGORIES } from '@/lib/constants/variables'
 import { getNestedValue } from '@/lib/utils'
 import correlationsData from '../../../data/correlations.json'
 import { generateCorrelationQuestions, type Correlation, type CorrelationQuestion } from './correlationQuestions'
+import { getUtcDay } from './dailyLifecycle'
 import { TRUTHLE_QUESTIONS_PER_DAY } from './questionCount'
+import {
+  defaultProvenanceResolver,
+  getQuizProvenance,
+  questionProvenanceFields,
+  type ProvenanceResolver,
+  type QuestionProvenanceFields,
+} from './questionProvenance'
 export { TRUTHLE_QUESTIONS_PER_DAY }
 
-export interface TruthleQuestion {
+export interface TruthleQuestion extends QuestionProvenanceFields {
   id: string
   type: 'highest' | 'lowest' | 'compare' | 'direction' | 'yes_no' | 'strongest_pair'
   question: string
@@ -47,8 +55,7 @@ function dateToSeed(dateStr: string): number {
 
 // Get today's date string (UTC)
 export function getTodayDateString(): string {
-  const now = new Date()
-  return `${now.getUTCFullYear()}-${String(now.getUTCMonth() + 1).padStart(2, '0')}-${String(now.getUTCDate()).padStart(2, '0')}`
+  return getUtcDay()
 }
 
 // Calculate Truthle day number (days since launch)
@@ -162,7 +169,8 @@ function getCategoryInfo(variableId: string): { name: string; icon: string } {
 function generateHighestQuestion(
   countries: Country[],
   variablePath: string,
-  rng: () => number
+  rng: () => number,
+  provenance: QuestionProvenanceFields
 ): TruthleQuestion | null {
   const variable = VARIABLES[variablePath as keyof typeof VARIABLES]
   if (!variable) return null
@@ -172,6 +180,7 @@ function generateHighestQuestion(
 
   const sorted = [...countriesWithValue].sort((a, b) => b.value - a.value)
   const topCountry = sorted[0]
+  if (sorted[1]?.value === topCountry.value) return null
 
   // Get 3 wrong answers from outside top 10
   const otherCountries = sorted.slice(10)
@@ -189,17 +198,19 @@ function generateHighestQuestion(
     question: `Which country has the HIGHEST ${variable.name.toLowerCase()}?`,
     options: allOptions.map((opt) => opt.country.name),
     correctAnswer: correctIndex,
-    explanation: `${topCountry.country.name} has ${variable.format(topCountry.value)}, the highest in the world!`,
+    explanation: `${topCountry.country.name} has ${variable.format(topCountry.value)}, the highest in our data.`,
     variablePath,
     category: categoryInfo.name,
     categoryIcon: categoryInfo.icon,
+    ...provenance,
   }
 }
 
 function generateLowestQuestion(
   countries: Country[],
   variablePath: string,
-  rng: () => number
+  rng: () => number,
+  provenance: QuestionProvenanceFields
 ): TruthleQuestion | null {
   const variable = VARIABLES[variablePath as keyof typeof VARIABLES]
   if (!variable) return null
@@ -209,6 +220,7 @@ function generateLowestQuestion(
 
   const sorted = [...countriesWithValue].sort((a, b) => a.value - b.value)
   const lowestCountry = sorted[0]
+  if (sorted[1]?.value === lowestCountry.value) return null
 
   const otherCountries = sorted.slice(10)
   if (otherCountries.length < 3) return null
@@ -225,17 +237,19 @@ function generateLowestQuestion(
     question: `Which country has the LOWEST ${variable.name.toLowerCase()}?`,
     options: allOptions.map((opt) => opt.country.name),
     correctAnswer: correctIndex,
-    explanation: `${lowestCountry.country.name} has ${variable.format(lowestCountry.value)}, the lowest among all countries.`,
+    explanation: `${lowestCountry.country.name} has ${variable.format(lowestCountry.value)}, the lowest in our data.`,
     variablePath,
     category: categoryInfo.name,
     categoryIcon: categoryInfo.icon,
+    ...provenance,
   }
 }
 
 function generateCompareQuestion(
   countries: Country[],
   variablePath: string,
-  rng: () => number
+  rng: () => number,
+  provenance: QuestionProvenanceFields
 ): TruthleQuestion | null {
   const variable = VARIABLES[variablePath as keyof typeof VARIABLES]
   if (!variable) return null
@@ -255,7 +269,7 @@ function generateCompareQuestion(
   const higherCountry = sorted[highIndex]
   const lowerCountry = sorted[lowIndex]
 
-  if (!higherCountry || !lowerCountry) return null
+  if (!higherCountry || !lowerCountry || higherCountry.value <= lowerCountry.value) return null
 
   const options = shuffleWithRng([higherCountry.country.name, lowerCountry.country.name], rng)
   const correctIndex = options.indexOf(higherCountry.country.name)
@@ -272,6 +286,7 @@ function generateCompareQuestion(
     variablePath,
     category: categoryInfo.name,
     categoryIcon: categoryInfo.icon,
+    ...provenance,
   }
 }
 
@@ -287,13 +302,20 @@ function convertCorrelationQuestion(cq: CorrelationQuestion): TruthleQuestion {
     category: cq.category,
     categoryIcon: cq.categoryIcon,
     correlationData: cq.correlationData,
+    sourceUrl: cq.sourceUrl,
+    sourceName: cq.sourceName,
+    year: cq.year,
+    coverage: cq.coverage,
+    limitations: cq.limitations,
+    provenance: cq.provenance,
   }
 }
 
 export function generateDailyQuestions(
   countries: Country[],
   dateStr?: string,
-  count: number = TRUTHLE_QUESTIONS_PER_DAY
+  count: number = TRUTHLE_QUESTIONS_PER_DAY,
+  resolver: ProvenanceResolver = defaultProvenanceResolver
 ): TruthleQuestion[] {
   const date = dateStr || getTodayDateString()
   const seed = dateToSeed(date)
@@ -305,7 +327,7 @@ export function generateDailyQuestions(
   // Scale correlation mix to quiz length (1 for 5Q; 2–3 for longer)
   const correlationCount = count <= 5 ? 1 : 2 + Math.floor(rng() * 2)
   const correlations = (correlationsData as { correlations: Correlation[] }).correlations
-  const correlationQuestions = generateCorrelationQuestions(correlations, rng, correlationCount)
+  const correlationQuestions = generateCorrelationQuestions(correlations, rng, correlationCount, resolver)
     .map(convertCorrelationQuestion)
 
   // Determine positions for correlation questions (spread throughout the game)
@@ -324,9 +346,19 @@ export function generateDailyQuestions(
   // Politics-first: date-seeded pick of 3–4 politics vars at the front, rest after
   // (later politics vars still serve as fallbacks if a front one fails to generate)
   const politicsTarget = Math.min(regularQuestionCount, rng() < 0.5 ? 3 : 4)
-  const shuffledPolitics = shuffleWithRng(POLITICS_VARIABLES.filter((v) => v in VARIABLES), rng)
+  const shuffledPolitics = shuffleWithRng(
+    POLITICS_VARIABLES.filter((v) => v in VARIABLES && getQuizProvenance(v, resolver) !== null),
+    rng
+  )
   const frontPolitics = shuffledPolitics.slice(0, politicsTarget)
-  const rest = shuffleWithRng(TRUTHLE_VARIABLES.filter((v) => !frontPolitics.includes(v)), rng)
+  const rest = shuffleWithRng(
+    TRUTHLE_VARIABLES.filter((v) => (
+      v in VARIABLES &&
+      !frontPolitics.includes(v) &&
+      getQuizProvenance(v, resolver) !== null
+    )),
+    rng
+  )
   const shuffledVariables = [...frontPolitics, ...rest]
 
   const questionGenerators = [
@@ -351,8 +383,18 @@ export function generateDailyQuestions(
     // Pick question type based on RNG
     const typeIndex = Math.floor(rng() * questionGenerators.length)
     const generator = questionGenerators[typeIndex]
+    const provenance = getQuizProvenance(variablePath, resolver)
+    if (!provenance) {
+      varIndex++
+      continue
+    }
 
-    const question = generator(countries, variablePath, rng)
+    const question = generator(
+      countries,
+      variablePath,
+      rng,
+      questionProvenanceFields([provenance])
+    )
 
     if (question) {
       regularQuestions.push(question)

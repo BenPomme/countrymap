@@ -9,17 +9,16 @@ import {
   relatedVariableSlugs,
   variableEntries,
 } from '@/lib/seo/catalog'
-import { countrySlug } from '@/lib/seo/slugs'
-import StatMap from './StatMap'
 import EmbedSnippet from './EmbedSnippet'
 import { AdBanner, AdSidebar } from '@/components/ads'
 import { AD_SLOTS } from '@/lib/constants/ads'
-import ContextualOffers from '@/components/affiliate/ContextualOffers'
 import DealQuiz from '@/components/affiliate/DealQuiz'
 import type { ColorVariable } from '@/types/country'
 import { claimsForVariable } from '@/lib/seo/claims'
 import { sourceNote } from '@/lib/seo/sourceNotes'
 import { mapLongform } from '@/lib/seo/mapLongform'
+import MapFeature from '@/components/map/MapFeature'
+import { buildMainFact, buildRankingRows } from '@/components/map/mapFacts'
 
 export function generateStaticParams() {
   return variableEntries.map((entry) => ({ slug: entry.slug }))
@@ -37,25 +36,24 @@ function sourceBlurb(variableId: ColorVariable): string {
   return desc
 }
 
-const PLAIN_QUIZ = new Set(['mcdonald-s-per-capita', 'billionaires-per-capita'])
-
 export default function StatPage({ params }: { params: { slug: string } }) {
   const entry = getVariableBySlug(params.slug)
   if (!entry) notFound()
 
   const config = VARIABLES[entry.id]
   const ranked = rankCountries(entry.id)
-  const leader = ranked[0]
   const related = relatedVariableSlugs(entry.id, 5)
   const higher = ranksHighFirst(config)
   const lname = config.name.toLowerCase().replace(/mcdonald's/g, "McDonald's")
-  const question = `Which country has the ${higher ? 'highest' : 'lowest'} ${lname}?`
-  const answer = leader
-    ? `${leader.country.name} ranks #1 for ${lname} at ${leader.formatted}, among ${ranked.length} countries on The World Truth Map.`
-    : `Compare ${lname} across countries.`
+  const question = config.type === 'categorical'
+    ? `Which category is most commonly reported for ${lname}?`
+    : `Which country has the ${higher ? 'highest' : 'lowest'} ${lname}?`
+  const mainFact = buildMainFact(config, ranked, higher, countries.length)
+  const answer = mainFact.detail
 
   const note = sourceNote(entry.id)
   const lf = mapLongform(entry.slug)
+  const dataNoun = config.type === 'categorical' ? 'a reported category' : 'a reported value'
   const baseFaqs = [
     {
       q: question,
@@ -68,17 +66,20 @@ export default function StatPage({ params }: { params: { slug: string } }) {
     ...(note ? note.notes.map((n, i) => ({ q: i === 0 ? `Which places are included in the ${lname} ranking?` : `Why might this ranking differ from other sources?`, a: n })) : []),
     {
       q: `How many countries have data for ${lname}?`,
-      a: `${ranked.length} of ${countries.length} countries on this map have a value for ${lname}.`,
+      a: `${ranked.length} of ${countries.length} countries on this map have ${dataNoun} for ${lname}.`,
     },
   ]
   const faqs = lf ? [...lf.faqs, baseFaqs[1]] : baseFaqs
+  const claims = claimsForVariable(entry.id)
+  const rankingRows = buildRankingRows(config, ranked)
+  const canonicalPath = `/map/${entry.slug}/`
 
   const jsonLd = {
     '@context': 'https://schema.org',
     '@type': 'Dataset',
     name: `${config.name} by country`,
     description: answer,
-    url: `https://theworldtruth.com/map/${entry.slug}/`,
+    url: `https://theworldtruth.com${canonicalPath}`,
     creator: { '@type': 'Organization', name: 'The World Truth' },
     variableMeasured: config.name,
   }
@@ -94,136 +95,133 @@ export default function StatPage({ params }: { params: { slug: string } }) {
   }
 
   return (
-    <div className="min-h-screen bg-slate-50">
+    <div className="min-h-screen bg-[#fff9e8] text-[#192947]">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqLd) }} />
 
-      <header className="bg-white border-b border-gray-200">
-        <div className="max-w-5xl mx-auto px-4 py-4 flex items-center justify-between">
-          <Link href="/" className="font-bold text-gray-900">
-            The World Truth Map
-          </Link>
-          <nav className="flex gap-4 text-sm text-gray-600">
-            <Link href={`/?var=${encodeURIComponent(entry.id)}`}>Open map</Link>
-            <Link href="/truthle">Truthle</Link>
-            <Link href="/discoveries">Discoveries</Link>
-          </nav>
+      <main className="twt-container mx-auto max-w-6xl px-4 pb-24 pt-8 md:pb-12 md:pt-10">
+        <section aria-labelledby="stat-title" className="grid gap-6 lg:grid-cols-[minmax(0,1.25fr)_minmax(20rem,0.75fr)] lg:items-end">
+          <div>
+            <p className="twt-kicker inline-flex rounded-full border border-[#294cc4]/20 bg-white px-3 py-1 text-[11px] font-black uppercase tracking-[0.16em] text-[#294cc4]">
+              {config.category}
+            </p>
+            <h1 id="stat-title" className="twt-display mt-4 max-w-4xl text-4xl font-black leading-[1.02] tracking-[-0.03em] text-[#192947] md:text-6xl">
+              {lf?.h1 ?? question}
+            </h1>
+            <p className="mt-5 max-w-3xl text-base leading-7 text-[#192947]/70 md:text-lg md:leading-8">
+              {lf?.intro ?? mainFact.detail}
+            </p>
+          </div>
+
+          <aside
+            aria-label="Main reported fact"
+            className="rounded-[1.75rem] border-2 border-[#192947] bg-[#ffda62] p-5 shadow-[8px_8px_0_rgba(25,41,71,0.12)] md:p-6"
+          >
+            <p className="twt-kicker text-[10px] font-black uppercase tracking-[0.18em] text-[#192947]/60">
+              Reported fact
+            </p>
+            <p className="mt-2 text-xs font-black uppercase tracking-[0.14em] text-[#192947]/65">
+              {mainFact.label}
+            </p>
+            <div className="mt-2 flex flex-wrap items-baseline gap-x-3 gap-y-1">
+              <p className="twt-display text-3xl font-black leading-none text-[#192947] md:text-4xl">
+                {mainFact.lead}
+              </p>
+              <p className="text-xl font-black tabular-nums text-[#192947] md:text-2xl">
+                {mainFact.value}
+              </p>
+            </div>
+            <p className="mt-1 text-[11px] font-bold text-[#192947]/55">{mainFact.valueLabel}</p>
+            <p className="mt-4 text-sm font-semibold leading-6 text-[#192947]/75">{mainFact.detail}</p>
+            {mainFact.countryHref && (
+              <Link
+                href={mainFact.countryHref}
+                className="mt-3 inline-flex min-h-9 items-center rounded-sm text-sm font-black text-[#294cc4] underline decoration-2 underline-offset-4 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#294cc4]"
+              >
+                View country profile
+              </Link>
+            )}
+            <p className="mt-4 border-t border-[#192947]/20 pt-3 text-xs leading-5 text-[#192947]/65">
+              {note ? (
+                <>
+                  Source:{' '}
+                  <a
+                    href={note.url}
+                    target="_blank"
+                    rel="nofollow noopener noreferrer"
+                    className="font-bold underline decoration-[#192947]/30 underline-offset-2 hover:decoration-[#192947] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#294cc4]"
+                  >
+                    {note.source}
+                  </a>
+                  . Data vintage: {note.vintage}.
+                </>
+              ) : (
+                'Source and data vintage are not verified on this page.'
+              )}
+            </p>
+          </aside>
+        </section>
+
+        <MapFeature
+          key={entry.slug}
+          countries={countries}
+          colorVariable={entry.id}
+          canonicalPath={canonicalPath}
+          rankingRows={rankingRows}
+          slug={entry.slug}
+          category={config.category}
+          name={config.name}
+          sourceName={note?.source}
+          sourceUrl={note?.url}
+          vintage={note?.vintage}
+          limitations={note?.notes || []}
+        />
+
+        <div className="mt-6 flex flex-wrap items-center gap-x-3 gap-y-2 text-sm text-[#192947]/65">
+          <span className="font-black uppercase tracking-[0.12em]">About the figure</span>
+          <span>{sourceBlurb(entry.id)}</span>
         </div>
-      </header>
 
-      <main className="max-w-5xl mx-auto px-4 py-6 pb-20 md:pb-6">
-        <p className="text-sm text-blue-700 font-medium mb-3">{config.category}</p>
-        <h1 className="text-3xl md:text-5xl font-bold text-gray-900 mb-4">{lf?.h1 ?? question}</h1>
-        <p className="text-lg md:text-xl text-gray-800 mb-4">{lf?.intro ?? answer}</p>
+        {(entry.slug === 'gdp-per-capita' || entry.slug === 'gdp-per-capita-ppp') && (
+          <p className="mt-3 text-sm">
+            View:{' '}
+            <Link href="/map/gdp-per-capita/" className={entry.slug === 'gdp-per-capita' ? 'font-semibold text-[#192947]' : 'font-semibold text-[#294cc4] underline underline-offset-4'}>Nominal (US$)</Link>{' '}
+            <span aria-hidden="true">/</span>{' '}
+            <Link href="/map/gdp-per-capita-ppp/" className={entry.slug === 'gdp-per-capita-ppp' ? 'font-semibold text-[#192947]' : 'font-semibold text-[#294cc4] underline underline-offset-4'}>PPP (Int$)</Link>
+          </p>
+        )}
 
-        {(() => {
-          const rc = claimsForVariable(entry.id, 1)[0]
-          return (
-            <section className="mb-4 bg-white rounded-2xl shadow-sm p-5">
-              <h2 className="text-xl font-bold text-gray-900 mb-2">Play with these numbers</h2>
-              <ul className="space-y-1 list-disc pl-5">
-                <li><Link href="/truthle/" className="text-emerald-700 font-semibold hover:underline">Play today&apos;s Truthle — daily world facts quiz</Link></li>
-                <li><Link href="/true-false/" className="text-sky-700 font-semibold hover:underline">Play True or False: World</Link></li>
-                {rc && <li><Link href={`/true-false/claims/${rc.slug}/`} className="text-sky-700 hover:underline">Related claim: {rc.text}</Link></li>}
-              </ul>
-            </section>
-          )
-        })()}
-
-        <DealQuiz slug={entry.slug} category={config.category} name={config.name} plain={PLAIN_QUIZ.has(entry.slug)} />
+        <section className="mt-8 rounded-[1.5rem] border-2 border-[#192947]/15 bg-white p-5 shadow-sm md:p-6">
+          <h2 className="twt-display text-2xl font-black text-[#192947]">Play with these numbers</h2>
+          <ul className="mt-3 grid gap-2 text-sm font-semibold sm:grid-cols-2">
+            <li><Link href="/truthle/" className="inline-flex min-h-10 items-center rounded-lg text-[#246e55] underline underline-offset-4 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#294cc4]">Play today&apos;s Truthle daily world facts quiz</Link></li>
+            <li><Link href="/true-false/" className="inline-flex min-h-10 items-center rounded-lg text-[#294cc4] underline underline-offset-4 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#294cc4]">Play True or False: World</Link></li>
+            {claims[0] && <li className="sm:col-span-2"><Link href={`/true-false/claims/${claims[0].slug}/`} className="inline-flex min-h-10 items-center rounded-lg text-[#294cc4] underline underline-offset-4 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#294cc4]">Related claim: {claims[0].text}</Link></li>}
+          </ul>
+          <div className="mt-5">
+            <DealQuiz slug={entry.slug} category={config.category} name={config.name} plain />
+          </div>
+        </section>
 
         <AdBanner slotId={AD_SLOTS.mapPageBanner} className="my-6" />
 
-        <StatMap countries={countries} colorVariable={entry.id} />
-
         <EmbedSnippet slug={entry.slug} />
 
-        <section className="mt-10 bg-white rounded-2xl shadow-sm p-6">
-          <h2 className="text-2xl font-bold text-gray-900 mb-2">{config.name} by country</h2>
-          <p className="text-gray-700 mb-3">{sourceBlurb(entry.id)}</p>
-          {(entry.slug === 'gdp-per-capita' || entry.slug === 'gdp-per-capita-ppp') && (
-            <p className="mb-3 text-sm">
-              View:{' '}
-              <Link href="/map/gdp-per-capita/" className={entry.slug === 'gdp-per-capita' ? 'font-semibold text-gray-900' : 'text-blue-700 underline'}>Nominal (US$)</Link>{' · '}
-              <Link href="/map/gdp-per-capita-ppp/" className={entry.slug === 'gdp-per-capita-ppp' ? 'font-semibold text-gray-900' : 'text-blue-700 underline'}>PPP (Int$)</Link>
-            </p>
-          )}
-          {note && (
-            <div className="mb-6 rounded-xl bg-amber-50 border border-amber-200 p-4 text-sm text-gray-800">
-              <p><strong>Source:</strong>{' '}<a href={note.url} rel="nofollow noopener" target="_blank" className="text-blue-700 underline">{note.source}</a></p>
-              <p className="mt-1"><strong>Data year:</strong> {note.vintage}</p>
-              <ul className="mt-2 list-disc pl-5 space-y-1">{note.notes.map((n) => <li key={n}>{n}</li>)}</ul>
-            </div>
-          )}
-          <div className="overflow-x-auto">
-            <table className="w-full text-sm">
-              <thead>
-                <tr className="border-b text-left text-gray-500">
-                  <th className="py-2 pr-3">Rank</th>
-                  <th className="py-2 pr-3">Country</th>
-                  <th className="py-2 text-right">{config.name}</th>
-                </tr>
-              </thead>
-              <tbody>
-                {ranked.slice(0, 10).map((row, index) => (
-                  <tr key={row.country.iso3} className="border-b border-gray-100">
-                    <td className="py-2 pr-3 text-gray-500">#{index + 1}</td>
-                    <td className="py-2 pr-3">
-                      <Link
-                        className="text-blue-700 hover:underline"
-                        href={`/country/${countrySlug(row.country.name)}/`}
-                      >
-                        {row.country.name}
-                      </Link>
-                    </td>
-                    <td className="py-2 text-right font-medium">{row.formatted}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-          {ranked.length > 10 && (
-            <details id="full-table" className="mt-3">
-              <summary className="cursor-pointer text-blue-700 font-medium py-2">Show all {ranked.length} countries</summary>
-              <div className="overflow-x-auto">
-                <table className="w-full text-sm">
-                  <tbody>
-                {ranked.slice(10).map((row, j) => (
-                  <tr key={row.country.iso3} className="border-b border-gray-100">
-                    <td className="py-2 pr-3 text-gray-500">#{j + 11}</td>
-                    <td className="py-2 pr-3">
-                      <Link
-                        className="text-blue-700 hover:underline"
-                        href={`/country/${countrySlug(row.country.name)}/`}
-                      >
-                        {row.country.name}
-                      </Link>
-                    </td>
-                    <td className="py-2 text-right font-medium">{row.formatted}</td>
-                  </tr>
-                ))}
-                  </tbody>
-                </table>
-              </div>
-            </details>
-          )}
-        </section>
-
         {lf && (
-          <article className="mt-10 bg-white rounded-2xl shadow-sm p-6 text-gray-800">
+          <article className="twt-prose mt-10 rounded-[1.5rem] border-2 border-[#192947]/15 bg-white p-6 text-[#192947]/80 shadow-sm md:p-8">
             {lf.sections.map((sec) => (
-              <section key={sec.h2} className="mb-6">
-                <h2 className="text-2xl font-bold text-gray-900 mb-2">{sec.h2}</h2>
-                {sec.paragraphs.map((para) => <p key={para} className="mb-3 leading-relaxed">{para}</p>)}
+              <section key={sec.h2} className="mb-7 last:mb-0">
+                <h2 className="twt-display text-2xl font-black leading-tight text-[#192947] md:text-3xl">{sec.h2}</h2>
+                {sec.paragraphs.map((para) => <p key={para} className="mt-3 leading-7">{para}</p>)}
                 {sec.bullets && (
-                  <ul className="list-disc pl-5 space-y-1 mb-3">{sec.bullets.map((b) => <li key={b}>{b}</li>)}</ul>
+                  <ul className="mt-3 list-disc space-y-1 pl-5 leading-7">{sec.bullets.map((b) => <li key={b}>{b}</li>)}</ul>
                 )}
               </section>
             ))}
-            <p className="text-sm">
+            <p className="mt-6 border-t border-[#192947]/10 pt-4 text-sm leading-6">
               Explore more:{' '}
               {lf.links.map((l, i) => (
-                <span key={l.href}>{i > 0 && ' · '}<Link href={l.href} className="text-blue-700 underline">{l.label}</Link></span>
+                <span key={l.href}>{i > 0 && ' / '}<Link href={l.href} className="font-bold text-[#294cc4] underline underline-offset-4">{l.label}</Link></span>
               ))}
             </p>
           </article>
@@ -233,42 +231,39 @@ export default function StatPage({ params }: { params: { slug: string } }) {
           <AdSidebar slotId={AD_SLOTS.mapPageSquare} size="square" />
         </div>
 
-        <ContextualOffers slug={entry.slug} category={config.category} name={config.name} />
-
-        <section className="mt-10 bg-white rounded-2xl shadow-sm p-6">
-          <h2 className="text-2xl font-bold text-gray-900 mb-4">FAQ</h2>
-          <dl className="space-y-6">
+        <section className="mt-10 rounded-[1.5rem] border-2 border-[#192947]/15 bg-white p-6 shadow-sm">
+          <h2 className="twt-display text-2xl font-black text-[#192947]">FAQ</h2>
+          <dl className="mt-4 space-y-6">
             {faqs.map((item) => (
               <div key={item.q}>
-                <dt className="font-semibold text-gray-900">{item.q}</dt>
-                <dd className="text-gray-700 mt-1">{item.a}</dd>
+                <dt className="font-black text-[#192947]">{item.q}</dt>
+                <dd className="mt-1 leading-7 text-[#192947]/70">{item.a}</dd>
               </div>
             ))}
           </dl>
         </section>
 
-
-        {claimsForVariable(entry.id).length > 0 && (
-          <section className="mt-10 bg-sky-50 rounded-2xl p-6">
-            <h2 className="text-xl font-bold text-gray-900 mb-3">True or False?</h2>
-            <ul className="space-y-2">
-              {claimsForVariable(entry.id).map((c) => (
-                <li key={c.slug}><Link href={`/true-false/claims/${c.slug}/`} className="text-sky-700 hover:underline">{c.text}</Link></li>
+        {claims.length > 0 && (
+          <section className="mt-10 rounded-[1.5rem] border-2 border-[#294cc4]/15 bg-[#eef1f5] p-6">
+            <h2 className="twt-display text-xl font-black text-[#192947]">True or False?</h2>
+            <ul className="mt-3 space-y-2">
+              {claims.map((claim) => (
+                <li key={claim.slug}><Link href={`/true-false/claims/${claim.slug}/`} className="text-[#294cc4] underline underline-offset-4 hover:no-underline">{claim.text}</Link></li>
               ))}
             </ul>
-            <Link href="/true-false/" className="inline-block mt-3 text-sm font-semibold text-sky-700">Play today&apos;s daily True or False →</Link>
+            <Link href="/true-false/" className="mt-4 inline-flex min-h-10 items-center text-sm font-black text-[#294cc4] underline underline-offset-4">Play today&apos;s daily True or False</Link>
           </section>
         )}
 
         {related.length > 0 && (
           <section className="mt-10">
-            <h2 className="text-2xl font-bold text-gray-900 mb-4">Related statistics</h2>
-            <ul className="grid md:grid-cols-2 gap-3">
+            <h2 className="twt-display text-2xl font-black text-[#192947]">Related statistics</h2>
+            <ul className="mt-4 grid gap-3 md:grid-cols-2">
               {related.map((item) => (
                 <li key={item.id}>
                   <Link
                     href={`/map/${item.slug}/`}
-                    className="block bg-white rounded-xl px-4 py-3 hover:bg-blue-50 text-blue-800"
+                    className="block rounded-xl border-2 border-[#192947]/10 bg-white px-4 py-3 font-semibold text-[#294cc4] hover:border-[#294cc4]/35 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#294cc4]"
                   >
                     {item.name} by country
                   </Link>
@@ -279,9 +274,9 @@ export default function StatPage({ params }: { params: { slug: string } }) {
         )}
       </main>
 
-      <div className="md:hidden fixed bottom-0 inset-x-0 z-40 bg-white/95 backdrop-blur border-t border-gray-200 px-3 py-2 flex gap-2 text-sm">
-        <a href="#deal-quiz" className="flex-1 text-center rounded-lg bg-amber-500 text-white font-medium py-2">🎯 {entry.slug === 'gdp-per-capita-ppp' ? 'Play the GDP (PPP) quiz' : entry.slug === 'happiness-index' ? 'Play the happiness quiz' : PLAIN_QUIZ.has(entry.slug) ? 'Quick quiz: 3 questions on this map' : 'Play deal quiz'}</a>
-        <Link href="/truthle" className="flex-1 text-center rounded-lg border border-gray-300 text-gray-800 font-medium py-2">{PLAIN_QUIZ.has(entry.slug) ? "Then play today's Truthle →" : 'Play Truthle'}</Link>
+      <div className="fixed inset-x-0 bottom-0 z-40 flex gap-2 border-t border-[#192947]/15 bg-white/95 px-3 py-2 text-sm backdrop-blur md:hidden">
+        <a href="#deal-quiz" className="flex-1 rounded-lg bg-[#294cc4] py-2 text-center font-black text-white">Play the map quiz</a>
+        <Link href="/truthle" className="flex-1 rounded-lg border border-[#192947]/25 py-2 text-center font-black text-[#192947]">Play Truthle</Link>
       </div>
     </div>
   )

@@ -1,12 +1,10 @@
-import { estimatePercentile } from './scoring'
-
 export const SHARE_CARD_WIDTH = 1200
 export const SHARE_CARD_HEIGHT = 630
 
 export interface ShareCardInput {
   truthleDay: number
   score: number
-  results: boolean[]
+  results?: boolean[]
   streak: number
 }
 
@@ -70,8 +68,8 @@ function font(weight: number, size: number): string {
 
 export async function generateShareCardBlob(input: ShareCardInput): Promise<Blob> {
   const { truthleDay, score, results, streak } = input
-  const percentile = estimatePercentile(score)
-  const correctCount = results.filter(Boolean).length
+  const correctCount = results?.filter(Boolean).length
+  const total = results?.length || 5
   const logo = await getLogo()
 
   const canvas = document.createElement('canvas')
@@ -117,27 +115,22 @@ export async function generateShareCardBlob(input: ShareCardInput): Promise<Blob
   ctx.font = font(800, 118)
   ctx.fillText(score.toLocaleString(), cx, y + 156)
 
-  ctx.fillStyle = '#059669'
-  ctx.font = font(700, 36)
-  ctx.fillText(`Top ${percentile}%`, cx, y + 208)
+  const tileSize = 152
+  const tileX = cx - tileSize / 2
+  const tileY = y + 194
+  ctx.fillStyle = '#10b981'
+  fillRoundRect(ctx, tileX, tileY, tileSize, tileSize, 28)
 
-  const squares = Math.max(results.length, 5)
-  const size = squares <= 5 ? 92 : 74
-  const gap = squares <= 5 ? 18 : 14
-  const gridWidth = squares * size + (squares - 1) * gap
-  const startX = (SHARE_CARD_WIDTH - gridWidth) / 2
-  const gridY = y + 236
-  for (let i = 0; i < squares; i++) {
-    const correct = results[i]
-    ctx.fillStyle = correct === true ? '#10b981' : correct === false ? '#ef4444' : '#e5e7eb'
-    fillRoundRect(ctx, startX + i * (size + gap), gridY, size, size, 14)
-  }
+  ctx.fillStyle = '#ffffff'
+  ctx.font = font(800, 54)
+  ctx.fillText(`${correctCount ?? 0}/${total}`, cx, tileY + 92)
+  ctx.font = font(600, 20)
+  ctx.fillText('CORRECT', cx, tileY + 124)
 
   ctx.fillStyle = '#374151'
   ctx.font = font(600, 28)
   const streakLabel = streak > 0 ? `   ·   ${streak}-day streak` : ''
-  const total = results.length || squares
-  ctx.fillText(`${correctCount}/${total} correct${streakLabel}`, cx, gridY + size + 56)
+  ctx.fillText(`Daily result${streakLabel}`, cx, tileY + tileSize + 58)
 
   ctx.fillStyle = '#10b981'
   ctx.font = font(600, 24)

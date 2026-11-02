@@ -1,7 +1,21 @@
 import { db, ensureAnonymousAuth, functionsClient } from '@/lib/firebase/config'
 import { doc, getDoc, setDoc, serverTimestamp } from 'firebase/firestore'
 import { httpsCallable } from 'firebase/functions'
-import { getTodayDateString } from './generator'
+import { getCompletionStreak, getDisplayStreak, getUtcDay } from './dailyLifecycle'
+import {
+  CommerceRequestError,
+  createCommerceService,
+  type CheckoutStatus,
+  type CommerceStorage,
+  type CommerceTransport,
+} from './commerce'
+import {
+  getDefaultTruthleState,
+  sanitizeTruthleState,
+  type TruthleLocalState,
+} from './localState'
+
+export type { TruthleLocalState } from './localState'
 
 export interface TruthleAttempt {
   score: number
@@ -20,77 +34,11 @@ export interface TruthleRetryStatus {
   source: 'backend' | 'none'
 }
 
-export interface TruthleLocalState {
-  lastPlayedDate: string | null
-  todayScore: number | null
-  todayResults: boolean[] | null
-  todayTimes: number[] | null
-  streak: number
-  bestStreak: number
-  gamesPlayed: number
-  totalCorrect: number
-  // Coins & Rewards
-  coins: number
-  totalCoinsEarned: number
-  ownedItems: string[]  // IDs of owned rewards
-  equippedTheme: string | null
-  equippedBadge: string | null
-  equippedFrame: string | null
-  equippedTitle: string | null
-  // Powerup inventory
-  streakFreezes: number
-  hints: number
-  fiftyFifties: number
-  timeExtenders: number
-  doubleCoinsActive: boolean
-  // Achievement tracking
-  perfectGames: number
-  fastAnswersTotal: number
-  unlockedAchievements: string[]
-  // Email signup
-  emailSignupBonusClaimed: boolean
-  // Share tracking
-  totalShares: number
-  lastShareDate: string | null
-}
-
 const LOCAL_STORAGE_KEY = 'truthle_state'
 
 // Default state factory
 function getDefaultState(): TruthleLocalState {
-  return {
-    lastPlayedDate: null,
-    todayScore: null,
-    todayResults: null,
-    todayTimes: null,
-    streak: 0,
-    bestStreak: 0,
-    gamesPlayed: 0,
-    totalCorrect: 0,
-    // Coins & Rewards
-    coins: 0,
-    totalCoinsEarned: 0,
-    ownedItems: [],
-    equippedTheme: null,
-    equippedBadge: null,
-    equippedFrame: null,
-    equippedTitle: null,
-    // Powerup inventory
-    streakFreezes: 0,
-    hints: 0,
-    fiftyFifties: 0,
-    timeExtenders: 0,
-    doubleCoinsActive: false,
-    // Achievement tracking
-    perfectGames: 0,
-    fastAnswersTotal: 0,
-    unlockedAchievements: [],
-    // Email signup
-    emailSignupBonusClaimed: false,
-    // Share tracking
-    totalShares: 0,
-    lastShareDate: null,
-  }
+  return getDefaultTruthleState()
 }
 
 // Get local state from localStorage
@@ -102,12 +50,10 @@ export function getLocalState(): TruthleLocalState {
   try {
     const stored = localStorage.getItem(LOCAL_STORAGE_KEY)
     if (stored) {
-      // Merge with defaults to handle missing fields from older versions
-      const parsed = JSON.parse(stored)
-      return { ...getDefaultState(), ...parsed }
+      return sanitizeTruthleState(JSON.parse(stored))
     }
-  } catch (e) {
-    console.error('Error reading local state:', e)
+  } catch {
+    console.error('Error reading local state')
   }
 
   return getDefaultState()
@@ -118,17 +64,18 @@ export function saveLocalState(state: TruthleLocalState): void {
   if (typeof window === 'undefined') return
 
   try {
-    localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(state))
+    const safeState = sanitizeTruthleState(state)
+    localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(safeState))
     // Keep header CoinBalance pills in sync after awards/spends.
-    window.dispatchEvent(new CustomEvent('truthle:coins', { detail: state.coins }))
-  } catch (e) {
-    console.error('Error saving local state:', e)
+    window.dispatchEvent(new CustomEvent('truthle:coins', { detail: safeState.coins }))
+  } catch {
+    console.error('Error saving local state')
   }
 }
 
 // Check if user has played today (local check first, then Firebase)
 export async function hasPlayedToday(): Promise<{ played: boolean; attempt?: TruthleAttempt }> {
-  const today = getTodayDateString()
+  const today = getUtcDay()
 
   // Check local first
   const localState = getLocalState()
@@ -167,32 +114,12 @@ export async function hasPlayedToday(): Promise<{ played: boolean; attempt?: Tru
 
       return { played: true, attempt: data }
     }
-  } catch (e) {
-    console.error('Error checking Firebase:', e)
+  } catch {
+    console.error('Error checking Firebase')
     // Fall back to local-only if Firebase fails
   }
 
   return { played: false }
-}
-
-// Calculate current streak
-function calculateStreak(lastPlayedDate: string | null, currentStreak: number): number {
-  if (!lastPlayedDate) return 1
-
-  const today = new Date(getTodayDateString())
-  const lastPlayed = new Date(lastPlayedDate)
-  const diffDays = Math.floor((today.getTime() - lastPlayed.getTime()) / (1000 * 60 * 60 * 24))
-
-  if (diffDays === 1) {
-    // Played yesterday, continue streak
-    return currentStreak + 1
-  } else if (diffDays === 0) {
-    // Already played today (shouldn't happen)
-    return currentStreak
-  } else {
-    // Streak broken
-    return 1
-  }
 }
 
 // Save today's attempt
@@ -200,12 +127,27 @@ export async function saveAttempt(
   score: number,
   results: boolean[],
   times: number[]
-): Promise<{ success: boolean; streak: number }> {
-  const today = getTodayDateString()
+): Promise<{ success: boolean; streak: number; isFirstCompletion: boolean }> {
+  const today = getUtcDay()
   const localState = getLocalState()
+  const isFirstCompletion = localState.lastPlayedDate !== today || localState.todayScore === null
+
+  if (!isFirstCompletion) {
+    return {
+      success: true,
+      streak: getCompletionStreak({
+        lastPlayedDate: localState.lastPlayedDate,
+        currentStreak: localState.streak,
+      }, today),
+      isFirstCompletion: false,
+    }
+  }
 
   // Calculate streak
-  const streak = calculateStreak(localState.lastPlayedDate, localState.streak)
+  const streak = getCompletionStreak({
+    lastPlayedDate: localState.lastPlayedDate,
+    currentStreak: localState.streak,
+  }, today)
   const correctCount = results.filter(r => r).length
 
   // Update local state (spread existing state to preserve coins & rewards)
@@ -235,11 +177,11 @@ export async function saveAttempt(
       timestamp: serverTimestamp(),
     })
 
-    return { success: true, streak }
-  } catch (e) {
-    console.error('Error saving to Firebase:', e)
+    return { success: true, streak, isFirstCompletion: true }
+  } catch {
+    console.error('Error saving to Firebase')
     // Still return success since we saved locally
-    return { success: true, streak }
+    return { success: true, streak, isFirstCompletion: true }
   }
 }
 
@@ -250,7 +192,7 @@ export async function saveRetryAttempt(
   times: number[],
   streak: number
 ): Promise<{ success: boolean }> {
-  const today = getTodayDateString()
+  const today = getUtcDay()
 
   try {
     const user = await ensureAnonymousAuth()
@@ -265,8 +207,8 @@ export async function saveRetryAttempt(
     })
 
     return { success: true }
-  } catch (e) {
-    console.error('Error saving retry attempt:', e)
+  } catch {
+    console.error('Error saving retry attempt')
     return { success: false }
   }
 }
@@ -283,7 +225,10 @@ export function getStats(): {
 
   return {
     gamesPlayed: localState.gamesPlayed,
-    currentStreak: localState.streak,
+    currentStreak: getDisplayStreak({
+      lastPlayedDate: localState.lastPlayedDate,
+      currentStreak: localState.streak,
+    }),
     bestStreak: localState.bestStreak,
     averageScore: localState.gamesPlayed > 0
       ? Math.round(localState.totalCorrect / localState.gamesPlayed * 100)
@@ -562,7 +507,7 @@ export function claimEmailSignupBonus(): { success: boolean; coins: number } {
 // Record a share action
 export function recordShare(): { isFirstShare: boolean; newTotal: number } {
   const state = getLocalState()
-  const today = getTodayDateString()
+  const today = getUtcDay()
   const isFirstShare = state.totalShares === 0
   const newTotal = state.totalShares + 1
 
@@ -605,10 +550,10 @@ export async function getCloudRetryStatus(): Promise<TruthleRetryStatus> {
     const callable = httpsCallable<unknown, TruthleRetryStatus>(functionsClient, 'getTruthleRetryStatus')
     const response = await callable({})
     return response.data
-  } catch (error) {
-    console.error('Error getting retry status:', error)
+  } catch {
+    console.error('Error getting retry status')
     return {
-      date: getTodayDateString(),
+      date: getUtcDay(),
       granted: false,
       consumed: false,
       canConsume: false,
@@ -617,38 +562,127 @@ export async function getCloudRetryStatus(): Promise<TruthleRetryStatus> {
   }
 }
 
-export async function consumeCloudRetry(): Promise<{ success: boolean; remainingRetries: number }> {
-  try {
-    await ensureAnonymousAuth()
-    const callable = httpsCallable<unknown, { success: boolean; remainingRetries: number }>(functionsClient, 'consumeTruthleRetry')
-    const response = await callable({})
-    return response.data
-  } catch (error) {
-    console.error('Error consuming retry entitlement:', error)
-    return { success: false, remainingRetries: 0 }
-  }
-}
-
-// Starts Stripe Checkout for a paid extra attempt. Returns the hosted checkout URL.
 function withTimeout<T>(p: Promise<T>, ms: number, label: string): Promise<T> {
   return new Promise((resolve, reject) => {
-    const t = setTimeout(() => reject(new Error(`${label} timed out — please try again`)), ms)
+    const t = setTimeout(() => reject(new Error(`${label} timed out. Please try again.`)), ms)
     p.then((v) => { clearTimeout(t); resolve(v) }, (e) => { clearTimeout(t); reject(e) })
   })
 }
 
-// Starts Stripe Checkout for a paid extra attempt. Returns the hosted checkout URL.
-// Never hangs: auth + callable are bounded so the CTA always resets with an error.
-export async function createRetryCheckout(quantity = 1, returnTo: 'truthle' | 'true-false' = 'truthle'): Promise<{ url: string | null; error?: string }> {
+const commerceStorage: CommerceStorage = {
+  getItem(key) {
+    if (typeof window === 'undefined') return null
+    try { return localStorage.getItem(key) } catch { return null }
+  },
+  setItem(key, value) {
+    if (typeof window === 'undefined') return
+    try { localStorage.setItem(key, value) } catch { /* Best effort persistence. */ }
+  },
+  removeItem(key) {
+    if (typeof window === 'undefined') return
+    try { localStorage.removeItem(key) } catch { /* Best effort persistence. */ }
+  },
+}
+
+const DEFINITIVE_FIREBASE_CODES = [
+  'invalid-argument',
+  'failed-precondition',
+  'not-found',
+  'permission-denied',
+  'unauthenticated',
+  'already-exists',
+  'out-of-range',
+]
+
+function callableError(error: unknown): CommerceRequestError {
+  const code = typeof (error as { code?: unknown })?.code === 'string'
+    ? (error as { code: string }).code
+    : ''
+  const definitive = DEFINITIVE_FIREBASE_CODES.some((suffix) => code.endsWith(suffix))
+  return new CommerceRequestError('Commerce request failed', definitive)
+}
+
+async function callCommerce<TRequest, TResponse>(
+  name: string,
+  request: TRequest,
+  label: string
+): Promise<TResponse> {
+  const callable = httpsCallable<TRequest, TResponse>(functionsClient, name, { timeout: 20000 })
   try {
-    await withTimeout(ensureAnonymousAuth(), 10000, 'Sign-in')
-    const callable = httpsCallable<{ quantity: number; returnTo: string }, { url: string }>(functionsClient, 'createTruthleRetryCheckout', { timeout: 20000 })
-    const response = await withTimeout(callable({ quantity, returnTo }), 22000, 'Checkout')
-    if (!response.data?.url) return { url: null, error: 'Checkout unavailable right now' }
-    return { url: response.data.url }
+    const response = await withTimeout(callable(request), 22000, label)
+    return response.data
   } catch (error) {
-    console.error('Error creating checkout:', error)
-    return { url: null, error: (error as Error)?.message || 'Checkout unavailable' }
+    throw callableError(error)
+  }
+}
+
+const firebaseCommerceTransport: CommerceTransport = {
+  async authenticate() {
+    try {
+      await withTimeout(ensureAnonymousAuth(), 10000, 'Sign-in')
+    } catch {
+      throw new CommerceRequestError('Sign-in unavailable', false)
+    }
+  },
+  createRetryCheckout(request) {
+    return callCommerce('createTruthleRetryCheckout', request, 'Checkout')
+  },
+  getCheckoutStatus(request) {
+    return callCommerce('getTruthleCheckoutStatus', request, 'Checkout status')
+  },
+  consumeRetry(request) {
+    return callCommerce('consumeTruthleRetry', request, 'Extra attempt')
+  },
+  claimWallet(request) {
+    return callCommerce('claimTruthleWallet', request, 'Wallet claim')
+  },
+  redeemReward(request) {
+    return callCommerce('redeemCoins', request, 'Reward redemption')
+  },
+}
+
+const commerceService = createCommerceService({
+  storage: commerceStorage,
+  transport: firebaseCommerceTransport,
+  applyWalletClaim: ({ coins }) => {
+    if (coins > 0) addCoins(coins)
+  },
+})
+
+export interface TruthleCheckoutStatus {
+  status: CheckoutStatus
+  credits: number
+  error?: string
+}
+
+export async function getTruthleCheckoutStatus({ sessionId }: { sessionId: string }): Promise<TruthleCheckoutStatus> {
+  try {
+    return await commerceService.getCheckoutStatus(sessionId)
+  } catch {
+    return { status: 'failed', credits: 0, error: 'Checkout status unavailable' }
+  }
+}
+
+export async function consumeCloudRetry(): Promise<{ success: boolean; remainingRetries: number }> {
+  try {
+    return await commerceService.consumeRetry()
+  } catch {
+    console.error('Error consuming retry entitlement')
+    return { success: false, remainingRetries: 0 }
+  }
+}
+
+export async function createRetryCheckout(
+  quantity = 1,
+  returnTo: 'truthle' | 'true-false' = 'truthle',
+  options: { shareCode?: string } = {}
+): Promise<{ url: string | null; id?: string; error?: string }> {
+  try {
+    const result = await commerceService.createRetryCheckout(quantity, returnTo, options.shareCode)
+    return { url: result.url, id: result.id }
+  } catch {
+    console.error('Error creating checkout')
+    return { url: null, error: 'Checkout unavailable' }
   }
 }
 
@@ -657,47 +691,32 @@ export async function createRetryCheckout(quantity = 1, returnTo: 'truthle' | 't
 // ============================================
 
 /**
- * Sync coins from Firestore (earned via offer wall)
- * The cloud function credits coins to Firestore when users complete offers.
- * This function fetches those coins and adds them to local balance.
+ * Claims offer-wall coins through the server. The same durable request ID is
+ * reused after a lost response and the local claim receipt prevents duplicate adds.
  */
 export async function syncCloudCoins(): Promise<number> {
   try {
-    const user = await ensureAnonymousAuth()
-    const walletRef = doc(db, 'users', user.uid, 'wallet', 'balance')
-    const walletDoc = await getDoc(walletRef)
-
-    if (!walletDoc.exists()) {
-      return 0
-    }
-
-    const cloudCoins = walletDoc.data()?.coins || 0
-
-    if (cloudCoins > 0) {
-      // Add cloud coins to local balance
-      const state = getLocalState()
-      const newBalance = state.coins + cloudCoins
-
-      // Update local state
-      saveLocalState({
-        ...state,
-        coins: newBalance,
-        totalCoinsEarned: state.totalCoinsEarned + cloudCoins,
-      })
-
-      // Clear cloud balance (move to local)
-      // Note: In production, you might want to keep a ledger instead
-      await setDoc(walletRef, { coins: 0, lastSynced: serverTimestamp() }, { merge: true })
-
-      console.log(`Synced ${cloudCoins} coins from cloud`)
-      return cloudCoins
-    }
-
-    return 0
-  } catch (e) {
-    console.error('Error syncing cloud coins:', e)
+    const claim = await commerceService.claimWallet()
+    return claim.applied ? claim.coins : 0
+  } catch {
+    console.error('Error claiming cloud coins')
     return 0
   }
+}
+
+export async function claimTruthleWallet({ requestId }: { requestId: string }): Promise<{
+  claimId: string
+  coins: number
+  applied: boolean
+}> {
+  return commerceService.claimWallet(requestId)
+}
+
+export async function redeemCloudReward({ rewardId }: { rewardId: string }): Promise<{
+  redemptionId: string
+  newBalance: number
+}> {
+  return commerceService.redeemReward(rewardId)
 }
 
 // ============================================
@@ -707,19 +726,23 @@ export async function syncCloudCoins(): Promise<number> {
 export interface SharePromo { code: string; expiresAt: string }
 
 function sharePromoKey(): string {
-  return `wt_share_promo_v1_${new Date().toISOString().slice(0, 10)}`
+  return `wt_share_promo_v1_${getUtcDay()}`
 }
 
 export function getStoredSharePromo(): SharePromo | null {
   if (typeof window === 'undefined') return null
   try {
     const raw = localStorage.getItem(sharePromoKey())
-    return raw ? (JSON.parse(raw) as SharePromo) : null
+    if (!raw) return null
+    const parsed = JSON.parse(raw) as Partial<SharePromo>
+    return typeof parsed.code === 'string' && parsed.code.length > 0 && typeof parsed.expiresAt === 'string'
+      ? { code: parsed.code, expiresAt: parsed.expiresAt }
+      : null
   } catch { return null }
 }
 
 let mintInFlight: Promise<SharePromo | null> | null = null
-// Mints (or returns today's existing) single-use friend code. Server enforces 1 per uid per UTC day.
+// Explicit share action only. Server enforces one code per authenticated user per UTC day.
 export function mintSharePromo(): Promise<SharePromo | null> {
   const cached = getStoredSharePromo()
   if (cached) return Promise.resolve(cached)
@@ -734,10 +757,14 @@ export function mintSharePromo(): Promise<SharePromo | null> {
       if (!res.data?.code) return null
       localStorage.setItem(sharePromoKey(), JSON.stringify(res.data))
       return res.data
-    } catch (e) {
-      console.error('Error minting share promo:', e)
+    } catch {
+      console.error('Error minting share promo')
       return null
     } finally { mintInFlight = null }
   })()
   return mintInFlight
+}
+
+export function createTruthleSharePromo(): Promise<SharePromo | null> {
+  return mintSharePromo()
 }

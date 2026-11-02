@@ -1,8 +1,9 @@
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: 'Country Charts & Rankings | Compare 89 Statistics - World Truth Map',
-  description: 'Interactive charts comparing countries by GDP, IQ, taxes, crime, happiness & 80+ more statistics. Bar charts, scatter plots, and correlation explorer.',
+  title: 'Country Charts: 93 Statistics and Rankings | The World Truth',
+  description:
+    'Compare 93 country statistics with rankings, scatter plots and a custom correlation explorer. Every chart selection has its own link.',
   keywords: [
     'country rankings',
     'country charts',
@@ -15,15 +16,17 @@ export const metadata: Metadata = {
     'data visualization',
   ],
   openGraph: {
-    title: 'Country Charts & Rankings - 89 Statistics Visualized',
-    description: 'Compare countries with interactive charts: GDP, IQ, taxes, crime & more. Discover correlations between statistics.',
+    title: 'Country Charts and Rankings Across 93 Statistics',
+    description:
+      'Compare countries with interactive charts for 93 measures, including rankings, a wealth and democracy view and a custom correlation explorer.',
     url: 'https://theworldtruth.com/charts/',
     images: ['/og-image.png'],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Country Rankings & Charts 📊',
-    description: 'Interactive charts comparing 164 countries by 89 statistics. Find patterns in world data.',
+    title: 'Country Rankings and Charts',
+    description:
+      'Interactive charts compare countries across 93 measures. Find patterns and keep the exact chart selection in a direct link.',
   },
   alternates: {
     canonical: '/charts/',
