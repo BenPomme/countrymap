@@ -202,6 +202,11 @@ export default function MapFeature({
             title={`${config.name} by country`}
             description={shareDescription}
             url={shareUrl}
+            sourceName={sourceName?.trim() || 'Unknown'}
+            sourceVintage={vintage?.trim() || 'Unknown'}
+            sourceUrl={sourceUrl}
+            contentId={`map_${slug}`}
+            placement="map_feature"
             className="twt-button !rounded-full !bg-[#294cc4] !px-5 !py-2.5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#294cc4]"
           />
         </div>

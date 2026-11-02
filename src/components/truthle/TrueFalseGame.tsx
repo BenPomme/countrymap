@@ -472,7 +472,7 @@ export default function TrueFalseGame({ countries }: { countries: Country[] }) {
           <p className="twt-kicker">Daily true or false · Day {dayNumber}</p>
           <h1 className="twt-display mt-2 text-4xl font-black text-[#192947]">True or False: World</h1>
           <p className="twt-prose mt-4 text-[#43516b]">
-            {questions.length} eligible {questions.length === 1 ? 'claim' : 'claims'} about countries and world statistics. Everyone gets the same set for the UTC day.
+            Five claims about countries and world statistics. Everyone gets the same set for the UTC day.
           </p>
           <p className="mt-3 text-sm leading-6 text-[#59647a]">
             Reveal the recorded source, year, coverage and limitations after every call. Some archived metrics have unknown provenance, so not every archive entry is used here.
@@ -541,7 +541,7 @@ export default function TrueFalseGame({ countries }: { countries: Country[] }) {
 
           <div className="twt-panel mt-4 p-6 text-left sm:p-8">
             <p className="twt-kicker">{claim.variableName}</p>
-            <p className="twt-display mt-3 text-2xl font-black leading-snug text-[#192947] sm:text-3xl">{claim.claim}</p>
+            <h1 className="twt-display mt-3 text-2xl font-black leading-snug text-[#192947] sm:text-3xl">{claim.claim}</h1>
           </div>
 
           {picked === null ? (
@@ -611,7 +611,7 @@ export default function TrueFalseGame({ countries }: { countries: Country[] }) {
 
         <section className="twt-panel p-6 text-left sm:p-8" aria-label="Extra Attempt">
           <p className="twt-kicker">Optional Extra Attempt</p>
-          <p className="mt-2 text-sm leading-6 text-[#43516b]">{T.extraAttemptBlurb} The same server entitlement can be used in either daily game.</p>
+          <p className="mt-2 text-sm leading-6 text-[#43516b]">{T.extraAttemptBlurb} An Extra Attempt can be used in either daily game.</p>
           <p className="mt-1 text-xs leading-5 text-[#59647a]">An Extra Attempt never replaces your first result, adds streak days or duplicates first-completion rewards.</p>
 
           <div className="mt-4">
@@ -655,7 +655,7 @@ export default function TrueFalseGame({ countries }: { countries: Country[] }) {
         <div className="pb-8 text-center">
           <Link href="/true-false/claims/" className="text-sm font-semibold text-[#294cc4] underline">Browse the claims archive</Link>
           <p className="mt-2 text-xs leading-5 text-[#59647a]">Source details are shown where recorded. Many archived metrics have unknown provenance.</p>
-          <p className="mt-1 text-xs text-[#59647a]">New eligible questions unlock at 00:00 UTC.</p>
+          <p className="mt-1 text-xs text-[#59647a]">New questions unlock at 00:00 UTC.</p>
         </div>
       </div>
     </>

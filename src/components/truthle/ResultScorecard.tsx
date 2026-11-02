@@ -24,13 +24,14 @@ export default function ResultScorecard({
 }: ResultScorecardProps) {
   const scoreValue = game === 'truthle' ? score.toLocaleString('en-GB') : `${correct}/${total}`
   const scoreDetail = game === 'truthle' ? 'points' : 'correct'
+  const ResultHeading = game === 'true-false' ? 'h1' : 'h2'
 
   return (
     <section className="twt-panel mx-auto w-full max-w-2xl px-4 py-4 text-left sm:px-6 sm:py-5" aria-label="Your result">
       <div className="flex flex-wrap items-baseline justify-between gap-x-3 gap-y-1">
         <div>
           <p className="twt-kicker">Daily result</p>
-          <h2 className="twt-display mt-1 text-xl font-black text-[#192947] sm:text-2xl">{GAME_TITLES[game]}</h2>
+          <ResultHeading className="twt-display mt-1 text-xl font-black text-[#192947] sm:text-2xl">{GAME_TITLES[game]}</ResultHeading>
         </div>
         <p className="text-xs font-semibold text-[#59647a] sm:text-sm">Day {day}</p>
       </div>

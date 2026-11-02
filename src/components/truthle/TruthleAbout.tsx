@@ -61,7 +61,7 @@ export default function TruthleAbout() {
                 <div>
                   <h3 className="twt-display text-xl font-black">What makes it different</h3>
                   <p className="mt-3 text-sm leading-6 text-[#43516b]">
-                    You are not hunting for a country by its shape or place on a map. You are comparing the figures behind a question and checking the trail back to the data.
+                    Each question compares recorded figures for countries or world statistics. After you answer, the page shows the figure and the available source details.
                   </p>
                 </div>
               </div>

@@ -16,6 +16,7 @@ import {
   type RankPosition,
 } from '@/components/map/rankingPresentation'
 import VisualShare from '@/components/share/VisualShare'
+import { absoluteSiteUrl } from '@/components/share/shareState'
 import { AdBanner, AdSidebar } from '@/components/ads'
 import { AD_SLOTS } from '@/lib/constants/ads'
 import ContextualOffers from '@/components/affiliate/ContextualOffers'
@@ -282,6 +283,12 @@ export default function CountryClient({ slug }: { slug: string }) {
                   description={topStat
                     ? `${flag} ${country.name}: ${topStat.name}, ${topStat.rankLabel}. ${topStat.directionLabel} See all country rankings at The World Truth Map.`
                     : `${flag} ${country.name} country data portrait. Explore stored country metrics at The World Truth Map.`}
+                  url={absoluteSiteUrl(`/country/${slug}/`)}
+                  sourceName={topStat ? topStat.provenance.sourceName?.trim() || 'Unknown' : 'Multiple sources; see country page'}
+                  sourceVintage={topStat ? topStat.provenance.year?.trim() || 'Unknown' : 'Vintages vary; some Unknown'}
+                  sourceUrl={topStat?.provenance.sourceUrl}
+                  contentId={`country_${slug}`}
+                  placement="country_header"
                   className="!rounded-full !border-2 !border-twt-ink !bg-twt-blue !px-4 !py-2 !font-extrabold !text-white hover:!bg-twt-ink"
                 />
               </div>

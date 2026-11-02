@@ -241,6 +241,7 @@ export default function HomePage() {
 
   const currentVariable = VARIABLES[colorVariable]
   const currentEntry = getVariableById(colorVariable)
+  const currentProvenance = getMetricProvenance(colorVariable)
   const filteredCountries = useMemo(
     () => filterCountries(countries, filters),
     [filters]
@@ -622,6 +623,11 @@ export default function HomePage() {
                     title={`${currentVariable.name} map`}
                     description={`Explore ${currentVariable.name} by country on The World Truth.`}
                     url={mapShareUrl}
+                    sourceName={currentProvenance.sourceName?.trim() || 'Unknown'}
+                    sourceVintage={currentProvenance.year?.trim() || 'Unknown'}
+                    sourceUrl={currentProvenance.sourceUrl}
+                    contentId={`map_${currentEntry?.slug ?? colorVariable}`}
+                    placement="home_explorer"
                     className="!min-h-11 !rounded-full !border-2 !border-twt-ink/20 !bg-white !px-4 !py-2 !text-sm !font-bold !text-twt-ink hover:!border-twt-ink hover:!bg-twt-butter"
                   />
                   <button

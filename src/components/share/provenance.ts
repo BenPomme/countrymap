@@ -9,7 +9,7 @@ export interface ShareProvenance {
 }
 
 const FALLBACK_PROVENANCE: ShareProvenance = {
-  sourceName: 'The World Truth country dataset',
+  sourceName: 'Unknown',
   sourceVintage: 'Unknown',
 }
 
@@ -40,6 +40,6 @@ export function resolveShareProvenance(
   return {
     sourceName: `${sources.join('; ') || fallback.sourceName}${unknownSuffix}`,
     sourceVintage: `${vintages.join('; ') || 'Unknown'}${unknownSuffix}`,
-    sourceUrl: notes.length === 1 ? availableNotes[0].url : undefined,
+    sourceUrl: notes.length === 1 && availableNotes.length === 1 ? availableNotes[0].url : undefined,
   }
 }

@@ -348,12 +348,30 @@ test('share provenance says Unknown when a measure has no verified vintage', () 
   const known = resolveShareProvenance(['freedom.pressFreedom'])
   assert.equal(known.sourceName, note.source)
   assert.equal(known.sourceVintage, note.vintage)
+  assert.equal(known.sourceUrl, note.url)
+
+  const empty = resolveShareProvenance([])
+  assert.equal(empty.sourceName, 'Unknown')
+  assert.equal(empty.sourceVintage, 'Unknown')
+  assert.equal(empty.sourceUrl, undefined)
+
+  const unknown = resolveShareProvenance(['not.a.measured.metric'])
+  assert.equal(unknown.sourceName, 'Unknown')
+  assert.equal(unknown.sourceVintage, 'Unknown')
+  assert.equal(unknown.sourceUrl, undefined)
 
   const mixed = resolveShareProvenance(['freedom.pressFreedom', 'not.a.measured.metric'])
+  assert.match(mixed.sourceName, /Reporters Without Borders/)
+  assert.match(mixed.sourceName, /Unknown for one or more measures/)
   assert.match(mixed.sourceVintage, /Unknown for one or more measures/)
   assert.doesNotMatch(mixed.sourceVintage, /latest available release per source/i)
-  assert.equal(resolveShareProvenance([]).sourceVintage, 'Unknown')
-  assert.equal(resolveShareProvenance(['not.a.measured.metric']).sourceVintage, 'Unknown')
+
+  const multipleKnown = resolveShareProvenance(['freedom.pressFreedom', 'lifestyle.happinessIndex'])
+  assert.match(multipleKnown.sourceName, /Reporters Without Borders/)
+  assert.match(multipleKnown.sourceName, /World Happiness Report/)
+  assert.match(multipleKnown.sourceVintage, /RSF 2026/)
+  assert.match(multipleKnown.sourceVintage, /WHR 2026/)
+  assert.equal(multipleKnown.sourceUrl, undefined)
 })
 
 test('ad banner helper collapses disabled and unfilled placements', () => {

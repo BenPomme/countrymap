@@ -68,9 +68,9 @@ export default function TrueFalseAbout() {
                   </ol>
                 </div>
                 <div>
-                  <h3 className="twt-display text-xl font-black">A stricter kind of true or false</h3>
+                  <h3 className="twt-display text-xl font-black">What each claim compares</h3>
                   <p className="mt-3 text-sm leading-6 text-[#43516b]">
-                    These are not loose general-knowledge statements. Each available round uses exactly five claims built from recorded country data, with the available source trail shown after every call.
+                    Each claim compares recorded figures for countries or world statistics. After every call, the page shows the figures and the available source details.
                   </p>
                 </div>
               </div>
