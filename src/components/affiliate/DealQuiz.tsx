@@ -151,8 +151,8 @@ export default function DealQuiz({ slug, category = '', name = '', plain = false
         <div className="mt-4">
           <AffiliateShelf
             placement={`map-quiz-${theme.key}`}
-            heading="Ordinary Amazon search picks"
-            intro="These search recommendations are visible before you answer and at every score."
+            heading="Ordinary Amazon picks"
+            intro="These recommendations are visible before you answer and at every score."
             picks={theme.picks}
           />
         </div>

@@ -3,14 +3,36 @@
  * inlined at build time). Amazon defaults to the public Associates tag.
  */
 export const AMAZON_ASSOCIATE_TAG = process.env.NEXT_PUBLIC_AMAZON_ASSOCIATE_TAG || 'worldtruth-21'
-// Amazon storefront domain matching the Associates account (e.g. amazon.co.uk, amazon.com)
-export const AMAZON_DOMAIN = process.env.NEXT_PUBLIC_AMAZON_DOMAIN || 'amazon.co.uk'
+// Amazon storefront domain matching the Associates account (e.g. amazon.fr, amazon.com)
+export const AMAZON_DOMAIN = process.env.NEXT_PUBLIC_AMAZON_DOMAIN || 'amazon.fr'
 export const BOOKING_AID = process.env.NEXT_PUBLIC_BOOKING_AID || ''
 export const VPN_AFFILIATE_URL = process.env.NEXT_PUBLIC_VPN_AFFILIATE_URL || ''
 
-export function amazonSearchUrl(query: string): string | null {
-  if (!AMAZON_ASSOCIATE_TAG) return null
-  return `https://www.${AMAZON_DOMAIN}/s?k=${encodeURIComponent(query)}&tag=${encodeURIComponent(AMAZON_ASSOCIATE_TAG)}`
+export function amazonSearchUrl(
+  query: string,
+  domain: string = AMAZON_DOMAIN,
+  associateTag: string = AMAZON_ASSOCIATE_TAG,
+): string | null {
+  if (!domain || !associateTag) return null
+  return `https://www.${domain}/s?k=${encodeURIComponent(query)}&tag=${encodeURIComponent(associateTag)}`
+}
+
+export function amazonProductUrl(
+  asin: string,
+  domain: string = AMAZON_DOMAIN,
+  associateTag: string = AMAZON_ASSOCIATE_TAG,
+): string | null {
+  const normalizedAsin = asin.trim().toUpperCase()
+  if (!domain || !associateTag || !/^[A-Z0-9]{10}$/.test(normalizedAsin)) return null
+  return `https://www.${domain}/dp/${normalizedAsin}?tag=${encodeURIComponent(associateTag)}`
+}
+
+export function amazonDealsUrl(
+  domain: string = AMAZON_DOMAIN,
+  associateTag: string = AMAZON_ASSOCIATE_TAG,
+): string | null {
+  if (!domain || !associateTag) return null
+  return `https://www.${domain}/gp/goldbox?tag=${encodeURIComponent(associateTag)}`
 }
 
 export function bookingSearchUrl(query?: string): string | null {

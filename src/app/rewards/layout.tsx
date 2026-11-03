@@ -1,15 +1,18 @@
 import type { Metadata } from 'next'
+import { getAmazonStorefrontLabel } from '@/lib/affiliate/rewards'
+
+const storefront = getAmazonStorefrontLabel()
 
 export const metadata: Metadata = {
   title: 'Rewards and Codes | Truthle Coins, Shop and Friend Gifts',
-  description: 'Find the real rewards available now: daily games, the existing Truthle Coins shop, one-use friend Extra Attempt codes and ordinary Amazon UK search picks.',
+  description: `Find the real rewards available now: daily games, the existing Truthle Coins shop, one-use friend Extra Attempt codes and ordinary ${storefront} picks.`,
   keywords: [
     'truthle rewards',
     'truthle coins',
     'truthle shop',
     'friend extra attempt',
     'truthle challenge link',
-    'amazon uk search picks',
+    `${storefront.toLowerCase()} picks`,
   ],
   openGraph: {
     title: 'Rewards and Codes | The World Truth',

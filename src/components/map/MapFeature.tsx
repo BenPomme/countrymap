@@ -378,16 +378,7 @@ export default function MapFeature({
         />
 
         <div className="min-w-0 lg:mt-6">
-          <div className="rounded-t-[1.5rem] border-2 border-b-0 border-[#192947]/15 bg-[#ffda62] px-5 pb-4 pt-5">
-            <p className="text-[10px] font-black uppercase tracking-[0.18em] text-[#192947]/60">Ordinary links</p>
-            <h2 className="twt-display mt-1 text-2xl font-black leading-tight text-[#192947]">Books and contextual links</h2>
-            <p className="mt-2 text-xs leading-5 text-[#192947]/65">
-              These include Amazon search and related partner links, not verified deals. They do not affect the ranking or the data.
-            </p>
-          </div>
-          <div className="[&>aside]:mt-0 [&>aside]:rounded-t-none [&>aside]:border-2 [&>aside]:border-[#192947]/15">
-            <ContextualOffers slug={slug} category={category} name={name} />
-          </div>
+          <ContextualOffers slug={slug} category={category} name={name} compact />
         </div>
       </div>
 

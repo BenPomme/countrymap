@@ -21,6 +21,7 @@ import { AdBanner, AdSidebar } from '@/components/ads'
 import { AD_SLOTS } from '@/lib/constants/ads'
 import { VisualShare } from '@/components/share'
 import { useEmbeddedAppMode } from '@/lib/useEmbeddedAppMode'
+import DailyAmazonPicks from '@/components/affiliate/DailyAmazonPicks'
 import {
   getVariableById,
   getVariableBySlug,
@@ -560,6 +561,12 @@ export default function HomePage() {
                   Browse discoveries
                   <ArrowUpRight className="h-3.5 w-3.5" aria-hidden="true" />
                 </Link>
+              </div>
+            </div>
+
+            <div className="bg-twt-paper py-6 sm:py-8">
+              <div className="twt-container">
+                <DailyAmazonPicks placement="home-hero" />
               </div>
             </div>
 
