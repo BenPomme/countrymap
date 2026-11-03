@@ -44,8 +44,8 @@ export default function RewardsPage() {
 
         <DailyAmazonPicks
           placement="rewards-hub"
-          heading={`Everyday ${storefront} search picks`}
-          intro={`Ordinary ${storefront} search recommendations. They are available whatever your score and are not verified discounts.`}
+          heading={`Everyday ${storefront} picks`}
+          intro={`Ordinary ${storefront} recommendations. They are available whatever your score and are not verified discounts.`}
         />
 
         <section aria-labelledby="available-now-heading">

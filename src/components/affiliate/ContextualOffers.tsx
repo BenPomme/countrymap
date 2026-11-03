@@ -5,7 +5,7 @@ import { BedDouble, BookOpen, ExternalLink, ShieldCheck } from 'lucide-react'
 import AffiliatePhoto from '@/components/affiliate/AffiliatePhoto'
 import { AmazonDealsAction } from '@/components/affiliate/AffiliateShelf'
 import { trackEvent } from '@/lib/analytics/events'
-import { amazonSearchUrl, bookingSearchUrl, vpnUrl } from '@/lib/constants/affiliates'
+import { AMAZON_DOMAIN, amazonSearchUrl, bookingSearchUrl, vpnUrl } from '@/lib/constants/affiliates'
 import { ATLAS_PHOTO } from '@/lib/affiliate/photos'
 import {
   BOOKING_DISCLOSURE,
@@ -59,7 +59,10 @@ export default function ContextualOffers({
   const offers: Offer[] = []
   const storefront = getAmazonStorefrontLabel()
 
-  const books = amazonSearchUrl(`world atlas ${name || 'country statistics'}`.trim())
+  const booksQuery = AMAZON_DOMAIN === 'amazon.fr'
+    ? `atlas mondial ${name || 'données pays'}`.trim()
+    : `world atlas ${name || 'country statistics'}`.trim()
+  const books = amazonSearchUrl(booksQuery)
   if (books) {
     offers.push({
       href: books,
@@ -163,7 +166,7 @@ export default function ContextualOffers({
       </ul>
 
       {hasAmazonOffer && (
-        <p className="mt-3 text-xs leading-5 text-twt-ink/55">Illustrative photos. Explore matching products on Amazon.</p>
+        <p className="mt-3 text-xs leading-5 text-twt-ink/55">Illustrative photos. Explore matching products on {storefront}.</p>
       )}
 
       <div className="mt-4 border-t border-twt-ink/15 pt-3">

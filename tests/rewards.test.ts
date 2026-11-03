@@ -16,17 +16,27 @@ import {
   COMMISSION_DISCLOSURE,
   FRIEND_GIFT_TERMS,
   getAffiliateContentId,
+  getAmazonDestinationKind,
+  getAmazonDisclosure,
+  getAmazonPicks,
   getAmazonStorefrontLabel,
   getAvailableOrdinaryPicks,
   getOrdinaryPicks,
   type OrdinaryPick,
 } from '../src/lib/affiliate/rewards'
-import { getMillisecondsUntilNextUtcDay } from '../src/lib/affiliate/dailyUnlocks'
+import {
+  GENERAL_PICKS,
+  PRESS_PICKS,
+  WORLD_GAME_PRODUCT,
+  getMillisecondsUntilNextUtcDay,
+} from '../src/lib/affiliate/dailyUnlocks'
+import { getAffiliatePhotoKey } from '../src/lib/affiliate/photos'
 import { filterEventParams } from '../src/lib/analytics/events'
 import {
   AMAZON_ASSOCIATE_TAG,
   AMAZON_DOMAIN,
   amazonDealsUrl,
+  amazonProductUrl,
   amazonSearchUrl,
 } from '../src/lib/constants/affiliates'
 
@@ -299,12 +309,112 @@ test('ordinary Amazon picks are identical at zero and full score', () => {
   assert.ok(atZero.length > 0)
   assert.deepEqual(atZero, atFull)
   assert.ok(atZero.every((pick) => Boolean(pick.href)))
+  assert.equal(getAmazonStorefrontLabel('amazon.fr'), 'Amazon France')
   assert.equal(getAmazonStorefrontLabel('amazon.co.uk'), 'Amazon UK')
   assert.match(COMMISSION_DISCLOSURE, /commission/i)
   assert.equal(FRIEND_GIFT_TERMS.some((term) => /23:59:59 UTC/.test(term)), true)
   assert.equal(FRIEND_GIFT_TERMS.some((term) => /can be used once/.test(term)), true)
   assert.equal(FRIEND_GIFT_TERMS.some((term) => /one friend code per UTC day/.test(term)), true)
   assert.equal(FRIEND_GIFT_TERMS.some((term) => /self-use/i.test(term)), false)
+})
+
+test('Amazon defaults to France and keeps the public Associates tag', () => {
+  const affiliatesSource = readSource('src/lib/constants/affiliates.ts')
+  assert.match(affiliatesSource, /NEXT_PUBLIC_AMAZON_DOMAIN \|\| 'amazon\.fr'/)
+  assert.match(affiliatesSource, /NEXT_PUBLIC_AMAZON_ASSOCIATE_TAG \|\| 'worldtruth-21'/)
+
+  const search = new URL(amazonSearchUrl('atlas mondial', 'amazon.fr', 'worldtruth-21') ?? '')
+  assert.equal(search.hostname, 'www.amazon.fr')
+  assert.equal(search.searchParams.get('tag'), 'worldtruth-21')
+
+  const deals = new URL(amazonDealsUrl('amazon.fr', 'worldtruth-21') ?? '')
+  assert.equal(deals.hostname, 'www.amazon.fr')
+  assert.equal(deals.searchParams.get('tag'), 'worldtruth-21')
+})
+
+test('built-in picks use natural French destinations without changing stable identity', () => {
+  const general = getAmazonPicks(GENERAL_PICKS, 'amazon.fr', 'worldtruth-21')
+  const atlas = general.find((pick) => pick.query === 'world atlas')
+  assert.ok(atlas?.href)
+
+  const atlasUrl = new URL(atlas.href)
+  assert.equal(atlasUrl.hostname, 'www.amazon.fr')
+  assert.equal(atlasUrl.pathname, '/s')
+  assert.equal(atlasUrl.searchParams.get('k'), 'atlas mondial')
+  assert.equal(atlasUrl.searchParams.get('tag'), 'worldtruth-21')
+  assert.equal(getAffiliateContentId(atlas.query), 'amazon_world-atlas')
+  assert.equal(getAffiliatePhotoKey(atlas), 'atlas')
+
+  const privacy = getAmazonPicks(PRESS_PICKS, 'amazon.fr', 'worldtruth-21')
+    .find((pick) => pick.query === 'privacy screen protector laptop')
+  assert.ok(privacy?.href)
+
+  const privacyUrl = new URL(privacy.href)
+  assert.equal(privacyUrl.searchParams.get('k'), 'protecteur écran confidentialité ordinateur portable')
+  assert.match(privacyUrl.href, /%C3%A9/)
+  assert.equal(getAffiliateContentId(privacy.query), 'amazon_privacy-screen-protector-laptop')
+  assert.equal(getAffiliatePhotoKey(privacy), 'privacy-screen')
+})
+
+test('world trivia pick uses the tagged verified Amazon.fr product destination', () => {
+  const worldPick = GENERAL_PICKS.find((pick) => pick.amazonProduct)
+  assert.ok(worldPick)
+  assert.equal(worldPick.amazonProduct?.asin, 'B0D983R6B6')
+
+  const [result] = getAmazonPicks([worldPick], 'amazon.fr', 'worldtruth-21')
+  assert.ok(result.href)
+
+  const productUrl = new URL(result.href)
+  assert.equal(productUrl.hostname, 'www.amazon.fr')
+  assert.equal(productUrl.pathname, '/dp/B0D983R6B6')
+  assert.equal(productUrl.searchParams.get('tag'), 'worldtruth-21')
+  assert.deepEqual(Array.from(productUrl.searchParams.keys()), ['tag'])
+  assert.deepEqual(result.destination, {
+    kind: 'product',
+    asin: 'B0D983R6B6',
+    title: 'The World Game: geography board game, French edition',
+    cta: 'View product on Amazon France',
+  })
+  assert.equal(getAffiliateContentId(result.query), 'amazon_geography-trivia-game')
+  assert.equal(getAffiliatePhotoKey(result), 'trivia')
+  assert.equal(
+    amazonProductUrl(WORLD_GAME_PRODUCT.asin, 'amazon.fr', 'worldtruth-21'),
+    result.href,
+  )
+})
+
+test('non-French marketplaces keep the category search fallback for the product pick', () => {
+  const worldPick = GENERAL_PICKS.find((pick) => pick.amazonProduct)
+  assert.ok(worldPick)
+
+  for (const domain of ['amazon.com', 'amazon.co.uk']) {
+    const [result] = getAmazonPicks([worldPick], domain, 'worldtruth-21')
+    assert.ok(result.href)
+
+    const fallbackUrl = new URL(result.href)
+    assert.equal(fallbackUrl.hostname, `www.${domain}`)
+    assert.equal(fallbackUrl.pathname, '/s')
+    assert.equal(fallbackUrl.searchParams.get('k'), 'geography trivia game')
+    assert.equal(fallbackUrl.searchParams.get('tag'), 'worldtruth-21')
+    assert.deepEqual(result.destination, { kind: 'search', query: 'geography trivia game' })
+  }
+})
+
+test('mixed shelves distinguish product and search cards in their disclosure', () => {
+  const picks = getAmazonPicks(GENERAL_PICKS, 'amazon.fr', 'worldtruth-21')
+  assert.equal(getAmazonDestinationKind(picks), 'mixed')
+
+  const product = picks.find((pick) => pick.destination?.kind === 'product')
+  const search = picks.filter((pick) => pick.destination?.kind === 'search')
+  assert.ok(product)
+  assert.ok(search.length > 0)
+  assert.equal(getAmazonDestinationKind([product]), 'product')
+  assert.equal(getAmazonDestinationKind(search), 'search')
+
+  const disclosure = getAmazonDisclosure('amazon.fr', 'mixed')
+  assert.match(disclosure, /Amazon France/)
+  assert.match(disclosure, /Search cards open search results/)
+  assert.match(disclosure, /product card opens a specific product page/)
 })
 
 test('Amazon search and deals links preserve the configured marketplace and tag', () => {
@@ -423,10 +533,32 @@ test('affiliate shelves keep sponsored links and consent-aware event paths', () 
   assert.match(shelfSource, /trackEvent\('affiliate_click'/)
   assert.match(shelfSource, /amazon_daily_deals/)
   assert.match(shelfSource, /amazonDealsUrl\(\)/)
+  assert.match(shelfSource, /Product pick/)
+  assert.match(shelfSource, /Search pick/)
+  assert.match(shelfSource, /not product images/)
   assert.match(contextualSource, /<AmazonDealsAction placement="map-context"/)
   assert.match(contextualSource, /rel="sponsored nofollow noopener noreferrer"/)
   assert.doesNotMatch(shelfSource, /fetch\(|sendBeacon|gtag\(/)
   assert.doesNotMatch(contextualSource, /fetch\(|sendBeacon|gtag\(/)
+})
+
+test('default rewards surfaces do not hardcode a UK storefront label', () => {
+  const files = [
+    'src/app/rewards/page.tsx',
+    'src/app/rewards/layout.tsx',
+    'src/components/truthle/RewardsTeaser.tsx',
+    'src/components/affiliate/AffiliateShelf.tsx',
+    'src/components/affiliate/ContextualOffers.tsx',
+    'src/components/affiliate/DealQuiz.tsx',
+  ]
+
+  for (const file of files) {
+    const source = readSource(file)
+    assert.doesNotMatch(source, /Amazon UK|amazon\.co\.uk/i, file)
+  }
+
+  assert.match(readSource('src/app/rewards/layout.tsx'), /getAmazonStorefrontLabel/)
+  assert.match(readSource('src/components/truthle/RewardsTeaser.tsx'), /getAmazonStorefrontLabel/)
 })
 
 test('email preferences remain disabled and are not mounted', () => {

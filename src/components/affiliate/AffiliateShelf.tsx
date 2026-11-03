@@ -17,10 +17,11 @@ import {
 } from 'lucide-react'
 import AffiliatePhoto from '@/components/affiliate/AffiliatePhoto'
 import { trackEvent } from '@/lib/analytics/events'
-import { amazonDealsUrl } from '@/lib/constants/affiliates'
+import { AMAZON_DOMAIN, amazonDealsUrl } from '@/lib/constants/affiliates'
 import { getAffiliatePhoto, type AffiliatePhotoKey } from '@/lib/affiliate/photos'
 import {
   getAffiliateContentId,
+  getAmazonDestinationKind,
   getAmazonDisclosure,
   getAmazonStorefrontLabel,
   getAvailableOrdinaryPicks,
@@ -115,6 +116,17 @@ export default function AffiliateShelf({
   const resolvedHeading = heading ?? 'Finds for curious minds'
   const resolvedIntro = intro ?? `Explore books, maps and useful finds on ${storefront}.`
   const compact = variant === 'compact'
+  const destinationKind = getAmazonDestinationKind(items)
+  const kicker = destinationKind === 'mixed'
+    ? 'Sponsored picks'
+    : destinationKind === 'product'
+      ? 'Sponsored product pick'
+      : 'Sponsored search picks'
+  const photoNote = destinationKind === 'mixed'
+    ? `Illustrative category photos, not product images. The product card opens a specific product; search cards open ${storefront} searches.`
+    : destinationKind === 'product'
+      ? 'Illustrative category photo, not an image of the linked product.'
+      : `Illustrative photos. Explore matching products on ${storefront}.`
 
   return (
     <section
@@ -133,7 +145,7 @@ export default function AffiliateShelf({
 
       <div className="flex flex-col gap-4 sm:flex-row sm:flex-wrap sm:items-end sm:justify-between">
         <div className="min-w-0">
-          <p className="twt-kicker">Sponsored search picks</p>
+          <p className="twt-kicker">{kicker}</p>
           <h2 className={`twt-display mt-1 text-balance text-twt-ink ${compact ? 'text-2xl' : 'text-3xl sm:text-4xl'}`}>
             {resolvedHeading}
           </h2>
@@ -149,6 +161,10 @@ export default function AffiliateShelf({
           const photo = getAffiliatePhoto(pick)
           const { Icon, tile } = PHOTO_FALLBACK_ARTWORK[photo.key]
           const contentId = getAffiliateContentId(pick.query)
+          const destination = pick.destination ?? { kind: 'search' as const, query: pick.query }
+          const isProduct = destination.kind === 'product'
+          const cardTitle = isProduct ? destination.title : pick.label
+          const cardCta = isProduct ? destination.cta : `Browse search results on ${storefront}`
 
           return (
             <li key={pick.query} className="min-w-0">
@@ -162,7 +178,7 @@ export default function AffiliateShelf({
                   placement,
                   ...(contentId ? { content_id: contentId } : {}),
                 })}
-                aria-label={`${pick.label}. Browse on ${storefront} in a new tab.`}
+                aria-label={`${cardTitle}. ${cardCta} in a new tab.`}
               >
                 <AffiliatePhoto
                   photo={photo}
@@ -176,9 +192,12 @@ export default function AffiliateShelf({
                   )}
                 />
                 <span className="flex min-w-0 flex-1 flex-col p-3 sm:p-4">
-                  <span className="twt-display break-words text-lg leading-snug text-twt-ink">{pick.label}</span>
+                  <span className="mb-2 inline-flex w-fit rounded-full border border-twt-ink/20 bg-twt-paper px-2 py-1 text-[10px] font-black uppercase tracking-[0.12em] text-twt-ink/60">
+                    {isProduct ? 'Product pick' : 'Search pick'}
+                  </span>
+                  <span className="twt-display break-words text-lg leading-snug text-twt-ink">{cardTitle}</span>
                   <span className="mt-auto inline-flex min-h-11 items-center gap-2 pt-3 text-sm font-extrabold text-twt-blue">
-                    <span className="min-w-0 break-words">Browse on {storefront}</span>
+                    <span className="min-w-0 break-words">{cardCta}</span>
                     <ExternalLink className="h-4 w-4 shrink-0" aria-hidden="true" />
                   </span>
                 </span>
@@ -188,11 +207,11 @@ export default function AffiliateShelf({
         })}
       </ul>
 
-      <p className="mt-3 text-xs leading-5 text-twt-ink/55">Illustrative photos. Explore matching products on Amazon.</p>
+      <p className="mt-3 text-xs leading-5 text-twt-ink/55">{photoNote}</p>
 
       <div className="mt-5 border-t border-twt-ink/15 pt-3">
         <p className="text-[10px] font-black uppercase tracking-[0.16em] text-twt-ink/45">Affiliate disclosure</p>
-        <p className="mt-1 text-xs leading-5 text-twt-ink/65">{getAmazonDisclosure()}</p>
+        <p className="mt-1 text-xs leading-5 text-twt-ink/65">{getAmazonDisclosure(AMAZON_DOMAIN, destinationKind)}</p>
       </div>
     </section>
   )
